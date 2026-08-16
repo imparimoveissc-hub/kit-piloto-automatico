@@ -1,0 +1,15 @@
+bison
+cmake
+doxygen
+gobject-introspection
+gpgmepp
+meson
+nasm
+nss
+openjpeg
+python-setuptools
+texinfo
+util-macros
+whisper-cpp
+xcb-proto
+xtrans

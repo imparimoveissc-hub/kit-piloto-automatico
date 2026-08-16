@@ -1,0 +1,79 @@
+{
+  "audit_date": "2026-07-23T08:25:00Z",
+  "property_code": "AP0205",
+  "status": "REQUIRES_VALIDATION",
+  "fees": {
+    "condominium": {
+      "internal_value": null,
+      "internal_source": "imoveis-locacao.csv",
+      "internal_status": "não_informado",
+      "expected_value": "R$ 570,00",
+      "expected_source": "histórico anterior de coleta",
+      "public_value": "REQUIRES_VERIFICATION",
+      "public_source": "https://www.imparimoveis.com/imovel/4283829/apartamento-locacao-joinville-sc-atiradores-morada-visconde",
+      "selected_value": null,
+      "conflict": true,
+      "validated": false,
+      "note": "Valor esperado não foi confirmado na página pública. Revalidação obrigatória."
+    },
+    "property_tax_iptu": {
+      "internal_value": null,
+      "internal_source": "imoveis-locacao.csv",
+      "internal_status": "não_informado",
+      "expected_value": "R$ 82,42",
+      "expected_source": "histórico anterior de coleta",
+      "public_value": "REQUIRES_VERIFICATION",
+      "public_source": "https://www.imparimoveis.com/imovel/4283829/apartamento-locacao-joinville-sc-atiradores-morada-visconde",
+      "selected_value": null,
+      "conflict": true,
+      "validated": false,
+      "note": "Valor esperado não foi confirmado na página pública. Revalidação obrigatória."
+    },
+    "additional_fees": {
+      "internal_value": null,
+      "internal_source": "imoveis-locacao.csv",
+      "internal_status": "não_informado",
+      "expected_value": "R$ 47,55",
+      "expected_source": "histórico anterior de coleta",
+      "public_value": "REQUIRES_VERIFICATION",
+      "public_source": "https://www.imparimoveis.com/imovel/4283829/apartamento-locacao-joinville-sc-atiradores-morada-visconde",
+      "selected_value": null,
+      "conflict": true,
+      "validated": false,
+      "note": "Valor esperado não foi confirmado na página pública. Revalidação obrigatória."
+    },
+    "fire_insurance": {
+      "internal_value": null,
+      "public_value": "REQUIRES_VERIFICATION",
+      "validated": false,
+      "note": "Verificar se existe seguro incêndio obrigatório ou tabela de cotação"
+    },
+    "security_deposit": {
+      "internal_value": null,
+      "public_value": "REQUIRES_VERIFICATION",
+      "validated": false,
+      "note": "Verificar se existe indicação de fiança locatícia ou valor definido"
+    }
+  },
+  "summary": {
+    "total_fees_expected": 5,
+    "fees_validated": 0,
+    "conflicts_found": 3,
+    "action_required": "Investigação completa da página pública necessária",
+    "cannot_proceed_without": [
+      "Confirmação de condomínio",
+      "Confirmação de IPTU",
+      "Confirmação de taxas adicionais"
+    ]
+  },
+  "investigation_required": {
+    "page_url": "https://www.imparimoveis.com/imovel/4283829/apartamento-locacao-joinville-sc-atiradores-morada-visconde",
+    "inspect_elements": [
+      "Seção de 'Taxas' ou 'Valores'",
+      "Tabela de 'Aluguel e Taxas'",
+      "Descrição expandida do imóvel",
+      "Scripts JSON incorporados",
+      "Data attributes com valores monetários"
+    ]
+  }
+}

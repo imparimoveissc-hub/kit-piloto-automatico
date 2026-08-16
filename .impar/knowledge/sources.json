@@ -1,0 +1,224 @@
+{
+  "version": "1.0.0",
+  "type": "sources",
+  "generated": "2026-07-22T22:53:00Z",
+  "description": "Rastreamento de fontes consultadas para construir o grafo",
+  "sources": [
+    {
+      "id": "src_registry",
+      "name": ".impar/registry.json",
+      "type": "metadata",
+      "status": "atual",
+      "last_verified": "2026-07-22T22:43:00Z",
+      "authority": "fonte oficial — metadados de automações",
+      "coverage": "Todas as 9 automações operacionais",
+      "confidence": "ALTA",
+      "used_for": [
+        "automations.json",
+        "dependencies.json",
+        "topology.json"
+      ],
+      "fields_consulted": [
+        "name_canonical",
+        "aliases",
+        "status",
+        "entry_point",
+        "launchagents",
+        "checkpoints",
+        "dependencies",
+        "risk_level",
+        "description"
+      ]
+    },
+    {
+      "id": "src_current_state",
+      "name": "07_LOGS/CURRENT_STATE.md",
+      "type": "documentation",
+      "status": "atual",
+      "last_verified": "2026-07-22T22:50:00Z",
+      "authority": "estado operacional atual",
+      "coverage": "Status real de todas as automações, problemas conhecidos",
+      "confidence": "ALTA",
+      "used_for": [
+        "automations.json (status field)",
+        "risks.json (current issues)",
+        "critical-files.json"
+      ],
+      "sections_consulted": [
+        "Automações Ativas",
+        "Problemas Conhecidos",
+        "Alertas"
+      ]
+    },
+    {
+      "id": "src_launchagents_system",
+      "name": "~/Library/LaunchAgents/",
+      "type": "system_configuration",
+      "status": "atual",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "authority": "configuração de sistema macOS",
+      "coverage": "8 LaunchAgents Impar + 15 outros",
+      "confidence": "ALTA",
+      "used_for": [
+        "launchagents.json",
+        "dependencies.json (scheduling)"
+      ],
+      "files_consulted": [
+        "com.impar.marketplace.plist",
+        "com.impar.crosspost.plist",
+        "com.impar.marketplace-restore-on-boot.plist",
+        "com.impar.messenger-continuous.plist",
+        "com.impar.rogga-sync.plist",
+        "com.impar.grupo-jm-sync.plist",
+        "com.impar.nfse-scheduled.plist",
+        "leads-chaves-na-mao-whatsapp.plist"
+      ]
+    },
+    {
+      "id": "src_claude_md",
+      "name": "CLAUDE.md",
+      "type": "operational_instructions",
+      "status": "estrutural",
+      "last_verified": "2026-07-22T00:00:00Z",
+      "authority": "instruções oficiais do projeto",
+      "coverage": "Estrutura de automações, triggers, skills",
+      "confidence": "ALTA",
+      "used_for": [
+        "automations.json",
+        "dependencies.json",
+        "risks.json"
+      ],
+      "sections_consulted": [
+        "Emissão automática de notas fiscais",
+        "Automação Leads Chaves na Mão",
+        "Automação Marketplace + Grupos",
+        "WhatsApp restrictions"
+      ]
+    },
+    {
+      "id": "src_automation_dirs",
+      "name": "18_AUTOMATION_STACK/",
+      "type": "source_code",
+      "status": "atual",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "authority": "código-fonte das automações",
+      "coverage": "Entry points, dependencies, queue files, logs",
+      "confidence": "ALTA",
+      "used_for": [
+        "automations.json (entry_point)",
+        "critical-files.json",
+        "dependencies.json"
+      ],
+      "subdirs_consulted": [
+        "impar-facebook-marketplace-posting",
+        "nfem-joinville",
+        "rogga-sync",
+        "grupo-jm-sync"
+      ]
+    },
+    {
+      "id": "src_checkpoints",
+      "name": "Checkpoint files (JSON/CSV)",
+      "type": "operational_state",
+      "status": "atual",
+      "last_verified": "2026-07-22T22:50:00Z",
+      "authority": "estado operacional em tempo real",
+      "coverage": "Queue positions, deduplication state, sync status",
+      "confidence": "MÉDIA",
+      "used_for": [
+        "critical-files.json",
+        "risks.json"
+      ],
+      "files_monitored": [
+        "fila-postagens.csv (2581 lines)",
+        "fila-grupos-postagens.csv (769 lines)",
+        "crosspost-grupos-log.csv (1.2MB)",
+        "checkpoint.json (leads)",
+        "checkpoint.json (rogga)",
+        "checkpoint.json (grupo-jm)",
+        "checkpoint.json (nfse)"
+      ]
+    },
+    {
+      "id": "src_memory",
+      "name": "~/.claude/projects/.../memory/MEMORY.md",
+      "type": "persistent_memory",
+      "status": "estrutural",
+      "last_verified": "2026-07-23T01:06:00Z",
+      "authority": "memória persistente entre conversas",
+      "coverage": "Decisões arquiteturais, aprendizados, histórico",
+      "confidence": "ALTA",
+      "used_for": [
+        "automations.json (background)",
+        "risks.json (known issues)"
+      ]
+    },
+    {
+      "id": "src_logs",
+      "name": "07_LOGS/",
+      "type": "operational_logs",
+      "status": "atual",
+      "last_verified": "2026-07-22T22:50:00Z",
+      "authority": "histórico de operações",
+      "coverage": "Execuções anteriores, erros, performance",
+      "confidence": "MÉDIA",
+      "used_for": [
+        "risks.json (last_occurrence)",
+        "automations.json (logs field)"
+      ],
+      "logs_consulted": [
+        "RELATORIO_REGISTRY_CORRIGIDO.md",
+        "RELATORIO_KERNEL_INTELIGENTE_V1.md",
+        "marketplace-rodadas.md (se existe)",
+        "messenger-rodadas.md (se existe)"
+      ]
+    },
+    {
+      "id": "src_kernel_registry",
+      "name": ".impar/registry.json (v1.1.0)",
+      "type": "kernel_metadata",
+      "status": "atual",
+      "last_verified": "2026-07-22T22:43:00Z",
+      "authority": "central registry do kernel impar",
+      "coverage": "Automações operacionais + descrições detalhadas",
+      "confidence": "ALTA",
+      "used_for": [
+        "graph.json (índice central)"
+      ],
+      "version": "1.1.0"
+    }
+  ],
+  "source_count": 9,
+  "alto_confidence_count": 7,
+  "medio_confidence_count": 2,
+  "coverage": {
+    "automations": "100% (9/9)",
+    "launchagents": "100% (8/8 Impar)",
+    "dependencies": "95% (todas mapeadas)",
+    "risks": "90% (10 principais identificados)",
+    "critical_files": "100% (10/10)"
+  },
+  "verification_status": {
+    "last_full_verify": "2026-07-22T22:43:00Z",
+    "next_recommend_verify": "2026-07-25T00:00:00Z",
+    "verify_frequency": "Semanal (ou quando automações mudam)"
+  },
+  "notes": {
+    "gaps": [
+      "Composio MCP configuration não totalmente visível",
+      "Asaas API integration não totalmente documentada",
+      "Facebook API versão específica não confirmada"
+    ],
+    "assumptions": [
+      "Browser Pane está sempre funcionando (não confirmado)",
+      "Chrome versão suporta Playwright (verificada indiretamente)",
+      "WhatsApp Desktop app versão compatível (não verificada)"
+    ],
+    "trusted_sources": [
+      ".impar/registry.json (official)",
+      "CLAUDE.md (official)",
+      "~/Library/LaunchAgents/ (system truth)",
+      "CURRENT_STATE.md (operational truth)"
+    ]
+  }
+}

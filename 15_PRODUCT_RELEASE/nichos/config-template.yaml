@@ -1,0 +1,38 @@
+setup_status: draft
+business:
+  name: "[A PREENCHER]"
+  description: "[A PREENCHER]"
+  family: "[A PREENCHER]"
+  segment: "[A PREENCHER]"
+  target_audience: "[A PREENCHER]"
+  main_offer: "[A PREENCHER]"
+  main_channel: "[A PREENCHER]"
+  current_bottleneck: "[A PREENCHER]"
+tools:
+  whatsapp: "[A PREENCHER]"
+  crm: "[A PREENCHER]"
+  agenda: "[A PREENCHER]"
+  automation: "[A PREENCHER]"
+release_routes:
+  templates:
+    - "[A PREENCHER]"
+  niche_preset: "[A PREENCHER]"
+  whatsapp_flow: "[A PREENCHER]"
+  automation_flow: "[A PREENCHER]"
+squad:
+  active_roles:
+    - "CoS"
+  recurrent_commands:
+    - "/primeira-tarefa"
+risks:
+  sensitive_data: unknown
+  regulated_segment: unknown
+  requires_human_approval:
+    - "envio real"
+    - "preco final"
+    - "promessa"
+    - "acao irreversivel"
+first_task:
+  command: "[A PREENCHER]"
+  output: "[A PREENCHER]"
+

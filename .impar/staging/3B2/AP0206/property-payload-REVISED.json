@@ -1,0 +1,168 @@
+{
+  "codigo": "AP0206",
+  "id_interno": 4298360,
+  "url_publica": "https://www.imparimoveis.com/imovel/4298360/apartamento-locacao-sao-francisco-do-sul-sc-ubatuba",
+  "timestamp_coleta": "2026-07-23T09:36:00Z",
+  "status": "PROPERTY_PAYLOAD_READY_FOR_HUMAN_APPROVAL",
+  "operacao": "locacao",
+  "tipo": "apartamento",
+  "disponibilidade": "page_active",
+  "disponibilidade_imediata_confirmada": false,
+  "localizacao": {
+    "cidade": "São Francisco do Sul",
+    "estado": "SC",
+    "bairro": "Ubatuba",
+    "endereco_publico": "Av. Duque de Caxias",
+    "pais": "Brasil"
+  },
+  "especificacoes": {
+    "dormitorios": 5,
+    "suites": 1,
+    "banheiros": 2,
+    "vagas_garagem": 1,
+    "salas": 3
+  },
+  "areas": {
+    "unit": {
+      "useful_area_m2": 200.00,
+      "useful_area_source": "PÁGINA_PÚBLICA + HUMAN_CONFIRMED",
+      "useful_area_confidence": "MUITO_ALTA",
+      "private_area_m2": null,
+      "private_area_note": "Não publicado separadamente",
+      "total_area_m2": null,
+      "total_area_note": "Página refere-se a útil como total"
+    },
+    "building_context": {
+      "total_built_area_m2": 660.00,
+      "total_built_area_source": "PÁGINA_PÚBLICA + HUMAN_CONFIRMED",
+      "total_built_area_confidence": "MUITO_ALTA",
+      "total_built_area_interpretation": "Área construída total da edificação (não exclusiva da unidade)",
+      "land_area_m2": 321.00,
+      "land_area_source": "PÁGINA_PÚBLICA + HUMAN_CONFIRMED",
+      "land_area_confidence": "MUITO_ALTA",
+      "land_area_interpretation": "Área do terreno da edificação onde o apartamento está localizado",
+      "context_note": "O apartamento ocupa parte de edificação maior"
+    }
+  },
+  "valores": {
+    "aluguel_mensal": 2800.00,
+    "aluguel_source": "PÁGINA_PÚBLICA",
+    "aluguel_confidence": "MUITO_ALTA",
+    "moeda": "BRL",
+    "periodicidade": "mensal",
+    "condominio": null,
+    "condominio_status": "NOT_PUBLISHED",
+    "condominio_confidence_required": "REQUIRES_HUMAN_CONFIRMATION",
+    "iptu": null,
+    "iptu_status": "NOT_PUBLISHED",
+    "iptu_confidence_required": "REQUIRES_HUMAN_CONFIRMATION",
+    "seguro_incendio": null,
+    "seguro_incendio_status": "NOT_PUBLISHED",
+    "taxa_adicional": null,
+    "taxa_adicional_status": "NOT_PUBLISHED"
+  },
+  "garantia_fianca": {
+    "modalidade": null,
+    "publicada": false
+  },
+  "mobiliado": false,
+  "permuta": true,
+  "pagamento": {
+    "status": "Pronto",
+    "interpretacao": "Imóvel disponível para ocupação (página ativa)"
+  },
+  "acabamentos": [
+    "Piso Cerâmico",
+    "Vidros Blindex"
+  ],
+  "caracteristicas": [
+    "Portão Eletrônico",
+    "Alarme",
+    "cisterna de água"
+  ],
+  "comodos": [
+    "Área de Serviço",
+    "Copa",
+    "Cozinha",
+    "Despensa",
+    "Escritório",
+    "Sala"
+  ],
+  "condominio_oferece": [
+    "Iluminação"
+  ],
+  "infraestrutura": [
+    "Averbado",
+    "Com Escritura"
+  ],
+  "proximidades": [
+    "Bares e Restaurantes",
+    "Escola",
+    "Farmácia",
+    "Supermercado",
+    "BR 280",
+    "Porto Marítimo"
+  ],
+  "descricao_original": "Apartamento para Locação no bairro Ubatuba, localizado na cidade de São Francisco do Sul / SC.\n\nCom 5 dormitórios, sendo 1 suíte, possui 2 banheiros, 1 vaga de garagem, 3 salas, aceita permuta.\n\nÁrea Total de 200,00 m², Área Privativa de 200,00 m², Área Construída com 660,00 m², Área do Terreno com 321,00 m².\n\nValor do Imóvel R$ 2.800,00.",
+  "galeria": {
+    "source_gallery_total": 68,
+    "source_gallery_origin": "CDN (imgs1.cdn-imobibrasil.com.br)",
+    "locally_available_total": 13,
+    "locally_available_path": "05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/",
+    "marketplace_selection_file": ".impar/staging/3B2/AP0206/marketplace-image-selection.json",
+    "marketplace_selected_total": 10,
+    "marketplace_max_images": 10,
+    "total_rejeitadas": 2,
+    "status": "GALERIA_SEPARADA_SELEÇÃO_MARKETPLACE",
+    "nota_importante": "ETAPA 3B.4 — KERNEL IMPAR: Auditoria reportou 68 imagens da origem, 13 disponíveis localmente, 10 selecionadas para Marketplace (regra global MARKETPLACE_MAX_IMAGES = 10). Conceitos separados: source_gallery_total ≠ locally_available_total ≠ marketplace_selected_total.",
+    "imagens_validas_locais": 13,
+    "imagens_validas_locais_lista": [
+      "foto_01.webp",
+      "foto_03.webp",
+      "foto_04.webp",
+      "foto_05.webp",
+      "foto_06.webp",
+      "foto_07.webp",
+      "foto_08.webp",
+      "foto_09.webp",
+      "foto_10.webp",
+      "foto_11.webp",
+      "foto_12.webp",
+      "foto_14.webp",
+      "foto_15.webp"
+    ]
+  },
+  "validacao_mapeamento": {
+    "codigo_validado": true,
+    "id_validado": true,
+    "url_validada": true,
+    "operacao_validada": true,
+    "localizacao_validada": true,
+    "preço_validado": true,
+    "disponibilidade_pagina_validada": true,
+    "dados_essenciais_completos": true,
+    "nenhuma_contaminacao": true,
+    "contexto_areas_confirmado": "HUMAN_CONFIRMED"
+  },
+  "campos_ausentes": [
+    "condominium_fee (NOT_PUBLISHED, requer confirmação)",
+    "property_tax (NOT_PUBLISHED, requer confirmação)",
+    "disponibilidade_imediata (requer confirmação Jonata)"
+  ],
+  "conflitos": [],
+  "confirmacoes_humanas": {
+    "confirmado_por": "Jonata (responsável pelo cadastro)",
+    "data_confirmacao": "2026-07-23",
+    "areas_confirmadas": "HUMAN_CONFIRMED_AREA_CONTEXT=true",
+    "interpretacao_edificacao": "O apartamento ocupa parte de uma edificação maior"
+  },
+  "revisoes_anteriores": {
+    "auditoria_anterior": "AUDITORIA_FINAL_AP0206_2026-07-23.md",
+    "supersedida_por": "human_clarification_2026-07-23",
+    "conclusoes_revertidas": [
+      "Dados de dois imóveis misturados (REVERTIDA)",
+      "Apartamento não tem terreno (REVERTIDA)",
+      "Área construída impossível (REVERTIDA)"
+    ]
+  }
+}

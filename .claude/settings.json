@@ -1,0 +1,71 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Agent",
+      "Artifact",
+      "Skill",
+      "WebFetch",
+      "WebSearch",
+      "TaskCreate",
+      "TaskUpdate",
+      "TaskList",
+      "TaskGet",
+      "TaskStop",
+      "TaskOutput",
+      "SendMessage",
+      "Monitor",
+      "ScheduleWakeup",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "mcp__54228a22-0b79-4b37-8897-511ba5af834c__COMPOSIO_MULTI_EXECUTE_TOOL",
+      "mcp__54228a22-0b79-4b37-8897-511ba5af834c__COMPOSIO_SEARCH_TOOLS",
+      "mcp__54228a22-0b79-4b37-8897-511ba5af834c__COMPOSIO_REMOTE_BASH_TOOL",
+      "mcp__54228a22-0b79-4b37-8897-511ba5af834c__COMPOSIO_REMOTE_WORKBENCH",
+      "mcp__54228a22-0b79-4b37-8897-511ba5af834c__COMPOSIO_GET_TOOL_SCHEMAS",
+      "mcp__54228a22-0b79-4b37-8897-511ba5af834c__COMPOSIO_MANAGE_CONNECTIONS",
+      "mcp__Claude_Browser__*",
+      "mcp__claude-in-chrome__*",
+      "mcp__Claude_Code_iOS_Simulator__*",
+      "mcp__visualize__*",
+      "mcp__mcp-registry__*",
+      "mcp__f15e32b7-a22f-409f-ac09-057d2ddf1e33__*",
+      "mcp__scheduled-tasks__*",
+      "mcp__ccd_session__*",
+      "EnterPlanMode",
+      "ExitPlanMode",
+      "EnterWorktree",
+      "ExitWorktree",
+      "RemoteTrigger",
+      "DesignSync",
+      "NotebookEdit"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/usuario/.local/bin/graphify hook-guard search"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/usuario/.local/bin/graphify hook-guard read"
+          }
+        ]
+      }
+    ]
+  }
+}

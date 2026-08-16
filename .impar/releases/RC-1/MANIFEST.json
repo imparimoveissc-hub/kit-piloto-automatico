@@ -1,0 +1,30 @@
+{
+  "release_candidate": "RC-1",
+  "version": "3.0.0",
+  "kernel_version": "Kernel IMPAR v3.0.0",
+  "timestamp": "2026-07-23T10:56:14Z",
+  "stage": "ETAPA 3A.8",
+  "purpose": "Release Candidate Freeze before ETAPA 3B",
+  "certification": {
+    "last_certificate": "kernel-cert-20260723-075556.json",
+    "certificate_hash": "f25bc2dbe060fe2dc08623254f2abb4e7ced2c5630e852aa53d5e04e777e228a",
+    "status": "Certified Candidate"
+  },
+  "hash_deterministic": "0c3258de953cf70792bdfcff38ac75572b1cec10c9c8666298130f081f8c8660",
+  "components": {
+    "modules":       32,
+    "libraries":       10,
+    "automations": 9,
+    "launchagents": 23,
+    "tests":        6,
+    "knowledge_files": 7
+  },
+  "whitelist": [
+  "impar-update-current-state"
+],
+  "whatsapp_status": "offline",
+  "audit_verification": "PASS",
+  "certify_verification": "PASS",
+  "freeze_timestamp": 1784804174,
+  "freeze_reason": "Release Candidate for ETAPA 3B preparation"
+}

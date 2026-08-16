@@ -1,0 +1,58 @@
+automation_status: draft_funcional
+process_name: cinematic_video_editor
+goal: "Receber um vídeo bruto e exportar uma versão cinematográfica para Reels/Stories/TikTok ou horizontal."
+trigger:
+  manual: "usuário envia/cita caminho do vídeo"
+inputs:
+  required:
+    - video_file
+  optional:
+    - subtitles_srt_or_vtt
+    - preset
+    - title
+    - auto_cut
+steps:
+  - id: validate_video
+    mode: automated
+    description: "Confere se o vídeo existe e se FFmpeg/FFprobe estão disponíveis."
+  - id: optional_silence_cut
+    mode: automated
+    description: "Detecta silêncios e remove pausas longas quando --auto-cut estiver ativo."
+  - id: cinematic_grade
+    mode: automated
+    description: "Aplica crop, escala, contraste, saturação, nitidez, vinheta e grão conforme preset."
+  - id: audio_treatment
+    mode: automated
+    description: "Normaliza áudio e aplica compressão leve."
+  - id: subtitles
+    mode: automated
+    description: "Queima legenda no vídeo se arquivo .srt/.vtt for fornecido."
+  - id: export_report
+    mode: automated
+    description: "Gera MP4 final e relatorio.md."
+outputs:
+  script: "18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py"
+  config: "18_AUTOMATION_STACK/cinematic-video-editor/config.json"
+  sop: "18_AUTOMATION_STACK/cinematic-video-editor/SOP.md"
+  default_output_dir: "06_OUTPUTS/cinematic-video-editor/"
+presets:
+  - cinematic-reels
+  - clean-reels
+  - preview-fast
+  - wide-cinematic
+permissions_required:
+  read_video_file: "arquivo local fornecido pelo usuário"
+  write_output: "06_OUTPUTS/cinematic-video-editor/"
+risks:
+  - "corte automático remover parte de uma palavra"
+  - "crop vertical cortar rosto/produto"
+  - "legenda cobrir informação importante"
+  - "render 1080x1920 demorar em máquina fraca"
+test_plan:
+  - "rodar preview-fast com vídeo sintético de 2s"
+  - "validar saída via ffprobe"
+  - "testar com vídeo real curto antes de ativar lote"
+rollback_plan:
+  - "não altera arquivo original"
+  - "apagar pasta de saída para descartar render"
+next_action: "Adicionar transcrição automática por Whisper/local ou API, se o usuário quiser legenda sem enviar .srt."

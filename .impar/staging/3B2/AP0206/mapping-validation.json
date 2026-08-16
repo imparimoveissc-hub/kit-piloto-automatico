@@ -1,0 +1,104 @@
+{
+  "codigo": "AP0206",
+  "timestamp": "2026-07-23T08:36:00Z",
+  "rastreamento": {
+    "data_raiz_identificada": "2026-07-23T08:35:00Z",
+    "problema": "listing.json associava AP0206 ao empreendimento Urban Orquídeas (Pirabeiraba, na planta) quando AP0206 deveria ser um apartamento de LOCAÇÃO em São Francisco do Sul",
+    "origem_erro": "05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/listing.json",
+    "url_anterior_incorreta": "https://www.rogga.com.br/empreendimentos/joinville/urban-orquideas",
+    "url_corrigida": "https://www.imparimoveis.com/imovel/4298360/apartamento-locacao-sao-francisco-do-sul-sc-ubatuba"
+  },
+  "validacao_url": {
+    "url_alvo": "https://www.imparimoveis.com/imovel/4298360/apartamento-locacao-sao-francisco-do-sul-sc-ubatuba",
+    "id_numerico": 4298360,
+    "operacao": "locacao",
+    "tipo_imovel": "apartamento",
+    "cidade": "São Francisco do Sul",
+    "estado": "SC",
+    "bairro": "Ubatuba",
+    "status": "REQUERIDO_PAGE_CRAWL"
+  },
+  "nova_regra_validacao": {
+    "titulo": "Mapeamento Código → URL → ID Numérico",
+    "etapas": [
+      {
+        "numero": 1,
+        "titulo": "Extração de Componentes da URL",
+        "requisitos": [
+          "Validar que URL segue padrão imparimoveis.com/imovel/{ID_NUMERICO}/...",
+          "Extrair ID numérico (ex: 4298360)",
+          "Extrair slug de operação (venda | locacao)",
+          "Extrair slug de tipo (apartamento | casa | etc)",
+          "Extrair localização (cidade-estado)"
+        ]
+      },
+      {
+        "numero": 2,
+        "titulo": "Validação de Correspondência URL↔ID",
+        "requisitos": [
+          "Acessar página public do imóvel: https://www.imparimoveis.com/imovel/{ID_NUMERICO}/...",
+          "Verificar que HTML contém ID numérico confirmado",
+          "Verificar que HTML contém operação confirmada (aluguel | venda)",
+          "Verificar que HTML contém tipo confirmado",
+          "Verificar que HTML contém localização confirmada",
+          "Verificar que código (ex: AP0206) está referenciado NA PÁGINA ou em metadata"
+        ]
+      },
+      {
+        "numero": 3,
+        "titulo": "Coleta de Dados Estruturados",
+        "requisitos": [
+          "Dormitórios, suítes, banheiros, vagas (selectors da página)",
+          "Áreas (total, privativa, construída)",
+          "Preço (aluguel mensal | valor venda)",
+          "Condomínio, IPTU, adicionais (se houver)",
+          "Descrição oficial",
+          "Características (da página)"
+        ]
+      },
+      {
+        "numero": 4,
+        "titulo": "Validação de Galeria Completa",
+        "requisitos": [
+          "Baixar TODAS as imagens da página",
+          "Confirmar que cada imagem pertence ao imóvel correto (ID numérico)",
+          "Rejeitar se faltarem imagens críticas",
+          "Documentar em image-gallery-audit.json"
+        ]
+      },
+      {
+        "numero": 5,
+        "titulo": "Verificação de Integridade em CRM",
+        "requisitos": [
+          "Confirmar no CRM (painel1.imobibrasil.app.br) que código AP0206 está LIVRE",
+          "Se já usado: rejeitar ou escalate para Jonata",
+          "Documentar status em property-status.json"
+        ]
+      }
+    ],
+    "condicoes_rejeicao": [
+      "URL não segue padrão imparimoveis.com/imovel/{ID}",
+      "ID numérico diverge entre URL e página",
+      "Operação (venda|locacao) não corresponde",
+      "Tipo de imóvel não corresponde",
+      "Localização não corresponde",
+      "Página retorna 404 ou erro",
+      "Dados estruturados ausentes ou incompletos",
+      "Código CRM indicado como já em uso",
+      "Imagens não pertencem ao imóvel correto"
+    ],
+    "casos_passagem": [
+      "URL valida, ID confirmado em página, operação confirmada",
+      "Dados estruturados coletáveis (dormitórios, áreas, preço)",
+      "Galeria completa baixável",
+      "Código livre no CRM",
+      "property-status.json marca READY_FOR_COLLECTION"
+    ]
+  },
+  "proximos_passos": [
+    "Reexecutar FASE A com URL corrigida: https://www.imparimoveis.com/imovel/4298360/apartamento-locacao-sao-francisco-do-sul-sc-ubatuba",
+    "Aplicar nova regra de validação (5 etapas acima)",
+    "Gerar property-payload.json, source-comparison.json, image-gallery-audit.json, fees-audit.json",
+    "Gerar FASE-A-RESUMO.json para aprovação de FASE B"
+  ]
+}

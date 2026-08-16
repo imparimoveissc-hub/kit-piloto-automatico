@@ -1,0 +1,62 @@
+{
+  "name": "IMPAR-05-cache-manager",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "impar-cache",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "impar05-wh",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "impar-cache-v1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.item.json.body || $input.item.json;\nconst op = body.op || 'get';\nconst cacheKey = (body.key || '').replace(/[^a-zA-Z0-9._-]/g,'');\nconst value = body.value || null;\nconst ttl = parseInt(body.ttl || '300');\nconst prj = process.env.HOME + '/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB';\nconst db = `${prj}/IMPAR_OS/database/impar.db`;\nconst { execSync } = require('child_process');\nconst now = new Date().toISOString();\nif (op === 'get' && cacheKey) {\n  try {\n    const row = execSync(`sqlite3 \"${db}\" \"SELECT content FROM cache_entries WHERE key='${cacheKey}' AND (expires_at IS NULL OR expires_at > '${now}');\"`, {timeout:5000}).toString().trim();\n    if (row) { execSync(`sqlite3 \"${db}\" \"UPDATE cache_entries SET last_used='${now}', use_count=use_count+1 WHERE key='${cacheKey}';\"`, {timeout:3000}); return [{ json: { hit: true, key: cacheKey, value: row, ai_used: false } }]; }\n  } catch(e) {}\n  return [{ json: { hit: false, key: cacheKey, ai_used: false } }];\n}\nif (op === 'set' && cacheKey && value !== null) {\n  const expires = new Date(Date.now() + ttl*1000).toISOString();\n  const safeVal = String(value).replace(/'/g,\"''\").substring(0,4000);\n  try { execSync(`sqlite3 \"${db}\" \"INSERT OR REPLACE INTO cache_entries (key,content,created_at,expires_at,last_used,use_count) VALUES ('${cacheKey}','${safeVal}','${now}','${expires}','${now}',0);\"`, {timeout:5000}); } catch(e) { return [{ json: { error: e.message, ai_used: false } }]; }\n  return [{ json: { ok: true, key: cacheKey, ttl, ai_used: false } }];\n}\nif (op === 'del' && cacheKey) {\n  try { execSync(`sqlite3 \"${db}\" \"DELETE FROM cache_entries WHERE key='${cacheKey}';\"`, {timeout:3000}); } catch(e) {}\n  return [{ json: { ok: true, key: cacheKey, ai_used: false } }];\n}\nreturn [{ json: { error: 'invalid_op', ai_used: false } }];"
+      },
+      "id": "impar05-cache",
+      "name": "Cache Manager",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Cache Manager",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    },
+    {
+      "name": "webhook"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs05Cache"
+}

@@ -1,0 +1,38 @@
+{
+  "codigo": "AP0206",
+  "id_interno": 4298360,
+  "timestamp": "2026-07-23T09:37:00Z",
+  "marketplace": "Facebook Marketplace / Grupos",
+  "title_marketplace": "Apartamento 5 Dormitórios - Ubatuba, São Francisco do Sul - R$ 2.800",
+  "description_marketplace": "Apartamento para Aluguel em Ubatuba, São Francisco do Sul\n\n🏠 ESPECIFICAÇÕES DA UNIDADE\n• 5 dormitórios (1 suíte)\n• 2 banheiros\n• 1 vaga de garagem\n• 200 m² de área útil\n\n🏢 INFRAESTRUTURA DO CONDOMÍNIO\n• Portão eletrônico\n• Alarme\n• Cisterna de água\n• Proximidades: Escolas, farmácias, supermercados, BR 280, Porto Marítimo\n\n💰 VALOR: R$ 2.800/mês\n\n📍 LOCALIZAÇÃO: Av. Duque de Caxias, Ubatuba, São Francisco do Sul - SC\n\nConsulte condições de locação e valores de taxas com a Impar Imóveis.\n\nContato: (47) 92002-6017\n\n#Locação #SãoFranciscodaSul #Ubatuba #Apartamento",
+  "adaptacao_justificativa": {
+    "titulo": "Reduzido para máximo de 62 caracteres. Priorizou: tipo, localização, dormitórios, preço. Sem áreas construída/terreno (contexto de edificação, não de unidade).",
+    "descricao": "Estrutura clara distinguindo especificações da unidade (200 m² útil) do contexto da edificação. Não usa 660 m² ou 321 m² para evitar confusão. Convida para confirmação de taxas via contato direto."
+  },
+  "diferenciacao_areas": {
+    "area_unidade": "200 m² — destacado como útil da unidade (o que locatário aluga)",
+    "area_edificacao": "Não incluída no título/descrição principal — são dados de contexto, não da unidade",
+    "terreno": "Não mencionado — não é informação relevante para locatário",
+    "nota": "Descrição mantém foco no que importa: dormitórios, preço, localização da unidade, não do prédio"
+  },
+  "validacao_conteudo": {
+    "fatos_verificados": [
+      "5 dormitórios ✅",
+      "1 suíte ✅",
+      "2 banheiros ✅",
+      "1 vaga garagem ✅",
+      "200 m² útil ✅",
+      "R$ 2.800/mês ✅",
+      "Portão eletrônico ✅",
+      "Alarme ✅",
+      "Cisterna de água ✅",
+      "Proximidades ✅"
+    ],
+    "dados_nao_inventados": true,
+    "promessas_nao_comprovadas": false,
+    "condicoes_reais": true,
+    "dados_pessoais_omitidos": true,
+    "areas_diferenciadas_corretamente": true
+  },
+  "status": "READY_FOR_MARKETPLACE_REVIEW"
+}

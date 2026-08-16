@@ -1,0 +1,61 @@
+{
+  "defaultPreset": "cinematic-reels",
+  "presets": {
+    "cinematic-reels": {
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "videoBitrate": "9000k",
+      "contrast": 1.12,
+      "saturation": 1.14,
+      "brightness": 0.01,
+      "gamma": 1.02,
+      "grain": 7,
+      "vignette": true,
+      "subtitleFontSize": 18,
+      "subtitleMarginV": 150
+    },
+    "clean-reels": {
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "videoBitrate": "8500k",
+      "contrast": 1.06,
+      "saturation": 1.06,
+      "brightness": 0,
+      "gamma": 1,
+      "grain": 0,
+      "vignette": true,
+      "subtitleFontSize": 18,
+      "subtitleMarginV": 150
+    },
+    "preview-fast": {
+      "width": 540,
+      "height": 960,
+      "fps": 24,
+      "videoBitrate": "2500k",
+      "contrast": 1.04,
+      "saturation": 1.04,
+      "brightness": 0,
+      "gamma": 1,
+      "grain": 0,
+      "vignette": false,
+      "subtitleFontSize": 12,
+      "subtitleMarginV": 80
+    },
+    "wide-cinematic": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "videoBitrate": "10000k",
+      "contrast": 1.12,
+      "saturation": 1.1,
+      "brightness": 0.01,
+      "gamma": 1.02,
+      "grain": 5,
+      "vignette": true,
+      "subtitleFontSize": 16,
+      "subtitleMarginV": 90
+    }
+  }
+}

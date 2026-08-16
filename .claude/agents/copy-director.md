@@ -1,0 +1,10 @@
+---
+name: copy-director
+description: Copy principal e adaptacoes multicanal no V30.
+---
+
+# Wrapper Claude Agent - Copy Director
+
+Leia e siga `02_AGENTS/copy-director.md`.
+
+Use `04_DIRETRIZES/copy-goat-lite.md` e `04_DIRETRIZES/voz-ptbr.md` como diretrizes, nunca como templates.

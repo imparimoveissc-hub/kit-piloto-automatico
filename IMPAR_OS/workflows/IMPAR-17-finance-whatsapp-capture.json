@@ -1,0 +1,101 @@
+{
+  "id": "imparFinanceWhatsAppCapture",
+  "name": "IMPAR-17-finance-whatsapp-capture",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "impar17-trigger",
+      "name": "Trigger Diário",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8091/run-daily",
+        "responseFormat": "json",
+        "jsonParameters": true,
+        "options": {
+          "timeout": 300000
+        },
+        "sendHeaders": true,
+        "headerParametersJson": "={\"x-impar-key\":\"{{$env.IMPAR_WEBHOOK_KEY}}\",\"content-type\":\"application/json\"}",
+        "bodyParametersJson": "={\"source\":\"n8n\",\"requested_at\":\"{{$now.toISO()}}\"}"
+      },
+      "id": "impar17-runner",
+      "name": "Chamar worker WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const payload = $json || {}; const tx = Array.isArray(payload.transactions) ? payload.transactions : []; const qs = Array.isArray(payload.questions) ? payload.questions : []; return [{ json: { ok: Boolean(payload.ok), group: payload.group || {}, summary: { confirmed: payload.confirmed || 0, needs_clarification: payload.needs_clarification || 0, duplicate: payload.duplicate || 0, blocked: payload.blocked || 0, considered: payload.considered || 0 }, transactions: tx, questions: qs, started_at: payload.started_at || null, source: 'n8n' } }];"
+      },
+      "id": "impar17-format",
+      "name": "Resumo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        780,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Trigger Diário": {
+      "main": [
+        [
+          {
+            "node": "Chamar worker WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chamar worker WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "Resumo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    },
+    {
+      "name": "whatsapp"
+    },
+    {
+      "name": "financeiro"
+    }
+  ],
+  "pinData": {}
+}

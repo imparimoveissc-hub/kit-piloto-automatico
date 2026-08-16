@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "description": "Safe Command Router — apenas IDs registrados são aceitos",
+  "actions": {
+    "system.health":        {"category": "READ_ONLY_AUTO",     "command": "impar-os health",        "safe": true},
+    "system.status":        {"category": "READ_ONLY_AUTO",     "command": "impar-os status",        "safe": true},
+    "system.verify":        {"category": "READ_ONLY_AUTO",     "command": "impar-os verify",        "safe": true},
+    "system.sync":          {"category": "READ_ONLY_AUTO",     "command": "impar-os sync",          "safe": true},
+    "automation.discover":  {"category": "READ_ONLY_AUTO",     "command": "impar-os discover",      "safe": true},
+    "token.report":         {"category": "READ_ONLY_AUTO",     "command": "impar-os token-report",  "safe": true},
+    "system.report":        {"category": "READ_ONLY_AUTO",     "command": "impar-os report",        "safe": true},
+    "system.dry-run":       {"category": "READ_ONLY_AUTO",     "command": "impar-os dry-run",       "safe": true},
+    "marketplace.status":   {"category": "READ_ONLY_AUTO",     "command": "MARKETPLACE_STATUS_ONLY","safe": true},
+    "marketplace.publish":  {"category": "REQUIRES_APPROVAL",  "command": null,                     "safe": false},
+    "leads.route":          {"category": "REQUIRES_APPROVAL",  "command": null,                     "safe": false},
+    "email.send":           {"category": "REQUIRES_APPROVAL",  "command": null,                     "safe": false},
+    "whatsapp.send":        {"category": "BLOCKED",            "command": null,                     "safe": false},
+    "bridge.start":         {"category": "BLOCKED",            "command": null,                     "safe": false},
+    "bridge.restart":       {"category": "BLOCKED",            "command": null,                     "safe": false},
+    "launchagent.start":    {"category": "BLOCKED",            "command": null,                     "safe": false},
+    "launchagent.stop":     {"category": "BLOCKED",            "command": null,                     "safe": false},
+    "publish.real":         {"category": "BLOCKED",            "command": null,                     "safe": false},
+    "delete.any":           {"category": "BLOCKED",            "command": null,                     "safe": false}
+  },
+  "rules": {
+    "auto_execute": ["READ_ONLY_AUTO"],
+    "require_confirmation": ["REQUIRES_APPROVAL"],
+    "never_execute": ["BLOCKED"],
+    "free_command_allowed": false,
+    "arbitrary_bash_allowed": false
+  }
+}

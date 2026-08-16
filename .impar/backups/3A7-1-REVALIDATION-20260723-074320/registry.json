@@ -1,0 +1,310 @@
+{
+  "version": "1.1.0",
+  "type": "kernel_registry",
+  "description": "Registry de Automações Operacionais da Impar Imóveis",
+  "generated": "2026-07-22T22:43:00Z",
+  "note": "OPERACIONAL ONLY — Serviços de suporte em services.json, Projetos externos em externals.json",
+  "automations": [
+    {
+      "id": 1,
+      "name_canonical": "impar-facebook-marketplace-posting",
+      "aliases": ["marketplace", "marketplace-posting", "grupos-crosspost"],
+      "category": "operacional",
+      "type": "marketplace",
+      "description": "Publicação automática no Facebook Marketplace e grupos (Playwright)",
+      "status": "active",
+      "path": "18_AUTOMATION_STACK/impar-facebook-marketplace-posting",
+      "entry_point": "main.py (scripts de fila: generate_queue.py, generate_group_queue.py)",
+      "launchagents": [
+        "com.impar.marketplace",
+        "com.impar.crosspost",
+        "com.impar.marketplace-restore-on-boot"
+      ],
+      "logs": {
+        "path": "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/logs",
+        "files": 6,
+        "size": "1.8M"
+      },
+      "checkpoints": {
+        "path": "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/checkpoint.json",
+        "exists": false,
+        "note": "Consulte fila-postagens.csv para estado"
+      },
+      "dependencies": ["Playwright", "Facebook API", "Chrome Browser Pane", "Python 3"],
+      "risk_level": "CRITICAL",
+      "mode": "operational",
+      "description_extended": "Pipeline automático 100% sem disparo manual. Fila Marketplace: cadência humanizada (7-10 posts/dia). Fila Grupos: 3x diários (11:30, 17:00, 21:30) expandindo cada imóvel em 96 grupos.",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "verified_by": "auditoria rigorosa",
+      "source": "CURRENT_STATE.md, CLAUDE.md, LaunchAgents"
+    },
+    {
+      "id": 2,
+      "name_canonical": "impar-messenger-bridge",
+      "aliases": ["messenger", "messenger-inbox", "messenger-responder"],
+      "category": "operacional",
+      "type": "marketplace",
+      "description": "Auto-responder de Marketplace 24/7 via Messenger (Browser Pane)",
+      "status": "active",
+      "path": "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/README_MESSENGER_BRIDGE.md",
+      "entry_point": "Browser Pane (Python scripts + AppleScript para UI automation)",
+      "launchagents": [
+        "com.impar.messenger-inbox",
+        "com.impar.messenger-inbox-5min",
+        "com.impar.messenger-varredura-auto",
+        "com.impar.messenger-desktop",
+        "com.impar.messenger-bridge",
+        "com.impar.messenger-bridge-health-check"
+      ],
+      "logs": {
+        "path": "07_LOGS/messenger-rodadas.md",
+        "exists": true
+      },
+      "checkpoints": {
+        "path": "Browser session state (ephemeral)",
+        "exists": false,
+        "note": "Sessão do navegador é efêmera"
+      },
+      "dependencies": ["Python 3", "Browser Pane", "Facebook API", "Composio MCP"],
+      "risk_level": "CRITICAL",
+      "mode": "operational",
+      "description_extended": "6 LaunchAgents dedicados. Responde a leads no Marketplace. Requer sessão Facebook ativa. 5 crashes em 24h documentados (CURRENT_STATE.md).",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "verified_by": "auditoria rigorosa",
+      "source": "CURRENT_STATE.md, LaunchAgents (6 arquivos), README_MESSENGER_BRIDGE.md"
+    },
+    {
+      "id": 3,
+      "name_canonical": "chaves-na-mao-lead-checker",
+      "aliases": ["chaves-na-mao", "leads", "leads-automation"],
+      "category": "operacional",
+      "type": "leads",
+      "description": "Auto-responder de leads Chaves na Mão via WhatsApp Desktop nativo",
+      "status": "active",
+      "path": "18_AUTOMATION_STACK/chaves-na-mao-lead-checker",
+      "entry_point": "~/.local/impar-automation/chaves-na-mao/leads_automation.py",
+      "launchagents": [
+        "com.impar.chaves-na-mao-checker",
+        "com.impar.chaves-na-mao-3leads-checker"
+      ],
+      "logs": {
+        "path": "18_AUTOMATION_STACK/chaves-na-mao-lead-checker/logs",
+        "exists": true
+      },
+      "checkpoints": {
+        "path": "~/.local/impar-automation/chaves-na-mao/checkpoint.json",
+        "exists": true,
+        "note": "Rastreia 24h de envios e deduplicação"
+      },
+      "dependencies": ["Python 3", "Composio MCP", "Outlook", "WhatsApp Desktop (nativo)", "AppleScript"],
+      "risk_level": "MEDIUM",
+      "mode": "operational",
+      "description_extended": "Pipeline automático a cada 10 min desde 2026-07-21. Consulta emails do Chaves na Mão via Composio MCP. Parser extrai: nome, telefone, ref imóvel, descrição, link. Blocklist filtra opt-outs. Envia D0 ao lead + notificação ao Jonata via WhatsApp Desktop.",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "verified_by": "auditoria rigorosa",
+      "source": "CLAUDE.md, CURRENT_STATE.md, LaunchAgents"
+    },
+    {
+      "id": 4,
+      "name_canonical": "impar-notificar-leads",
+      "aliases": ["notificar-leads", "leads-notifier"],
+      "category": "operacional",
+      "type": "leads",
+      "description": "Notificar leads de forma automática via planilha",
+      "status": "active",
+      "path": "unknown",
+      "entry_point": "unknown (via LaunchAgent)",
+      "launchagents": [
+        "com.impar.notificar-leads-planilha"
+      ],
+      "logs": {
+        "path": "unknown",
+        "exists": false,
+        "note": "Requer investigação"
+      },
+      "checkpoints": {
+        "path": "unknown",
+        "exists": false
+      },
+      "dependencies": ["Python 3", "Planilha (Google Sheets/Excel)?"],
+      "risk_level": "MEDIUM",
+      "mode": "operational",
+      "description_extended": "Automação operacional ativa. Documentada em CURRENT_STATE.md e LaunchAgent. Detalhes técnicos necessários.",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "verified_by": "auditoria rigorosa (LaunchAgent confirmado)",
+      "source": "CURRENT_STATE.md, LaunchAgent com.impar.notificar-leads-planilha.plist"
+    },
+    {
+      "id": 5,
+      "name_canonical": "impar-atualizacao-rogga-imobibrasil",
+      "aliases": ["rogga-sync", "rogga-update"],
+      "category": "operacional",
+      "type": "crm_sync",
+      "description": "Sincronização de imóveis do Rogga para Imobibrasil",
+      "status": "active",
+      "path": "18_AUTOMATION_STACK/impar-atualizacao-rogga-imobibrasil",
+      "entry_point": "main.py",
+      "launchagents": [
+        "com.impar.rogga-sync"
+      ],
+      "logs": {
+        "path": "unknown",
+        "exists": false
+      },
+      "checkpoints": {
+        "path": "18_AUTOMATION_STACK/impar-atualizacao-rogga-imobibrasil/checkpoint.json",
+        "exists": false,
+        "note": "Verificar diretório"
+      },
+      "dependencies": ["Python 3", "Rogga API", "Imobibrasil API"],
+      "risk_level": "MEDIUM",
+      "mode": "operational",
+      "description_extended": "Sincronização de imóveis novos e updates. Escreve dados no CRM Impar via Imobibrasil API.",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "verified_by": "auditoria rigorosa (diretório e LaunchAgent confirmados)",
+      "source": "LaunchAgent, 18_AUTOMATION_STACK/"
+    },
+    {
+      "id": 6,
+      "name_canonical": "impar-atualizacao-grupo-jm-imobibrasil",
+      "aliases": ["grupo-jm-sync", "grupo-jm-update"],
+      "category": "operacional",
+      "type": "crm_sync",
+      "description": "Sincronização de imóveis do Grupo JM para Imobibrasil",
+      "status": "active",
+      "path": "18_AUTOMATION_STACK/impar-atualizacao-grupo-jm-imobibrasil",
+      "entry_point": "main.py",
+      "launchagents": [
+        "com.impar.grupo-jm-sync"
+      ],
+      "logs": {
+        "path": "unknown",
+        "exists": false
+      },
+      "checkpoints": {
+        "path": "18_AUTOMATION_STACK/impar-atualizacao-grupo-jm-imobibrasil/checkpoint.json",
+        "exists": false,
+        "note": "Verificar diretório"
+      },
+      "dependencies": ["Python 3", "Grupo JM API", "Imobibrasil API"],
+      "risk_level": "MEDIUM",
+      "mode": "operational",
+      "description_extended": "Sincronização de imóveis do Grupo JM. Escreve dados no CRM Impar via Imobibrasil API.",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "verified_by": "auditoria rigorosa (diretório e LaunchAgent confirmados)",
+      "source": "LaunchAgent, 18_AUTOMATION_STACK/"
+    },
+    {
+      "id": 7,
+      "name_canonical": "nfem-joinville",
+      "aliases": ["nfse", "nfs-e", "emissao-nfse", "portal-nacional"],
+      "category": "operacional",
+      "type": "nfse",
+      "description": "Emissão de NFS-e via Portal Nacional (exclusivo desde 2026-07-20)",
+      "status": "active",
+      "path": "18_AUTOMATION_STACK/nfem-joinville",
+      "entry_point": "main.py (skills: emitir-notas-fiscais, emitir-nota-avulsa)",
+      "launchagents": [
+        "via Skill: emitir-notas-fiscais (automático nos dias 20, 25, 29, 30)",
+        "via Skill: emitir-nota-avulsa (manual, via WhatsApp Jonata)"
+      ],
+      "logs": {
+        "path": "18_AUTOMATION_STACK/nfem-joinville/logs",
+        "files": 257,
+        "size": "large"
+      },
+      "checkpoints": {
+        "path": "18_AUTOMATION_STACK/nfem-joinville/checkpoint.json",
+        "exists": true
+      },
+      "dependencies": ["Python 3", "Portal Nacional API", "Asaas API", "Credentials em .env"],
+      "risk_level": "CRITICAL",
+      "mode": "operational",
+      "description_extended": "Emissão automática de NFS-e em lote (busca pagamentos no Asaas). Emissão manual de notas fiscais avulsa (venda ou aluguel). Integrada ao Portal Nacional de forma exclusiva.",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "verified_by": "auditoria rigorosa",
+      "source": "CLAUDE.md, CURRENT_STATE.md, 18_AUTOMATION_STACK/"
+    },
+    {
+      "id": 8,
+      "name_canonical": "impar-cadastrar-imoveis",
+      "aliases": ["cadastrar-imoveis", "incluir-imoveis", "crm-cadastro"],
+      "category": "operacional",
+      "type": "crm",
+      "description": "Cadastro automático de imóveis novos no CRM Impar",
+      "status": "paused",
+      "path": "00_OS/commands/cadastrar-imoveis.md",
+      "entry_point": "Manual (command-based, via Claude Code)",
+      "launchagents": [
+        "none"
+      ],
+      "logs": {
+        "path": "unknown",
+        "exists": false
+      },
+      "checkpoints": {
+        "path": "unknown",
+        "exists": false
+      },
+      "dependencies": ["Chrome (logado)", "CRM Impar (painel1.imobibrasil.app.br)", "Rogga API"],
+      "risk_level": "LOW",
+      "mode": "operational",
+      "description_extended": "Pausado desde ref AP0206. Não escrito no CRM atualmente. Acionado manualmente quando necessário. Próxima ação aguarda aprovação.",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "verified_by": "auditoria rigorosa",
+      "source": "CLAUDE.md, CURRENT_STATE.md"
+    },
+    {
+      "id": 9,
+      "name_canonical": "impar-whatsapp-bridge",
+      "aliases": ["whatsapp", "whatsapp-bridge", "gerente-digital"],
+      "category": "operacional",
+      "type": "messaging",
+      "description": "WhatsApp Bridge / Gerente Digital (INTENCIONALMENTE OFFLINE)",
+      "status": "offline",
+      "status_reason": "Desligado por requisição de segurança (2026-07-16)",
+      "critical_note": "❌ NUNCA reautenticar sem autorização explícita",
+      "path": "18_AUTOMATION_STACK/ (scripts antigos preservados)",
+      "entry_point": "none (desabilitado)",
+      "launchagents": [
+        "com.impar.gerente-digital-whatsapp-startup.plist.disabled",
+        "com.impar.whatsapp-responder.plist.disabled",
+        "com.impar.whatsapp-startup-notifier.plist.disabled"
+      ],
+      "logs": {
+        "path": "07_LOGS/whatsapp-rodadas.md (histórico apenas)",
+        "exists": true,
+        "note": "Histórico de execução, não atual"
+      },
+      "checkpoints": {
+        "path": "unknown",
+        "exists": false,
+        "note": "WhatsApp desconectado intencionalmente"
+      },
+      "dependencies": ["WhatsApp (desabilitado)", "Bridge (desabilitado)", "Oracle VM (sessão ativa, não acessível)"],
+      "risk_level": "HIGH",
+      "mode": "operational",
+      "description_extended": "Desligado desde 2026-07-16. Sessão WhatsApp não autenticada. VPS Oracle mantém sessão ativa mas sem acesso SSH deste Mac. POLÍTICA: Manter offline até nova ordem. Risco de reautenticação acidental.",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "verified_by": "auditoria rigorosa",
+      "source": "CLAUDE.md, Memory (impar-whatsapp-vps-desconexao.md), LaunchAgents (disabled)",
+      "security_notes": [
+        "VPS Oracle: sessão ativa, sem SSH deste Mac",
+        "Chave privada: não disponível neste Mac",
+        "Desvincular: via WhatsApp Desktop (número Impar 5547920026017)",
+        "Autorização: Necessária para qualquer reativação"
+      ]
+    }
+  ],
+  "metadata": {
+    "total_automations": 9,
+    "active_count": 8,
+    "paused_count": 1,
+    "offline_count": 1,
+    "critical_risk_count": 3,
+    "medium_risk_count": 4,
+    "low_risk_count": 2,
+    "last_audit": "2026-07-22T22:40:00Z",
+    "audit_source": "AUDITORIA_RIGOROSA_REGISTRY_KERNEL.md"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "modules": [
+    "certify.sh",
+    "verify-audit.sh",
+    "rollback.sh",
+    "plan-service.sh"
+  ],
+  "libraries": [
+    "executor.sh",
+    "audit-chain.sh",
+    "certifier.sh",
+    "common.sh",
+    "config.sh",
+    "logger.sh",
+    "validator.sh",
+    "cache.sh",
+    "registry.sh",
+    "git-helper.sh"
+  ],
+  "knowledge": [
+    "automations.json",
+    "launchagents.json",
+    "topology.json",
+    "dependencies.json",
+    "critical-files.json",
+    "risks.json",
+    "sources.json"
+  ],
+  "configuration": [
+    "registry.json",
+    "graph.json",
+    "executor_whitelist.json",
+    "VERSION"
+  ],
+  "audit": [
+    "EXECUTION_AUDIT.jsonl",
+    "EXECUTION_AUDIT_CHAIN.jsonl",
+    "LEGACY_AUDIT_BASELINE_V2.json"
+  ],
+  "certificates": [
+    "kernel-cert-20260723-075255.json",
+    "kernel-cert-3A7-1-20260723-075255.json"
+  ],
+  "tests": [
+    "run-3A7-2-validation.sh",
+    "verify-3A7-2-results.sh"
+  ],
+  "backup": [
+    "3A7-1-REVALIDATION-20260723-074320/"
+  ],
+  "total_files": 42,
+  "total_directories": 8
+}

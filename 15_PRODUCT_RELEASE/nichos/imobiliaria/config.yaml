@@ -1,0 +1,103 @@
+# Preset de Nicho — Imobiliaria
+# Criado para: Impar Imoveis | Jonata
+# Data: 2026-06-21
+
+nicho: imobiliaria
+familia_base: profissional-liberal
+subfamilia: imobiliaria-consultiva
+
+negocio:
+  nome: "Impar Imoveis"
+  operador: "Jonata"
+  atuacao: "Joinville e litoral SC (Joinville ate Bombinhas)"
+  servicos:
+    - venda de imoveis na planta (100% parcelado, sem entrada)
+    - locacao residencial anual
+    - administracao de imoveis
+  nao_faz:
+    - locacao de temporada
+    - financiamento bancario direto
+  canais:
+    - WhatsApp (principal)
+    - Chaves na Mao
+    - Site proprio (imparimoveis.com)
+    - Indicacao
+  crm: "Papo Ai"
+  whatsapp_numero: "47 920026017"
+
+publico:
+  perfil_1:
+    nome: "Familia - Primeiro Imovel"
+    descricao: "Familias buscando primeiro imovel 100% parcelado na planta"
+    dor_principal: "Medo de nao conseguir financiamento bancario"
+    argumento_chave: "Sem entrada, sem banco, parcela direto com construtora"
+    canal_preferido: "WhatsApp + indicacao"
+  perfil_2:
+    nome: "Investidor Experiente"
+    descricao: "Pessoas com portfolio de imoveis buscando valorizacao ou renda"
+    dor_principal: "Encontrar opcao com boa relacao risco x retorno"
+    argumento_chave: "Litoral SC em valorizacao, renda passiva com aluguel"
+    canal_preferido: "WhatsApp + portais"
+  perfil_3:
+    nome: "Locatario"
+    descricao: "Pessoas buscando imovel para moradia anual em Joinville"
+    dor_principal: "Processo de locacao burocrático"
+    argumento_chave: "Atendimento rapido, fianca locaticia facilitada"
+    canal_preferido: "WhatsApp + Chaves na Mao"
+
+gargalos_identificados:
+  - id: 1
+    problema: "Perda de leads por falta de follow-up"
+    solucao: "Sequencia D1/D3/D5/D7/D14/D21/D30 no Papo Ai"
+    status: "draft pronto"
+  - id: 2
+    problema: "Falta de tempo para criar conteudo"
+    solucao: "Calendario de conteudo mensal gerado pelo kit"
+    status: "pendente"
+  - id: 3
+    problema: "Topo de funil fraco"
+    solucao: "Meta Ads + Google Ads (configurar semana de 2026-06-28)"
+    status: "pendente"
+
+tom_de_voz:
+  adjetivos: [consultivo, confiavel, direto, orientado a resultado]
+  evitar: [pressao excessiva, promessa de retorno garantido, urgencia falsa]
+  emojis: moderados (seguir padrao do fluxo Papo Ai)
+
+restricoes_legais:
+  - Nao prometer valorizacao garantida
+  - Nao informar endereco exato do imovel no bot (transferir para corretor)
+  - Coletar dados pessoais somente com aviso de LGPD
+  - Fianca locaticia: unica garantia aceita (exceto 2 imoveis especificos com fiador)
+
+squad_inicial:
+  - CoS
+  - WhatsApp Orchestrator (Papo Ai)
+  - Automation Architect (sequencia de follow-up)
+  - Copy Director (conteudo e anuncios)
+  - Traffic Analyst (Meta Ads + Google Ads)
+  - QA Editor
+
+comandos_recomendados:
+  - /whatsapp-system
+  - /follow-up
+  - /criar (calendario de conteudo)
+  - /rodar-pipeline (quando Meta Ads ativo)
+  - /diagnostico (revisao mensal de funil)
+
+proximas_tarefas_sugeridas:
+  - ordem: 1
+    tarefa: "Configurar sequencia de reengajamento D1-D30 no Papo Ai"
+    status: "draft pronto — aguardando configuracao no Papo Ai"
+  - ordem: 2
+    tarefa: "Mapear slugs do litoral SC para links do site"
+    status: "pendente"
+  - ordem: 3
+    tarefa: "Criar calendario de conteudo para WhatsApp e Instagram"
+    status: "pendente"
+  - ordem: 4
+    tarefa: "Configurar Meta Ads CLI + Google Ads"
+    status: "pendente — semana de 2026-06-28"
+  - ordem: 5
+    tarefa: "Criar bifurcacao investidor vs primeiro imovel no fluxo Papo Ai"
+    status: "pendente"

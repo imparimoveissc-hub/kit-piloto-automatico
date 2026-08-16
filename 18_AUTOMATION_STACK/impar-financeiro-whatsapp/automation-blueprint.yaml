@@ -1,0 +1,122 @@
+automation_status: draft
+process_name: "Assistente Financeiro Impar via WhatsApp"
+segment: "Financeiro / lançamento de gastos"
+owner: "Impar Imoveis"
+goal: "Receber mensagens e comprovantes no WhatsApp, extrair dados do gasto e salvar no financeiro local apenas quando houver confirmacao."
+trigger:
+  type: whatsapp_message
+  description: "Mensagem de texto, áudio, imagem ou PDF enviada para o contato financeiro."
+inputs:
+  - name: "message"
+    source: "WhatsApp"
+    required: true
+    example: "Gastei R$ 84,90 no mercado hoje"
+  - name: "audio_attachment"
+    source: "WhatsApp anexo"
+    required: false
+    example: "Audio com relato do gasto"
+  - name: "image_attachment"
+    source: "WhatsApp anexo"
+    required: false
+    example: "Foto de comprovante"
+  - name: "pdf_attachment"
+    source: "WhatsApp anexo"
+    required: false
+    example: "PDF de comprovante"
+  - name: "finance_state"
+    source: "GET /api/state"
+    required: true
+    example: "Lancamentos existentes e contexto PJ/PF"
+steps:
+  - id: "S1"
+    name: "Receber payload e identificar tipo"
+    mode: automated
+    actor: tool
+    description: "Classifica a entrada como texto, audio, imagem, PDF ou misto."
+    tool: "bridge local"
+    input: "payload WhatsApp"
+    output: "tipo de entrada"
+    approval_required: false
+  - id: "S2"
+    name: "Transcrever audio"
+    mode: ai_assisted
+    actor: ai_agent
+    description: "Converte audio em texto para extracao de valor, data e contexto."
+    tool: "Speech-to-text"
+    input: "audio"
+    output: "texto transcrito"
+    approval_required: false
+  - id: "S3"
+    name: "Ler comprovante"
+    mode: ai_assisted
+    actor: ai_agent
+    description: "Aplica OCR/visao para ler valor, favorecido, data e marcas de pagamento."
+    tool: "OCR/visao"
+    input: "imagem ou PDF"
+    output: "texto + campos sugeridos"
+    approval_required: false
+  - id: "S4"
+    name: "Decidir confianca"
+    mode: automated
+    actor: ai_agent
+    description: "Define se ha contexto suficiente para lancar ou se precisa perguntar."
+    tool: "regras de confianca"
+    input: "texto consolidado"
+    output: "confirmar | perguntar | bloquear"
+    approval_required: false
+  - id: "S5"
+    name: "Salvar lancamento"
+    mode: automated
+    actor: tool
+    description: "Cria o lancamento no app financeiro local."
+    tool: "POST /api/transactions"
+    input: "payload validado"
+    output: "transaction id"
+    approval_required: true
+decision_points:
+  - id: "D1"
+    condition: "O gasto esta claro o suficiente para identificar valor e contexto?"
+    if_true: "Gerar lancamento e enviar resumo."
+    if_false: "Perguntar do que se trata o comprovante."
+  - id: "D2"
+    condition: "O lancamento ja existe com mesmo valor, data e fingerprint?"
+    if_true: "Bloquear duplicidade e avisar o usuario."
+    if_false: "Prosseguir com novo lancamento."
+  - id: "D3"
+    condition: "E PF ou PJ?"
+    if_true: "Salvar entity apropriada."
+    if_false: "Pedir confirmacao antes de gravar."
+human_handoff:
+  required: true
+  when: "Quando a leitura do comprovante estiver ruim, quando houver duplicidade ou quando PF/PJ nao estiver claro."
+  responsible: "Jonata"
+tools:
+  - name: "WhatsApp bridge"
+    purpose: "Receber e responder mensagens."
+    access_needed: "Ponte local ou MCP autorizado"
+    risk_level: high
+  - name: "Transcricao de audio"
+    purpose: "Converter audio em texto."
+    access_needed: "Motor de speech-to-text"
+    risk_level: medium
+  - name: "OCR/visao"
+    purpose: "Ler imagem ou PDF do comprovante."
+    access_needed: "Servico local ou API autorizada"
+    risk_level: medium
+  - name: "Financeiro local"
+    purpose: "Persistir lancamentos."
+    access_needed: "Acesso a `06_OUTPUTS/2026-07-30_financeiro-impar/server.js`"
+    risk_level: medium
+data_privacy:
+  personal_data: "yes"
+  sensitive_data: "yes"
+  notes: "Comprovantes podem trazer CPF, nome, banco e valor. Resposta ao WhatsApp deve ser resumida e sem expor detalhes sensiveis desnecessarios."
+test_plan:
+  dry_run_input: "Foto de comprovante sem descricao legivel."
+  expected_output: "Bot pergunta do que se trata o comprovante antes de gravar."
+  pass_criteria: "Nenhum gasto ambíguo entra sem confirmacao; duplicidade e barrada; lancamento claro envia resumo."
+rollback_plan:
+  how_to_stop: "Desligar a bridge local e suspender a escrita na API financeira."
+  how_to_restore: "Reativar a bridge, limpar fila e reprocessar apenas mensagens pendentes."
+next_action: "Implementar o scaffold tecnico em `src/` e documentar o contrato da ponte."
+

@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "stage": "ETAPA 3A - Piloto",
+  "authorized_services": [
+    "impar-update-current-state"
+  ],
+  "notes": "Apenas impar-update-current-state autorizado. Outras automações retornarão erro."
+}

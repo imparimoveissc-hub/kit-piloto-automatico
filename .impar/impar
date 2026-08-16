@@ -1,0 +1,175 @@
+#!/bin/bash
+
+# impar - Central entry point for Impar Imóveis Automation
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+MODULES_DIR="$SCRIPT_DIR/modules"
+LIB_DIR="$SCRIPT_DIR/lib"
+
+source "$LIB_DIR/common.sh"
+
+VERSION="1.0.0"
+PROJECT_ROOT="$(get_project_root)"
+
+main() {
+  local command="${1:-help}"
+
+  case "$command" in
+    help)
+      show_help
+      ;;
+    status)
+      exec "$MODULES_DIR/status.sh" "${@:2}"
+      ;;
+    doctor)
+      exec "$MODULES_DIR/doctor.sh" "${@:2}"
+      ;;
+    logs)
+      exec "$MODULES_DIR/logs.sh" "${@:2}"
+      ;;
+    memory)
+      exec "$MODULES_DIR/memory.sh" "${@:2}"
+      ;;
+    backup)
+      exec "$MODULES_DIR/backup.sh" "${@:2}"
+      ;;
+    discover)
+      exec "$MODULES_DIR/discover.sh" "${@:2}"
+      ;;
+    list)
+      exec "$MODULES_DIR/list.sh" "${@:2}"
+      ;;
+    info)
+      exec "$MODULES_DIR/info.sh" "${@:2}"
+      ;;
+    open)
+      exec "$MODULES_DIR/open.sh" "${@:2}"
+      ;;
+    run)
+      exec "$MODULES_DIR/run.sh" "${@:2}"
+      ;;
+    health)
+      exec "$MODULES_DIR/health.sh" "${@:2}"
+      ;;
+    map)
+      exec "$MODULES_DIR/map.sh" "${@:2}"
+      ;;
+    version)
+      show_version
+      ;;
+    --version|-v)
+      show_version
+      ;;
+    *)
+      print_error "Comando desconhecido: $command"
+      echo ""
+      show_help
+      exit 1
+      ;;
+  esac
+}
+
+show_help() {
+  cat <<EOF
+
+${BLUE}╔══════════════════════════════════════════════════════════════╗${NC}
+${BLUE}║           IMPAR — Automação Completa Impar Imóveis            ║${NC}
+${BLUE}╚══════════════════════════════════════════════════════════════╝${NC}
+
+${BLUE}Versão:${NC} $VERSION
+${BLUE}Projeto:${NC} Kit Piloto Automático V30
+${BLUE}Modo:${NC} Somente leitura + Backup seguro
+
+${BLUE}SINTAXE${NC}
+  impar <comando> [opções]
+
+${BLUE}COMANDOS DISPONÍVEIS${NC}
+
+${BLUE}• Gerenciamento${NC}
+  ${GREEN}help${NC}                Mostrar esta ajuda
+  ${GREEN}discover${NC}            Descobrir e registrar automações
+  ${GREEN}list${NC}                Listar automações registradas
+
+${BLUE}• Consulta (somente leitura)${NC}
+  ${GREEN}status${NC}              Consultar estado das automações
+  ${GREEN}doctor${NC}              Executar diagnóstico completo
+  ${GREEN}logs${NC} [módulo]       Listar e filtrar logs
+  ${GREEN}memory${NC}              Mostrar estado da memória persistente
+  ${GREEN}backup${NC}              Criar backup seguro
+
+${BLUE}• Automações (somente leitura)${NC}
+  ${GREEN}list${NC}                Listar automações
+  ${GREEN}info${NC} <nome>         Detalhes de uma automação
+  ${GREEN}open${NC} <nome>         Abrir pasta da automação
+  ${GREEN}run${NC} <nome>          Mostrar como executar
+  ${GREEN}health${NC} <nome>       Verificar saúde da automação
+  ${GREEN}map${NC}                 Mapa de arquitetura
+
+${BLUE}EXEMPLOS${NC}
+
+  # Verificar status geral
+  impar status
+
+  # Executar diagnóstico completo
+  impar doctor
+
+  # Ver logs do Marketplace
+  impar logs marketplace
+
+  # Ver logs do Messenger
+  impar logs messenger
+
+  # Listar todos os logs disponíveis
+  impar logs
+
+  # Verificar estado da memória
+  impar memory
+
+  # Criar backup da memória e wrapper
+  impar backup
+
+${BLUE}MÓDULOS${NC}
+
+  marketplace    Marketplace + Grupos (Facebook)
+  grupos         Publicação em Grupos
+  messenger      Messenger Inbox (Facebook)
+  whatsapp       WhatsApp (Status: OFFLINE)
+  leads          Leads Chaves na Mão
+  nfse           Emissão de NFS-e
+  memory         Memória Persistente
+  launchagents   LaunchAgents
+
+${BLUE}SEGURANÇA${NC}
+
+  ✓ Todos os comandos são ${YELLOW}somente leitura${NC} por padrão
+  ✓ Nenhuma credencial, token ou dado sensível é exposto
+  ✓ ${YELLOW}Backup${NC} copia apenas memória e configurações autorizadas
+  ✓ Nenhuma ação destrutiva é permitida
+  ✓ Nenhum envio real de mensagens ou publicações
+
+${BLUE}PRÓXIMOS PASSOS${NC}
+
+  1. impar status       — Verificar estado geral
+  2. impar doctor       — Executar diagnóstico
+  3. impar logs         — Explorar histórico de logs
+  4. impar memory       — Ver memória persistente
+
+${BLUE}AJUDA ADICIONAL${NC}
+
+  impar <comando> --help    (em desenvolvimento)
+
+${GRAY}Desenvolvido para Kit Piloto Automático V30 | Impar Imóveis${NC}
+
+EOF
+}
+
+show_version() {
+  cat <<EOF
+impar $VERSION
+Kit Piloto Automático V30 — Impar Imóveis
+EOF
+}
+
+main "$@"

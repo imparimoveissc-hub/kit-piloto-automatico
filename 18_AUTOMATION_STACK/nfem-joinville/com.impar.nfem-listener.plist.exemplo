@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Exemplo de LaunchAgent para subir o listener quando o Mac liga.
+     Para instalar: copie para ~/Library/LaunchAgents/com.impar.nfem-listener.plist
+     e rode: launchctl load ~/Library/LaunchAgents/com.impar.nfem-listener.plist
+     Ajuste o caminho de WorkingDirectory se o projeto mudar de lugar. -->
+<plist version="1.0">
+<dict>
+    <key>Label</key><string>com.impar.nfem-listener</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>-m</string>
+        <string>src.whatsapp_listener</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville</string>
+    <key>RunAtLoad</key><true/>
+    <key>KeepAlive</key><true/>
+    <key>StandardOutPath</key><string>/Users/user/Library/Logs/nfem-listener.out</string>
+    <key>StandardErrorPath</key><string>/Users/user/Library/Logs/nfem-listener.err</string>
+</dict>
+</plist>

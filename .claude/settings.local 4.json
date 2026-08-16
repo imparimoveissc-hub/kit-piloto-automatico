@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"$HOME/.claude/scheduled_tasks.json\" 2>/dev/null || echo \"Arquivo não existe ainda\")"
+    ]
+  }
+}

@@ -1,0 +1,415 @@
+{
+  "version": "1.0.0",
+  "type": "automations",
+  "generated": "2026-07-22T22:53:00Z",
+  "description": "Mapa de automa\u00e7\u00f5es operacionais da Impar Im\u00f3veis com n\u00f3s e propriedades",
+  "nodes": [
+    {
+      "id": "auto_marketplace",
+      "canonical_name": "impar-facebook-marketplace-posting",
+      "aliases": [
+        "marketplace",
+        "marketplace-posting",
+        "grupos-crosspost"
+      ],
+      "type": "automation",
+      "category": "social_media",
+      "status": "active",
+      "risk_level": "CRITICAL",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "source_type": "estrutural",
+      "description": "Publica\u00e7\u00e3o autom\u00e1tica no Facebook Marketplace e grupos (Playwright)",
+      "entry_point": "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/main.py",
+      "launchagents": [
+        "com.impar.marketplace",
+        "com.impar.crosspost",
+        "com.impar.marketplace-restore-on-boot"
+      ],
+      "checkpoints": {
+        "path": "18_AUTOMATION_STACK/impar-facebook-marketplace-posting",
+        "files": [
+          "fila-postagens.csv",
+          "fila-grupos-postagens.csv",
+          "crosspost-grupos-log.csv"
+        ],
+        "critical": true
+      },
+      "dependencies": [
+        "Playwright",
+        "Facebook API",
+        "Chrome Browser Pane",
+        "Python 3",
+        "AppleScript",
+        "Desktop Automator"
+      ],
+      "integrations": [
+        "Facebook Marketplace",
+        "Facebook Groups",
+        "Browser Pane"
+      ],
+      "mode": "operational",
+      "cadence": "24/7 (humanized: 7-10 posts/day marketplace, 3x daily groups at 11:30, 17:00, 21:30)",
+      "artifacts": {
+        "queues": [
+          "fila-postagens.csv",
+          "fila-grupos-postagens.csv"
+        ],
+        "logs": "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/logs (1.8M, 6 files)",
+        "checkpoints": [
+          "crosspost-grupos-log.csv"
+        ]
+      }
+    },
+    {
+      "id": "auto_messenger",
+      "canonical_name": "impar-messenger-bridge",
+      "aliases": [
+        "messenger",
+        "messenger-inbox",
+        "messenger-responder"
+      ],
+      "type": "automation",
+      "category": "customer_interaction",
+      "status": "active",
+      "risk_level": "CRITICAL",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "source_type": "estrutural",
+      "description": "Auto-responder de Marketplace 24/7 via Messenger (Browser Pane)",
+      "entry_point": "Browser Pane (Python + AppleScript for UI automation)",
+      "launchagents": [
+        "(embedded in marketplace LaunchAgents)"
+      ],
+      "checkpoints": {
+        "path": "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/messenger",
+        "files": [
+          "checkpoint.json"
+        ],
+        "critical": true
+      },
+      "dependencies": [
+        "Playwright",
+        "Facebook Messenger API",
+        "Chrome Browser Pane",
+        "Python 3",
+        "AppleScript"
+      ],
+      "integrations": [
+        "Facebook Messenger",
+        "Browser Pane"
+      ],
+      "mode": "operational",
+      "cadence": "24/7 \u2014 Responde D1 automaticamente",
+      "artifacts": {
+        "logs": "crosspost-messenger-log.csv"
+      },
+      "known_issues": [
+        "Crashes frequentes (5 em 24h)",
+        "UI timeouts",
+        "Falhas de autentica\u00e7\u00e3o ocasionais"
+      ]
+    },
+    {
+      "id": "auto_whatsapp",
+      "canonical_name": "impar-whatsapp-bridge",
+      "aliases": [
+        "whatsapp",
+        "whatsapp-bridge",
+        "d0"
+      ],
+      "type": "automation",
+      "category": "customer_interaction",
+      "status": "offline",
+      "risk_level": "MEDIUM",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "source_type": "estrutural",
+      "description": "Bridge WhatsApp para notifica\u00e7\u00e3o de leads (OFFLINE intencionalmente)",
+      "entry_point": "~/.local/impar-automation/whatsapp/main.py",
+      "launchagents": [
+        "(disabled)"
+      ],
+      "checkpoints": {
+        "path": "~/.local/impar-automation/whatsapp",
+        "files": [
+          "checkpoint.json"
+        ],
+        "critical": false,
+        "note": "N\u00e3o alterar enquanto offline"
+      },
+      "dependencies": [
+        "Python 3",
+        "Twilio API",
+        "WhatsApp Business Account"
+      ],
+      "integrations": [
+        "WhatsApp Desktop (nativo)",
+        "macOS"
+      ],
+      "mode": "offline",
+      "cadence": "N/A (desligado)",
+      "reason_offline": "Testes de seguran\u00e7a \u2014 reativa\u00e7\u00e3o proibida sem autoriza\u00e7\u00e3o",
+      "restriction": "\u274c NEVER reauthenticate",
+      "artifacts": {
+        "logs": "(disabled)"
+      }
+    },
+    {
+      "id": "auto_leads",
+      "canonical_name": "chaves-na-mao-lead-checker",
+      "aliases": [
+        "leads",
+        "chaves-na-mao",
+        "lead-notification"
+      ],
+      "type": "automation",
+      "category": "lead_management",
+      "status": "active",
+      "risk_level": "HIGH",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "source_type": "estrutural",
+      "description": "Automa\u00e7\u00e3o de notifica\u00e7\u00e3o de leads via WhatsApp Desktop (D0)",
+      "entry_point": "~/.local/impar-automation/chaves-na-mao/leads_automation.py",
+      "launchagents": [
+        "leads-chaves-na-mao-whatsapp (10 min)"
+      ],
+      "checkpoints": {
+        "path": "~/.local/impar-automation/chaves-na-mao/checkpoint.json",
+        "files": [
+          "checkpoint.json"
+        ],
+        "critical": true
+      },
+      "dependencies": [
+        "Python 3",
+        "Composio MCP",
+        "Outlook API",
+        "AppleScript",
+        "WhatsApp Desktop (nativo macOS)"
+      ],
+      "integrations": [
+        "Outlook",
+        "WhatsApp Desktop",
+        "Composio MCP"
+      ],
+      "mode": "operational",
+      "cadence": "A cada 10 minutos via LaunchAgent",
+      "artifacts": {
+        "queues": [
+          "checkpoint.json (deduplication 24h)"
+        ],
+        "blocklist": "05_WORKSPACE/clientes/impar-imoveis/whatsapp/leads-followup.csv",
+        "logs": "(checkpoint-based)"
+      }
+    },
+    {
+      "id": "auto_nfse",
+      "canonical_name": "nfem-joinville",
+      "aliases": [
+        "nfse",
+        "nfs-e",
+        "nota-fiscal",
+        "emissao-nfse"
+      ],
+      "type": "automation",
+      "category": "financial",
+      "status": "active",
+      "risk_level": "MEDIUM",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "source_type": "estrutural",
+      "description": "Emiss\u00e3o autom\u00e1tica de Notas Fiscais de Servi\u00e7o (Portal Nacional)",
+      "entry_point": "18_AUTOMATION_STACK/nfem-joinville/emitir_lote.py",
+      "launchagents": [
+        "(scheduled on days 20, 25, 29, 30)"
+      ],
+      "checkpoints": {
+        "path": "18_AUTOMATION_STACK/nfem-joinville",
+        "files": [
+          "checkpoint.json",
+          "ultimas_emissoes.log"
+        ],
+        "critical": true
+      },
+      "dependencies": [
+        "Python 3",
+        "Playwright",
+        "Browser Pane",
+        "Portal Nacional credentials"
+      ],
+      "integrations": [
+        "Portal Nacional (https://www.nfse.gov.br/EmissorNacional)",
+        "Asaas API",
+        "Browser Pane"
+      ],
+      "mode": "operational",
+      "cadence": "Dias 20, 25, 29, 30 (manual tamb\u00e9m poss\u00edvel)",
+      "artifacts": {
+        "logs": "18_AUTOMATION_STACK/nfem-joinville/logs"
+      }
+    },
+    {
+      "id": "auto_rogga",
+      "canonical_name": "impar-atualizacao-rogga-imobibrasil",
+      "aliases": [
+        "rogga",
+        "rogga-sync",
+        "crm-sync"
+      ],
+      "type": "automation",
+      "category": "data_sync",
+      "status": "active",
+      "risk_level": "MEDIUM",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "source_type": "estrutural",
+      "description": "Sincroniza\u00e7\u00e3o de im\u00f3veis Rogga \u2192 Imobibrasil CRM",
+      "entry_point": "18_AUTOMATION_STACK/rogga-sync/main.py",
+      "launchagents": [
+        "(scheduled)"
+      ],
+      "checkpoints": {
+        "path": "18_AUTOMATION_STACK/rogga-sync",
+        "files": [
+          "checkpoint.json"
+        ],
+        "critical": true
+      },
+      "dependencies": [
+        "Python 3",
+        "Rogga API",
+        "Imobibrasil API"
+      ],
+      "integrations": [
+        "Rogga",
+        "Imobibrasil"
+      ],
+      "mode": "operational",
+      "cadence": "Peri\u00f3dica (hourly)",
+      "artifacts": {
+        "logs": "18_AUTOMATION_STACK/rogga-sync/logs"
+      }
+    },
+    {
+      "id": "auto_grupo_jm",
+      "canonical_name": "impar-atualizacao-grupo-jm-imobibrasil",
+      "aliases": [
+        "grupo-jm",
+        "grupo-jm-sync"
+      ],
+      "type": "automation",
+      "category": "data_sync",
+      "status": "active",
+      "risk_level": "MEDIUM",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "source_type": "estrutural",
+      "description": "Sincroniza\u00e7\u00e3o de im\u00f3veis Grupo JM \u2192 Imobibrasil CRM",
+      "entry_point": "18_AUTOMATION_STACK/grupo-jm-sync/main.py",
+      "launchagents": [
+        "(scheduled)"
+      ],
+      "checkpoints": {
+        "path": "18_AUTOMATION_STACK/grupo-jm-sync",
+        "files": [
+          "checkpoint.json"
+        ],
+        "critical": true
+      },
+      "dependencies": [
+        "Python 3",
+        "Grupo JM API",
+        "Imobibrasil API"
+      ],
+      "integrations": [
+        "Grupo JM",
+        "Imobibrasil"
+      ],
+      "mode": "operational",
+      "cadence": "Peri\u00f3dica (hourly)",
+      "artifacts": {
+        "logs": "18_AUTOMATION_STACK/grupo-jm-sync/logs"
+      }
+    },
+    {
+      "id": "auto_cadastrar",
+      "canonical_name": "impar-cadastrar-imoveis",
+      "aliases": [
+        "cadastrar-imoveis",
+        "cadastro-imoveis"
+      ],
+      "type": "automation",
+      "category": "data_entry",
+      "status": "paused",
+      "risk_level": "MEDIUM",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "source_type": "estrutural",
+      "description": "Cadastro autom\u00e1tico de im\u00f3veis no CRM Impar (pausado)",
+      "entry_point": "00_OS/commands/cadastrar-imoveis.md",
+      "launchagents": [
+        "(none \u2014 paused)"
+      ],
+      "checkpoints": {
+        "path": "00_OS/commands",
+        "files": [
+          "(none)"
+        ],
+        "critical": false
+      },
+      "dependencies": [
+        "Chrome",
+        "Imobibrasil CRM"
+      ],
+      "integrations": [
+        "Imobibrasil CRM",
+        "Rogga"
+      ],
+      "mode": "paused",
+      "cadence": "Manual (whenneeded)",
+      "reason_paused": "Pr\u00f3xima refer\u00eancia: AP0206",
+      "artifacts": {}
+    },
+    {
+      "id": "auto_notificar_leads",
+      "canonical_name": "impar-notificar-leads",
+      "aliases": [
+        "notificar-leads",
+        "leads-notifier"
+      ],
+      "type": "automation",
+      "category": "leads",
+      "status": "active",
+      "risk_level": "MEDIUM",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "description": "Notificar leads de forma autom\u00e1tica via planilha",
+      "entry_point": "unknown (via LaunchAgent)",
+      "launchagents": [
+        "com.impar.notificar-leads-planilha"
+      ],
+      "checkpoints": {
+        "path": "unknown",
+        "exists": false
+      },
+      "dependencies": [
+        "Python 3",
+        "Planilha (Google Sheets/Excel)?"
+      ],
+      "integrations": [
+        "Planilha",
+        "Lead Management"
+      ],
+      "mode": "operational",
+      "cadence": "Automa\u00e7\u00e3o operacional ativa. Documentada em CURRENT_STATE.md e LaunchAgent. Detalhes t\u00e9cnicos necess"
+    }
+  ],
+  "automation_count": 9,
+  "active_count": 7,
+  "offline_count": 1,
+  "paused_count": 1,
+  "critical_risk_count": 2
+}

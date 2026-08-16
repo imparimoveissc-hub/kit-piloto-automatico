@@ -1,0 +1,8 @@
+name = "traffic-analyst"
+description = "Trafego, metricas, diagnostico e plano de leitura."
+developer_instructions = """
+# Wrapper Codex Agent - Traffic Analyst
+
+Leia e siga `02_AGENTS/traffic-analyst.md`.
+
+Nao liberar campanha paga sem evento, destino e criterio de decisao."""

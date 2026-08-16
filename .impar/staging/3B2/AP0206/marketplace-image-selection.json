@@ -1,0 +1,119 @@
+{
+  "property_code": "AP0206",
+  "timestamp": "2026-07-24T10:00:00Z",
+  "galeria_audit": {
+    "source_gallery_total": 68,
+    "locally_available_total": 13,
+    "marketplace_max_images": 10
+  },
+  "marketplace_selection": {
+    "total_selected": 10,
+    "selection_criteria": "Prioridade comercial: fachada/principal, sala, cozinha, dormitórios, banheiro, área externa, complementares",
+    "selection_method": "deterministic_ordering"
+  },
+  "selected_images": [
+    {
+      "position": 1,
+      "filename": "foto_01.webp",
+      "path": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/foto_01.webp",
+      "category": "PRINCIPAL",
+      "priority": "MUITO_ALTA",
+      "selection_reason": "Melhor imagem principal ou fachada"
+    },
+    {
+      "position": 2,
+      "filename": "foto_03.webp",
+      "path": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/foto_03.webp",
+      "category": "SALA",
+      "priority": "MUITO_ALTA",
+      "selection_reason": "Sala principal/ambiente social"
+    },
+    {
+      "position": 3,
+      "filename": "foto_04.webp",
+      "path": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/foto_04.webp",
+      "category": "COZINHA",
+      "priority": "ALTA",
+      "selection_reason": "Cozinha"
+    },
+    {
+      "position": 4,
+      "filename": "foto_05.webp",
+      "path": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/foto_05.webp",
+      "category": "DORMITORIO",
+      "priority": "ALTA",
+      "selection_reason": "Dormitório principal (suíte)"
+    },
+    {
+      "position": 5,
+      "filename": "foto_06.webp",
+      "path": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/foto_06.webp",
+      "category": "DORMITORIO",
+      "priority": "ALTA",
+      "selection_reason": "Segundo dormitório"
+    },
+    {
+      "position": 6,
+      "filename": "foto_07.webp",
+      "path": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/foto_07.webp",
+      "category": "DORMITORIO",
+      "priority": "ALTA",
+      "selection_reason": "Terceiro dormitório"
+    },
+    {
+      "position": 7,
+      "filename": "foto_08.webp",
+      "path": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/foto_08.webp",
+      "category": "BANHEIRO",
+      "priority": "MEDIA",
+      "selection_reason": "Banheiro"
+    },
+    {
+      "position": 8,
+      "filename": "foto_09.webp",
+      "path": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/foto_09.webp",
+      "category": "AREA_EXTERNA",
+      "priority": "MEDIA",
+      "selection_reason": "Área externa/garagem"
+    },
+    {
+      "position": 9,
+      "filename": "foto_10.webp",
+      "path": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/foto_10.webp",
+      "category": "CONTEXTO",
+      "priority": "MEDIA",
+      "selection_reason": "Contexto da edificação"
+    },
+    {
+      "position": 10,
+      "filename": "foto_11.webp",
+      "path": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/foto_11.webp",
+      "category": "COMPLEMENTAR",
+      "priority": "BAIXA",
+      "selection_reason": "Imagem complementar de qualidade"
+    }
+  ],
+  "excluded_images": [
+    {
+      "filename": "foto_12.webp",
+      "reason": "Fora do limite máximo de 10 imagens"
+    },
+    {
+      "filename": "foto_14.webp",
+      "reason": "Fora do limite máximo de 10 imagens"
+    },
+    {
+      "filename": "foto_15.webp",
+      "reason": "Fora do limite máximo de 10 imagens"
+    }
+  ],
+  "compliance": {
+    "marketplace_max_images_rule": "ACTIVE",
+    "max_images": 10,
+    "selected_count": 10,
+    "compliant": true,
+    "no_duplicates": true,
+    "no_rejected_images": true,
+    "deterministic": true
+  }
+}

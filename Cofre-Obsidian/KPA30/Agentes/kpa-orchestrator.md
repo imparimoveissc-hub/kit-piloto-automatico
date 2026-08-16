@@ -1,0 +1,10 @@
+---
+name: kpa-orchestrator
+description: Orquestrador do pipeline completo V30.
+---
+
+# Wrapper Claude Agent - KPA Orchestrator
+
+Leia e siga `02_AGENTS/kpa-orchestrator.md`.
+
+Use quando o CoS classificar a demanda como funil completo, lancamento, produto novo ou pacote com tres ou mais especialistas.

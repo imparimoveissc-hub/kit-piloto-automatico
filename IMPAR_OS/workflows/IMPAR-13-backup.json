@@ -1,0 +1,68 @@
+{
+  "name": "IMPAR-13-backup",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "impar13-trigger",
+      "name": "Trigger Diário",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { execSync } = require('child_process');\nconst prj = process.env.HOME + '/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB';\nconst backups = `${prj}/IMPAR_OS/backups`;\nconst ts = new Date().toISOString().replace(/[:.]/g,'-').substring(0,19);\nconst out = {};\ntry {\n  execSync(`cp \"${prj}/IMPAR_OS/database/impar.db\" \"${backups}/impar-${ts}.db\" 2>/dev/null`, {timeout:10000});\n  out.db = `impar-${ts}.db`;\n} catch(e) { out.db_error = e.message.substring(0,100); }\ntry {\n  execSync(`cp \"${prj}/IMPAR_OS/registry/registry.json\" \"${backups}/registry-${ts}.json\" 2>/dev/null`, {timeout:5000});\n  out.registry = `registry-${ts}.json`;\n} catch(e) { out.registry_error = e.message.substring(0,100); }\ntry {\n  const old = execSync(`ls \"${backups}\" | sort | head -n -14 2>/dev/null`, {timeout:5000}).toString().trim().split('\\n').filter(Boolean);\n  old.forEach(f => { try { execSync(`rm \"${backups}/${f}\"`, {timeout:3000}); } catch(e) {} });\n  out.cleaned = old.length;\n} catch(e) { out.clean_error = e.message.substring(0,100); }\nreturn [{ json: { status: 'ok', ai_used: false, timestamp: new Date().toISOString(), backup: out } }];"
+      },
+      "id": "impar13-backup",
+      "name": "Backup",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Trigger Diário": {
+      "main": [
+        [
+          {
+            "node": "Backup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    },
+    {
+      "name": "cron"
+    },
+    {
+      "name": "backup"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs13Backup"
+}

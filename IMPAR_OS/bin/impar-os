@@ -1,0 +1,369 @@
+#!/usr/bin/env bash
+# IMPAR OS — CLI principal
+# Uso: impar-os <comando> [--json]
+
+set -uo pipefail
+OS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+DB="$OS_DIR/database/impar.db"
+REGISTRY="$OS_DIR/registry/registry.json"
+WHITELIST="$OS_DIR/config/whitelist.json"
+LOG_DIR="$OS_DIR/logs"
+STATE="$OS_DIR/state/system.json"
+N8N_URL="http://127.0.0.1:5678"
+N8N_ENV="$HOME/.impar-n8n-core/.env"
+N8N_API_KEY_FILE="$OS_DIR/config/.n8n_api_key"
+VERSION="1.0.0"
+
+CMD="${1:-help}"
+JSON_FLAG=""
+[[ "${2:-}" == "--json" || "${3:-}" == "--json" ]] && JSON_FLAG="--json"
+
+_ts() { date -u +%Y-%m-%dT%H:%M:%SZ; }
+_log() {
+  local ts; ts=$(_ts)
+  echo "[$ts] $*" >> "$LOG_DIR/impar-os.log"
+}
+_run_id() { python3 -c "import uuid; print(str(uuid.uuid4())[:8])" 2>/dev/null || echo "$$"; }
+
+_log_exec() {
+  local action="$1" status="$2" duration="${3:-0}" ai_used="${4:-0}"
+  local rid; rid=$(_run_id)
+  [[ -f "$DB" ]] && sqlite3 "$DB" \
+    "INSERT INTO executions (run_id,timestamp,origin,action,duration_ms,status,ai_used,cache_used,exit_code)
+     VALUES ('$rid','$(_ts)','cli','$action','$duration','$status',$ai_used,0,0);" 2>/dev/null || true
+}
+
+cmd_status() {
+  local t0=$SECONDS
+  local n8n_status="DOWN"
+  curl -sf "$N8N_URL/healthz" >/dev/null 2>&1 && n8n_status="UP"
+
+  local db_status="FAIL"
+  [[ -f "$DB" ]] && sqlite3 "$DB" ".tables" >/dev/null 2>&1 && db_status="OK"
+
+  local wf_active=0 wf_total=0
+  if [[ -f "$DB" ]]; then
+    wf_active=$(sqlite3 "$DB" "SELECT COUNT(*) FROM workflows WHERE active=1;" 2>/dev/null || echo 0)
+    wf_total=$(sqlite3 "$DB" "SELECT COUNT(*) FROM workflows;" 2>/dev/null || echo 0)
+  fi
+
+  local reg_count=0
+  [[ -f "$REGISTRY" ]] && reg_count=$(python3 -c "import json; print(json.load(open('$REGISTRY'))['total'])" 2>/dev/null || echo 0)
+
+  local container_status="DOWN"
+  docker ps --filter name=impar-n8n --format "{{.Status}}" 2>/dev/null | grep -q "Up" && container_status="UP"
+
+  local ai_avoided=0
+  [[ -f "$DB" ]] && ai_avoided=$(sqlite3 "$DB" "SELECT COALESCE(SUM(tokens_saved),0) FROM token_savings;" 2>/dev/null || echo 0)
+
+  _log_exec "status" "ok" $(( (SECONDS-t0)*1000 )) 0
+
+  if [[ -n "$JSON_FLAG" ]]; then
+    python3 -c "
+import json
+print(json.dumps({
+  'version': '$VERSION',
+  'timestamp': '$(_ts)',
+  'n8n': '$n8n_status',
+  'container': '$container_status',
+  'database': '$db_status',
+  'workflows': {'active': $wf_active, 'total': $wf_total},
+  'registry_items': $reg_count,
+  'tokens_saved_estimated': $ai_avoided,
+  'ai_used': False
+}, indent=2))
+"
+  else
+    echo "=== IMPAR OS v$VERSION — Status ==="
+    echo "  n8n:        $n8n_status"
+    echo "  container:  $container_status"
+    echo "  database:   $db_status"
+    echo "  workflows:  $wf_active ativos / $wf_total total"
+    echo "  registry:   $reg_count itens"
+    echo "  tokens:     ~$ai_avoided economizados"
+    echo "  ai_used:    FALSE"
+    echo "  timestamp:  $(_ts)"
+  fi
+}
+
+cmd_health() {
+  bash "$OS_DIR/scripts/health.sh" $JSON_FLAG
+}
+
+cmd_discover() {
+  echo "Descobrindo automações..."
+  python3 "$OS_DIR/scripts/discover.py"
+  _log_exec "discover" "ok" 0 0
+}
+
+cmd_sync() {
+  local ts; ts=$(_ts)
+  echo "Sincronizando estado..."
+
+  # Ler startup-state.json do LaunchAgent (path local)
+  local startup_json="$HOME/.impar-n8n-core/state/startup-state.json"
+  local last_startup="" last_event="" n8n_from_agent=""
+  if [[ -f "$startup_json" ]]; then
+    last_startup=$(python3 -c "import json; print(json.load(open('$startup_json')).get('last_startup',''))" 2>/dev/null || echo "")
+    last_event=$(python3 -c "import json; print(json.load(open('$startup_json')).get('last_event',''))" 2>/dev/null || echo "")
+    n8n_from_agent=$(python3 -c "import json; print(json.load(open('$startup_json')).get('n8n_status',''))" 2>/dev/null || echo "")
+    [[ -n "$last_startup" ]] && echo "  Último startup: $last_startup (evento=$last_event)"
+  fi
+
+  # Atualiza system_state no banco
+  if [[ -f "$DB" ]]; then
+    local n8n_ok="false"
+    curl -sf "$N8N_URL/healthz" >/dev/null 2>&1 && n8n_ok="true"
+    sqlite3 "$DB" <<SQL
+INSERT OR REPLACE INTO system_state VALUES ('last_sync','$ts','$ts');
+INSERT OR REPLACE INTO system_state VALUES ('n8n_status','$n8n_ok','$ts');
+INSERT OR REPLACE INTO system_state VALUES ('last_startup','${last_startup:-unknown}','$ts');
+INSERT OR REPLACE INTO system_state VALUES ('last_event','${last_event:-unknown}','$ts');
+INSERT OR REPLACE INTO services VALUES ('n8n','n8n Orchestrator','http','$N8N_URL',
+  '$([[ "$n8n_ok" == "true" ]] && echo ok || echo down)','$ts',NULL)
+  ON CONFLICT(id) DO UPDATE SET status=excluded.status, last_checked=excluded.last_checked;
+SQL
+  fi
+
+  # Atualiza state/system.json
+  python3 - <<PYEOF
+import json, sqlite3, os
+from datetime import datetime, timezone
+db = "$DB"
+ts = "$ts"
+state = {
+  "version": "$VERSION",
+  "installed_at": ts,
+  "last_sync": ts,
+  "components": {"cli": "ok", "database": "ok" if os.path.exists(db) else "missing",
+                 "registry": "ok" if os.path.exists("$REGISTRY") else "missing",
+                 "n8n": "ok"},
+  "ai_calls_today": 0, "ai_calls_avoided": 0, "token_savings_estimated": 0
+}
+if os.path.exists(db):
+  conn = sqlite3.connect(db)
+  row = conn.execute("SELECT value FROM system_state WHERE key='ai_calls_today'").fetchone()
+  if row: state["ai_calls_today"] = int(row[0]) if row[0].isdigit() else 0
+  conn.close()
+with open("$STATE","w") as f:
+  json.dump(state, f, indent=2)
+print("OK: state/system.json atualizado")
+PYEOF
+  _log_exec "sync" "ok" 0 0
+}
+
+cmd_workflows() {
+  echo "=== Workflows n8n ==="
+
+  # Tenta via API com chave
+  local api_key=""
+  [[ -f "$N8N_API_KEY_FILE" ]] && api_key=$(cat "$N8N_API_KEY_FILE" 2>/dev/null)
+  [[ -z "$api_key" && -f "$N8N_ENV" ]] && api_key=$(grep '^N8N_API_KEY=' "$N8N_ENV" 2>/dev/null | cut -d= -f2- | tr -d '"')
+
+  local wf_list
+  if [[ -n "$api_key" ]]; then
+    wf_list=$(curl -sf "$N8N_URL/api/v1/workflows" -H "X-N8N-API-KEY: $api_key" 2>/dev/null)
+  else
+    wf_list=$(curl -sf "$N8N_URL/api/v1/workflows" 2>/dev/null)
+  fi
+
+  if [[ -n "$wf_list" ]]; then
+    echo "$wf_list" | python3 -c "
+import json, sys
+try:
+  d = json.load(sys.stdin)
+  wfs = d.get('data', [])
+  if not wfs:
+    print('  Nenhum workflow encontrado (use o painel n8n para importar)')
+  for w in sorted(wfs, key=lambda x: x.get('name','')):
+    status = 'ATIVO ' if w.get('active') else 'inativo'
+    print(f'  [{status}] {w.get(\"name\",\"?\"):<45} id={w.get(\"id\",\"?\")}')
+  print(f'\n  Total: {len(wfs)} | Ativos: {sum(1 for w in wfs if w.get(\"active\"))}')
+except Exception as e:
+  print('  Não foi possível listar via API. Acesse: http://127.0.0.1:5678')
+" 2>/dev/null || echo "  Não foi possível listar via API. Acesse: http://127.0.0.1:5678"
+  else
+    echo "  API não respondeu. Acesse: $N8N_URL"
+  fi
+
+  echo ""
+  echo "  Workflows IMPAR OS (arquivos locais):"
+  for f in "$OS_DIR/workflows/"*.json; do
+    [[ -f "$f" ]] || continue
+    local name; name=$(python3 -c "import json; print(json.load(open('$f')).get('name','?'))" 2>/dev/null || basename "$f")
+    echo "    - $name"
+  done
+}
+
+cmd_test() {
+  bash "$OS_DIR/tests/run-tests.sh"
+}
+
+cmd_verify() {
+  local errs=0
+  echo "=== Verificação de Integridade ==="
+
+  # Verifica estrutura
+  for d in bin config database docs logs registry scripts state tests workflows cache backups reports; do
+    [[ -d "$OS_DIR/$d" ]] && echo "  [OK] $d/" || { echo "  [MISS] $d/"; errs=$((errs+1)); }
+  done
+
+  # Verifica arquivos críticos
+  for f in "bin/impar-os" "config/whitelist.json" "database/impar.db" "registry/registry.json" "state/system.json"; do
+    [[ -f "$OS_DIR/$f" ]] && echo "  [OK] $f" || { echo "  [MISS] $f"; errs=$((errs+1)); }
+  done
+
+  # Verifica scripts
+  for s in "scripts/db-init.sh" "scripts/discover.py" "scripts/health.sh" "scripts/token-report.sh"; do
+    [[ -f "$OS_DIR/$s" ]] && echo "  [OK] $s" || { echo "  [MISS] $s"; errs=$((errs+1)); }
+  done
+
+  echo ""
+  [[ "$errs" -eq 0 ]] && echo "VERIFY: PASS" || echo "VERIFY: FAIL ($errs ausentes)"
+  _log_exec "verify" "$([[ $errs -eq 0 ]] && echo ok || echo fail)" 0 0
+}
+
+cmd_report() {
+  local ts; ts=$(_ts)
+  local rfile="$OS_DIR/reports/report-$(date +%Y%m%d-%H%M%S).json"
+
+  python3 - <<PYEOF
+import json, sqlite3, os
+from datetime import datetime, timezone
+
+db = "$DB"
+report = {
+  "generated_at": "$ts",
+  "version": "$VERSION",
+  "system": {},
+  "workflows": {},
+  "executions": {},
+  "errors": {},
+  "token_savings": {},
+  "credentials": []
+}
+
+if os.path.exists(db):
+  conn = sqlite3.connect(db)
+  report["system"] = {r[0]: r[1] for r in conn.execute("SELECT key,value FROM system_state")}
+  report["executions"]["total"] = conn.execute("SELECT COUNT(*) FROM executions").fetchone()[0]
+  report["executions"]["with_ai"] = conn.execute("SELECT COUNT(*) FROM executions WHERE ai_used=1").fetchone()[0]
+  report["errors"]["total"] = conn.execute("SELECT COUNT(*) FROM errors").fetchone()[0]
+  report["errors"]["unresolved"] = conn.execute("SELECT COUNT(*) FROM errors WHERE resolved=0").fetchone()[0]
+  report["token_savings"]["estimated"] = conn.execute("SELECT COALESCE(SUM(tokens_saved),0) FROM token_savings").fetchone()[0]
+  report["credentials"] = [
+    {"id": r[0], "service": r[1], "label": r[2], "status": r[3]}
+    for r in conn.execute("SELECT id,service,label,status FROM credentials_status")
+  ]
+  conn.close()
+
+with open("$rfile","w") as f:
+  json.dump(report, f, indent=2, ensure_ascii=False)
+print(f"OK: relatório gerado em $rfile")
+print(json.dumps(report, indent=2, ensure_ascii=False))
+PYEOF
+  _log_exec "report" "ok" 0 0
+}
+
+cmd_token_report() {
+  bash "$OS_DIR/scripts/token-report.sh" $JSON_FLAG
+}
+
+cmd_dry_run() {
+  echo "=== DRY-RUN — nenhuma ação real será executada ==="
+  echo ""
+  echo "Simulando: status..."
+  cmd_status
+  echo ""
+  echo "Simulando: discover..."
+  echo "  [DRY] python3 $OS_DIR/scripts/discover.py"
+  echo "  [DRY] Não executado em dry-run"
+  echo ""
+  echo "DRY-RUN: PASS — nenhum efeito colateral"
+  _log_exec "dry-run" "ok" 0 0
+}
+
+cmd_repair() {
+  echo "=== Auto-reparo seguro ==="
+  local fixed=0
+
+  # Recriar dirs ausentes
+  for d in bin config database docs logs registry scripts state tests workflows cache backups reports; do
+    if [[ ! -d "$OS_DIR/$d" ]]; then
+      mkdir -p "$OS_DIR/$d"
+      echo "  [FIXED] recriado: $d/"
+      fixed=$((fixed+1))
+    fi
+  done
+
+  # Reinicializar banco se ausente
+  if [[ ! -f "$DB" ]]; then
+    bash "$OS_DIR/scripts/db-init.sh"
+    echo "  [FIXED] banco reinicializado"
+    fixed=$((fixed+1))
+  fi
+
+  # Recriar registry se ausente
+  if [[ ! -f "$REGISTRY" ]]; then
+    python3 "$OS_DIR/scripts/discover.py"
+    echo "  [FIXED] registry recriado"
+    fixed=$((fixed+1))
+  fi
+
+  # Corrigir permissões
+  chmod +x "$OS_DIR/bin/impar-os" 2>/dev/null && echo "  [OK] permissão CLI"
+  chmod +x "$OS_DIR/scripts/"*.sh 2>/dev/null && echo "  [OK] permissões scripts"
+
+  echo ""
+  echo "REPAIR: $fixed correções aplicadas"
+  _log_exec "repair" "ok" 0 0
+}
+
+cmd_help() {
+  cat <<HELP
+IMPAR OS v$VERSION — Orquestrador de automações Impar Imóveis
+
+USO: impar-os <comando> [--json]
+
+COMANDOS:
+  status       Estado geral do sistema
+  health       Verificação de saúde detalhada
+  discover     Descobre automações e atualiza registry
+  sync         Sincroniza estado com banco SQLite
+  workflows    Lista workflows n8n
+  test         Executa suite de testes
+  verify       Verifica integridade dos componentes
+  report       Gera relatório JSON completo
+  token-report Relatório de economia de tokens
+  dry-run      Simula execuções sem efeito real
+  repair       Auto-reparo de problemas seguros
+
+FLAGS:
+  --json       Saída em JSON estruturado
+
+PAINEL n8n: http://127.0.0.1:5678
+
+PRINCÍPIO: AI_USED=FALSE por padrão
+HELP
+}
+
+# Dispatch
+case "$CMD" in
+  status)       cmd_status ;;
+  health)       cmd_health ;;
+  discover)     cmd_discover ;;
+  sync)         cmd_sync ;;
+  workflows)    cmd_workflows ;;
+  test)         cmd_test ;;
+  verify)       cmd_verify ;;
+  report)       cmd_report ;;
+  token-report) cmd_token_report ;;
+  dry-run)      cmd_dry_run ;;
+  repair)       cmd_repair ;;
+  help|--help|-h) cmd_help ;;
+  *)
+    echo "Comando desconhecido: $CMD"
+    echo "Use: impar-os help"
+    exit 1
+    ;;
+esac

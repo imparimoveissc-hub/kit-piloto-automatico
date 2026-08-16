@@ -1,0 +1,28 @@
+{
+  "version": "3.0.0",
+  "stage": "ETAPA 3A.5",
+  "status": "Certified Candidate",
+  "timestamp": "2026-07-23T03:07:57Z",
+  "kernel": {
+    "version_hash": "141d2612a1a6dddb8f273cdf8089aac72d9a02d07d86009d858b8b2c87d6393e",
+    "registry_hash": "54e9e053e044fc9875579dfef1e842b540e715784324078dd72193c2ecaf7ce0",
+    "graph_hash": "23161fe23ca4e7b2373c9c607765bcb856dd3d6b455e73d6b27bd1c5cf1ca044",
+    "whitelist_hash": "40bec479f7d895d6458411dd93a00226cb433d796ea5815cfcd46eaf9749cf83"
+  },
+  "components": {
+    "modules": 0,
+    "libraries": 0,
+    "automations": 9,
+    "launchagents": 0,
+    "tests": 0,
+    "knowledge_files": 7
+  },
+  "files_verified": {
+    "registry.json": "valid",
+    "graph.json": "valid",
+    "VERSION": "present",
+    "CHANGELOG.md": "present",
+    "RELEASE_NOTES.md": "present"
+  },
+  "certificate_file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/.impar/certificates/kernel-cert-20260723-000757.json"
+}

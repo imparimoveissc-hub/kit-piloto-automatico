@@ -1,0 +1,122 @@
+{
+  "comparison_timestamp": "2026-07-23T08:20:00Z",
+  "property_code": "AP0205",
+  "internal_source": "imoveis-locacao.csv",
+  "public_source": "https://www.imparimoveis.com/imovel/4283829/apartamento-locacao-joinville-sc-atiradores-morada-visconde",
+  "conflicts_found": 0,
+  "critical_conflicts": 0,
+  "fields": {
+    "property_code": {
+      "internal_value": "AP0205",
+      "public_value": "AP0205",
+      "selected_value": "AP0205",
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Código confirmado em ambas as fontes"
+    },
+    "operation": {
+      "internal_value": "locacao",
+      "public_value": "locacao",
+      "selected_value": "locacao",
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Operação confirmada (aluguel)"
+    },
+    "price": {
+      "internal_value": "R$ 3.350",
+      "public_value": "R$ 3.350",
+      "selected_value": "R$ 3.350",
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Preço confirmado em ambas as fontes"
+    },
+    "property_type": {
+      "internal_value": "Apartamento",
+      "public_value": "Apartamento",
+      "selected_value": "Apartamento",
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Tipo de imóvel confirmado"
+    },
+    "city": {
+      "internal_value": "Joinville SC",
+      "public_value": "Joinville, SC",
+      "selected_value": "Joinville",
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Cidade confirmada, apenas formatação diferente"
+    },
+    "neighborhood": {
+      "internal_value": "Atiradores",
+      "public_value": "Atiradores",
+      "selected_value": "Atiradores",
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Bairro confirmado em ambas as fontes"
+    },
+    "bedrooms": {
+      "internal_value": 2,
+      "public_value": 2,
+      "selected_value": 2,
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Número de dormitórios confirmado"
+    },
+    "suites": {
+      "internal_value": 1,
+      "public_value": 1,
+      "selected_value": 1,
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Número de suítes confirmado"
+    },
+    "bathrooms": {
+      "internal_value": 2,
+      "public_value": 2,
+      "selected_value": 2,
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Número de banheiros confirmado"
+    },
+    "parking_spaces": {
+      "internal_value": 1,
+      "public_value": 1,
+      "selected_value": 1,
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Número de vagas confirmado"
+    },
+    "total_area_m2": {
+      "internal_value": 90.0,
+      "public_value": 90.0,
+      "selected_value": 90.0,
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Área total confirmada"
+    },
+    "built_area_m2": {
+      "internal_value": 68.5,
+      "public_value": 68.5,
+      "selected_value": 68.5,
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Área construída confirmada"
+    },
+    "availability": {
+      "internal_status": "Ativo (Inicial)",
+      "public_status": "Página acessível e ativa",
+      "selected_value": "Disponível",
+      "source_selected": "internal",
+      "conflict": false,
+      "decision": "Imóvel disponível em ambas as fontes"
+    }
+  },
+  "summary": {
+    "total_fields_compared": 13,
+    "fields_matching": 13,
+    "fields_conflicting": 0,
+    "critical_conflicts": 0,
+    "validation_result": "PASS",
+    "recommendation": "Prosseguir com publicação - todas as informações críticas foram validadas"
+  }
+}

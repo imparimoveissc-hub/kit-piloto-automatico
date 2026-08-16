@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "kpa30-marketplace",
+  "description": "Plugins de referência do Kit Piloto Automático V30 — fluxos jurídicos e operacionais em pt-BR, começando pela prática imobiliária (locação): revisão e geração de contratos, acompanhamento de reajuste/renovação e alertas antes dos prazos vencerem. Todo output é rascunho para revisão humana, não aconselhamento jurídico.",
+  "owner": {
+    "name": "KPA30"
+  },
+  "plugins": [
+    {
+      "name": "imobiliario-juridico",
+      "displayName": "Jurídico Imobiliário",
+      "source": "./imobiliario-juridico",
+      "description": "Revisa e gera contratos de locação (residencial e comercial) contra o playbook da imobiliária e a Lei 8.245/91, acompanha reajustes por índice e fins de vigência antes dos prazos, e traduz a revisão em um memorando que o corretor e o proprietário realmente leem. Ancorado no fluxo que o kit já roda para a Impar Imóveis.",
+      "author": {
+        "name": "KPA30"
+      }
+    }
+  ]
+}

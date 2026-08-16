@@ -1,0 +1,83 @@
+{
+  "name": "IMPAR-02-automation-discovery",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "impar-discover",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "impar02-wh",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "impar-discover-v1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const key = $input.item.json.headers?.['x-impar-key'] || '';\nconst { execSync } = require('child_process');\nlet envKey = '';\ntry { envKey = execSync('grep IMPAR_WEBHOOK_KEY ~/.impar-n8n-core/.env | cut -d= -f2-', {timeout:3000}).toString().trim(); } catch(e) {}\nif (key !== envKey || !key) return [{ json: { error: 'unauthorized', ai_used: false } }];\nreturn [{ json: { authorized: true, body: $input.item.json.body } }];"
+      },
+      "id": "impar02-auth",
+      "name": "Autenticar",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { execSync } = require('child_process');\nconst prj = process.env.HOME + '/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB';\nlet result = '';\ntry { result = execSync(`python3 \"${prj}/IMPAR_OS/scripts/discover.py\" 2>&1`, {timeout:30000}).toString(); } catch(e) { result = e.message; }\nreturn [{ json: { status: 'ok', ai_used: false, timestamp: new Date().toISOString(), output: result.substring(0,500) } }];"
+      },
+      "id": "impar02-run",
+      "name": "Rodar Discovery",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Autenticar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Autenticar": {
+      "main": [
+        [
+          {
+            "node": "Rodar Discovery",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs02Discovery"
+}

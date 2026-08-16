@@ -1,0 +1,124 @@
+# ────────────────────────────────────────────────────────────────────
+# Kit Piloto Automático V30 — .gitignore
+# Anti-leak primeiro. Tudo aqui NUNCA pode ir pro Git.
+# ────────────────────────────────────────────────────────────────────
+
+# Secrets / credenciais (CRÍTICO — não relaxar)
+.env
+.env.*
+.env\ *
+!.env.example
+*.env
+.envrc
+secrets/
+credentials/
+*credentials*.json
+*credentials*.yaml
+*credentials*.yml
+*token*
+!*tokens*.md
+!*token*.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_dsa
+id_ed25519
+id_ecdsa
+
+# Meta CLI / Marketing API
+.meta-cli/
+~/.meta-cli/
+meta-cli-config.yaml
+meta-cli-config.yml
+.meta-ads-cache/
+fb_access_token*
+ACCESS_TOKEN*
+SYSTEM_USER_TOKEN*
+
+# Caches de runtime e API
+.cache/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# Kernel IMPAR: Runtime e sessões autenticadas (segurança)
+.impar/runtime/
+.impar/sessions/
+
+# Node / npm (se algum mentorado adicionar tooling node)
+node_modules/
+.npm/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python venv (caso instalado dentro do kit)
+.venv/
+venv/
+env/
+.python-version
+
+# IDE / editor
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Outputs locais que mentorados vão gerar (não são parte do template do kit)
+06_OUTPUTS/**
+!06_OUTPUTS/.gitkeep
+!06_OUTPUTS/README.md
+07_LOGS/**
+!07_LOGS/.gitkeep
+!07_LOGS/README.md
+05_WORKSPACE/clientes/**
+!05_WORKSPACE/clientes/.gitkeep
+!05_WORKSPACE/clientes/README.md
+!05_WORKSPACE/clientes/_template/
+
+# Relatórios e exports gerados pela Traffic Stack
+**/_relatorios/
+**/_exports/
+**/_swipe/
+*.csv.local
+*.json.local
+
+# Memória local do Claude Code (sessão específica)
+.claude/projects/
+.claude/sessions/
+.claude/state/
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.bak
+*.orig
+.~lock.*
+
+# Backups e arquivos grandes
+*.tar.gz
+*.tar.gz.icloud
+*.zip.icloud
+
+# Repositórios externos embutidos (não são parte do kit)
+_ref-claude-for-legal/
+meu-video/
+
+# Sistema operacional
+$RECYCLE.BIN/
+*.lnk
+
+# Stubs iCloud (ponteiros, não conteúdo real)
+*.icloud

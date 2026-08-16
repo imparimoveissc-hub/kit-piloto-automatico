@@ -1,0 +1,34 @@
+SERVICE: impar-update-current-state
+ENTRYPOINT: /Users/usuario/.local/impar-automation/update-current-state.py
+COMMAND: python3 /Users/usuario/.local/impar-automation/update-current-state.py
+
+ARQUIVOS QUE SERÃO LIDOS:
+  • ~/.local/impar-automation/marketplace_boot_checkpoint.json
+  • ~/.local/impar-automation/chaves-na-mao/checkpoint.json
+  • 07_LOGS/task-ledger.md
+
+ARQUIVOS QUE SERÃO MODIFICADOS:
+  • 07_LOGS/CURRENT_STATE.md (backup de anterior em CURRENT_STATE.backup-HHMMSS)
+
+ESTIMATIVA DE DURAÇÃO: 5-10 segundos
+
+RISCOS CONHECIDOS:
+  • BAIXO: Leitura de JSON pode falhar se corrompido
+  • BAIXO: Arquivo task-ledger pode estar em uso
+
+PRÉ-CONDIÇÕES:
+  • Python 3 disponível
+  • Diretório ~/.local/impar-automation/ acessível
+  • 07_LOGS/ acessível
+
+PÓS-CONDIÇÕES:
+  • CURRENT_STATE.md atualizado
+  • Backup anterior preservado
+  • Logs da execução em ~/.local/impar-automation/logs/
+
+ROLLBACK POSSÍVEL:
+  • Restaurar CURRENT_STATE.backup-HHMMSS → CURRENT_STATE.md
+  • Comando: impar rollback-last impar-update-current-state
+
+DATA DO PLANO: 2026-07-23T03:12:36Z
+Hash: 6b4ab7db23b45b65926af82d4ba02c2bbf59c452f8b986a89897215a043291d1

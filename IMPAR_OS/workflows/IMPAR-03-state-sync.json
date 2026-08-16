@@ -1,0 +1,65 @@
+{
+  "name": "IMPAR-03-state-sync",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "impar03-trigger",
+      "name": "Trigger 15min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { execSync } = require('child_process');\nconst prj = process.env.HOME + '/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB';\nlet out = '';\ntry { out = execSync(`\"${prj}/IMPAR_OS/bin/impar-os\" sync 2>&1`, {timeout:20000}).toString(); } catch(e) { out = e.message; }\nreturn [{ json: { status: 'ok', ai_used: false, timestamp: new Date().toISOString(), sync_output: out.substring(0,300) } }];"
+      },
+      "id": "impar03-sync",
+      "name": "Sincronizar Estado",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Trigger 15min": {
+      "main": [
+        [
+          {
+            "node": "Sincronizar Estado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    },
+    {
+      "name": "cron"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs03Sync"
+}

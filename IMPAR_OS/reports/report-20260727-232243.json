@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-07-28T02:22:43Z",
+  "version": "1.0.0",
+  "system": {
+    "installed_at": "2026-07-28T02:15:06Z",
+    "version": "1.0.0",
+    "ai_calls_today": "0",
+    "ai_calls_avoided": "0",
+    "token_savings_estimated": "0",
+    "last_sync": "2026-07-28T02:21:40Z",
+    "n8n_status": "true"
+  },
+  "workflows": {},
+  "executions": {
+    "total": 1,
+    "with_ai": 0
+  },
+  "errors": {
+    "total": 0,
+    "unresolved": 0
+  },
+  "token_savings": {
+    "estimated": 0
+  },
+  "credentials": [
+    {
+      "id": "nfse.portal",
+      "service": "NFS-e Portal Nacional",
+      "label": "login",
+      "status": "CREDENTIAL_PENDING"
+    },
+    {
+      "id": "facebook.session",
+      "service": "Facebook Playwright Session",
+      "label": "cookie",
+      "status": "CREDENTIAL_PENDING"
+    },
+    {
+      "id": "asaas.api",
+      "service": "Asaas API",
+      "label": "api_key",
+      "status": "CREDENTIAL_PENDING"
+    }
+  ]
+}

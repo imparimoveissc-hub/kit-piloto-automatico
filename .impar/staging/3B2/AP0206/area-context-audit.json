@@ -1,0 +1,80 @@
+{
+  "codigo": "AP0206",
+  "id_interno": 4298360,
+  "timestamp": "2026-07-23T09:36:00Z",
+  "revisao_conclusoes_anteriores": {
+    "erro_identificado": "Interpretação incorreta de dados de contexto de edificação como contaminação",
+    "causa": "Falta de confirmação humana sobre estrutura física do imóvel",
+    "correcao_autorizada_por": "Jonata (responsável pelo cadastro - 2026-07-23)",
+    "data_correcao": "2026-07-23T09:36:00Z"
+  },
+  "areas_confirmadas": {
+    "unit_useful_area_m2": {
+      "valor": 200,
+      "tipo": "Área útil da unidade (apartamento)",
+      "fonte": "HUMAN_CONFIRMED + PÁGINA_PÚBLICA",
+      "pagina_referencia": "Campo estruturado 'Área Útil: 200,00 m²'",
+      "seletor": "p contendo 'Área Útil'",
+      "interpretacao_anterior_incorreta": "Interpretada como único imóvel",
+      "interpretacao_corrigida": "Área da unidade anunciada (correto)",
+      "status": "VALIDADO"
+    },
+    "building_total_built_area_m2": {
+      "valor": 660,
+      "tipo": "Área construída total da edificação",
+      "fonte": "HUMAN_CONFIRMED + PÁGINA_PÚBLICA",
+      "pagina_referencia": "Campo estruturado 'Área Construída: 660,00 m²'",
+      "seletor": "p contendo 'Área Construída'",
+      "interpretacao_anterior_incorreta": "Classificada como 'dados de outro imóvel'",
+      "interpretacao_corrigida": "Área construída do prédio contendo o apartamento (correto)",
+      "contexto": "Comum em imóveis multiunidade",
+      "status": "VALIDADO"
+    },
+    "building_land_area_m2": {
+      "valor": 321,
+      "tipo": "Área do terreno da edificação",
+      "fonte": "HUMAN_CONFIRMED + PÁGINA_PÚBLICA",
+      "pagina_referencia": "Campo estruturado 'Área Terreno: 321,00 m²'",
+      "seletor": "p contendo 'Área Terreno'",
+      "interpretacao_anterior_incorreta": "Classificada como 'impossível para apartamento' e 'dados de outro imóvel'",
+      "interpretacao_corrigida": "Área do terreno onde a edificação foi construída (correto para condomínio)",
+      "contexto": "Informação de contexto legítima para imóvel em edificação",
+      "status": "VALIDADO"
+    }
+  },
+  "model_payload_correto": {
+    "structure": {
+      "unit": {
+        "useful_area_m2": 200,
+        "private_area_m2": null,
+        "total_area_m2": null,
+        "area_type_specification": "HUMAN_CONFIRMED_USEFUL_AREA_ONLY"
+      },
+      "building_context": {
+        "total_built_area_m2": 660,
+        "land_area_m2": 321,
+        "descricao": "O apartamento ocupa parte de edificação maior"
+      }
+    },
+    "nota": "Não usar campos genéricos. Diferenciar sempre unidade vs edificação."
+  },
+  "conclusoes_anteriores_supersedidas": [
+    {
+      "conclusao_anterior": "Dados de dois imóveis misturados",
+      "status": "INCORRETA",
+      "razao_revogacao": "Confirmação humana de contexto de edificação"
+    },
+    {
+      "conclusao_anterior": "Apartamentos não têm terreno",
+      "status": "INCORRETA",
+      "razao_revogacao": "321 m² referem-se ao terreno da edificação, não da unidade",
+      "contexto_valido": "Comum fornecer área de terreno para imóvel em condomínio/edificação"
+    },
+    {
+      "conclusao_anterior": "Área construída impossível para apartamento",
+      "status": "INCORRETA",
+      "razao_revogacao": "660 m² é área total construída da edificação, não da unidade única"
+    }
+  ],
+  "status": "AREA_CONTEXT_HUMAN_CONFIRMED"
+}

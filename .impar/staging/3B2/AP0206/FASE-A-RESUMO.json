@@ -1,0 +1,77 @@
+{
+  "codigo": "AP0206",
+  "etapa": "3B.2 — FASE A COMPLETA",
+  "data_execucao": "2026-07-23",
+  "status_final": "PROPERTY_PAYLOAD_READY_FOR_APPROVAL",
+  "result": "FASE_A_CONCLUIDA_COM_SUCESSO",
+  "resumo_executivo": {
+    "propriedade": "Apartamento para Locação em Ubatuba, São Francisco do Sul, SC",
+    "id_interno": 4298360,
+    "codigo_impar": "AP0206",
+    "url_publica": "https://www.imparimoveis.com/imovel/4298360/apartamento-locacao-sao-francisco-do-sul-sc-ubatuba",
+    "status_disponibilidade": "Disponível",
+    "operacao": "Locação",
+    "preco": "R$ 2.800,00/mês",
+    "acesso_pagina": "✅ Sucesso (HTTP 200)"
+  },
+  "validacoes_executadas": {
+    "1_correcao_mapeamento": {
+      "status": "✅ PASSOU",
+      "descricao": "Correção de causa raiz validada — listing.json atualizado",
+      "dados_antigos_removidos": true,
+      "url_corrigida": "imparimoveis.com (não rogga.com.br)"
+    },
+    "2_cadeia_mapeamento": {
+      "status": "✅ PASSOU",
+      "descricao": "AP0206 → listing → 4298360 → URL → página correta",
+      "confirmacoes": 5
+    },
+    "3_acesso_pagina": {
+      "status": "✅ PASSOU",
+      "descricao": "Página pública acessível, dados estruturados presentes",
+      "elementos_estruturados": 4
+    },
+    "4_dados_estruturados": {
+      "status": "✅ PASSOU",
+      "descricao": "Todos os campos essenciais coletados com sucesso"
+    },
+    "5_galeria_imagens": {
+      "status": "✅ PASSOU",\n      "descricao": "68 imagens do imóvel coletadas, validadas, carregadas",\n      "ordem_preservada": true
+    },
+    "6_taxas_investigacao": {
+      "status": "⚠️ COMPLETA COM AUSENCIAS",
+      "descricao": "Aluguel confirmado; condomínio/IPTU não publicados",
+      "recomendacao": "Contatar corretor para confirmar outras taxas"
+    },
+    "7_nenhuma_contaminacao": {
+      "status": "✅ PASSOU",
+      "descricao": "Nenhum dado do Urban Orquídeas em artefatos ativos",
+      "dados_antigos_detectados": 0
+    }
+  },
+  "dados_coletados": {
+    "operacao": "Locação",
+    "tipo_imovel": "Apartamento",
+    "preço_aluguel": "R$ 2.800,00/mês",
+    "condominio": "Não publicado",
+    "iptu": "Não publicado",
+    "taxas_adicionais": "Não publicado",
+    "seguro_incendio": "Não publicado",
+    "dormitorios": 5,
+    "suites": 1,
+    "banheiros": 2,
+    "vagas_garagem": 1,
+    "salas": 3,
+    "area_total_m2": 200.00,
+    "area_privativa_m2": 200.00,
+    "area_construida_m2": 660.00,
+    "area_terreno_m2": 321.00,
+    "cidade": "São Francisco do Sul",
+    "estado": "SC",
+    "bairro": "Ubatuba",
+    "endereco_publico": "Av. Duque de Caxias",
+    "mobiliado": "Não",\n    "permuta": "Sim",\n    "pagamento_status": "Pronto (imóvel disponível para ocupação)",\n    "acabamentos": ["Piso Cerâmico", "Vidros Blindex"],\n    "caracteristicas": ["Portão Eletrônico", "Alarme", "cisterna de água"],\n    "comodos": ["Área de Serviço", "Copa", "Cozinha", "Despensa", "Escritório", "Sala"],\n    "condominio_oferece": ["Iluminação"],\n    "infraestrutura": ["Averbado", "Com Escritura"],\n    "proximidades": ["Bares e Restaurantes", "Escola", "Farmácia", "Supermercado", "BR 280", "Porto Marítimo"]\n  },\n  "galeria": {\n    "total_imagens_coletadas": 68,\n    "status": "COMPLETA_E_VALIDADA",\n    "imagens_carregadas": true,\n    "ordem_preservada": true,\n    "dimensoes_extraidas": true,\n    "vinculacao_id_confirmada": true\n  },\n  "artefatos_gerados": {\n    "property-payload.json": "✅ Gerado",\n    "source-comparison.json": "✅ Gerado",\n    "image-gallery-audit.json": "✅ Gerado",\n    "fees-audit.json": "✅ Gerado",\n    "mapping-validation-result.json": "✅ Gerado",\n    "publication-history-audit.json": "✅ Gerado",\n    "marketplace-copy.json": "✅ Gerado",\n    "hashes.json": "✅ Gerado",\n    "FASE-A-RESUMO.json": "✅ Este arquivo"\n  },\n  "confirmacoes": {\n    "facebook_marketplace_nao_acessado": true,\n    "grupos_facebook_nao_acessados": true,\n    "fase_b_nao_iniciada": true,\n    "rc1_permaneceu_intacto": true,\n    "audit_chain_nao_alterada": true,\n    "nenhuma_automacao_disparada": true\n  },\n  "campos_ausentes": [],\n  "conflitos_detectados": [],\n  "avisos": [\n    "Condomínio, IPTU e taxas adicionais não estão publicados na página — recomenda-se contatar corretor para confirmar existência"\n  ],\n  "recomendacoes": [\n    "Confirmação CRM do código AP0206 livre (ação: Jonata)",\n    "Se houver taxas adicionais não publicadas, atualizar property-payload.json antes de FASE B",\n    "Revisar marketplace-copy.json para adequação de tom/estilo do cliente"
+  ],\n  "proxima_etapa": {\n    "fase": "3B.2 — FASE B (Execução)",\n    "requisitos_atendidos": true,\n    "bloqueadores": 0,\n    "requerimento": "Aprovação explícita do usuário para iniciar FASE B"
+  },\n  "hash_integridade": {\n    "listing_json_hash": "fbdd49444b677236afb45deeca40e13793f1d22b3d9d972f6b0b2a4e3e550e4b",\n    "payload_hash": "[será calculado em validação final]",\n    "timestamp": "2026-07-23T09:22:00Z"
+  },\n  "conclusao": "✅ ETAPA 3B.2 — FASE A CONCLUÍDA COM SUCESSO\n\nAP0206 foi completamente revalidado com a URL corrigida. Todos os dados foram coletados, todos os artefatos foram gerados, e nenhuma contaminação de dados antigos foi encontrada. O imóvel está pronto para FASE B de execução no Marketplace, com a aprovação do usuário.\n\nStatus: PROPERTY_PAYLOAD_READY_FOR_APPROVAL"
+}

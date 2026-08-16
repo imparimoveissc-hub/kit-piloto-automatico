@@ -1,0 +1,6 @@
+messenger.impar.example.com {
+  encode gzip
+
+  @bridge path /webhook/messenger-lead /health
+  reverse_proxy @bridge 127.0.0.1:8791
+}

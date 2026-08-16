@@ -1,0 +1,57 @@
+client: "[A PREENCHER]"
+version: "1.0"
+status: "draft"
+
+active_squad:
+  name: "[A PREENCHER]"
+  goal: "[A PREENCHER]"
+  phase: "bootstrap | research | build | operate | scale | support"
+
+roles:
+  cos:
+    enabled: true
+    context: ["current-context", "task-ledger", "squad-manifest"]
+  strategist:
+    enabled: false
+    use_when: []
+  copy_director:
+    enabled: false
+    use_when: []
+  whatsapp_orchestrator:
+    enabled: false
+    use_when: []
+  traffic_analyst:
+    enabled: false
+    use_when: []
+  qa_editor:
+    enabled: true
+    use_when: ["gate bloqueante", "entrega final"]
+
+commands: []
+
+client_learning:
+  repeated_requests: []
+  preferred_outputs: []
+  banned_phrases: []
+  approved_claims: []
+  unresolved_gaps: []
+
+access:
+  folders: []
+  tools: []
+  blocked_integrations: []
+
+automation_limits:
+  can_read: []
+  can_write_drafts: []
+  requires_confirmation:
+    - "publicar"
+    - "disparo em massa"
+    - "pausar campanha"
+    - "editar budget"
+    - "alterar LP publicada"
+
+review:
+  cadence: "apos entrega relevante ou falha repetida"
+  next_review_trigger: "[A PREENCHER]"
+

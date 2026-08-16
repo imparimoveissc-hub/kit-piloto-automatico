@@ -1,0 +1,40 @@
+{
+  "version": "1.0.0",
+  "type": "externals_registry",
+  "description": "Registro de Projetos Externos e Experimentais",
+  "note": "Estes são projetos que existem em 18_AUTOMATION_STACK mas não fazem parte do pipeline operacional da Impar Imóveis.",
+  "generated": "2026-07-22T22:43:00Z",
+  "externals": [
+    {
+      "id": 1,
+      "name": "cinematic-video-editor",
+      "category": "external",
+      "type": "video_editing",
+      "description": "Automação — Editor Cinematográfico de Vídeos",
+      "status": "inactive",
+      "path": "18_AUTOMATION_STACK/cinematic-video-editor",
+      "entry_point": "main.py (presumido)",
+      "launchagents": "none",
+      "logs": "none",
+      "checkpoints": "none",
+      "purpose": "Edição de vídeos com recursos cinematográficos",
+      "relevance_to_impar": "BAIXA — Não mencionado em CLAUDE.md ou operações Impar",
+      "reason_external": [
+        "Não documentado em CLAUDE.md",
+        "Não mencionado em CURRENT_STATE.md",
+        "Sem LaunchAgent de agendamento",
+        "Sem documentação operacional",
+        "Nome genérico (sem prefixo 'impar-' padrão)",
+        "Tipo 'video' não alinha com automações de imóveis/marketplace"
+      ],
+      "assessment": "Projeto de teste/demonstração ou experimentação",
+      "recommendation": "Manter como externo. Remover apenas se confirmado que não é mais necessário.",
+      "last_verified": "2026-07-22T22:43:00Z",
+      "verified_by": "auditoria rigorosa"
+    }
+  ],
+  "metadata": {
+    "total_externals": 1,
+    "purpose": "Rastrear projetos não-operacionais"
+  }
+}

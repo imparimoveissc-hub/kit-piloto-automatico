@@ -1,0 +1,73 @@
+{
+  "codigo": "AP0206",
+  "id_interno": 4298360,
+  "timestamp": "2026-07-23T09:17:00Z",
+  "investigacao_taxas": {
+    "metodos_utilizados": [
+      "HTML inicial (page text)",
+      "JavaScript para dados estruturados",
+      "JSON-LD extração",
+      "Busca por atributos data-*",
+      "Busca por classes CSS relacionadas a preço/taxa"
+    ],
+    "elementos_analisados": [
+      "Seção de descrição do imóvel",
+      "Campos estruturados (tags <h2>, <p>, <span>)",
+      "Meta tags OpenGraph",
+      "JSON-LD schemas",
+      "Scripts de configuração",
+      "Atributos de dados customizados"
+    ]
+  },
+  "taxas_encontradas": {
+    "condominio": {
+      "valor": null,
+      "encontrado": false,
+      "fonte": "NÃO PUBLICADO NA PÁGINA",
+      "confianca": "AUSENTE"
+    },
+    "iptu": {
+      "valor": null,
+      "encontrado": false,
+      "fonte": "NÃO PUBLICADO NA PÁGINA",
+      "confianca": "AUSENTE"
+    },
+    "seguro_incendio": {
+      "valor": null,
+      "encontrado": false,
+      "fonte": "NÃO PUBLICADO NA PÁGINA",
+      "confianca": "AUSENTE"
+    },
+    "taxa_adicional": {
+      "valor": null,
+      "encontrado": false,
+      "fonte": "NÃO PUBLICADO NA PÁGINA",
+      "confianca": "AUSENTE"
+    }
+  },
+  "preco_principal": {
+    "valor": 2800.00,
+    "moeda": "BRL",
+    "periodicidade": "mensal",
+    "tipo": "aluguel",
+    "encontrado": true,
+    "fonte_seletor": "h2.info__valor",
+    "texto_original": "R$ 2.800",
+    "normalizacao": "Interpretado como R$ 2.800,00/mês",
+    "confianca": "ALTA"
+  },
+  "conclusoes": {
+    "aluguel_confirmado": true,
+    "valor_aluguel": "R$ 2.800,00/mês",
+    "taxas_adicionais_publicadas": false,
+    "recomendacao": "Contatar Impar Imóveis para confirmar se existem outras taxas não publicadas na página",
+    "status": "COMPLETA_COM_AUSENCIAS"
+  },
+  "observacoes": {
+    "nota1": "A página publica apenas o valor do aluguel (R$ 2.800)",
+    "nota2": "Não há indicação de condomínio, IPTU ou outras taxas na página pública",
+    "nota3": "A descrição menciona 'Valor do Imóvel R$ 2.800,00' confirmando o preço",
+    "nota4": "Seção 'Sobre o pagamento' apenas indica 'Pronto' (imóvel pronto para ocupação)",
+    "nota5": "Possível que outras taxas estejam associadas mas não apareçam até contato com corretor"
+  }
+}

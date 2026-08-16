@@ -1,0 +1,37 @@
+{
+  "codigo": "AP0206",
+  "id_interno": 4298360,
+  "timestamp_confirmacao": "2026-07-23T09:35:00Z",
+  "confirmacoes": [
+    {
+      "campo": "unit_useful_area_m2",
+      "valor": 200,
+      "fonte_confirmacao": "HUMAN_OPERATOR",
+      "confirmado_por": "Jonata (responsável pelo cadastro)",
+      "data_confirmacao": "2026-07-23",
+      "interpretacao": "200 m² correspondem à área do apartamento/unidade anunciada",
+      "confianca": "MUITO_ALTA"
+    },
+    {
+      "campo": "building_total_built_area_m2",
+      "valor": 660,
+      "fonte_confirmacao": "HUMAN_OPERATOR",
+      "confirmado_por": "Jonata (responsável pelo cadastro)",
+      "data_confirmacao": "2026-07-23",
+      "interpretacao": "660 m² correspondem à área construída total da edificação",
+      "contexto": "Imóvel é um apartamento que ocupa parte de uma edificação maior",
+      "confianca": "MUITO_ALTA"
+    },
+    {
+      "campo": "building_land_area_m2",
+      "valor": 321,
+      "fonte_confirmacao": "HUMAN_OPERATOR",
+      "confirmado_por": "Jonata (responsável pelo cadastro)",
+      "data_confirmacao": "2026-07-23",
+      "interpretacao": "321 m² correspondem à área do terreno da edificação",
+      "contexto": "Terreno da edificação, não exclusivo da unidade",
+      "confianca": "MUITO_ALTA"
+    }
+  ],
+  "conclusao": "Os valores não representam contaminação de dados. São informações contextuais legítimas de um apartamento em edificação maior. HUMAN_CONFIRMED_AREA_CONTEXT=true"
+}

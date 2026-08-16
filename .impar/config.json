@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "name": "impar-wrapper",
+  "description": "Ponto de entrada central para Automação Completa Impar Imóveis",
+  "project_root": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB",
+  "memory_path": "~/.claude/projects/-Users-usuario-Library-Mobile-Documents-com-apple-CloudDocs-Kit-Piloto-Automatico-V30-DISTRIB/memory",
+  "logs_path": "07_LOGS",
+  "workspace_path": "05_WORKSPACE",
+  "automation_stack_path": "18_AUTOMATION_STACK",
+  "local_bin_path": "~/.local/bin",
+  "backup_base_path": "/private/tmp/impar-backups",
+  "modules": {
+    "help": "Mostrar ajuda dos comandos",
+    "status": "Consultar estado das automações",
+    "doctor": "Diagnóstico somente leitura",
+    "logs": "Listar e filtrar logs por módulo",
+    "memory": "Estado da memória persistente",
+    "backup": "Backup seguro da memória e configurações"
+  },
+  "read_only_commands": ["help", "status", "doctor", "logs", "memory"],
+  "safe_commands": ["backup"],
+  "launchagents_path": "~/Library/LaunchAgents",
+  "max_log_lines": 50,
+  "memory_index_file": "MEMORY.md"
+}

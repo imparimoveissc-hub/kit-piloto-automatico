@@ -1,0 +1,107 @@
+{
+  "modules": {
+    "directory": ".impar/modules",
+    "count": 32,
+    "files": {
+      "certify.sh": {
+        "size": 2340,
+        "hash": "computed_on_freeze",
+        "modified": "2026-07-23"
+      },
+      "verify-audit.sh": {
+        "size": 1890,
+        "hash": "computed_on_freeze",
+        "modified": "2026-07-23"
+      },
+      "rollback.sh": {
+        "size": 1560,
+        "hash": "computed_on_freeze",
+        "modified": "2026-07-22"
+      },
+      "plan-service.sh": {
+        "size": 1200,
+        "hash": "computed_on_freeze",
+        "modified": "2026-07-22"
+      },
+      "other_modules": {
+        "count": 28,
+        "total_size": 45000
+      }
+    }
+  },
+  "libraries": {
+    "directory": ".impar/lib",
+    "count": 10,
+    "files": {
+      "executor.sh": {
+        "size": 3200,
+        "hash": "computed_on_freeze",
+        "modified": "2026-07-23"
+      },
+      "audit-chain.sh": {
+        "size": 2800,
+        "hash": "computed_on_freeze",
+        "modified": "2026-07-23"
+      },
+      "certifier.sh": {
+        "size": 2500,
+        "hash": "computed_on_freeze",
+        "modified": "2026-07-23"
+      },
+      "common.sh": {
+        "size": 1800,
+        "hash": "computed_on_freeze",
+        "modified": "2026-07-22"
+      }
+    }
+  },
+  "knowledge": {
+    "directory": ".impar/knowledge",
+    "count": 7,
+    "description": "Metadata, topology, dependencies, risks, sources"
+  },
+  "graph": {
+    "directory": "graphify-out",
+    "count": 1,
+    "main_file": "graph.json",
+    "size": "variable",
+    "purpose": "Knowledge graph of entire codebase"
+  },
+  "certificates": {
+    "directory": ".impar/certificates",
+    "count": 2,
+    "latest": "kernel-cert-3A7-1-20260723-075255.json",
+    "purpose": "Certification records for kernel state"
+  },
+  "backups": {
+    "directory": ".impar/backups",
+    "count": 1,
+    "latest": "3A7-1-REVALIDATION-20260723-074320/",
+    "purpose": "State snapshots for recovery"
+  },
+  "audit": {
+    "directory": "07_LOGS",
+    "files": [
+      "EXECUTION_AUDIT.jsonl",
+      "EXECUTION_AUDIT_CHAIN.jsonl",
+      "LEGACY_AUDIT_BASELINE_V2.json"
+    ],
+    "purpose": "Immutable event log and hash-chained records"
+  },
+  "tests": {
+    "directory": ".impar/tests",
+    "count": 2,
+    "mandatory_negative_tests": 20,
+    "validation_status": "PASS 20/20"
+  },
+  "total_inventory": {
+    "modules": 32,
+    "libraries": 10,
+    "knowledge_files": 7,
+    "graph_nodes": "variable",
+    "certificates": 2,
+    "backups": 1,
+    "audit_files": 3,
+    "tests": 2
+  }
+}

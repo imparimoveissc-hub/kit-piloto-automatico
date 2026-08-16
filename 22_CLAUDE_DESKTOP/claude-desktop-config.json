@@ -1,0 +1,65 @@
+{
+  "_comment_top": "Template de claude_desktop_config.json para o Kit V30. Copie pro local correto do seu SO:",
+  "_comment_paths": {
+    "macOS": "~/Library/Application Support/Claude/claude_desktop_config.json",
+    "Windows": "%APPDATA%\\Claude\\claude_desktop_config.json",
+    "Linux": "~/.config/Claude/claude_desktop_config.json"
+  },
+  "_comment_replace": "ANTES de usar, remova as chaves '_comment_*' e substitua os tokens/paths reais.",
+
+  "mcpServers": {
+
+    "_tier_1_composio_rube": {
+      "_description": "Composio Rube — 1000+ apps em 1 install. Cobre Drive, Slack, Notion, Gmail, Linear, HubSpot, Salesforce, etc.",
+      "command": "npx",
+      "args": ["-y", "@composio/rube-mcp"]
+    },
+
+    "_tier_1_whatsapp": {
+      "_description": "WhatsApp MCP (verygoodplugins). Requer clone do repo em ~/mcps/whatsapp-mcp.",
+      "command": "node",
+      "args": ["~/mcps/whatsapp-mcp/index.js"]
+    },
+
+    "_tier_1_filesystem": {
+      "_description": "Filesystem MCP — acesso a pastas locais. Substituir paths.",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/SEU_USER/Kit-Piloto-Automatico-V30",
+        "/Users/SEU_USER/Clientes"
+      ]
+    },
+
+    "_tier_2_playwright": {
+      "_description": "Playwright — browser automation pra auditar LP, screenshots, etc.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-playwright"]
+    },
+
+    "_tier_2_firecrawl": {
+      "_description": "Firecrawl — scraping/research. Requer API key.",
+      "command": "npx",
+      "args": ["-y", "@firecrawl/mcp-server"],
+      "env": {
+        "FIRECRAWL_API_KEY": "fc-SUA_KEY_AQUI"
+      }
+    },
+
+    "_tier_3_github": {
+      "_description": "GitHub MCP — versionar projetos. Requer PAT.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_SEU_TOKEN_AQUI"
+      }
+    },
+
+    "_tier_3_sequential_thinking": {
+      "_description": "Sequential Thinking — raciocinio passo-a-passo pra tasks complexas.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    }
+  }
+}

@@ -1,0 +1,427 @@
+{
+  "version": "1.0.0",
+  "type": "launchagents",
+  "generated": "2026-07-22T22:53:00Z",
+  "description": "Mapa de LaunchAgents (macOS schedulers) para automa\u00e7\u00f5es",
+  "agents": [
+    {
+      "id": "la_com_impar_marketplace",
+      "bundle_id": "com.impar.marketplace",
+      "automation": "impar-facebook-marketplace-posting",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_crosspost",
+      "bundle_id": "com.impar.crosspost",
+      "automation": "impar-facebook-marketplace-posting",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_marketplace-restore-on-boot",
+      "bundle_id": "com.impar.marketplace-restore-on-boot",
+      "automation": "impar-facebook-marketplace-posting",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-inbox",
+      "bundle_id": "com.impar.messenger-inbox",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-inbox-5min",
+      "bundle_id": "com.impar.messenger-inbox-5min",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-varredura-auto",
+      "bundle_id": "com.impar.messenger-varredura-auto",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-desktop",
+      "bundle_id": "com.impar.messenger-desktop",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-bridge",
+      "bundle_id": "com.impar.messenger-bridge",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-bridge-health-check",
+      "bundle_id": "com.impar.messenger-bridge-health-check",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_chaves-na-mao-checker",
+      "bundle_id": "com.impar.chaves-na-mao-checker",
+      "automation": "chaves-na-mao-lead-checker",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_chaves-na-mao-3leads-checker",
+      "bundle_id": "com.impar.chaves-na-mao-3leads-checker",
+      "automation": "chaves-na-mao-lead-checker",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_notificar-leads-planilha",
+      "bundle_id": "com.impar.notificar-leads-planilha",
+      "automation": "impar-notificar-leads",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_rogga-sync",
+      "bundle_id": "com.impar.rogga-sync",
+      "automation": "impar-atualizacao-rogga-imobibrasil",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_grupo-jm-sync",
+      "bundle_id": "com.impar.grupo-jm-sync",
+      "automation": "impar-atualizacao-grupo-jm-imobibrasil",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_gerente-digital-whatsapp-startup_plist_disabled",
+      "bundle_id": "com.impar.gerente-digital-whatsapp-startup.plist.disabled",
+      "automation": "impar-whatsapp-bridge",
+      "status": "disabled",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_whatsapp-responder_plist_disabled",
+      "bundle_id": "com.impar.whatsapp-responder.plist.disabled",
+      "automation": "impar-whatsapp-bridge",
+      "status": "disabled",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_whatsapp-startup-notifier_plist_disabled",
+      "bundle_id": "com.impar.whatsapp-startup-notifier.plist.disabled",
+      "automation": "impar-whatsapp-bridge",
+      "status": "disabled",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_bootup_restore",
+      "bundle_id": "com.impar.bootup-restore",
+      "label": "Bootup Restore Automation",
+      "absolute_path": "/Users/usuario/Library/LaunchAgents/com.impar.bootup-restore.plist",
+      "program": "/Users/usuario/.local/impar-automation/bootup-restore-automation.sh",
+      "program_arguments": [
+        "/Users/usuario/.local/impar-automation/bootup-restore-automation.sh"
+      ],
+      "working_directory": null,
+      "run_at_load": true,
+      "keep_alive": false,
+      "startup_trigger": "on_boot",
+      "start_interval": 0,
+      "files_read": [
+        "/Users/usuario/.local/impar-automation/bootup-restore-automation.sh"
+      ],
+      "files_potentially_modified": [],
+      "related_scripts": [
+        "/Users/usuario/.local/impar-automation/bootup-restore-automation.sh"
+      ],
+      "logs": [
+        "/Users/usuario/Library/Logs/impar-bootup-restore.log",
+        "/Users/usuario/Library/Logs/impar-bootup-restore-error.log"
+      ],
+      "automation": null,
+      "kernel_relationship": "Infrastructure - System startup recovery",
+      "automation_relationship": "Not directly tied to operational automation",
+      "classification": "infrastructure",
+      "risk_level": "BAIXO",
+      "restrictions": "Must not be started manually; reserved for boot events",
+      "source": "ETAPA 3A.6.1 - LaunchAgent Mapping",
+      "source_type": "auditado",
+      "confidence": "alta",
+      "status": "active",
+      "verified_at": "2026-07-23T03:15:00Z",
+      "documentary_status": "mapped"
+    },
+    {
+      "id": "la_com_impar_claude_desktop_autostart",
+      "bundle_id": "com.impar.claude-desktop-autostart",
+      "label": "Claude Desktop Autostart",
+      "absolute_path": "/Users/usuario/Library/LaunchAgents/com.impar.claude-desktop-autostart.plist",
+      "program": "/usr/bin/open",
+      "program_arguments": [
+        "/usr/bin/open",
+        "-a",
+        "Claude"
+      ],
+      "working_directory": null,
+      "run_at_load": true,
+      "keep_alive": false,
+      "startup_trigger": "on_boot",
+      "start_interval": null,
+      "files_read": [],
+      "files_potentially_modified": [],
+      "related_scripts": [],
+      "logs": [
+        "/Users/usuario/Library/Logs/impar-claude-desktop-autostart.log",
+        "/Users/usuario/Library/Logs/impar-claude-desktop-autostart-error.log"
+      ],
+      "automation": null,
+      "kernel_relationship": "Infrastructure - IDE launcher for Kernel IMPAR development",
+      "automation_relationship": "Not tied to operational automation; development support only",
+      "classification": "infrastructure",
+      "risk_level": "BAIXO",
+      "restrictions": "Starts Claude IDE at boot; necessary for development workflow",
+      "source": "ETAPA 3A.6.1 - LaunchAgent Mapping",
+      "source_type": "auditado",
+      "confidence": "alta",
+      "status": "active",
+      "verified_at": "2026-07-23T03:15:00Z",
+      "documentary_status": "mapped"
+    },
+    {
+      "id": "la_com_impar_crm",
+      "bundle_id": "com.impar.crm",
+      "label": "CRM Sync Server",
+      "absolute_path": "/Users/usuario/Library/LaunchAgents/com.impar.crm.plist",
+      "program": "/opt/homebrew/bin/node",
+      "program_arguments": [
+        "/opt/homebrew/bin/node",
+        "/Users/usuario/.local/impar-automation/crm-impar/server.js"
+      ],
+      "working_directory": "/Users/usuario/.local/impar-automation/crm-impar",
+      "run_at_load": true,
+      "keep_alive": true,
+      "startup_trigger": "on_boot",
+      "start_interval": null,
+      "environment_variables": {
+        "PORT": "8890",
+        "USER": "usuario",
+        "HOME": "/Users/usuario",
+        "PATH": "/opt/homebrew/bin:/Users/usuario/.local/bin:/usr/local/bin:/usr/bin:/bin"
+      },
+      "files_read": [
+        "/Users/usuario/.local/impar-automation/crm-impar/server.js"
+      ],
+      "files_potentially_modified": [],
+      "related_scripts": [
+        "/Users/usuario/.local/impar-automation/crm-impar/server.js"
+      ],
+      "logs": [
+        "/Users/usuario/Library/Logs/impar-crm.log"
+      ],
+      "listens_on": "localhost:8890",
+      "automation": null,
+      "kernel_relationship": "Operational - CRM synchronization service",
+      "automation_relationship": "Supports impar-atualizacao-rogga-imobibrasil (indirect)",
+      "classification": "operational",
+      "risk_level": "MÉDIO",
+      "restrictions": "Must keep alive; persistent service; no manual restart without testing",
+      "source": "ETAPA 3A.6.1 - LaunchAgent Mapping",
+      "source_type": "auditado",
+      "confidence": "alta",
+      "status": "active",
+      "verified_at": "2026-07-23T03:15:00Z",
+      "documentary_status": "mapped"
+    },
+    {
+      "id": "la_com_impar_relatorio_marketplace_manha",
+      "bundle_id": "com.impar.relatorio-marketplace-manha",
+      "label": "Marketplace Morning Report",
+      "absolute_path": "/Users/usuario/Library/LaunchAgents/com.impar.relatorio-marketplace-manha.plist",
+      "program": "/bin/bash",
+      "program_arguments": [
+        "/bin/bash",
+        "-c",
+        "cd ~/.claude/scheduled-tasks/relatorio-marketplace-manha-impar && claude relatorio-marketplace-manha-impar"
+      ],
+      "working_directory": "~/.claude/scheduled-tasks/relatorio-marketplace-manha-impar",
+      "run_at_load": false,
+      "keep_alive": false,
+      "startup_trigger": "scheduled",
+      "schedule": "09:00 (daily)",
+      "start_calendar_interval": {
+        "hour": 9,
+        "minute": 0
+      },
+      "files_read": [
+        "~/.claude/scheduled-tasks/relatorio-marketplace-manha-impar/*"
+      ],
+      "files_potentially_modified": [
+        "~/.local/impar-automation/relatorio-marketplace/manha.log"
+      ],
+      "related_scripts": [
+        "~/.claude/scheduled-tasks/relatorio-marketplace-manha-impar/"
+      ],
+      "logs": [
+        "/tmp/com.impar.relatorio-marketplace-manha.log",
+        "/tmp/com.impar.relatorio-marketplace-manha.err",
+        "~/.local/impar-automation/relatorio-marketplace/manha.log"
+      ],
+      "automation": null,
+      "kernel_relationship": "Reporting - Daily marketplace analytics at 9:00 AM",
+      "automation_relationship": "Complements impar-facebook-marketplace-posting (reporting tier)",
+      "classification": "reporting",
+      "risk_level": "BAIXO",
+      "restrictions": "Scheduled task; cannot be run manually without override",
+      "source": "ETAPA 3A.6.1 - LaunchAgent Mapping",
+      "source_type": "auditado",
+      "confidence": "alta",
+      "status": "active",
+      "verified_at": "2026-07-23T03:15:00Z",
+      "documentary_status": "mapped"
+    },
+    {
+      "id": "la_com_impar_relatorio_marketplace_tarde",
+      "bundle_id": "com.impar.relatorio-marketplace-tarde",
+      "label": "Marketplace Afternoon Report",
+      "absolute_path": "/Users/usuario/Library/LaunchAgents/com.impar.relatorio-marketplace-tarde.plist",
+      "program": "/bin/bash",
+      "program_arguments": [
+        "/bin/bash",
+        "-c",
+        "cd ~/.claude/scheduled-tasks/relatorio-marketplace-tarde-impar && claude relatorio-marketplace-tarde-impar"
+      ],
+      "working_directory": "~/.claude/scheduled-tasks/relatorio-marketplace-tarde-impar",
+      "run_at_load": false,
+      "keep_alive": false,
+      "startup_trigger": "scheduled",
+      "schedule": "14:00 (daily)",
+      "start_calendar_interval": {
+        "hour": 14,
+        "minute": 0
+      },
+      "files_read": [
+        "~/.claude/scheduled-tasks/relatorio-marketplace-tarde-impar/*"
+      ],
+      "files_potentially_modified": [
+        "~/.local/impar-automation/relatorio-marketplace/tarde.log"
+      ],
+      "related_scripts": [
+        "~/.claude/scheduled-tasks/relatorio-marketplace-tarde-impar/"
+      ],
+      "logs": [
+        "/tmp/com.impar.relatorio-marketplace-tarde.log",
+        "/tmp/com.impar.relatorio-marketplace-tarde.err",
+        "~/.local/impar-automation/relatorio-marketplace/tarde.log"
+      ],
+      "automation": null,
+      "kernel_relationship": "Reporting - Daily marketplace analytics at 2:00 PM",
+      "automation_relationship": "Complements impar-facebook-marketplace-posting (reporting tier)",
+      "classification": "reporting",
+      "risk_level": "BAIXO",
+      "restrictions": "Scheduled task; cannot be run manually without override",
+      "source": "ETAPA 3A.6.1 - LaunchAgent Mapping",
+      "source_type": "auditado",
+      "confidence": "alta",
+      "status": "active",
+      "verified_at": "2026-07-23T03:15:00Z",
+      "documentary_status": "mapped"
+    },
+    {
+      "id": "la_com_impar_reschedule_on_boot",
+      "bundle_id": "com.impar.reschedule-on-boot",
+      "label": "Reschedule on Boot",
+      "absolute_path": "/Users/usuario/Library/LaunchAgents/com.impar.reschedule-on-boot.plist",
+      "program": "/usr/bin/python3",
+      "program_arguments": [
+        "/usr/bin/python3",
+        "/Users/usuario/.local/impar-automation/reschedule_on_boot.py"
+      ],
+      "working_directory": null,
+      "run_at_load": true,
+      "keep_alive": false,
+      "startup_trigger": "on_boot",
+      "start_interval": 300,
+      "files_read": [
+        "/Users/usuario/.local/impar-automation/reschedule_on_boot.py"
+      ],
+      "files_potentially_modified": [],
+      "related_scripts": [
+        "/Users/usuario/.local/impar-automation/reschedule_on_boot.py"
+      ],
+      "logs": [
+        "/Users/usuario/Library/Logs/impar-reschedule-on-boot.log"
+      ],
+      "automation": null,
+      "kernel_relationship": "Infrastructure - Scheduler reset after system boot (runs every 5 min)",
+      "automation_relationship": "Not tied to operational automation; infrastructure only",
+      "classification": "infrastructure",
+      "risk_level": "BAIXO",
+      "restrictions": "Runs every 300 seconds (5 minutes) after boot; do not disable without testing",
+      "source": "ETAPA 3A.6.1 - LaunchAgent Mapping",
+      "source_type": "auditado",
+      "confidence": "alta",
+      "status": "active",
+      "verified_at": "2026-07-23T03:15:00Z",
+      "documentary_status": "mapped"
+    }
+  ],
+  "launchagent_count": 23,
+  "active_count": 14,
+  "critical_count": 4,
+  "notes": {
+    "total_system_launchagents": 23,
+    "impar_mapped_operational": 11,
+    "impar_mapped_infrastructure": 6,
+    "impar_mapped_reporting": 2,
+    "impar_mapped_disabled": 4,
+    "total_impar_mapped": 23,
+    "coverage": "100%",
+    "last_updated": "2026-07-23T03:15:00Z",
+    "coverage_note": "All 23 LaunchAgents now mapped (6 added in ETAPA 3A.6.1)",
+    "warning": "N\u00e3o alterar LaunchAgents sem autoriza\u00e7\u00e3o expl\u00edcita"
+  }
+}

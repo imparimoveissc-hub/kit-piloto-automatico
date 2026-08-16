@@ -1,0 +1,28 @@
+# Registro de Reajustes e Vigências
+#
+# Populado por gerar-contrato-locacao (handoff) e por entradas manuais.
+# Cada entrada acompanha quando o contrato reajusta e quando a vigência termina.
+#
+# O agente vigia-reajustes lê isto semanalmente e avisa o que está chegando.
+
+renovacoes: []
+
+# Exemplo de entrada (remover quando houver dados reais):
+#
+# - locatario: "João da Silva"
+#   locador: "Maria Souza"
+#   imovel: "Rua das Flores, 123 — apto 4 — Joinville/SC"
+#   natureza: "residencial"
+#   inicio: 2025-08-01
+#   prazo_meses: 30
+#   fim_vigencia: 2028-01-31
+#   indice_reajuste: "IGP-M"
+#   valor_aluguel: 1100.00
+#   ultimo_reajuste: 2025-08-01
+#   proximo_reajuste: 2026-08-01
+#   garantia: "caução"
+#   contato_locador: "5547999990000"
+#   contato_locatario: "5547988880000"
+#   asaas_customer_id: ""
+#   status: "ativo"
+#   observacoes: "Confirmar índice acumulado antes de aplicar."

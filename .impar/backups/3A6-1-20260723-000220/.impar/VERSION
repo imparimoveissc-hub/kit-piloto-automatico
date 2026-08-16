@@ -1,0 +1,29 @@
+Kernel IMPAR
+Version: 3.0.0
+Stage: ETAPA 3A.5
+Status: Certified Candidate
+Build Date: 2026-07-23T02:45:00Z
+Built By: Claude Code
+Codename: Piloto Controlado
+
+Release Type: Production Candidate
+Architecture: Multi-Phase Knowledge Graph + Controlled Executor
+Security Level: Fail-Closed + Audit Imutável
+
+Core Components:
+  - Kernel Inteligente (ETAPA 2.5)
+  - Grafo Operacional (ETAPA 2.8)
+  - Auditoria (ETAPA 2.9)
+  - Execution Planner (ETAPA 2.95)
+  - Executor Controlado (ETAPA 3A)
+  - Certificação (ETAPA 3A.5)
+
+Total Modules: 22
+Total Libraries: 10
+Total Commands: 25+
+Total Tests: 10+
+Total Automations: 9
+Total LaunchAgents: 17
+Total Services: 1 (authorized in 3A)
+
+Next Stage: ETAPA 3B (Marketplace Pilot - Pending Authorization)

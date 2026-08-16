@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "Google Drive": {
+      "type": "http",
+      "url": "https://drivemcp.googleapis.com/mcp/v1",
+      "title": "Google Drive",
+      "description": "Busca, leitura e download de contratos, vistorias e documentos de proprietários e inquilinos guardados no Drive."
+    },
+    "Asaas": {
+      "type": "http",
+      "url": "https://mcp.kpa30.local/asaas",
+      "title": "Asaas",
+      "description": "Consulta de cobranças, vencimentos e pagamentos de aluguel para cruzar com o registro de reajustes e a emissão de notas."
+    }
+  },
+  "recommendedCategories": [
+    "documents",
+    "chat",
+    "billing",
+    "contract-review",
+    "contract-management"
+  ]
+}

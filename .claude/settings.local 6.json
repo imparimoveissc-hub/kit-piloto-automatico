@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat ~/.local/impar-automation/leads-planilha/ultimo-estado.json 2>/dev/null || echo \"ARQUIVO_NAO_EXISTE\")",
+      "Bash(find \"/Users/user/.claude/plugins/cache/kpa30-marketplace/imobiliario-juridico/1.0.0\" -name \"registro-reajustes.yaml\" 2>/dev/null)",
+      "Bash(brctl download *)",
+      "Bash(find ~/.claude/plugins/cache/kpa30 -name \"CLAUDE.md\" 2>/dev/null | head -10)",
+      "Bash(find ~/.claude/plugins/cache -name \"registro-reajustes.yaml\" 2>/dev/null | head -10)",
+      "Bash(mkdir -p ~/.claude/plugins/config/kpa30/imobiliario-juridico)",
+      "Bash(cp \"/Users/user/.claude/plugins/cache/kpa30-marketplace/imobiliario-juridico/1.0.0/skills/acompanhar-reajuste/references/registro-reajustes.yaml\" ~/.claude/plugins/config/kpa30/imobiliario-juridico/registro-reajustes.yaml)",
+      "Bash(cat ~/.local/impar-automation/leads-planilha/ultimo-estado.json 2>/dev/null || echo \"NAOEXISTE\")",
+      "Bash(cat ~/.local/impar-automation/leads-planilha/ultimo-estado.json 2>/dev/null || echo \"FILE_NOT_FOUND\")",
+      "Bash(cat ~/.local/impar-automation/leads-planilha/ultimo-estado.json 2>/dev/null || echo \"NAO_EXISTE\")"
+    ]
+  }
+}

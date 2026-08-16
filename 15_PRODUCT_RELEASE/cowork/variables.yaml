@@ -1,0 +1,28 @@
+status: draft
+business:
+  business_name: "[A PREENCHER]"
+  segment: "[A PREENCHER]"
+  city_region: "[A PREENCHER]"
+  responsible_human: "[A PREENCHER]"
+  working_hours: "[A PREENCHER]"
+offer:
+  service_description: "[A PREENCHER]"
+  main_promise_allowed: "[A PREENCHER]"
+  forbidden_promises:
+    - "[A PREENCHER]"
+commercial:
+  price_policy: "[A PREENCHER]"
+  discount_policy: "[A PREENCHER]"
+  schedule_policy: "[A PREENCHER]"
+compliance:
+  opt_out_phrase: "parar"
+  sensitive_topics:
+    - preco final
+    - contrato
+    - saude
+    - juridico
+    - financeiro
+handoff:
+  human_channel: "[A PREENCHER]"
+  max_wait_message: "Vou encaminhar para uma pessoa do time revisar."
+

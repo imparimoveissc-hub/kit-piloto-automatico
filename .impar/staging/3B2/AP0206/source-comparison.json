@@ -1,0 +1,82 @@
+{
+  "codigo": "AP0206",
+  "id_interno": 4298360,
+  "timestamp": "2026-07-23T09:18:00Z",
+  "fontes_validadas": [
+    {
+      "fonte": "listing.json (fonte de cadastro)",
+      "url": "05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/listing.json",
+      "dados": {
+        "codigo": "AP0206",
+        "id_publico": 4298360,
+        "url_esperada": "https://www.imparimoveis.com/imovel/4298360/apartamento-locacao-sao-francisco-do-sul-sc-ubatuba",
+        "operacao": "locacao",
+        "tipo": "apartamento"
+      },
+      "status": "CORRETO"
+    },
+    {
+      "fonte": "imparimoveis.com (página pública)",
+      "url": "https://www.imparimoveis.com/imovel/4298360/apartamento-locacao-sao-francisco-do-sul-sc-ubatuba",
+      "dados_extraidos": {
+        "codigo": "AP0206",
+        "id_numerico": 4298360,
+        "operacao": "locacao",
+        "tipo": "apartamento",
+        "cidade": "São Francisco do Sul",
+        "estado": "SC",
+        "bairro": "Ubatuba",
+        "endereco": "Av. Duque de Caxias",
+        "dormitorios": 5,
+        "suites": 1,
+        "banheiros": 2,
+        "vagas": 1,
+        "salas": 3,
+        "area_total": "200,00 m²",
+        "area_privativa": "200,00 m²",
+        "area_construida": "660,00 m²",
+        "area_terreno": "321,00 m²",
+        "preco": "R$ 2.800,00",
+        "permuta": "Sim",
+        "imagens": 68
+      },
+      "status": "VALIDADO"
+    }
+  ],
+  "comparacao": {
+    "url_origem_vs_pagina": {
+      "match": true,
+      "origem": "https://www.imparimoveis.com/imovel/4298360/apartamento-locacao-sao-francisco-do-sul-sc-ubatuba",
+      "pagina": "https://www.imparimoveis.com/imovel/4298360/apartamento-locacao-sao-francisco-do-sul-sc-ubatuba",
+      "resultado": "IDENTICAS"
+    },
+    "id_codigo_vs_pagina": {
+      "match": true,
+      "origem_codigo": "AP0206",
+      "pagina_codigo": "AP0206",
+      "resultado": "IDENTICOS"
+    },
+    "operacao_vs_url": {
+      "match": true,
+      "esperado": "locacao",
+      "encontrado": "locacao",
+      "resultado": "IDENTICOS"
+    },
+    "tipo_vs_url": {
+      "match": true,
+      "esperado": "apartamento",
+      "encontrado": "apartamento",
+      "resultado": "IDENTICOS"
+    },
+    "localizacao_vs_url": {
+      "match": true,
+      "esperado": "são-francisco-do-sul",
+      "encontrado": "são-francisco-do-sul",
+      "bairro_url": "ubatuba",
+      "bairro_pagina": "Ubatuba",
+      "resultado": "IDENTICOS"
+    }
+  },
+  "conflitos": [],
+  "conclusao": "TODAS AS FONTES CONSISTENTES — Dados de listing.json correspondem exatamente aos dados da página pública. Nenhum conflito ou divergência detectada."
+}

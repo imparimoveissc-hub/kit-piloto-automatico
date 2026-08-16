@@ -1,0 +1,8 @@
+# Snapshot gerado em: 2026-07-10 09:16:39
+# Maquina de origem: MacBook-Air-de-User.local — usuario: user
+node=v24.17.0
+npm=11.13.0
+ngrok=ngrok version 3.39.8
+python3=Python 3.14.6
+uv=uv 0.11.23 (3cdf50e09 2026-06-19 x86_64-apple-darwin)
+brew=Homebrew 6.0.6

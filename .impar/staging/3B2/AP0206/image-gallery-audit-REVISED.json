@@ -1,0 +1,79 @@
+{
+  "codigo": "AP0206",
+  "id_interno": 4298360,
+  "timestamp": "2026-07-23T09:38:00Z",
+  "revisao": "Revalidação com contexto correto (edificação com múltiplas unidades)",
+  "galeria": {
+    "total_encontradas": 78,
+    "total_filtradas": 68,
+    "status": "VALIDADA_COM_CONTEXTO_CORRETO"
+  },
+  "categorias_corrigidas": {
+    "unit_interior": {
+      "quantidade": 36,
+      "descricao": "Interior de cômodos da unidade",
+      "validacao": "ACEITA"
+    },
+    "building_exterior": {
+      "quantidade": 20,
+      "descricao": "Fachada e áreas externas da edificação",
+      "validacao": "ACEITA (legítima para apartamento em edificação)",
+      "nota": "Imagens de fachada, entrada, terreno são contexto válido"
+    },
+    "shared_area": {
+      "quantidade": 8,
+      "descricao": "Áreas comuns do condomínio",
+      "validacao": "ACEITA"
+    },
+    "floor_plan_or_institutional": {
+      "quantidade": 4,
+      "descricao": "Plantas, mapas, imagens institucionais",
+      "validacao": "ACEITA"
+    }
+  },
+  "rejeicoes": {
+    "total": 10,
+    "detalhes": [
+      {
+        "tipo": "Google Analytics tracking pixel",
+        "quantidade": 3,
+        "motivo": "Não pertencem ao imóvel"
+      },
+      {
+        "tipo": "Google Fonts assets",
+        "quantidade": 2,
+        "motivo": "Recursos de interface, não imóvel"
+      },
+      {
+        "tipo": "Logos/marcas",
+        "quantidade": 5,
+        "motivo": "Elementos institucionais não relevantes"
+      }
+    ]
+  },
+  "deduplicacao": {
+    "metodo": "URL normalizada + SHA-256",
+    "duplicatas_encontradas": 0,
+    "imagens_unicas": 68
+  },
+  "verificacoes": {
+    "todas_carregadas": true,
+    "id_numerico_vinculado": true,
+    "ordem_preservada": true,
+    "dimensoes_coletadas": true,
+    "urls_validas": true,
+    "sem_imagens_outro_imovel": true,
+    "contexto_edificacao_valido": true
+  },
+  "conclusao_anterior_corrigida": {
+    "erro_anterior": "Galeria mistura interior + exterior (interpretado como contaminação)",
+    "interpretacao_corrigida": "Mistura é natural e legítima para apartamento em edificação. Imagens de fachada/exterior pertencem ao contexto do imóvel.",
+    "status": "VALIDADA"
+  },
+  "soma_verificada": {
+    "total_candidates": 78,
+    "total_accepted": 68,
+    "total_rejected": 10,
+    "confere": true
+  }
+}

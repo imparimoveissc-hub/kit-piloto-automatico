@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "installed_at": "2026-07-28T02:55:13Z",
+  "last_sync": "2026-07-28T02:55:13Z",
+  "components": {
+    "cli": "ok",
+    "database": "ok",
+    "registry": "ok",
+    "n8n": "ok"
+  },
+  "ai_calls_today": 0,
+  "ai_calls_avoided": 0,
+  "token_savings_estimated": 0
+}

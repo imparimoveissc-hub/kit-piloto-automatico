@@ -1,0 +1,177 @@
+[
+  {
+    "status": "sucesso",
+    "payment_id": "pay_0er2whsyiqsddx1c",
+    "cliente": "RAFAEL - ROBERT E ROBERT",
+    "valor": 110.0,
+    "numero_nota": "280",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-RAFAEL - ROBERT E ROBERT.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_71meo0nr21f8rmyb",
+    "cliente": "LENNON FERNANDES",
+    "valor": 209.0,
+    "numero_nota": "281",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-LENNON FERNANDES.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_ibfttia8ekdj2ja4",
+    "cliente": "GRASIELA DOS ANJOS,",
+    "valor": 300.0,
+    "numero_nota": "282",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-GRASIELA DOS ANJOS.pdf"
+  },
+  {
+    "status": "erro",
+    "payment_id": "pay_vql4buv4uwh9p2fw",
+    "erro": "Erro na emissão da NF: Não encontrei o link da nota na tela pós-emissão. A nota pode ter sido emitida mesmo assim — verifique manualmente em Serviços > Consulta NF-em antes de tentar emitir de novo."
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_qgy2fdvqbqcgr33k",
+    "cliente": "RAFAEL - ROBERT E ROBERT",
+    "valor": 150.0,
+    "numero_nota": "283",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-RAFAEL - ROBERT E ROBERT-1.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_o5wkexrlqgz4vg7y",
+    "cliente": "EDITH TEONILIA KOTSCHELLA",
+    "valor": 150.0,
+    "numero_nota": "284",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-EDITH TEONILIA KOTSCHELLA.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_dplaz1xvytjsvv94",
+    "cliente": "JAISOM",
+    "valor": 115.0,
+    "numero_nota": "285",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-JAISOM.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_roy1pbc5trc8pvfn",
+    "cliente": "JÉSSICA LOUISE",
+    "valor": 110.0,
+    "numero_nota": "286",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-JÉSSICA LOUISE.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_nw278it84ism8yra",
+    "cliente": "MARIA APARECIDA GONÇALVES SANTOS",
+    "valor": 220.0,
+    "numero_nota": "287",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-MARIA APARECIDA GONCALVES SANTOS.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_djp1hcoxfengzg0l",
+    "cliente": "LUCIANA DA COSTA CIDRAL WIEMES",
+    "valor": 350.0,
+    "numero_nota": "288",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-LUCIANA DA COSTA CIDRAL WIEMES.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_c9z4rjb5e8s89pr2",
+    "cliente": "LIDIA OLINDINA SANTOS TAVARES",
+    "valor": 150.0,
+    "numero_nota": "289",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-LIDIA OLINDINA SANTOS TAVARES.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_5tr3d0jnbm5rop59",
+    "cliente": "NELSON RUDIGER",
+    "valor": 145.6,
+    "numero_nota": "290",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-NELSON RUDIGER.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_zklqs65hprn3zy9l",
+    "cliente": "RAFAEL - ROBERT E ROBERT",
+    "valor": 80.0,
+    "numero_nota": "291",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-RAFAEL - ROBERT E ROBERT-2.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_ztaf47tpuif2gze5",
+    "cliente": "ESTER ANTUNES PETRY",
+    "valor": 180.0,
+    "numero_nota": "292",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-ESTER ANTUNES PETRY.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_8phcu7zguoe8w9kj",
+    "cliente": "F.R FERNANDES",
+    "valor": 92.0,
+    "numero_nota": "293",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-FR FERNANDES.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_l7l7i532ljyr5trx",
+    "cliente": "F.R FERNANDES",
+    "valor": 114.4,
+    "numero_nota": "294",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-FR FERNANDES-1.pdf"
+  },
+  {
+    "status": "erro",
+    "payment_id": "pay_k0yffi67o1bdp9fl",
+    "erro": "Erro na emissão da NF: Não encontrei o link da nota na tela pós-emissão. A nota pode ter sido emitida mesmo assim — verifique manualmente em Serviços > Consulta NF-em antes de tentar emitir de novo."
+  },
+  {
+    "status": "erro",
+    "payment_id": "pay_12lpsrgu1ia3zdpm",
+    "erro": "Erro na emissão da NF: Não encontrei o link da nota na tela pós-emissão. A nota pode ter sido emitida mesmo assim — verifique manualmente em Serviços > Consulta NF-em antes de tentar emitir de novo."
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_9t29mwtsktwmr3un",
+    "cliente": "F.R FERNANDES",
+    "valor": 100.0,
+    "numero_nota": "295",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-FR FERNANDES-2.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_hecwo9j4li8pekbb",
+    "cliente": "F.R FERNANDES",
+    "valor": 110.0,
+    "numero_nota": "296",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-FR FERNANDES-3.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_zfb4urrzsc7xrm8b",
+    "cliente": "F.R FERNANDES",
+    "valor": 135.2,
+    "numero_nota": "297",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-FR FERNANDES-4.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_zrb489vx6yllwx0y",
+    "cliente": "ELIEL ANTUNES",
+    "valor": 140.0,
+    "numero_nota": "298",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-ELIEL ANTUNES.pdf"
+  },
+  {
+    "status": "sucesso",
+    "payment_id": "pay_k2n5vs3xrrq94j5m",
+    "cliente": "ADELINA KÖPP MOTTA",
+    "valor": 160.0,
+    "numero_nota": "299",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-ADELINA KÖPP MOTTA.pdf"
+  }
+]

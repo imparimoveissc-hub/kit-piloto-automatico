@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kit Piloto Automatico V30 - Guia Operacional</title>
+  <style>
+    :root {
+      --bg: #07080b;
+      --bg-elev: #0e1016;
+      --panel: #151821;
+      --panel-2: #1b1f2a;
+      --line: #292f3d;
+      --line-soft: #202633;
+      --text: #f4f1ec;
+      --muted: #a8a29a;
+      --dim: #716f6a;
+      --orange: #ff7a1a;
+      --orange-soft: rgba(255, 122, 26, 0.14);
+      --red: #ff3b30;
+      --red-soft: rgba(255, 59, 48, 0.12);
+      --green: #22c55e;
+      --green-soft: rgba(34, 197, 94, 0.12);
+      --blue: #60a5fa;
+      --blue-soft: rgba(96, 165, 250, 0.12);
+      --warn: #facc15;
+      --warn-soft: rgba(250, 204, 21, 0.12);
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.36);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 24px;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #0c0d11 0%, var(--bg) 18rem);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      border-right: 1px solid var(--line);
+      background: rgba(10, 12, 17, 0.94);
+      backdrop-filter: blur(14px);
+      padding: 22px 18px;
+      overflow: auto;
+    }
+
+    .brand {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line-soft);
+      margin-bottom: 18px;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 64px;
+      border: 1px solid #3a2118;
+      border-radius: 7px;
+      background:
+        linear-gradient(180deg, rgba(255, 122, 26, 0.2), transparent 42%),
+        #090a0d;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 122, 26, 0.36);
+    }
+
+    .brand-mark::before {
+      width: 24px;
+      height: 24px;
+      box-shadow: 0 0 22px rgba(255, 122, 26, 0.6);
+    }
+
+    .brand-mark::after {
+      width: 6px;
+      height: 6px;
+      background: var(--orange);
+      border-color: var(--orange);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .brand p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .progress-wrap {
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      margin-bottom: 18px;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .progress-track {
+      height: 8px;
+      border-radius: 999px;
+      background: #0a0c11;
+      overflow: hidden;
+      border: 1px solid var(--line-soft);
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--red), var(--orange), #ffd166);
+      transition: width 0.25s ease;
+    }
+
+    .nav-title {
+      margin: 20px 0 8px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: var(--dim);
+    }
+
+    .nav {
+      display: grid;
+      gap: 4px;
+    }
+
+    .nav a {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+      border-radius: 6px;
+      color: var(--muted);
+      padding: 6px 8px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--text);
+      background: var(--panel);
+    }
+
+    .nav .num {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      color: var(--orange);
+      font-size: 11px;
+      background: #0b0d12;
+    }
+
+    .main {
+      min-width: 0;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(41, 47, 61, 0.78);
+      background: rgba(7, 8, 11, 0.82);
+      backdrop-filter: blur(14px);
+      padding: 12px 28px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .search {
+      flex: 1;
+      max-width: 560px;
+      position: relative;
+    }
+
+    .search input {
+      width: 100%;
+      height: 40px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: #0d1016;
+      color: var(--text);
+      padding: 0 12px;
+      outline: none;
+    }
+
+    .search input:focus {
+      border-color: rgba(255, 122, 26, 0.72);
+      box-shadow: 0 0 0 3px var(--orange-soft);
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--text);
+      padding: 8px 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 122, 26, 0.58);
+      background: var(--panel-2);
+    }
+
+    .btn.primary {
+      border-color: rgba(255, 122, 26, 0.72);
+      background: linear-gradient(180deg, rgba(255, 122, 26, 0.28), rgba(255, 59, 48, 0.18));
+    }
+
+    .content {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 36px 28px 96px;
+    }
+
+    .hero {
+      min-height: 360px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      gap: 28px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .hero-copy {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(255, 122, 26, 0.13), transparent 38%),
+        rgba(15, 18, 25, 0.86);
+      border-radius: var(--radius);
+      padding: 34px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--orange);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 18px var(--orange);
+    }
+
+    .hero h2 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 66px);
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .hero .lead {
+      margin: 18px 0 0;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .hero-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #0d1016;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 14px;
+      align-content: center;
+    }
+
+    .terminal {
+      border: 1px solid #2a1d18;
+      background: #08090c;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .terminal-head {
+      height: 38px;
+      border-bottom: 1px solid #201a17;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 12px;
+      color: var(--dim);
+      font-size: 12px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+
+    .dot.red { background: var(--red); }
+    .dot.orange { background: var(--orange); }
+    .dot.green { background: var(--green); }
+
+    .terminal-body {
+      padding: 16px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      color: #f7d7b5;
+      min-height: 210px;
+    }
+
+    .terminal-body div {
+      margin: 0 0 8px;
+    }
+
+    .prompt { color: var(--orange); }
+    .ok { color: #86efac; }
+    .warn { color: #fde68a; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .stat {
+      border: 1px solid var(--line-soft);
+      background: rgba(21, 24, 33, 0.82);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    section {
+      margin: 0 0 34px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      max-width: 780px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(21, 24, 33, 0.86);
+      padding: 18px;
+      min-width: 0;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    .card p {
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 9px;
+      color: var(--muted);
+      font-size: 12px;
+      background: #0d1016;
+    }
+
+    .pill.hot {
+      color: #ffd2a8;
+      background: var(--orange-soft);
+      border-color: rgba(255, 122, 26, 0.28);
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(14, 16, 22, 0.9);
+      overflow: hidden;
+    }
+
+    .step.hidden {
+      display: none;
+    }
+
+    .step-main {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: start;
+      padding: 16px;
+    }
+
+    .step-num {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 7px;
+      color: var(--orange);
+      background: var(--orange-soft);
+      border: 1px solid rgba(255, 122, 26, 0.26);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .step h3 {
+      margin: 0 0 4px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .step-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .step-body {
+      color: var(--muted);
+    }
+
+    .step-body strong {
+      color: var(--text);
+    }
+
+    .step-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .check {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: #0d1016;
+      color: var(--text);
+      padding: 8px 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .check input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--orange);
+    }
+
+    .command {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid var(--line-soft);
+      background: #090b10;
+      padding: 12px 16px;
+    }
+
+    code {
+      color: #ffd2a8;
+      background: #0a0c11;
+      border: 1px solid var(--line-soft);
+      border-radius: 5px;
+      padding: 2px 6px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+
+    .command code {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .copy {
+      min-width: 84px;
+      min-height: 34px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 122, 26, 0.32);
+      background: var(--orange-soft);
+      color: #ffd2a8;
+      cursor: pointer;
+    }
+
+    .copy.done {
+      border-color: rgba(34, 197, 94, 0.42);
+      background: var(--green-soft);
+      color: #b8f7ca;
+    }
+
+    .link-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .resource {
+      min-height: 54px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(13, 16, 22, 0.85);
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .resource span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .resource strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #0d1016;
+      padding: 5px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    .status.safe::before { background: var(--green); }
+    .status.warn::before { background: var(--warn); }
+    .status.block::before { background: var(--red); }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .day {
+      border: 1px solid var(--line);
+      background: rgba(21, 24, 33, 0.86);
+      border-radius: var(--radius);
+      min-height: 150px;
+      padding: 14px;
+    }
+
+    .day strong {
+      display: block;
+      color: var(--orange);
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .day p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .note {
+      border-left: 3px solid var(--orange);
+      background: var(--orange-soft);
+      padding: 14px 16px;
+      border-radius: 0 7px 7px 0;
+      color: #ffe0c2;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      margin-top: 42px;
+      padding-top: 24px;
+      color: var(--dim);
+      font-size: 13px;
+    }
+
+    @media (max-width: 1040px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: fixed;
+        z-index: 50;
+        inset: 0 auto 0 0;
+        width: min(320px, 88vw);
+        transform: translateX(-102%);
+        transition: transform 0.2s ease;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .mobile-toggle {
+        display: inline-grid;
+        place-items: center;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .stats,
+      .grid.three,
+      .timeline {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        padding: 10px 14px;
+        align-items: stretch;
+        flex-wrap: wrap;
+      }
+
+      .search {
+        order: 3;
+        max-width: none;
+        flex-basis: 100%;
+      }
+
+      .content {
+        padding: 24px 14px 72px;
+      }
+
+      .hero-copy,
+      .hero-panel {
+        padding: 18px;
+      }
+
+      .stats,
+      .grid.two,
+      .grid.three,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .step-main {
+        grid-template-columns: 40px minmax(0, 1fr);
+      }
+
+      .step-actions {
+        grid-column: 1 / -1;
+        justify-content: stretch;
+      }
+
+      .step-actions .btn,
+      .step-actions .check {
+        width: 100%;
+      }
+
+      .resource {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div>
+          <h1>Kit Piloto Automatico</h1>
+          <p>V30 guia operacional</p>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-top">
+          <span>Progresso do aluno</span>
+          <strong id="progressText">0%</strong>
+        </div>
+        <div class="progress-track">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="nav-title">Guia</div>
+      <nav class="nav" id="nav">
+        <a href="#inicio"><span class="num">00</span><span>Comece aqui</span></a>
+        <a href="#execucao"><span class="num">01</span><span>Passo a passo</span></a>
+        <a href="#curso"><span class="num">02</span><span>Curso</span></a>
+        <a href="#rotas"><span class="num">03</span><span>Rotas rapidas</span></a>
+        <a href="#whatsapp"><span class="num">04</span><span>WhatsApp</span></a>
+        <a href="#automacoes"><span class="num">05</span><span>Automacoes</span></a>
+        <a href="#recursos"><span class="num">06</span><span>Arquivos</span></a>
+        <a href="#sete-dias"><span class="num">07</span><span>7 dias</span></a>
+      </nav>
+
+      <div class="nav-title">Regra</div>
+      <div class="note">Primeiro gere uma entrega util. WhatsApp, automacoes e trafego entram depois da primeira tarefa.</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-toggle" id="menuBtn" aria-label="Abrir menu">Menu</button>
+        <div class="search">
+          <input id="searchInput" type="search" placeholder="Buscar etapa, comando, WhatsApp, automacao, template...">
+        </div>
+        <div class="top-actions">
+          <button class="btn" id="resetBtn">Resetar progresso</button>
+          <a class="btn primary" href="COMECE_AQUI.md">Abrir Comece Aqui</a>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="hero" id="inicio" data-search="comece inicio guia kit piloto automatico v30">
+          <div class="hero-copy">
+            <div class="eyebrow">KPA V30</div>
+            <h2>Guia operacional do aluno</h2>
+            <p class="lead">Siga a trilha, rode os comandos na ordem certa e valide cada entrega antes de avancar. Este HTML e o painel de navegacao do kit para voce e para o usuario final.</p>
+            <div class="pill-row">
+              <span class="pill hot">Full-auto com controle</span>
+              <span class="pill">WhatsApp em draft</span>
+              <span class="pill">Setup por nicho</span>
+              <span class="pill">Automacoes seguras</span>
+            </div>
+          </div>
+          <div class="hero-panel">
+            <div class="terminal">
+              <div class="terminal-head">
+                <span class="dot red"></span>
+                <span class="dot orange"></span>
+                <span class="dot green"></span>
+                <span>KPA V30 / Claude Code</span>
+              </div>
+              <div class="terminal-body">
+                <div><span class="prompt">&gt;</span> /preflight-acessos</div>
+                <div class="ok">acessos, pastas e limites mapeados</div>
+                <div><span class="prompt">&gt;</span> /setup-nicho</div>
+                <div class="ok">familia operacional definida</div>
+                <div><span class="prompt">&gt;</span> /primeira-tarefa</div>
+                <div class="ok">primeira entrega util gerada</div>
+                <div><span class="prompt">&gt;</span> /whatsapp-system</div>
+                <div class="warn">fluxo criado em modo draft</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="stats">
+          <div class="stat"><strong>14</strong><span>etapas guiadas na trilha oficial</span></div>
+          <div class="stat"><strong>7</strong><span>tarefas praticas para executar</span></div>
+          <div class="stat"><strong>8</strong><span>familias de negocio mapeadas</span></div>
+          <div class="stat"><strong>5</strong><span>comandos principais do aluno</span></div>
+        </div>
+
+        <section id="execucao" data-search="execucao comandos preflight setup primeira tarefa passo a passo">
+          <div class="section-head">
+            <div>
+              <h2>Passo a Passo de Execucao</h2>
+              <p>Esta e a ordem recomendada para um usuario leigo. Marque cada etapa quando concluir; o progresso fica salvo neste navegador.</p>
+            </div>
+            <span class="status safe">execucao local</span>
+          </div>
+
+          <div class="steps" id="steps">
+            <article class="step" data-search="abrir pasta claude code comece aqui instalacao">
+              <div class="step-main">
+                <div class="step-num">01</div>
+                <div>
+                  <h3>Abrir a pasta correta no Claude Code</h3>
+                  <div class="step-meta"><span>Modulo: Instalacao</span><span>Entrega: ambiente aberto</span></div>
+                  <div class="step-body">Abra a pasta do kit no Claude Code. Se o Claude nao reconhecer os arquivos, voce esta na pasta errada.</div>
+                </div>
+                <div class="step-actions">
+                  <label class="check"><input type="checkbox" data-step="abrir-pasta"> Feito</label>
+                </div>
+              </div>
+              <div class="command"><code>Leia esta pasta e me diga por onde comecar.</code><button class="copy" data-copy="Leia esta pasta e me diga por onde comecar.">Copiar</button></div>
+            </article>
+
+            <article class="step" data-search="preflight acessos permissoes pasta ferramentas">
+              <div class="step-main">
+                <div class="step-num">02</div>
+                <div>
+                  <h3>Rodar preflight de acessos</h3>
+                  <div class="step-meta"><span>Modulo: Instalacao</span><span>Entrega: acessos mapeados</span></div>
+                  <div class="step-body">Concentre pastas, URLs, ferramentas e limites no inicio para evitar travas no meio da execucao.</div>
+                </div>
+                <div class="step-actions">
+                  <label class="check"><input type="checkbox" data-step="preflight"> Feito</label>
+                </div>
+              </div>
+              <div class="command"><code>/preflight-acessos</code><button class="copy" data-copy="/preflight-acessos">Copiar</button></div>
+            </article>
+
+            <article class="step" data-search="setup nicho familia operacional adaptativo segmento">
+              <div class="step-main">
+                <div class="step-num">03</div>
+                <div>
+                  <h3>Configurar nicho e familia operacional</h3>
+                  <div class="step-meta"><span>Modulo: Setup</span><span>Entrega: negocio configurado</span></div>
+                  <div class="step-body">O aluno nao precisa saber se o nicho existe. O kit classifica a empresa por familia operacional e escolhe o caminho mais proximo.</div>
+                </div>
+                <div class="step-actions">
+                  <label class="check"><input type="checkbox" data-step="setup-nicho"> Feito</label>
+                </div>
+              </div>
+              <div class="command"><code>/setup-nicho</code><button class="copy" data-copy="/setup-nicho">Copiar</button></div>
+            </article>
+
+            <article class="step" data-search="primeira entrega tarefa output valor rapido">
+              <div class="step-main">
+                <div class="step-num">04</div>
+                <div>
+                  <h3>Gerar a primeira entrega util</h3>
+                  <div class="step-meta"><span>Modulo: Primeira entrega</span><span>Entrega: output utilizavel</span></div>
+                  <div class="step-body">Antes de explorar WhatsApp, automacao ou trafego, gere algo que o aluno consiga revisar, copiar ou usar.</div>
+                </div>
+                <div class="step-actions">
+                  <label class="check"><input type="checkbox" data-step="primeira-tarefa"> Feito</label>
+                </div>
+              </div>
+              <div class="command"><code>/primeira-tarefa</code><button class="copy" data-copy="/primeira-tarefa">Copiar</button></div>
+            </article>
+
+            <article class="step" data-search="agentes cos revisar melhorar output">
+              <div class="step-main">
+                <div class="step-num">05</div>
+                <div>
+                  <h3>Entender o time de agentes depois do resultado</h3>
+                  <div class="step-meta"><span>Modulo: Agentes</span><span>Entrega: motor entendido</span></div>
+                  <div class="step-body">Explique agente, CoS, skill e task depois que o aluno ja viu uma entrega real. Isso reduz confusao.</div>
+                </div>
+                <div class="step-actions">
+                  <label class="check"><input type="checkbox" data-step="agentes"> Feito</label>
+                </div>
+              </div>
+              <div class="command"><code>Revise a primeira entrega e me diga qual agente/squad foi usado.</code><button class="copy" data-copy="Revise a primeira entrega e me diga qual agente/squad foi usado.">Copiar</button></div>
+            </article>
+
+            <article class="step" data-search="templates prompts documentos proposta relatorio calendario">
+              <div class="step-main">
+                <div class="step-num">06</div>
+                <div>
+                  <h3>Usar templates e documentos</h3>
+                  <div class="step-meta"><span>Modulo: Templates</span><span>Entrega: documento pronto</span></div>
+                  <div class="step-body">Abra os templates recomendados no setup e transforme um deles em proposta, relatorio, calendario, roteiro ou checklist.</div>
+                </div>
+                <div class="step-actions">
+                  <label class="check"><input type="checkbox" data-step="templates"> Feito</label>
+                </div>
+              </div>
+              <div class="command"><code>Com base no meu setup, escolha um template e gere uma versao preenchida.</code><button class="copy" data-copy="Com base no meu setup, escolha um template e gere uma versao preenchida.">Copiar</button></div>
+            </article>
+
+            <article class="step" data-search="whatsapp sdr prospeccao atendimento follow up sucesso cliente cowork">
+              <div class="step-main">
+                <div class="step-num">07</div>
+                <div>
+                  <h3>Montar WhatsApp em modo draft</h3>
+                  <div class="step-meta"><span>Modulo: WhatsApp</span><span>Entrega: fluxo testavel</span></div>
+                  <div class="step-body">Escolha prospeccao, SDR, CS, follow-up, onboarding, reativacao ou handoff. Nada deve ser ativado sem teste.</div>
+                </div>
+                <div class="step-actions">
+                  <label class="check"><input type="checkbox" data-step="whatsapp"> Feito</label>
+                </div>
+              </div>
+              <div class="command"><code>/whatsapp-system</code><button class="copy" data-copy="/whatsapp-system">Copiar</button></div>
+            </article>
+
+            <article class="step" data-search="automacoes processo sop blueprint automatizar">
+              <div class="step-main">
+                <div class="step-num">08</div>
+                <div>
+                  <h3>Automatizar um processo recorrente</h3>
+                  <div class="step-meta"><span>Modulo: Automacoes</span><span>Entrega: SOP + blueprint</span></div>
+                  <div class="step-body">Transforme uma rotina real em processo documentado antes de conectar ferramentas ou executar automacao real.</div>
+                </div>
+                <div class="step-actions">
+                  <label class="check"><input type="checkbox" data-step="automacao"> Feito</label>
+                </div>
+              </div>
+              <div class="command"><code>/automatizar-processo</code><button class="copy" data-copy="/automatizar-processo">Copiar</button></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="curso" data-search="curso aulas trilha oficial modulos gravacao">
+          <div class="section-head">
+            <div>
+              <h2>Trilha do Curso</h2>
+              <p>A ordem da plataforma deve seguir ativacao: primeiro ambiente, depois setup, depois primeira entrega, depois recursos avancados.</p>
+            </div>
+            <a class="btn" href="curso/trilha-oficial.md">Abrir trilha oficial</a>
+          </div>
+
+          <div class="grid three">
+            <div class="card">
+              <h3>Instalacao e acessos</h3>
+              <p>Claude Code, pasta correta, teste rapido e preflight para reduzir travas tecnicas.</p>
+              <span class="status safe">obrigatorio</span>
+            </div>
+            <div class="card">
+              <h3>Setup e primeira entrega</h3>
+              <p>Classifica o negocio e gera uma entrega util antes de explicar arquitetura.</p>
+              <span class="status safe">valor rapido</span>
+            </div>
+            <div class="card">
+              <h3>WhatsApp e automacoes</h3>
+              <p>Fluxos em modo draft, Cowork, SOP, blueprint e checklist de teste.</p>
+              <span class="status warn">validar antes de ativar</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="rotas" data-search="rotas rapidas nicho prompts templates trafego teste">
+          <div class="section-head">
+            <div>
+              <h2>Rotas Rapidas</h2>
+              <p>Use quando o aluno ja sabe o que quer fazer dentro do kit.</p>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="card">
+              <h3>Adaptar ao segmento</h3>
+              <p>Use quando o nicho nao existe pronto ou o aluno nao sabe qual caminho escolher.</p>
+              <div class="pill-row"><span class="pill hot">/setup-nicho</span><span class="pill">familias</span><span class="pill">templates</span></div>
+            </div>
+            <div class="card">
+              <h3>Usar prompts e templates</h3>
+              <p>Briefing, criacao, revisao, relatorio, WhatsApp, proposta e documentos operacionais.</p>
+              <div class="pill-row"><span class="pill">prompts/</span><span class="pill">templates/</span><span class="pill">exemplos/</span></div>
+            </div>
+            <div class="card">
+              <h3>Testar se esta pronto</h3>
+              <p>Use os smoke tests e o checklist do aluno antes de entregar ou empacotar.</p>
+              <div class="pill-row"><span class="pill">17_RELEASE_QA</span><span class="pill">checklist</span></div>
+            </div>
+            <div class="card">
+              <h3>Trafego opcional</h3>
+              <p>Somente para quem roda campanhas ou trabalha com diagnostico de Meta Ads.</p>
+              <div class="pill-row"><span class="pill">Traffic Stack</span><span class="pill">sem mudanca real sem confirmacao</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="whatsapp" data-search="whatsapp prospeccao sdr atendimento sucesso follow up onboarding reativacao handoff cowork">
+          <div class="section-head">
+            <div>
+              <h2>WhatsApp Operacional</h2>
+              <p>O WhatsApp do V30 precisa funcionar como sistema: objetivo, perguntas, mensagens, variaveis, stop rules, handoff e teste.</p>
+            </div>
+            <a class="btn" href="whatsapp/README.md">Abrir WhatsApp</a>
+          </div>
+
+          <div class="grid three">
+            <a class="card" href="whatsapp/fluxos/prospeccao.md"><h3>Prospeccao</h3><p>Abordagem inicial, qualificacao e proximo passo.</p></a>
+            <a class="card" href="whatsapp/fluxos/sdr-atendimento.md"><h3>SDR / Atendimento</h3><p>Triagem, duvidas, agenda e passagem para humano.</p></a>
+            <a class="card" href="whatsapp/fluxos/sucesso-cliente.md"><h3>Sucesso do Cliente</h3><p>Onboarding, acompanhamento, risco e retencao.</p></a>
+            <a class="card" href="whatsapp/fluxos/follow-up-vendas.md"><h3>Follow-up</h3><p>Retomada comercial sem insistencia burra.</p></a>
+            <a class="card" href="whatsapp/fluxos/onboarding.md"><h3>Onboarding</h3><p>Primeiros passos, acessos e expectativas.</p></a>
+            <a class="card" href="whatsapp/fluxos/handoff-humano.md"><h3>Handoff Humano</h3><p>Quando parar o bot e chamar alguem.</p></a>
+          </div>
+        </section>
+
+        <section id="automacoes" data-search="automacoes processos blueprint sop onboarding relatorio follow up">
+          <div class="section-head">
+            <div>
+              <h2>Automacoes de Processos</h2>
+              <p>O aluno descreve uma rotina repetitiva. O kit transforma em SOP, blueprint, variaveis, riscos e plano de teste.</p>
+            </div>
+            <a class="btn" href="automacoes/README.md">Abrir automacoes</a>
+          </div>
+
+          <div class="grid three">
+            <div class="card"><h3>Onboarding</h3><p>Coletar dados, criar briefing, organizar proximos passos e mensagem inicial.</p></div>
+            <div class="card"><h3>Relatorio</h3><p>Coletar informacoes, resumir resultados e gerar plano da proxima semana.</p></div>
+            <div class="card"><h3>Follow-up</h3><p>Retomar conversas, registrar contexto e sugerir proximo passo comercial.</p></div>
+          </div>
+        </section>
+
+        <section id="recursos" data-search="arquivos recursos links documentos comece aqui curso prompts templates cowork">
+          <div class="section-head">
+            <div>
+              <h2>Arquivos Principais</h2>
+              <p>Links relativos para o aluno se guiar por dentro da pasta. No Vercel, estes caminhos continuam funcionando se a release for publicada inteira.</p>
+            </div>
+          </div>
+
+          <div class="link-list">
+            <a class="resource" href="COMECE_AQUI.md"><div><strong>COMECE_AQUI.md</strong><span>Entrada principal para usuario leigo.</span></div><span class="status safe">inicio</span></a>
+            <a class="resource" href="curso/README.md"><div><strong>curso/README.md</strong><span>Ordem para seguir as aulas.</span></div><span class="status safe">curso</span></a>
+            <a class="resource" href="curso/checklist-aluno.md"><div><strong>curso/checklist-aluno.md</strong><span>Valida se o aluno executou o essencial.</span></div><span class="status safe">checklist</span></a>
+            <a class="resource" href="nichos/family-classifier.md"><div><strong>nichos/family-classifier.md</strong><span>Classificador por familia operacional.</span></div><span class="status">nicho</span></a>
+            <a class="resource" href="prompts/README.md"><div><strong>prompts/README.md</strong><span>Prompts oficiais do kit.</span></div><span class="status">prompts</span></a>
+            <a class="resource" href="templates/README.md"><div><strong>templates/README.md</strong><span>Templates de documentos e entregas.</span></div><span class="status">templates</span></a>
+            <a class="resource" href="cowork/test-checklist.md"><div><strong>cowork/test-checklist.md</strong><span>Checklist para testar fluxos antes de ativar.</span></div><span class="status warn">teste</span></a>
+          </div>
+        </section>
+
+        <section id="sete-dias" data-search="rotina sete dias dia 1 dia 2 dia 3 dia 4 dia 5">
+          <div class="section-head">
+            <div>
+              <h2>Rotina de 7 Dias</h2>
+              <p>Uma sequencia simples para o aluno sair de instalado para operacional.</p>
+            </div>
+            <a class="btn" href="curso/tarefas/T06-rotina-7-dias.md">Abrir tarefa</a>
+          </div>
+
+          <div class="timeline">
+            <div class="day"><strong>Dia 1</strong><p>Rodar preflight e setup de nicho.</p></div>
+            <div class="day"><strong>Dia 2</strong><p>Gerar primeira entrega e revisar.</p></div>
+            <div class="day"><strong>Dia 3</strong><p>Escolher template e criar documento real.</p></div>
+            <div class="day"><strong>Dia 4</strong><p>Criar fluxo WhatsApp em draft.</p></div>
+            <div class="day"><strong>Dia 5</strong><p>Criar blueprint de automacao.</p></div>
+            <div class="day"><strong>Dia 6</strong><p>Testar outputs com checklist.</p></div>
+            <div class="day"><strong>Dia 7</strong><p>Listar proximas 3 tarefas do kit.</p></div>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <p>Kit Piloto Automatico V30. Guia HTML estatico, pronto para abrir localmente e preparado para publicacao posterior na Vercel.</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const storageKey = "kpa-v30-guide-progress";
+    const sidebar = document.getElementById("sidebar");
+    const menuBtn = document.getElementById("menuBtn");
+    const checks = Array.from(document.querySelectorAll("[data-step]"));
+    const progressText = document.getElementById("progressText");
+    const progressBar = document.getElementById("progressBar");
+    const searchInput = document.getElementById("searchInput");
+    const steps = Array.from(document.querySelectorAll(".step"));
+    const navLinks = Array.from(document.querySelectorAll("#nav a"));
+
+    function loadProgress() {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey)) || {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function saveProgress(progress) {
+      localStorage.setItem(storageKey, JSON.stringify(progress));
+    }
+
+    function updateProgress() {
+      const progress = loadProgress();
+      checks.forEach((check) => {
+        check.checked = Boolean(progress[check.dataset.step]);
+      });
+      const done = checks.filter((check) => check.checked).length;
+      const total = checks.length || 1;
+      const pct = Math.round((done / total) * 100);
+      progressText.textContent = pct + "%";
+      progressBar.style.width = pct + "%";
+    }
+
+    checks.forEach((check) => {
+      check.addEventListener("change", () => {
+        const progress = loadProgress();
+        progress[check.dataset.step] = check.checked;
+        saveProgress(progress);
+        updateProgress();
+      });
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      localStorage.removeItem(storageKey);
+      updateProgress();
+    });
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const text = button.dataset.copy;
+        try {
+          await navigator.clipboard.writeText(text);
+          button.textContent = "Copiado";
+          button.classList.add("done");
+          setTimeout(() => {
+            button.textContent = "Copiar";
+            button.classList.remove("done");
+          }, 1400);
+        } catch (_) {
+          button.textContent = "Selecione";
+        }
+      });
+    });
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      steps.forEach((step) => {
+        const haystack = (step.textContent + " " + (step.dataset.search || "")).toLowerCase();
+        step.classList.toggle("hidden", query && !haystack.includes(query));
+      });
+    });
+
+    menuBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        sidebar.classList.remove("open");
+      });
+    });
+
+    const sections = navLinks
+      .map((link) => document.querySelector(link.getAttribute("href")))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) => {
+          link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id);
+        });
+      });
+    }, { rootMargin: "-30% 0px -62% 0px", threshold: 0 });
+
+    sections.forEach((section) => observer.observe(section));
+    updateProgress();
+  </script>
+</body>
+</html>

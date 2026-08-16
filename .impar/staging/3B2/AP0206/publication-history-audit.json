@@ -1,0 +1,55 @@
+{
+  "codigo": "AP0206",
+  "id_interno": 4298360,
+  "timestamp": "2026-07-23T09:20:00Z",
+  "investigacao_historico_local": {
+    "metodos": [
+      "Busca em registros de publicação marketplace",
+      "Busca em logs de automação",
+      "Busca em históricos de fila",
+      "Busca em registros do Facebook Marketplace"
+    ],
+    "escopo": "Registros locais autorizados apenas (sem acesso a APIs externas)"
+  },
+  "registros_locais": {
+    "fila_postagens_csv": {
+      "arquivo": "05_WORKSPACE/clientes/impar-imoveis/automacoes/facebook-marketplace/fila-postagens.csv",
+      "status": "Procurado",
+      "encontrado_ap0206": false
+    },
+    "fila_ciclo_marketplace_csv": {
+      "arquivo": "05_WORKSPACE/clientes/impar-imoveis/automacoes/facebook-marketplace/fila-ciclo-marketplace.csv",
+      "status": "Procurado",
+      "encontrado_ap0206": false
+    },
+    "registros_execucao": {
+      "arquivo": "07_LOGS/",
+      "status": "Procurado",
+      "encontrado_ap0206": false
+    }
+  },
+  "classificacao": {
+    "status": "NO_LOCAL_PUBLICATION_RECORD",
+    "significado": "Nenhum registro técnico local de publicação encontrado para AP0206",
+    "motivo": "AP0206 foi adicionado recentemente com dados incorretos (Urban Orquídeas), sendo corrigido agora"
+  },
+  "declaracao_usuario": {
+    "confirmado_por": "Usuário",
+    "data": "2026-07-23",
+    "afirmacao": "AP0206 nunca foi publicado",
+    "tipo_informacao": "USER_CONFIRMED_NEVER_PUBLISHED=true",
+    "peso_evidencia": "Contexto — proprietário/gestor conhece histórico"
+  },
+  "validacoes_tecnicas": {
+    "busca_codigo_ap0206": "Sem resultados nos arquivos locais",
+    "busca_id_4298360": "Sem resultados nos arquivos locais",
+    "busca_url_imovel": "Sem resultados nos arquivos locais",
+    "conclusao": "NENHUMA PUBLICAÇÃO TÉCNICA DETECTADA"
+  },
+  "resumo": {
+    "nunca_publicado_confirmado": true,
+    "evidencia_tecnica": "Ausência de registros",
+    "evidencia_usuario": "Confirmação explícita",
+    "status_para_fase_b": "PRONTO_PARA_PRIMEIRA_PUBLICACAO"
+  }
+}

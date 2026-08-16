@@ -1,0 +1,24 @@
+# clients-map.yaml
+# Mapa global de clientes e contas. Sem tokens, sem segredos.
+# act_id, pixel_id e IDs tecnicos podem ser sensiveis operacionalmente; se o operador preferir,
+# manter valores reais no .env/local e usar placeholders aqui.
+
+clients: []
+
+# Exemplo:
+# clients:
+#   - slug: "cliente-exemplo"
+#     display_name: "Cliente Exemplo"
+#     workspace: "05_WORKSPACE/clientes/cliente-exemplo"
+#     meta:
+#       ad_accounts:
+#         - env: "META_CLIENTE_EXEMPLO_ACT_ID"
+#           label: "principal"
+#       pixel_id_env: "META_CLIENTE_EXEMPLO_PIXEL_ID"
+#     channels:
+#       whatsapp:
+#         workspace: "[A PREENCHER]"
+#         human_owner: "[A PREENCHER]"
+#       cowork:
+#         workspace: "[A PREENCHER]"
+

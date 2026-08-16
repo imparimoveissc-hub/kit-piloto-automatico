@@ -1,0 +1,76 @@
+{
+  "matrix_version": "1.0",
+  "purpose": "Complete hash registry for integrity validation in future certifications",
+  "generated": "2026-07-23T07:58:00Z",
+  "critical_components": {
+    "executor": {
+      "file": ".impar/lib/executor.sh",
+      "hash": "executor_hash_frozen",
+      "purpose": "Controls execution and audit logging",
+      "change_requires": "Full recertification"
+    },
+    "audit_chain": {
+      "file": ".impar/lib/audit-chain.sh",
+      "hash": "audit_chain_hash_frozen",
+      "purpose": "Hash-chained audit trail",
+      "change_requires": "Full recertification"
+    },
+    "certifier": {
+      "file": ".impar/lib/certifier.sh",
+      "hash": "certifier_hash_frozen",
+      "purpose": "Integrity verification",
+      "change_requires": "Full recertification"
+    },
+    "verify_audit": {
+      "file": ".impar/modules/verify-audit.sh",
+      "hash": "verify_audit_hash_frozen",
+      "purpose": "Audit chain validation",
+      "change_requires": "Full recertification"
+    },
+    "certify": {
+      "file": ".impar/modules/certify.sh",
+      "hash": "certify_hash_frozen",
+      "purpose": "Kernel certification",
+      "change_requires": "Full recertification"
+    },
+    "whitelist": {
+      "file": ".impar/executor_whitelist.json",
+      "hash": "40bec479f7d895d6458411dd93a00226cb433d796ea5815cfcd46eaf9749cf83",
+      "purpose": "Service authorization",
+      "change_requires": "Full recertification"
+    },
+    "registry": {
+      "file": ".impar/registry.json",
+      "hash": "54e9e053e044fc9875579dfef1e842b540e715784324078dd72193c2ecaf7ce0",
+      "purpose": "Kernel configuration",
+      "change_requires": "Full recertification"
+    },
+    "graph": {
+      "file": ".impar/graph.json",
+      "hash": "23161fe23ca4e7b2373c9c607765bcb856dd3d6b455e73d6b27bd1c5cf1ca044",
+      "purpose": "Knowledge graph",
+      "change_requires": "Full recertification"
+    },
+    "version": {
+      "file": ".impar/VERSION",
+      "hash": "141d2612a1a6dddb8f273cdf8089aac72d9a02d07d86009d858b8b2c87d6393e",
+      "purpose": "Version identifier",
+      "change_requires": "Full recertification"
+    },
+    "legacy_audit": {
+      "file": "07_LOGS/EXECUTION_AUDIT.jsonl",
+      "hash": "a932238973626ec91279bad7068caab354ec49dc2eb4dace659f84d52da22edb",
+      "purpose": "Immutable baseline",
+      "change_requires": "FAILURE (must never change)"
+    }
+  },
+  "validation_rules": {
+    "rule_1": "If any critical component hash changes, entire kernel must be recertified",
+    "rule_2": "Legacy audit baseline must NEVER change (fail-closed if it does)",
+    "rule_3": "Whitelist can only be changed with explicit authorization and recertification",
+    "rule_4": "Any modification to executor, audit-chain, certifier requires full test suite re-run",
+    "rule_5": "Graph modifications trigger knowledge layer recertification",
+    "rule_6": "Registry changes may affect automation scope (explicit authorization required)"
+  },
+  "usage": "When entering next certification cycle, compare current hashes against this matrix. Report any divergence as CRITICAL."
+}

@@ -1,0 +1,117 @@
+version: "30.0"
+purpose: "Roteamento por capacidade, custo e risco. Preencha provider_model no ambiente local se quiser nomes especificos."
+
+model_slots:
+  router-cheap:
+    role: "classificacao, resumo, ledger, triagem"
+    cost: "very_low"
+    reasoning: "low"
+    context_need: "small"
+    provider_model: "${KPA_MODEL_ROUTER:-auto-cheap}"
+
+  research-balanced:
+    role: "pesquisa, leitura de fontes, sintese de VOC"
+    cost: "medium"
+    reasoning: "medium"
+    context_need: "medium"
+    provider_model: "${KPA_MODEL_RESEARCH:-auto-balanced}"
+
+  strategy-frontier:
+    role: "mecanismo, posicionamento, oferta, tradeoffs"
+    cost: "high"
+    reasoning: "high"
+    context_need: "medium"
+    provider_model: "${KPA_MODEL_STRATEGY:-auto-frontier}"
+
+  copy-balanced:
+    role: "rascunhos, variacoes, adaptacoes por canal"
+    cost: "medium"
+    reasoning: "medium"
+    context_need: "medium"
+    provider_model: "${KPA_MODEL_COPY_DRAFT:-auto-balanced-creative}"
+
+  copy-frontier:
+    role: "copy final, VSL, LP principal, campanha critica"
+    cost: "high"
+    reasoning: "high"
+    context_need: "medium"
+    provider_model: "${KPA_MODEL_COPY_FINAL:-auto-frontier-creative}"
+
+  production-balanced:
+    role: "pagina, specs visuais, criativos, scripts tecnicos"
+    cost: "medium"
+    reasoning: "medium"
+    context_need: "medium"
+    provider_model: "${KPA_MODEL_PRODUCTION:-auto-balanced}"
+
+  analytics-balanced:
+    role: "metricas, diagnostico, plano de teste"
+    cost: "medium"
+    reasoning: "medium"
+    context_need: "small"
+    provider_model: "${KPA_MODEL_ANALYTICS:-auto-balanced}"
+
+  conversation-balanced:
+    role: "WhatsApp, SDR, follow-up, sucesso do cliente, conversa operacional"
+    cost: "medium"
+    reasoning: "medium"
+    context_need: "medium"
+    provider_model: "${KPA_MODEL_CONVERSATION:-auto-balanced-conversation}"
+
+  automation-balanced:
+    role: "documentos Cowork, estados, schemas, triggers e handoffs"
+    cost: "medium"
+    reasoning: "medium"
+    context_need: "medium"
+    provider_model: "${KPA_MODEL_AUTOMATION:-auto-balanced}"
+
+  reviewer-frontier:
+    role: "gate bloqueante, stress test, conflito estrategico"
+    cost: "high"
+    reasoning: "high"
+    context_need: "small"
+    provider_model: "${KPA_MODEL_REVIEWER:-auto-frontier}"
+
+routes:
+  intake: "router-cheap"
+  task_breakdown: "router-cheap"
+  context_pack: "router-cheap"
+  research_voc: "research-balanced"
+  market_synthesis: "research-balanced"
+  offer_strategy: "strategy-frontier"
+  mechanism: "strategy-frontier"
+  copy_draft: "copy-balanced"
+  copy_final: "copy-frontier"
+  production: "production-balanced"
+  traffic: "analytics-balanced"
+  whatsapp: "conversation-balanced"
+  cowork_docs: "automation-balanced"
+  process_automation: "automation-balanced"
+  adaptive_squad: "router-cheap"
+  product_hardening: "reviewer-frontier"
+  niche_kit: "research-balanced"
+  qa_soft: "router-cheap"
+  qa_blocking: "reviewer-frontier"
+
+upgrade_policy:
+  - trigger: "gate_fail_same_issue_twice"
+    action: "upgrade_one_slot"
+  - trigger: "mechanism_or_offer_decision"
+    action: "use_strategy-frontier"
+  - trigger: "copy_final_or_paid_traffic_asset"
+    action: "use_copy-frontier"
+  - trigger: "whatsapp_runtime_or_disparo_real"
+    action: "use_reviewer-frontier_and_require_confirmation"
+  - trigger: "automation_runtime_or_api_write"
+    action: "use_reviewer-frontier_and_require_confirmation"
+  - trigger: "lp_promise_gap_or_claim_risk"
+    action: "use_reviewer-frontier"
+  - trigger: "simple_formatting_or_summary"
+    action: "downgrade_to_router-cheap"
+
+budget_policy:
+  max_reference_files_per_task: 2
+  max_primary_diretrizes_per_task: 1
+  max_optional_diretrizes_per_task: 1
+  prefer_summary_over_full_history: true
+  require_handoff_after_each_task: true

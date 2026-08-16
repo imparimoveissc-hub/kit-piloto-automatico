@@ -1,0 +1,29 @@
+{
+  "plan_id": "plan-3A7-1-20260723074447",
+  "plan_hash": "40bec479f7d895d6",
+  "service": "impar-update-current-state",
+  "timestamp": "2026-07-23T10:44:47Z",
+  "executable_commands": [
+    "impar-update-current-state"
+  ],
+  "expected_modifications": [
+    "CURRENT_STATE.md"
+  ],
+  "expected_audit_records": [
+    "plan_created",
+    "approval_granted",
+    "execution_started",
+    "execution_completed",
+    "rollback_started",
+    "rollback_completed"
+  ],
+  "associated_backup": ".impar/backups/3A7-1-REVALIDATION-20260723-074320",
+  "rollback_backup": ".impar/backups/3A7-1-REVALIDATION-20260723-074320/CURRENT_STATE.md.baseline",
+  "risks": [
+    "Arquivo legado deve permanecer byte-a-byte idêntico"
+  ],
+  "approval_validity_seconds": 60,
+  "single_use_approval": true,
+  "no_other_services": true,
+  "confirmation": "Plano congelado — não será modificado durante execução"
+}

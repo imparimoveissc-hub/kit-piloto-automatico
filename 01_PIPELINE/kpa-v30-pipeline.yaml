@@ -1,0 +1,86 @@
+workflow:
+  id: kpa-v30-pipeline
+  name: "Kit Piloto Automatico V30 - Pipeline Mestre"
+  mode: "full-auto"
+  entry: "00_OS/cos.md"
+
+phases:
+  - id: P0
+    name: "Intake e Task Contract"
+    owner: "CoS"
+    model_profile: "router-cheap"
+    reads:
+      - "00_INDEX.md"
+      - "07_LOGS/task-ledger.md"
+    output: "task contract"
+    gate: "GATE-INTAKE"
+
+  - id: P1
+    name: "Context Pack"
+    owner: "CoS"
+    model_profile: "router-cheap"
+    output: "05_WORKSPACE/current-context.md atualizado"
+    gate: "GATE-INTAKE"
+
+  - id: P2
+    name: "Research e VOC"
+    owner: "Researcher"
+    model_profile: "research-balanced"
+    reads:
+      - "04_DIRETRIZES/pesquisa-voc.md"
+    output: "voc map + research brief"
+    gate: "GATE-RESEARCH"
+
+  - id: P3
+    name: "Estrategia e Mecanismo"
+    owner: "Strategist"
+    model_profile: "strategy-frontier"
+    reads:
+      - "04_DIRETRIZES/copy-goat-lite.md"
+    output: "DRE + awareness + MUP + MUS + promessa + prova"
+    gate: "GATE-STRATEGY"
+
+  - id: P4
+    name: "Copy Nucleus"
+    owner: "Copy Director"
+    model_profile: "copy-balanced"
+    upgrade_to: "copy-frontier"
+    reads:
+      - "04_DIRETRIZES/copy-goat-lite.md"
+      - "04_DIRETRIZES/voz-ptbr.md"
+    output: "nucleo de copy e pecas prioritarias"
+    gate: "GATE-COPY"
+
+  - id: P5
+    name: "Producao"
+    owner: "Production Lead"
+    model_profile: "production-balanced"
+    parallel_allowed_after:
+      - "GATE-COPY pass"
+    reads:
+      - "04_DIRETRIZES/design-diretrizes.md"
+    output: "pagina, criativos, scripts ou specs"
+    gate: "GATE-PRODUCTION"
+
+  - id: P6
+    name: "Trafego e Medicao"
+    owner: "Traffic Analyst"
+    model_profile: "analytics-balanced"
+    reads:
+      - "04_DIRETRIZES/traffic-diretrizes.md"
+    output: "plano de campanha, KPIs e leitura"
+    gate: "GATE-TRAFFIC"
+
+  - id: P7
+    name: "QA Final e Entrega"
+    owner: "QA Editor"
+    model_profile: "reviewer-frontier"
+    output: "verdict final + fixes + handoff"
+    gate: "GATE-DELIVERY"
+
+completion:
+  owner: "CoS"
+  actions:
+    - "Atualizar task-ledger"
+    - "Registrar decisoes"
+    - "Criar handoff final em 06_OUTPUTS quando houver entrega"

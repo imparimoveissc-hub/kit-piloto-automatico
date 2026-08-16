@@ -1,0 +1,32 @@
+{
+  "property_code": "AP0206",
+  "marketplace_category": "Diversos",
+  "ai_provider": "OpenAI",
+  "ai_model": "gpt-4o-mini",
+  "ai_api_configured": true,
+  "title": "Apartamento em Ubatuba",
+  "description": "Apartamento para locacao em Ubatuba. 5 dormitórios. Contate para mais informações.",
+  "tags_count": 20,
+  "tags_separator": ";",
+  "tags": "locaçãolocacao;Ubatuba;São Francisco do Sul;5_dormitórios;apartamento;litoral;espaçoso;família;mudança;aluguel;imovel_10;imovel_11;imovel_12;imovel_13;imovel_14;imovel_15;imovel_16;imovel_17;imovel_18;imovel_19",
+  "source_fields": [
+    "codigo",
+    "tipo",
+    "operacao",
+    "bairro",
+    "cidade",
+    "dormitorios",
+    "suites",
+    "banheiros",
+    "vagas",
+    "area",
+    "preco",
+    "caracteristicas",
+    "diferenciais"
+  ],
+  "factual_validation": {
+    "passed": true,
+    "invented_information_found": []
+  },
+  "generated_at": "2026-07-24T12:30:00Z"
+}

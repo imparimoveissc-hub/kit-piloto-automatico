@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRE {{MES_REFERENCIA}} - {{NOME_EMPRESA}}</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f6f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:#1a2733;">
+
+<!-- Wrapper -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f6f8;padding:32px 16px;">
+  <tr>
+    <td align="center">
+
+      <!-- Container principal -->
+      <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 8px 32px -16px rgba(15,42,69,.18);">
+
+        <!-- Header -->
+        <tr>
+          <td style="background:linear-gradient(135deg,{{COR_PRIMARIA}} 0%,{{COR_SECUNDARIA}} 100%);padding:36px 40px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="color:#cfd9e6;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;">
+                  {{NOME_ESCRITORIO}} - Relatorio Mensal
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-top:8px;color:#ffffff;font-size:26px;font-weight:700;line-height:1.25;">
+                  DRE {{MES_REFERENCIA}}
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-top:4px;color:#9fb4cf;font-size:15px;">
+                  {{NOME_EMPRESA}} - CNPJ {{CNPJ}}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Saudacao -->
+        <tr>
+          <td style="padding:32px 40px 8px 40px;">
+            <p style="margin:0 0 16px 0;font-size:16px;line-height:1.55;color:#1a2733;">
+              Ola, {{PRIMEIRO_NOME_CLIENTE}}.
+            </p>
+            <p style="margin:0 0 16px 0;font-size:15px;line-height:1.6;color:#3c4a5b;">
+              Segue o fechamento financeiro de <strong>{{MES_REFERENCIA}}</strong> da {{NOME_EMPRESA}}.
+              O PDF anexo tem o relatorio completo. Abaixo, o resumo do que mais importa pra sua decisao
+              nas proximas semanas.
+            </p>
+          </td>
+        </tr>
+
+        <!-- Resumo executivo -->
+        <tr>
+          <td style="padding:8px 40px 24px 40px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f7f9fb;border-radius:10px;border:1px solid #e3e9f0;">
+              <tr>
+                <td style="padding:20px 24px 8px 24px;">
+                  <span style="color:{{COR_PRIMARIA}};font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">
+                    Resumo executivo
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:0 24px 20px 24px;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td width="50%" style="padding:12px 12px 12px 0;vertical-align:top;">
+                        <div style="color:#6c7a8c;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Receita Bruta</div>
+                        <div style="color:{{COR_PRIMARIA}};font-size:22px;font-weight:700;padding-top:4px;">R$ {{RECEITA_BRUTA}}</div>
+                        <div style="color:{{COR_RECEITA}};font-size:13px;padding-top:2px;">{{VAR_RECEITA_MOM}} vs mes anterior</div>
+                      </td>
+                      <td width="50%" style="padding:12px 0 12px 12px;vertical-align:top;">
+                        <div style="color:#6c7a8c;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Lucro Liquido</div>
+                        <div style="color:{{COR_PRIMARIA}};font-size:22px;font-weight:700;padding-top:4px;">R$ {{LUCRO_LIQUIDO}}</div>
+                        <div style="color:{{COR_LUCRO}};font-size:13px;padding-top:2px;">{{VAR_LUCRO_MOM}} vs mes anterior</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="50%" style="padding:12px 12px 0 0;vertical-align:top;border-top:1px solid #e3e9f0;">
+                        <div style="color:#6c7a8c;font-size:12px;text-transform:uppercase;letter-spacing:1px;padding-top:12px;">Margem EBITDA</div>
+                        <div style="color:{{COR_PRIMARIA}};font-size:22px;font-weight:700;padding-top:4px;">{{MARGEM_EBITDA}}%</div>
+                      </td>
+                      <td width="50%" style="padding:12px 0 0 12px;vertical-align:top;border-top:1px solid #e3e9f0;">
+                        <div style="color:#6c7a8c;font-size:12px;text-transform:uppercase;letter-spacing:1px;padding-top:12px;">Margem Liquida</div>
+                        <div style="color:{{COR_PRIMARIA}};font-size:22px;font-weight:700;padding-top:4px;">{{MARGEM_LIQUIDA}}%</div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Insight principal -->
+        <tr>
+          <td style="padding:0 40px 24px 40px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff8e6;border-left:4px solid #e8a317;border-radius:6px;">
+              <tr>
+                <td style="padding:18px 22px;">
+                  <div style="color:#8a5a00;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding-bottom:6px;">
+                    Insight do mes
+                  </div>
+                  <div style="color:#3c2f12;font-size:15px;line-height:1.6;">
+                    {{INSIGHT_PRINCIPAL}}
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Acoes recomendadas -->
+        <tr>
+          <td style="padding:0 40px 32px 40px;">
+            <div style="color:{{COR_PRIMARIA}};font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding-bottom:10px;">
+              Acoes sugeridas pra {{MES_PROXIMO}}
+            </div>
+            <ul style="margin:0;padding-left:20px;color:#3c4a5b;font-size:15px;line-height:1.7;">
+              <li>{{ACAO_1}}</li>
+              <li>{{ACAO_2}}</li>
+              <li>{{ACAO_3}}</li>
+            </ul>
+          </td>
+        </tr>
+
+        <!-- CTA reuniao -->
+        <tr>
+          <td style="padding:0 40px 36px 40px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="background:{{COR_PRIMARIA}};border-radius:8px;">
+                  <a href="{{LINK_AGENDA}}" style="display:inline-block;padding:14px 28px;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;">
+                    Agendar reuniao de 30 min pra revisar
+                  </a>
+                </td>
+              </tr>
+            </table>
+            <p style="margin:14px 0 0 0;font-size:13px;color:#6c7a8c;line-height:1.55;">
+              Prefere por whatsapp? Responde esse email ou chama no <a href="https://wa.me/{{WHATSAPP_ESCRITORIO}}" style="color:{{COR_SECUNDARIA}};text-decoration:none;font-weight:600;">{{WHATSAPP_DISPLAY}}</a>.
+            </p>
+          </td>
+        </tr>
+
+        <!-- Anexos -->
+        <tr>
+          <td style="padding:0 40px 32px 40px;border-top:1px solid #e3e9f0;padding-top:24px;">
+            <div style="color:{{COR_PRIMARIA}};font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding-bottom:8px;">
+              Anexo
+            </div>
+            <p style="margin:0;color:#3c4a5b;font-size:14px;line-height:1.6;">
+              <strong>DRE_{{NOME_EMPRESA_SLUG}}_{{ANO_MES}}.pdf</strong> - relatorio completo com tabela detalhada, indicadores, comparativos e analises por categoria.
+            </p>
+          </td>
+        </tr>
+
+        <!-- Assinatura -->
+        <tr>
+          <td style="padding:0 40px 36px 40px;">
+            <p style="margin:0 0 4px 0;font-size:15px;color:#1a2733;">
+              Qualquer duvida, da o toque.
+            </p>
+            <p style="margin:18px 0 0 0;font-size:15px;color:#1a2733;line-height:1.5;">
+              <strong>{{NOME_CONTADOR}}</strong><br>
+              <span style="color:#6c7a8c;font-size:14px;">{{CRC}} - {{NOME_ESCRITORIO}}</span>
+            </p>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="background:{{COR_PRIMARIA}};padding:24px 40px;color:#9fb4cf;font-size:12px;line-height:1.6;">
+            <strong style="color:#ffffff;">{{NOME_ESCRITORIO}}</strong> - {{ENDERECO_ESCRITORIO}}<br>
+            {{TELEFONE_ESCRITORIO}} - <a href="mailto:{{EMAIL_INSTITUCIONAL}}" style="color:#cfd9e6;text-decoration:none;">{{EMAIL_INSTITUCIONAL}}</a><br>
+            <span style="display:inline-block;padding-top:8px;font-size:11px;color:#7a8ca6;">
+              Este email contem informacao financeira confidencial. Se voce nao e o destinatario, por favor delete.
+            </span>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

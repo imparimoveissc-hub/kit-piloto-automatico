@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "n8n": {
+    "url": "http://127.0.0.1:5678",
+    "container": "impar-n8n",
+    "core_dir": "~/.impar-n8n-core"
+  },
+  "database": {
+    "type": "sqlite",
+    "path": "database/impar.db"
+  },
+  "cache": {
+    "type": "json",
+    "path": "cache/cache.json",
+    "default_ttl_seconds": 300
+  },
+  "logging": {
+    "dir": "logs",
+    "max_lines": 10000,
+    "redact_secrets": true
+  },
+  "security": {
+    "allow_arbitrary_bash": false,
+    "allow_free_commands": false,
+    "whitelist_only": true,
+    "blocked_files": ["start-bridge.sh", "install-launchd-macos.sh"]
+  },
+  "token_policy": {
+    "ai_default": false,
+    "escalation_order": [
+      "fixed_rule",
+      "cache",
+      "sqlite_query",
+      "state_read",
+      "local_script",
+      "n8n_workflow",
+      "impar_kernel",
+      "small_model",
+      "claude_last_resort"
+    ]
+  },
+  "production": {
+    "writes_enabled": false,
+    "publish_enabled": false,
+    "send_messages_enabled": false,
+    "mode": "read-only"
+  },
+  "leads": {
+    "distribution": ["Jonata", "Jaciel", "Sidnei"],
+    "strategy": "round-robin"
+  }
+}

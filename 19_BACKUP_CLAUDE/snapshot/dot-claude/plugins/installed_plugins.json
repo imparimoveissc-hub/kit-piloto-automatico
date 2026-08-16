@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "plugins": {
+    "imobiliario-juridico@kpa30-marketplace": [
+      {
+        "scope": "user",
+        "installPath": "/Users/user/.claude/plugins/cache/kpa30-marketplace/imobiliario-juridico/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-07-03T10:15:11.504Z",
+        "lastUpdated": "2026-07-03T10:15:11.504Z"
+      }
+    ]
+  }
+}

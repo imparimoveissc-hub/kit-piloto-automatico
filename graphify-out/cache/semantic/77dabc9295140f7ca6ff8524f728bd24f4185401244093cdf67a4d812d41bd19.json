@@ -1,0 +1,1 @@
+{"nodes": [], "edges": [], "hyperedges": [{"id": "automation_blueprints", "label": "Automation Blueprints", "nodes": ["18_automation_stack_cinematic_video_editor_readme", "18_automation_stack_impar_atualizacao_rogga_imobibrasil_automation_blueprint"], "relation": "implement", "confidence": "EXTRACTED", "confidence_score": 0.9, "source_file": "18_AUTOMATION_STACK/README.md"}]}

@@ -1,0 +1,111 @@
+{
+  "codigo": "AP0206",
+  "id_interno": 4298360,
+  "timestamp": "2026-07-23T09:19:00Z",
+  "etapas_validacao": [
+    {
+      "numero": 1,
+      "titulo": "Extração de Componentes da URL",
+      "status": "✅ PASSOU",
+      "detalhes": {
+        "url": "https://www.imparimoveis.com/imovel/4298360/apartamento-locacao-sao-francisco-do-sul-sc-ubatuba",
+        "padrao_validado": "imparimoveis.com/imovel/{ID}/...",
+        "id_numerico_extraido": 4298360,
+        "id_esperado": 4298360,
+        "match": true,
+        "slug_operacao": "locacao",
+        "slug_tipo": "apartamento",
+        "slug_localizacao": "sao-francisco-do-sul-sc-ubatuba"
+      }
+    },
+    {
+      "numero": 2,
+      "titulo": "Validação de Correspondência URL↔ID↔Página",
+      "status": "✅ PASSOU",
+      "detalhes": {
+        "id_na_url": 4298360,
+        "id_na_pagina": "AP0206 (ref na página correspondendo a 4298360)",
+        "operacao_url": "locacao",
+        "operacao_pagina": "locacao",
+        "tipo_url": "apartamento",
+        "tipo_pagina": "Apartamento para Locação",
+        "cidade_url": "sao-francisco-do-sul",
+        "cidade_pagina": "São Francisco do Sul",
+        "estado_url": "sc",
+        "estado_pagina": "SC",
+        "bairro_url": "ubatuba",
+        "bairro_pagina": "Ubatuba",
+        "pagina_acesso": "200_OK",
+        "codigo_ap0206_confirmado": true
+      }
+    },
+    {
+      "numero": 3,
+      "titulo": "Coleta de Dados Estruturados",
+      "status": "✅ PASSOU",
+      "detalhes": {
+        "dormitorios": 5,
+        "suites": 1,
+        "banheiros": 2,
+        "vagas": 1,
+        "salas": 3,
+        "area_total": "200,00 m²",
+        "area_privativa": "200,00 m²",
+        "area_construida": "660,00 m²",
+        "area_terreno": "321,00 m²",
+        "preco": "R$ 2.800,00",
+        "condominio": "NÃO PUBLICADO",
+        "iptu": "NÃO PUBLICADO",
+        "adicionais": "NÃO PUBLICADO",
+        "descricao": "presente",
+        "caracteristicas": "presentes (6 items)"
+      }
+    },
+    {
+      "numero": 4,
+      "titulo": "Validação de Galeria Completa",
+      "status": "✅ PASSOU",
+      "detalhes": {
+        "imagens_encontradas": 68,
+        "imagens_carregadas": 68,
+        "imagens_completas": true,
+        "dimensoes_extraidas": true,
+        "pertencimento_validado": true,
+        "ordem_preservada": true,
+        "deduplicacao": "0 duplicatas",
+        "rejeicoes": "2 (logos/ícones)"
+      }
+    },
+    {
+      "numero": 5,
+      "titulo": "Verificação de Integridade no CRM",
+      "status": "⚠️ PENDENTE_CONFIRMACAO",
+      "detalhes": {
+        "nota": "Verificação via painel1.imobibrasil.app.br pendente de acesso ao CRM",
+        "codigo_ap0206": "confirmado na página",
+        "status_esperado": "LIVRE",
+        "acao_requerida": "Jonata confirmar via CRM"
+      }
+    }
+  ],
+  "condicoes_passagem": [
+    "✅ URL válida (imparimoveis.com)",
+    "✅ ID numérico confirmado em página (4298360)",
+    "✅ Operação confirmada (locacao)",
+    "✅ Tipo confirmado (apartamento)",
+    "✅ Localização confirmada (São Francisco do Sul, SC, Ubatuba)",
+    "✅ Dados estruturados coletáveis (5 dorms, 1 suite, 2 baths, 1 vaga, 3 salas)",
+    "✅ Áreas coletáveis (200m² total, 660m² construída, 321m² terreno)",
+    "✅ Preço confirmado (R$ 2.800,00/mês)",
+    "✅ Galeria completa (68 imagens válidas)",
+    "✅ Descrição original coletada",
+    "✅ Características coletadas"
+  ],
+  "resultado_final": {
+    "status": "PROPERTY_PAYLOAD_READY_FOR_APPROVAL",
+    "resumo": "Todas as validações críticas passaram. Dados completos e consistentes. Pronto para FASE B de execução.",
+    "bloqueadores": 0,
+    "avisos": 1,
+    "avisos_detalhes": "Confirmação CRM do código AP0206 livre ainda pendente (ação Jonata)"
+  }
+}

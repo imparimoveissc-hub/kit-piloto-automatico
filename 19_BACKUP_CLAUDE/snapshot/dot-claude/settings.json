@@ -1,0 +1,14 @@
+{
+  "enabledPlugins": {
+    "imobiliario-juridico@kpa30-marketplace": true
+  },
+  "extraKnownMarketplaces": {
+    "kpa30-marketplace": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/KPA30-Marketplace"
+      }
+    }
+  },
+  "theme": "auto"
+}

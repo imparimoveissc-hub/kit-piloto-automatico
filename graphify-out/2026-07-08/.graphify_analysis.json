@@ -1,0 +1,1781 @@
+{
+  "communities": {
+    "0": [
+      "18_automation_stack_nfem_joinville_src_asaas_client_montar_dados_nota",
+      "18_automation_stack_nfem_joinville_src_asaas_client_pagamento_autoriza_nota",
+      "18_automation_stack_nfem_joinville_src_asaas_client_rationale_56",
+      "18_automation_stack_nfem_joinville_src_asaas_client_rationale_70",
+      "18_automation_stack_nfem_joinville_src_cli",
+      "18_automation_stack_nfem_joinville_src_cli_buscar_pendentes_mes_atual",
+      "18_automation_stack_nfem_joinville_src_cli_emitir_manual",
+      "18_automation_stack_nfem_joinville_src_cli_emitir_pendentes",
+      "18_automation_stack_nfem_joinville_src_cli_imprimir_pendentes",
+      "18_automation_stack_nfem_joinville_src_cli_login_manual",
+      "18_automation_stack_nfem_joinville_src_cli_main",
+      "18_automation_stack_nfem_joinville_src_cli_parse_flags",
+      "18_automation_stack_nfem_joinville_src_cli_rationale_1",
+      "18_automation_stack_nfem_joinville_src_cli_rationale_167",
+      "18_automation_stack_nfem_joinville_src_cli_rationale_196",
+      "18_automation_stack_nfem_joinville_src_cli_rationale_212",
+      "18_automation_stack_nfem_joinville_src_cli_rationale_306",
+      "18_automation_stack_nfem_joinville_src_cli_rationale_333",
+      "18_automation_stack_nfem_joinville_src_cli_rationale_95",
+      "18_automation_stack_nfem_joinville_src_cli_simular",
+      "18_automation_stack_nfem_joinville_src_idempotency",
+      "18_automation_stack_nfem_joinville_src_idempotency_carregar",
+      "18_automation_stack_nfem_joinville_src_idempotency_ja_emitida",
+      "18_automation_stack_nfem_joinville_src_idempotency_listar_erros",
+      "18_automation_stack_nfem_joinville_src_idempotency_rationale_1",
+      "18_automation_stack_nfem_joinville_src_idempotency_rationale_32",
+      "18_automation_stack_nfem_joinville_src_idempotency_rationale_48",
+      "18_automation_stack_nfem_joinville_src_idempotency_rationale_72",
+      "18_automation_stack_nfem_joinville_src_idempotency_rationale_89",
+      "18_automation_stack_nfem_joinville_src_idempotency_rationale_99",
+      "18_automation_stack_nfem_joinville_src_idempotency_registrar_emissao",
+      "18_automation_stack_nfem_joinville_src_idempotency_registrar_erro",
+      "18_automation_stack_nfem_joinville_src_idempotency_resetar_para_reprocessamento",
+      "18_automation_stack_nfem_joinville_src_idempotency_salvar",
+      "18_automation_stack_nfem_joinville_src_pdf_manager",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_caminho_esperado",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_nome_arquivo",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_pasta_mes_ano",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_py_path",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_rationale_1",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_rationale_14",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_rationale_23",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_rationale_32",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_rationale_45",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_rationale_73",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_salvar_pdf",
+      "18_automation_stack_nfem_joinville_src_pdf_manager_sanitizar_nome",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_rationale_1",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_rationale_81",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_idempotencia",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_montar_dados_completos",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_montar_dados_sem_config_levanta_erro",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_nome_sanitizado",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_pagamento_autorizado",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_pagamento_cancelado_nao_autorizado",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_pagamento_pendente_nao_autorizado",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_registro_erro_e_reset",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_salvar_pdf",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_salvar_pdf_idempotente",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_salvar_pdf_sufixo_incremental",
+      "18_automation_stack_nfem_joinville_tests_test_pipeline_test_status_nao_autorizados",
+      "19_backup_claude_snapshot_dot_claude_scheduled_tasks_emissao_nfs_dia_29_skill",
+      "19_backup_claude_snapshot_dot_claude_scheduled_tasks_emissao_nfs_dia_30_skill",
+      "19_backup_claude_snapshot_dot_claude_skills_emitir_nota_avulsa_skill",
+      "19_backup_claude_snapshot_dot_claude_skills_emitir_notas_fiscais_skill",
+      "datetime"
+    ],
+    "1": [
+      "18_automation_stack_nfem_joinville_src_asaas_client",
+      "18_automation_stack_nfem_joinville_src_asaas_client_buscar_cliente",
+      "18_automation_stack_nfem_joinville_src_asaas_client_buscar_pagamento",
+      "18_automation_stack_nfem_joinville_src_asaas_client_headers",
+      "18_automation_stack_nfem_joinville_src_asaas_client_rationale_1",
+      "18_automation_stack_nfem_joinville_src_asaas_client_rationale_17",
+      "18_automation_stack_nfem_joinville_src_asaas_client_rationale_38",
+      "18_automation_stack_nfem_joinville_src_asaas_client_rationale_47",
+      "18_automation_stack_nfem_joinville_src_asaas_client_validar_assinatura_webhook",
+      "18_automation_stack_nfem_joinville_src_config",
+      "18_automation_stack_nfem_joinville_src_config_carregar_clientes",
+      "18_automation_stack_nfem_joinville_src_config_rationale_1",
+      "18_automation_stack_nfem_joinville_src_logger",
+      "18_automation_stack_nfem_joinville_src_logger_get_logger",
+      "18_automation_stack_nfem_joinville_src_logger_rationale_1",
+      "18_automation_stack_nfem_joinville_src_nfem_automation",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_emitir_nota",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_emitir_notas_em_lote",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_1",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_494",
+      "18_automation_stack_nfem_joinville_src_pipeline",
+      "18_automation_stack_nfem_joinville_src_pipeline_encontrar_config_cliente",
+      "18_automation_stack_nfem_joinville_src_pipeline_processar_lote",
+      "18_automation_stack_nfem_joinville_src_pipeline_processar_pagamento",
+      "18_automation_stack_nfem_joinville_src_pipeline_rationale_1",
+      "18_automation_stack_nfem_joinville_src_pipeline_rationale_192",
+      "18_automation_stack_nfem_joinville_src_pipeline_rationale_27",
+      "18_automation_stack_nfem_joinville_src_pipeline_rationale_71",
+      "18_automation_stack_nfem_joinville_src_pipeline_so_digitos",
+      "18_automation_stack_nfem_joinville_src_webhook_server",
+      "18_automation_stack_nfem_joinville_src_webhook_server_health",
+      "18_automation_stack_nfem_joinville_src_webhook_server_lifespan",
+      "18_automation_stack_nfem_joinville_src_webhook_server_listar_erros",
+      "18_automation_stack_nfem_joinville_src_webhook_server_processar_em_background",
+      "18_automation_stack_nfem_joinville_src_webhook_server_rationale_1",
+      "18_automation_stack_nfem_joinville_src_webhook_server_reprocessar",
+      "18_automation_stack_nfem_joinville_src_webhook_server_validar_assinatura",
+      "18_automation_stack_nfem_joinville_src_webhook_server_webhook_asaas",
+      "backgroundtasks",
+      "fastapi",
+      "logger",
+      "request"
+    ],
+    "2": [
+      "00_os_commands_gerar_contrato_locacao",
+      "00_os_commands_gerar_contrato_locacao_coletar_dados",
+      "00_os_commands_gerar_contrato_locacao_criar_pasta_destino",
+      "00_os_commands_gerar_contrato_locacao_edit_docx_xml",
+      "00_os_commands_gerar_contrato_locacao_editar_contrato",
+      "00_os_commands_gerar_contrato_locacao_editar_contrato_admin",
+      "00_os_commands_gerar_contrato_locacao_editar_vistoria",
+      "00_os_commands_gerar_contrato_locacao_extrair_rua_bairro",
+      "00_os_commands_gerar_contrato_locacao_get_paragraph_full_text",
+      "00_os_commands_gerar_contrato_locacao_get_paragraph_yellow_text",
+      "00_os_commands_gerar_contrato_locacao_has_yellow",
+      "00_os_commands_gerar_contrato_locacao_main",
+      "00_os_commands_gerar_contrato_locacao_montar_aluguel",
+      "00_os_commands_gerar_contrato_locacao_montar_data_contrato",
+      "00_os_commands_gerar_contrato_locacao_montar_imovel_contrato",
+      "00_os_commands_gerar_contrato_locacao_montar_imovel_vistoria",
+      "00_os_commands_gerar_contrato_locacao_montar_locador",
+      "00_os_commands_gerar_contrato_locacao_montar_locador_vistoria",
+      "00_os_commands_gerar_contrato_locacao_montar_locatario",
+      "00_os_commands_gerar_contrato_locacao_montar_locatario_vistoria",
+      "00_os_commands_gerar_contrato_locacao_montar_prazo",
+      "00_os_commands_gerar_contrato_locacao_nome_arquivo_admin",
+      "00_os_commands_gerar_contrato_locacao_nome_arquivo_contrato",
+      "00_os_commands_gerar_contrato_locacao_nome_arquivo_vistoria",
+      "00_os_commands_gerar_contrato_locacao_nome_pasta",
+      "00_os_commands_gerar_contrato_locacao_perguntar",
+      "00_os_commands_gerar_contrato_locacao_rationale_103",
+      "00_os_commands_gerar_contrato_locacao_rationale_112",
+      "00_os_commands_gerar_contrato_locacao_rationale_386",
+      "00_os_commands_gerar_contrato_locacao_rationale_44",
+      "00_os_commands_gerar_contrato_locacao_rationale_440",
+      "00_os_commands_gerar_contrato_locacao_rationale_469",
+      "00_os_commands_gerar_contrato_locacao_rationale_93",
+      "00_os_commands_gerar_contrato_locacao_replace_yellow_text_in_paragraph",
+      "00_os_commands_gerar_contrato_locacao_tag"
+    ],
+    "3": [
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_aenter",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_aexit",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_clicar",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_clicar_emitir",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_completar_endereco_tomador",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_emitir",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_emitir_lote",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_init",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_ja_autenticado",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_login",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_navegar_emissao",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_obter_numero_e_pdf",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_preencher",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_preencher_servico",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_preencher_tomador",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_salvar_sessao",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_screenshot",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation_selecionar",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_nfemerror",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_128",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_138",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_221",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_247",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_288",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_380",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_442",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_45",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_455",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_rationale_99",
+      "18_automation_stack_nfem_joinville_src_nfem_automation_sessaoexpirada",
+      "exception"
+    ],
+    "4": [
+      "_ref_claude_for_legal_commercial_legal_agents_deal_debrief",
+      "_ref_claude_for_legal_commercial_legal_agents_playbook_monitor",
+      "_ref_claude_for_legal_commercial_legal_agents_renewal_watcher",
+      "_ref_claude_for_legal_commercial_legal_skills_amendment_history_skill",
+      "_ref_claude_for_legal_commercial_legal_skills_cold_start_interview_skill",
+      "_ref_claude_for_legal_commercial_legal_skills_customize_skill",
+      "_ref_claude_for_legal_commercial_legal_skills_escalation_flagger_skill",
+      "_ref_claude_for_legal_commercial_legal_skills_matter_workspace_skill",
+      "_ref_claude_for_legal_commercial_legal_skills_nda_review_skill",
+      "_ref_claude_for_legal_law_student_skills_cold_call_prep_SKILL",
+      "_ref_claude_for_legal_law_student_skills_cold_start_interview_SKILL",
+      "_ref_claude_for_legal_law_student_skills_customize_SKILL",
+      "_ref_claude_for_legal_law_student_skills_exam_forecast_SKILL",
+      "_ref_claude_for_legal_law_student_skills_flashcards_SKILL",
+      "_ref_claude_for_legal_law_student_skills_irac_practice_SKILL",
+      "_ref_claude_for_legal_law_student_skills_legal_writing_SKILL",
+      "_ref_claude_for_legal_law_student_skills_outline_builder_SKILL",
+      "_ref_claude_for_legal_law_student_skills_session_SKILL",
+      "_ref_claude_for_legal_law_student_skills_socratic_drill_SKILL",
+      "_ref_claude_for_legal_law_student_skills_study_plan_SKILL",
+      "_ref_claude_for_legal_privacy_legal_skills_cold_start_interview_skill_cold_start_interview",
+      "_ref_claude_for_legal_privacy_legal_skills_customize_skill_customize",
+      "_ref_claude_for_legal_privacy_legal_skills_dpa_review_skill_dpa_review",
+      "_ref_claude_for_legal_privacy_legal_skills_dsar_response_skill_dsar_response",
+      "_ref_claude_for_legal_privacy_legal_skills_matter_workspace_skill_matter_workspace",
+      "_ref_claude_for_legal_privacy_legal_skills_pia_generation_skill_pia_generation",
+      "_ref_claude_for_legal_privacy_legal_skills_policy_monitor_skill_policy_monitor",
+      "config_claude_md",
+      "config_deviation_log",
+      "config_outputs_folder"
+    ],
+    "5": [
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_append_jsonl",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_build_messenger_reply",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_build_whatsapp_message",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_can_send_messenger_message",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_classify_intent",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_clean_text",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_find_property",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_handler",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_handler_do_get",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_handler_do_options",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_handler_do_post",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_handler_log_message",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_handler_send_json",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_is_followup_event",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_lead_key",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_load_master_prompt",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_load_properties",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_main",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_normalize_digits",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_normalize_lead",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_process_payload",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_read_json",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_send_to_messenger",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_send_to_whatsapp",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_strip_accents",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_update_reply_state",
+      "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_write_json",
+      "basehttprequesthandler"
+    ],
+    "6": [
+      "meu_video_package",
+      "meu_video_package_dependencies",
+      "meu_video_package_dependencies_react",
+      "meu_video_package_dependencies_react_dom",
+      "meu_video_package_dependencies_remotion",
+      "meu_video_package_dependencies_remotion_cli",
+      "meu_video_package_dependencies_remotion_tailwind_v4",
+      "meu_video_package_dependencies_tailwindcss",
+      "meu_video_package_description",
+      "meu_video_package_devdependencies",
+      "meu_video_package_devdependencies_eslint",
+      "meu_video_package_devdependencies_prettier",
+      "meu_video_package_devdependencies_remotion_eslint_config_flat",
+      "meu_video_package_devdependencies_types_react",
+      "meu_video_package_devdependencies_types_web",
+      "meu_video_package_devdependencies_typescript",
+      "meu_video_package_license",
+      "meu_video_package_name",
+      "meu_video_package_private",
+      "meu_video_package_repository",
+      "meu_video_package_scripts",
+      "meu_video_package_scripts_build",
+      "meu_video_package_scripts_dev",
+      "meu_video_package_scripts_lint",
+      "meu_video_package_scripts_upgrade",
+      "meu_video_package_sideeffects",
+      "meu_video_package_version"
+    ],
+    "7": [
+      "00_os_commands_instalar_kpa30",
+      "00_os_commands_rodar_pipeline",
+      "00_os_cos",
+      "00_os_gates",
+      "00_os_model_router",
+      "00_os_router",
+      "00_os_task_manager",
+      "01_pipeline_kpa_v30_pipeline",
+      "02_agents_copy_director",
+      "02_agents_qa_editor",
+      "02_agents_researcher",
+      "02_agents_strategist",
+      "04_diretrizes_copy_goat_lite",
+      "04_diretrizes_pesquisa_voc",
+      "04_diretrizes_voz_ptbr",
+      "12_whatsapp_stack_agents_conversation_qa",
+      "12_whatsapp_stack_agents_cowork_automation_architect",
+      "12_whatsapp_stack_agents_customer_success_bot",
+      "12_whatsapp_stack_agents_prospecting_bot",
+      "12_whatsapp_stack_agents_sales_followup_bot",
+      "12_whatsapp_stack_agents_sdr_attendant",
+      "12_whatsapp_stack_agents_whatsapp_orchestrator",
+      "18_automation_stack_agents_automation_orchestrator",
+      "18_automation_stack_cinematic_video_editor_readme",
+      "18_automation_stack_impar_atualizacao_rogga_imobibrasil_automation_blueprint",
+      "21_builder_kit_agents_forge"
+    ],
+    "8": [
+      "18_automation_stack_impar_dashboard_whatsapp_setores_automation_blueprint",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_datafile",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_fs",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_http",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_normalizeclient",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_normalizesector",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_normalizeurgency",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_parsebody",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_path",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_port",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_readjson",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_root",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_send",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_servefile",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_server",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_setores",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_upsertclient",
+      "18_automation_stack_impar_dashboard_whatsapp_setores_bridge_server_writejson"
+    ],
+    "9": [
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_bridge_post",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_emitir",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_fmt_valor",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_load_state",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_main",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_max_timestamp",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_novas_mensagens",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_parse_comando",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_processar",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_rationale_1",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_rationale_113",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_rationale_135",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_rationale_161",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_save_state",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_send_file",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_send_text",
+      "18_automation_stack_nfem_joinville_src_whatsapp_listener_token"
+    ],
+    "10": [
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_build_queue",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_clean_text",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_collect_links",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_collect_operation",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_discover_listing_pages",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_extract_listing_links",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_extract_property",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_fetch",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_first_match",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_main",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_make_description",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_make_tags",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_marketplace_title",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_slug_to_label",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_write_csv",
+      "18_automation_stack_impar_facebook_marketplace_posting_generate_queue_write_draft"
+    ],
+    "11": [
+      "18_automation_stack_cinematic_video_editor_cinematic_editor",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_build_video_filter",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_create_cut_source",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_detect_silences",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_escape_filter_path",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_ffprobe_duration",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_ffprobe_streams",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_load_config",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_main",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_parse_args",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_render_final",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_require_tool",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_run",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_silence_events_to_keep_segments",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_slugify",
+      "18_automation_stack_cinematic_video_editor_cinematic_editor_write_report"
+    ],
+    "12": [
+      "legal_clinic_client_comms_readme",
+      "legal_clinic_references_plausibility_bands_ca",
+      "legal_clinic_references_plausibility_bands_il",
+      "legal_clinic_skills_build_guide",
+      "legal_clinic_skills_client_comms_log",
+      "legal_clinic_skills_client_intake",
+      "legal_clinic_skills_client_letter",
+      "legal_clinic_skills_cold_start_interview",
+      "legal_clinic_skills_deadlines",
+      "legal_clinic_skills_draft",
+      "legal_clinic_skills_memo",
+      "legal_clinic_skills_ramp",
+      "ref_claude_for_legal_legal_clinic_claude",
+      "ref_claude_for_legal_legal_clinic_deadlines_yaml"
+    ],
+    "13": [
+      "ref_claude_for_legal_scripts_orchestrate",
+      "ref_claude_for_legal_scripts_orchestrate_audit_log",
+      "ref_claude_for_legal_scripts_orchestrate_extract_handoff",
+      "ref_claude_for_legal_scripts_orchestrate_frame_handoff",
+      "ref_claude_for_legal_scripts_orchestrate_rationale_163",
+      "ref_claude_for_legal_scripts_orchestrate_rationale_178",
+      "ref_claude_for_legal_scripts_orchestrate_rationale_198",
+      "ref_claude_for_legal_scripts_orchestrate_rationale_215",
+      "ref_claude_for_legal_scripts_orchestrate_rationale_246",
+      "ref_claude_for_legal_scripts_orchestrate_rationale_322",
+      "ref_claude_for_legal_scripts_orchestrate_run",
+      "ref_claude_for_legal_scripts_orchestrate_sanitize_event",
+      "ref_claude_for_legal_scripts_orchestrate_strip_controls",
+      "ref_claude_for_legal_scripts_orchestrate_validate_params"
+    ],
+    "14": [
+      "meu_video_tsconfig",
+      "meu_video_tsconfig_compileroptions",
+      "meu_video_tsconfig_compileroptions_esmoduleinterop",
+      "meu_video_tsconfig_compileroptions_forceconsistentcasinginfilenames",
+      "meu_video_tsconfig_compileroptions_jsx",
+      "meu_video_tsconfig_compileroptions_lib",
+      "meu_video_tsconfig_compileroptions_module",
+      "meu_video_tsconfig_compileroptions_noemit",
+      "meu_video_tsconfig_compileroptions_nounusedlocals",
+      "meu_video_tsconfig_compileroptions_skiplibcheck",
+      "meu_video_tsconfig_compileroptions_strict",
+      "meu_video_tsconfig_compileroptions_target",
+      "meu_video_tsconfig_exclude"
+    ],
+    "15": [
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright",
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright_attach_photos",
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright_choose_combobox_option",
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright_click_text_if_visible",
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright_fill_first_visible_text_input",
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright_fill_listing",
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright_load_listing",
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright_main",
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright_maybe_publish",
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright_only_digits",
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright_rationale_60",
+      "18_automation_stack_impar_facebook_marketplace_posting_publish_marketplace_playwright_rationale_88"
+    ],
+    "16": [
+      "_ref_claude_for_legal_privacy_legal_skills_reg_gap_analysis_skill",
+      "_ref_claude_for_legal_privacy_legal_skills_use_case_triage_skill",
+      "_ref_claude_for_legal_product_legal_skills_feature_risk_assessment_skill",
+      "ai_governance_legal_aia_generation",
+      "ai_governance_legal_cold_start_interview",
+      "ai_governance_legal_skills_policy_starter",
+      "ai_governance_legal_skills_reg_gap_analysis",
+      "ai_governance_legal_skills_use_case_triage",
+      "ai_governance_legal_skills_vendor_ai_review",
+      "claude_plugins_config_claude_for_legal_ai_governance_legal_claude",
+      "privacy_legal_pia_generation",
+      "product_legal_launch_review"
+    ],
+    "17": [
+      "claude_plugins_config_claude_for_legal_litigation_legal_claude_for_legal_config",
+      "integration_tracker_yaml",
+      "matter_log",
+      "matter_md",
+      "ref_claude_for_legal_corporate_legal_skills_integration_management_SKILL",
+      "ref_claude_for_legal_corporate_legal_skills_matter_workspace_SKILL",
+      "ref_claude_for_legal_corporate_legal_skills_written_consent_SKILL",
+      "ref_claude_for_legal_litigation_legal_skills_brief_section_drafter_skill",
+      "ref_claude_for_legal_litigation_legal_skills_chronology_skill",
+      "ref_claude_for_legal_litigation_legal_skills_claim_chart_references_element_templates",
+      "ref_claude_for_legal_litigation_legal_skills_claim_chart_skill",
+      "ref_claude_for_legal_litigation_legal_skills_cold_start_interview_skill"
+    ],
+    "18": [
+      "15_product_release_templates_gestao_dashboard_relatorio_executivo_mensal",
+      "15_product_release_templates_gestao_dre_checklist_pre_envio",
+      "15_product_release_templates_gestao_dre_email_template",
+      "15_product_release_templates_gestao_dre_email_template_copy",
+      "15_product_release_templates_gestao_dre_readme",
+      "15_product_release_templates_gestao_dre_sop_entrega_dre",
+      "15_product_release_templates_gestao_dre_template_dre",
+      "15_product_release_templates_gestao_financeiro_contas_a_pagar_receber",
+      "15_product_release_templates_gestao_financeiro_fluxo_caixa_mensal",
+      "15_product_release_templates_gestao_financeiro_pro_labore_distribuicao",
+      "15_product_release_templates_gestao_financeiro_readme"
+    ],
+    "19": [
+      "15_product_release_nichos_clinicas_claude",
+      "15_product_release_nichos_clinicas_prompts_captacao_pacientes",
+      "15_product_release_nichos_clinicas_prompts_comunicacao_paciente",
+      "15_product_release_nichos_clinicas_prompts_gestao_clinica",
+      "15_product_release_nichos_clinicas_readme",
+      "15_product_release_nichos_clinicas_templates_agendamento_automatico",
+      "15_product_release_nichos_clinicas_templates_follow_up_paciente",
+      "15_product_release_nichos_clinicas_templates_proposta_tratamento",
+      "15_product_release_nichos_clinicas_templates_reativacao_pacientes",
+      "15_product_release_nichos_clinicas_templates_relatorio_captacao"
+    ],
+    "20": [
+      "15_product_release_nichos_advocacia_prompts_atendimento_cliente",
+      "15_product_release_nichos_advocacia_prompts_pesquisa_jurisprudencia",
+      "15_product_release_nichos_advocacia_prompts_redacao_pecas",
+      "15_product_release_nichos_advocacia_readme",
+      "15_product_release_nichos_advocacia_templates_briefing_caso",
+      "15_product_release_nichos_advocacia_templates_follow_up_cliente",
+      "15_product_release_nichos_advocacia_templates_peticao_inicial",
+      "15_product_release_nichos_advocacia_templates_proposta_honorarios",
+      "15_product_release_nichos_advocacia_templates_relatorio_cliente"
+    ],
+    "21": [
+      "15_product_release_nichos_b2b_prompts_account_management",
+      "15_product_release_nichos_b2b_prompts_prospeccao",
+      "15_product_release_nichos_b2b_prompts_vendas",
+      "15_product_release_nichos_b2b_readme",
+      "15_product_release_nichos_b2b_templates_onboarding_cliente_b2b",
+      "15_product_release_nichos_b2b_templates_proposta_comercial_b2b",
+      "15_product_release_nichos_b2b_templates_prospeccao_outbound",
+      "15_product_release_nichos_b2b_templates_relatorio_pipeline",
+      "15_product_release_nichos_b2b_templates_script_reuniao_vendas"
+    ],
+    "22": [
+      "ref_claude_for_legal_regulatory_legal_skills_comments_skill",
+      "ref_claude_for_legal_regulatory_legal_skills_gap_surfacer_references_comment_tracker",
+      "ref_claude_for_legal_regulatory_legal_skills_gap_surfacer_references_gap_tracker",
+      "ref_claude_for_legal_regulatory_legal_skills_gap_surfacer_skill",
+      "ref_claude_for_legal_regulatory_legal_skills_gaps_skill",
+      "ref_claude_for_legal_regulatory_legal_skills_policy_diff_skill",
+      "ref_claude_for_legal_regulatory_legal_skills_policy_redraft_skill",
+      "ref_claude_for_legal_regulatory_legal_skills_reg_feed_watcher_references_source_catalog",
+      "ref_claude_for_legal_regulatory_legal_skills_reg_feed_watcher_skill"
+    ],
+    "23": [
+      "11_traffic_stack_agents_competitor_spy",
+      "11_traffic_stack_agents_creative_analyst",
+      "11_traffic_stack_agents_funnel_analyst",
+      "11_traffic_stack_agents_meta_dr_specialist",
+      "11_traffic_stack_agents_scaling_strategist",
+      "11_traffic_stack_agents_traffic_diagnostician",
+      "11_traffic_stack_agents_traffic_orchestrator",
+      "11_traffic_stack_skills_direct_response_br_skill"
+    ],
+    "24": [
+      "_ref_claude_for_legal_ip_legal_CLAUDE",
+      "_ref_claude_for_legal_ip_legal_skills_fto_triage_SKILL",
+      "_ref_claude_for_legal_ip_legal_skills_infringement_triage_SKILL",
+      "_ref_claude_for_legal_ip_legal_skills_invention_intake_SKILL",
+      "_ref_claude_for_legal_ip_legal_skills_ip_clause_review_SKILL",
+      "_ref_claude_for_legal_ip_legal_skills_matter_workspace_SKILL",
+      "_ref_claude_for_legal_ip_legal_skills_oss_review_SKILL",
+      "cold_start_interview"
+    ],
+    "25": [
+      "_ref_claude_for_legal_legal_builder_hub_CLAUDE",
+      "_ref_claude_for_legal_legal_builder_hub_agents_registry_sync",
+      "_ref_claude_for_legal_legal_builder_hub_skills_auto_updater_SKILL",
+      "_ref_claude_for_legal_legal_builder_hub_skills_cold_start_interview_SKILL",
+      "_ref_claude_for_legal_legal_builder_hub_skills_customize_SKILL",
+      "_ref_claude_for_legal_legal_builder_hub_skills_registry_browser_SKILL",
+      "_ref_claude_for_legal_legal_builder_hub_skills_registry_browser_references_registries",
+      "_ref_claude_for_legal_legal_builder_hub_skills_related_skills_surfacer_SKILL"
+    ],
+    "26": [
+      "cofre_obsidian_kpa30_agentes_cos",
+      "cofre_obsidian_kpa30_agentes_creative_analyst",
+      "cofre_obsidian_kpa30_agentes_forge",
+      "cofre_obsidian_kpa30_agentes_funnel_analyst",
+      "cofre_obsidian_kpa30_agentes_kpa_orchestrator",
+      "cofre_obsidian_kpa30_agentes_meta_dr_specialist",
+      "cofre_obsidian_kpa30_agentes_scaling_strategist",
+      "cofre_obsidian_kpa30_agentes_traffic_diagnostician"
+    ],
+    "27": [
+      "employment_legal_skills_leave_tracker",
+      "employment_legal_skills_log_leave",
+      "employment_legal_skills_matter_workspace",
+      "employment_legal_skills_policy_drafting",
+      "employment_legal_skills_termination_review",
+      "employment_legal_skills_wage_hour_qa",
+      "employment_legal_skills_worker_classification",
+      "ref_claude_for_legal_employment_legal_claude"
+    ],
+    "28": [
+      "ref_claude_for_legal_commercial_legal_mcp",
+      "ref_claude_for_legal_commercial_legal_mcp_mcp_server_definely",
+      "ref_claude_for_legal_commercial_legal_mcp_mcp_server_docusign",
+      "ref_claude_for_legal_commercial_legal_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_commercial_legal_mcp_mcp_server_imanage",
+      "ref_claude_for_legal_commercial_legal_mcp_mcp_server_ironclad",
+      "ref_claude_for_legal_commercial_legal_mcp_mcp_server_slack",
+      "ref_claude_for_legal_commercial_legal_mcp_mcp_server_topcounsel"
+    ],
+    "29": [
+      "ref_claude_for_legal_corporate_legal_mcp",
+      "ref_claude_for_legal_corporate_legal_mcp_mcp_server_box",
+      "ref_claude_for_legal_corporate_legal_mcp_mcp_server_definely",
+      "ref_claude_for_legal_corporate_legal_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_corporate_legal_mcp_mcp_server_imanage",
+      "ref_claude_for_legal_corporate_legal_mcp_mcp_server_slack",
+      "ref_claude_for_legal_corporate_legal_mcp_mcp_server_solve_intelligence",
+      "ref_claude_for_legal_corporate_legal_mcp_mcp_server_topcounsel"
+    ],
+    "30": [
+      "ref_claude_for_legal_litigation_legal_mcp",
+      "ref_claude_for_legal_litigation_legal_mcp_mcp_server_aurora",
+      "ref_claude_for_legal_litigation_legal_mcp_mcp_server_courtlistener",
+      "ref_claude_for_legal_litigation_legal_mcp_mcp_server_everlaw",
+      "ref_claude_for_legal_litigation_legal_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_litigation_legal_mcp_mcp_server_slack",
+      "ref_claude_for_legal_litigation_legal_mcp_mcp_server_topcounsel",
+      "ref_claude_for_legal_litigation_legal_mcp_mcp_server_trellis"
+    ],
+    "31": [
+      "ref_claude_for_legal_scripts_deploy_managed_agent",
+      "ref_claude_for_legal_scripts_deploy_managed_agent_create_agent",
+      "ref_claude_for_legal_scripts_deploy_managed_agent_inline_system",
+      "ref_claude_for_legal_scripts_deploy_managed_agent_req",
+      "ref_claude_for_legal_scripts_deploy_managed_agent_resolve_manifest",
+      "ref_claude_for_legal_scripts_deploy_managed_agent_sh__entry",
+      "ref_claude_for_legal_scripts_deploy_managed_agent_upload_skill",
+      "ref_claude_for_legal_scripts_deploy_managed_agent_yaml2json"
+    ],
+    "32": [
+      "19_backup_claude_snapshot_dot_claude_skills_retirar_notas_fiscais_scripts_calcular_periodo",
+      "19_backup_claude_snapshot_dot_claude_skills_retirar_notas_fiscais_scripts_calcular_periodo_ajustar_dia",
+      "19_backup_claude_snapshot_dot_claude_skills_retirar_notas_fiscais_scripts_calcular_periodo_calcular_periodo",
+      "19_backup_claude_snapshot_dot_claude_skills_retirar_notas_fiscais_scripts_calcular_periodo_cortes_do_mes",
+      "19_backup_claude_snapshot_dot_claude_skills_retirar_notas_fiscais_scripts_calcular_periodo_rationale_19",
+      "19_backup_claude_snapshot_dot_claude_skills_retirar_notas_fiscais_scripts_calcular_periodo_rationale_24",
+      "19_backup_claude_snapshot_dot_claude_skills_retirar_notas_fiscais_scripts_calcular_periodo_ultimo_dia_mes"
+    ],
+    "33": [
+      "21_BUILDER_KIT_agents_forge",
+      "21_BUILDER_KIT_conventions",
+      "21_BUILDER_KIT_scaffolds_agent_scaffold",
+      "21_BUILDER_KIT_tasks_create_agent",
+      "22_CLAUDE_DESKTOP_commands_keywords",
+      "22_CLAUDE_DESKTOP_cos_desktop_system_prompt",
+      "22_CLAUDE_DESKTOP_knowledge_files"
+    ],
+    "34": [
+      "_ref_claude_for_legal_ai_governance_legal_skills_ai_inventory_skill",
+      "_ref_claude_for_legal_ai_governance_legal_skills_aia_generation_skill",
+      "_ref_claude_for_legal_ai_governance_legal_skills_cold_start_interview_skill",
+      "_ref_claude_for_legal_ai_governance_legal_skills_customize_skill",
+      "_ref_claude_for_legal_ai_governance_legal_skills_matter_workspace_skill",
+      "_ref_claude_for_legal_ai_governance_legal_skills_policy_monitor_skill",
+      "claude_plugins_config_claude_for_legal_ai_governance_legal_claude_config"
+    ],
+    "35": [
+      "_ref_claude_for_legal_employment_legal_agents_leave_tracker",
+      "_ref_claude_for_legal_employment_legal_claude",
+      "_ref_claude_for_legal_employment_legal_readme",
+      "_ref_claude_for_legal_employment_legal_skills_cold_start_interview_skill",
+      "_ref_claude_for_legal_employment_legal_skills_customize_skill",
+      "_ref_claude_for_legal_employment_legal_skills_handbook_updates_skill",
+      "_ref_claude_for_legal_employment_legal_skills_hiring_review_skill"
+    ],
+    "36": [
+      "agents_traffic_orchestrator",
+      "plugins_imobiliario_juridico_imob_acompanhar_reajuste",
+      "plugins_imobiliario_juridico_imob_cold_start_interview",
+      "plugins_imobiliario_juridico_imob_gerar_contrato_locacao",
+      "plugins_imobiliario_juridico_imob_revisar_contrato_locacao",
+      "plugins_imobiliario_juridico_imob_vigia_reajustes",
+      "plugins_juridico_imobiliario_plugin"
+    ],
+    "37": [
+      "kpa30_marketplace_claude_plugin_marketplace",
+      "kpa30_marketplace_claude_plugin_marketplace_description",
+      "kpa30_marketplace_claude_plugin_marketplace_name",
+      "kpa30_marketplace_claude_plugin_marketplace_owner",
+      "kpa30_marketplace_claude_plugin_marketplace_owner_name",
+      "kpa30_marketplace_claude_plugin_marketplace_plugins",
+      "kpa30_marketplace_claude_plugin_marketplace_schema"
+    ],
+    "38": [
+      "ref_claude_for_legal_claude_plugin_marketplace",
+      "ref_claude_for_legal_claude_plugin_marketplace_description",
+      "ref_claude_for_legal_claude_plugin_marketplace_name",
+      "ref_claude_for_legal_claude_plugin_marketplace_owner",
+      "ref_claude_for_legal_claude_plugin_marketplace_owner_name",
+      "ref_claude_for_legal_claude_plugin_marketplace_plugins",
+      "ref_claude_for_legal_claude_plugin_marketplace_schema"
+    ],
+    "39": [
+      "19_backup_claude_instalar_nova_maquina",
+      "19_backup_claude_instalar_nova_maquina_c_info",
+      "19_backup_claude_instalar_nova_maquina_c_ok",
+      "19_backup_claude_instalar_nova_maquina_c_warn",
+      "19_backup_claude_instalar_nova_maquina_rewrite",
+      "19_backup_claude_instalar_nova_maquina_sh__entry"
+    ],
+    "40": [
+      "_ref-claude-for-legal_commercial-legal_skills_renewal-tracker_SKILL",
+      "_ref-claude-for-legal_commercial-legal_skills_renewal-tracker_references_renewal-register",
+      "_ref-claude-for-legal_commercial-legal_skills_review_SKILL",
+      "_ref-claude-for-legal_commercial-legal_skills_saas-msa-review_SKILL",
+      "_ref-claude-for-legal_commercial-legal_skills_stakeholder-summary_SKILL",
+      "_ref-claude-for-legal_commercial-legal_skills_vendor-agreement-review_SKILL"
+    ],
+    "41": [
+      "_ref-claude-for-legal_litigation-legal_skills_cold-start-interview_SKILL",
+      "_ref-claude-for-legal_litigation-legal_skills_customize_SKILL",
+      "_ref-claude-for-legal_litigation-legal_skills_demand-draft_SKILL",
+      "_ref-claude-for-legal_litigation-legal_skills_demand-intake_SKILL",
+      "concept_cold_start_interview",
+      "concept_practice_profile"
+    ],
+    "42": [
+      "_ref-claude-for-legal_litigation-legal_skills_demand-received_SKILL",
+      "_ref-claude-for-legal_litigation-legal_skills_deposition-prep_SKILL",
+      "_ref-claude-for-legal_litigation-legal_skills_legal-hold_SKILL",
+      "_ref-claude-for-legal_litigation-legal_skills_matter-briefing_SKILL",
+      "_ref-claude-for-legal_litigation-legal_skills_matter-close_SKILL",
+      "concept_matter_log"
+    ],
+    "43": [
+      "_ref_claude_for_legal_ip_legal_agents_ip_renewal_watcher",
+      "_ref_claude_for_legal_ip_legal_claude_md",
+      "_ref_claude_for_legal_ip_legal_skills_cease_desist_skill",
+      "_ref_claude_for_legal_ip_legal_skills_clearance_skill",
+      "_ref_claude_for_legal_ip_legal_skills_cold_start_interview_skill",
+      "_ref_claude_for_legal_ip_legal_skills_customize_skill"
+    ],
+    "44": [
+      "ref_claude_for_legal_ip_legal_mcp",
+      "ref_claude_for_legal_ip_legal_mcp_mcp_server_courtlistener",
+      "ref_claude_for_legal_ip_legal_mcp_mcp_server_descrybe",
+      "ref_claude_for_legal_ip_legal_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_ip_legal_mcp_mcp_server_slack",
+      "ref_claude_for_legal_ip_legal_mcp_mcp_server_solve_intelligence"
+    ],
+    "45": [
+      "ref_claude_for_legal_legal_clinic_mcp",
+      "ref_claude_for_legal_legal_clinic_mcp_mcp_server_courtlistener",
+      "ref_claude_for_legal_legal_clinic_mcp_mcp_server_courtroom5",
+      "ref_claude_for_legal_legal_clinic_mcp_mcp_server_descrybe",
+      "ref_claude_for_legal_legal_clinic_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_legal_clinic_mcp_mcp_server_slack"
+    ],
+    "46": [
+      "ref_claude_for_legal_product_legal_mcp",
+      "ref_claude_for_legal_product_legal_mcp_mcp_server_asana",
+      "ref_claude_for_legal_product_legal_mcp_mcp_server_atlassian",
+      "ref_claude_for_legal_product_legal_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_product_legal_mcp_mcp_server_linear",
+      "ref_claude_for_legal_product_legal_mcp_mcp_server_slack"
+    ],
+    "47": [
+      "05_workspace_guias_build_guia_ferramentas",
+      "05_workspace_guias_build_guia_ferramentas_add_note",
+      "05_workspace_guias_build_guia_ferramentas_add_table",
+      "05_workspace_guias_build_guia_ferramentas_set_cell_shading",
+      "05_workspace_guias_build_guia_ferramentas_set_cell_width"
+    ],
+    "48": [
+      "15_product_release_templates_gestao_operacao_handoff_cliente_equipe",
+      "15_product_release_templates_gestao_operacao_playbook_onboarding_time",
+      "15_product_release_templates_gestao_operacao_readme",
+      "15_product_release_templates_gestao_operacao_reuniao_semanal_time",
+      "15_product_release_templates_gestao_operacao_sop_template_vazio"
+    ],
+    "49": [
+      "18_automation_stack_impar_facebook_marketplace_posting_run_messenger_bridge",
+      "18_automation_stack_impar_facebook_marketplace_posting_run_messenger_bridge_impar_whatsapp_number",
+      "18_automation_stack_impar_facebook_marketplace_posting_run_messenger_bridge_messenger_bridge_dry_run",
+      "18_automation_stack_impar_facebook_marketplace_posting_run_messenger_bridge_messenger_bridge_port",
+      "18_automation_stack_impar_facebook_marketplace_posting_run_messenger_bridge_sh__entry"
+    ],
+    "50": [
+      "19_backup_claude_snapshot_dot_claude_scheduled_tasks_impar_atende_leads_dia_skill",
+      "19_backup_claude_snapshot_dot_claude_scheduled_tasks_impar_followup_manha_skill",
+      "19_backup_claude_snapshot_dot_claude_scheduled_tasks_leads_chaves_na_mao_whatsapp_skill",
+      "mcp_whatsapp",
+      "outlook_api"
+    ],
+    "51": [
+      "_ref-claude-for-legal_ip-legal_skills_portfolio_SKILL_portfolio",
+      "_ref-claude-for-legal_ip-legal_skills_takedown_SKILL_takedown",
+      "ip_legal_claude_md",
+      "ip_legal_portfolio_yaml",
+      "ip_legal_renewal_watcher"
+    ],
+    "52": [
+      "_ref_claude_for_legal_corporate_legal_agents_dataroom_watcher",
+      "_ref_claude_for_legal_corporate_legal_skills_ai_tool_handoff_skill",
+      "_ref_claude_for_legal_corporate_legal_skills_closing_checklist_skill",
+      "_ref_claude_for_legal_corporate_legal_skills_deal_team_summary_skill",
+      "_ref_claude_for_legal_corporate_legal_skills_diligence_issue_extraction_skill"
+    ],
+    "53": [
+      "_ref_claude_for_legal_employment_legal_skills_internal_investigation_skill",
+      "_ref_claude_for_legal_employment_legal_skills_investigation_add_skill",
+      "_ref_claude_for_legal_employment_legal_skills_investigation_memo_skill",
+      "_ref_claude_for_legal_employment_legal_skills_investigation_open_skill",
+      "_ref_claude_for_legal_employment_legal_skills_investigation_query_skill"
+    ],
+    "54": [
+      "_ref_claude_for_legal_managed_agent_cookbooks_diligence_grid_agent",
+      "_ref_claude_for_legal_managed_agent_cookbooks_diligence_grid_subagents_doc_reader",
+      "_ref_claude_for_legal_managed_agent_cookbooks_diligence_grid_subagents_extractor",
+      "_ref_claude_for_legal_managed_agent_cookbooks_diligence_grid_subagents_grid_writer",
+      "_ref_claude_for_legal_managed_agent_cookbooks_diligence_grid_subagents_normalizer"
+    ],
+    "55": [
+      "kpa30_marketplace_validar",
+      "kpa30_marketplace_validar_frontmatter",
+      "kpa30_marketplace_validar_load_json",
+      "kpa30_marketplace_validar_rationale_15",
+      "kpa30_marketplace_validar_rel"
+    ],
+    "56": [
+      "meu_video_src_index",
+      "meu_video_src_reelsvideo",
+      "meu_video_src_reelsvideo_reelsvideo",
+      "meu_video_src_root",
+      "meu_video_src_root_remotionroot"
+    ],
+    "57": [
+      "ref_claude_for_legal_law_student_mcp",
+      "ref_claude_for_legal_law_student_mcp_mcp_server_courtlistener",
+      "ref_claude_for_legal_law_student_mcp_mcp_server_descrybe",
+      "ref_claude_for_legal_law_student_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_law_student_mcp_mcp_server_slack"
+    ],
+    "58": [
+      "ref_claude_for_legal_product_legal_skills_is_this_a_problem_skill",
+      "ref_claude_for_legal_product_legal_skills_launch_review_references_seven_category_framework",
+      "ref_claude_for_legal_product_legal_skills_launch_review_skill",
+      "ref_claude_for_legal_product_legal_skills_marketing_claims_review_skill",
+      "ref_claude_for_legal_regulatory_legal_claude_profile"
+    ],
+    "59": [
+      "ref_claude_for_legal_scripts_lint_tool_scope",
+      "ref_claude_for_legal_scripts_lint_tool_scope_lint_one",
+      "ref_claude_for_legal_scripts_lint_tool_scope_main",
+      "ref_claude_for_legal_scripts_lint_tool_scope_py_path",
+      "ref_claude_for_legal_scripts_lint_tool_scope_rationale_33"
+    ],
+    "60": [
+      "05_workspace_video_imobiliario_cinematico_render_video",
+      "05_workspace_video_imobiliario_cinematico_render_video_render_silent",
+      "05_workspace_video_imobiliario_cinematico_render_video_render_voice",
+      "05_workspace_video_imobiliario_cinematico_render_video_sh__entry"
+    ],
+    "61": [
+      "11_traffic_stack_tasks_diagnosticar_campanha_meta_cli",
+      "12_whatsapp_stack_readme",
+      "13_adaptive_squads_readme",
+      "15_product_release_claude"
+    ],
+    "62": [
+      "15_product_release_prompts_03_revisao",
+      "15_product_release_prompts_04_relatorio",
+      "15_product_release_prompts_05_whatsapp",
+      "15_product_release_prompts_readme"
+    ],
+    "63": [
+      "15_product_release_templates_designer_apresentacao_proposta",
+      "15_product_release_templates_geral_onboarding_cliente",
+      "15_product_release_templates_gestao_dashboard_readme",
+      "15_product_release_templates_readme"
+    ],
+    "64": [
+      "15_product_release_templates_gestao_landing_pages_checklist_pre_publicacao",
+      "15_product_release_templates_gestao_landing_pages_lp_servico_b2b",
+      "15_product_release_templates_gestao_landing_pages_lp_vendas_direto",
+      "vturb_embed_rule"
+    ],
+    "65": [
+      "_ref-claude-for-legal_law-student_skills_bar-prep-questions_SKILL_bar-prep-questions",
+      "_ref-claude-for-legal_law-student_skills_case-brief_SKILL_case-brief",
+      "law_student_study_plan_yaml",
+      "ref_claude_for_legal_law_student_claude_md"
+    ],
+    "66": [
+      "_ref-claude-for-legal_managed-agent-cookbooks_launch-radar_agent",
+      "_ref-claude-for-legal_managed-agent-cookbooks_launch-radar_subagents_memo-writer",
+      "_ref-claude-for-legal_managed-agent-cookbooks_launch-radar_subagents_risk-classifier",
+      "_ref-claude-for-legal_managed-agent-cookbooks_launch-radar_subagents_tracker-reader"
+    ],
+    "67": [
+      "_ref-claude-for-legal_managed-agent-cookbooks_reg-monitor_agent",
+      "_ref-claude-for-legal_managed-agent-cookbooks_reg-monitor_subagents_digest-writer",
+      "_ref-claude-for-legal_managed-agent-cookbooks_reg-monitor_subagents_feed-reader",
+      "_ref-claude-for-legal_managed-agent-cookbooks_reg-monitor_subagents_materiality-filter"
+    ],
+    "68": [
+      "_ref-claude-for-legal_managed-agent-cookbooks_renewal-watcher_agent",
+      "_ref-claude-for-legal_managed-agent-cookbooks_renewal-watcher_subagents_alert-writer",
+      "_ref-claude-for-legal_managed-agent-cookbooks_renewal-watcher_subagents_deadline-calculator",
+      "_ref-claude-for-legal_managed-agent-cookbooks_renewal-watcher_subagents_repo-reader"
+    ],
+    "69": [
+      "_ref_claude_for_legal_managed_agent_cookbooks_docket_watcher_agent",
+      "_ref_claude_for_legal_managed_agent_cookbooks_docket_watcher_subagents_deadline_mapper",
+      "_ref_claude_for_legal_managed_agent_cookbooks_docket_watcher_subagents_docket_reader",
+      "_ref_claude_for_legal_managed_agent_cookbooks_docket_watcher_subagents_tracker_writer"
+    ],
+    "70": [
+      "claude_md_product_release",
+      "claude_md_raiz",
+      "cofre_obsidian_kpa30_rotinas_instalar_kpa30",
+      "cofre_obsidian_kpa30_rotinas_meta_cli_install"
+    ],
+    "71": [
+      "kpa30_marketplace_imobiliario_juridico_agents_vigia_reajustes",
+      "kpa30_marketplace_imobiliario_juridico_skills_acompanhar_reajuste_skill",
+      "kpa30_marketplace_imobiliario_juridico_skills_gerar_contrato_locacao_skill",
+      "kpa30_marketplace_imobiliario_juridico_skills_revisar_contrato_locacao_skill"
+    ],
+    "72": [
+      "kpa30_marketplace_imobiliario_juridico_mcp",
+      "kpa30_marketplace_imobiliario_juridico_mcp_mcp_server_asaas",
+      "kpa30_marketplace_imobiliario_juridico_mcp_mcp_server_google_drive",
+      "kpa30_marketplace_imobiliario_juridico_mcp_mcp_server_whatsapp"
+    ],
+    "73": [
+      "ref_claude_for_legal_legal_builder_hub_mcp",
+      "ref_claude_for_legal_legal_builder_hub_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_legal_builder_hub_mcp_mcp_server_lawve_ai",
+      "ref_claude_for_legal_legal_builder_hub_mcp_mcp_server_slack"
+    ],
+    "74": [
+      "ref_claude_for_legal_product_legal_skills_matter_workspace_skill",
+      "ref_claude_for_legal_regulatory_legal_agents_reg_change_monitor",
+      "ref_claude_for_legal_regulatory_legal_readme",
+      "ref_claude_for_legal_regulatory_legal_skills_cold_start_interview_skill"
+    ],
+    "75": [
+      "ref_claude_for_legal_scripts_validate",
+      "ref_claude_for_legal_scripts_validate_load",
+      "ref_claude_for_legal_scripts_validate_main",
+      "ref_claude_for_legal_scripts_validate_py_path"
+    ],
+    "76": [
+      "02_agents_traffic_analyst",
+      "04_diretrizes_traffic_diretrizes",
+      "11_traffic_stack_agents_attribution_auditor"
+    ],
+    "77": [
+      "05_workspace_reels_impar_build_final",
+      "05_workspace_reels_impar_build_final_lt",
+      "05_workspace_reels_impar_build_final_sh__entry"
+    ],
+    "78": [
+      "05_workspace_reels_impar_build_norm",
+      "05_workspace_reels_impar_build_norm_norm",
+      "05_workspace_reels_impar_build_norm_sh__entry"
+    ],
+    "79": [
+      "10_templates_operacionais_install_backup_codex",
+      "10_templates_operacionais_install_backup_codex_check_path",
+      "10_templates_operacionais_install_backup_codex_sh__entry"
+    ],
+    "80": [
+      "15_product_release_claude_config",
+      "15_product_release_claude_skills_briefing",
+      "15_product_release_claude_skills_start"
+    ],
+    "81": [
+      "_ref_claude_for_legal_ai_governance_legal_claude",
+      "_ref_claude_for_legal_ai_governance_legal_currency_watch",
+      "_ref_claude_for_legal_ai_governance_legal_readme"
+    ],
+    "82": [
+      "_ref_claude_for_legal_contributing",
+      "_ref_claude_for_legal_quickstart",
+      "_ref_claude_for_legal_readme"
+    ],
+    "83": [
+      "_ref_claude_for_legal_employment_legal_skills_expansion_kickoff_skill",
+      "_ref_claude_for_legal_employment_legal_skills_expansion_update_skill",
+      "_ref_claude_for_legal_employment_legal_skills_international_expansion_skill"
+    ],
+    "84": [
+      "_ref_claude_for_legal_legal_builder_hub_references_allowlist_default",
+      "_ref_claude_for_legal_legal_builder_hub_skills_skill_installer_SKILL",
+      "_ref_claude_for_legal_legal_builder_hub_skills_skill_installer_references_allowlist"
+    ],
+    "85": [
+      "cofre_obsidian_kpa30_agentes_criacao_agent",
+      "cofre_obsidian_kpa30_agentes_entrega_agent",
+      "cofre_obsidian_kpa30_agentes_revisao_agent"
+    ],
+    "86": [
+      "cofre_obsidian_kpa30_rotinas_rodar_pipeline",
+      "cofre_obsidian_kpa30_skills_emitir_notas_fiscais",
+      "cofre_obsidian_kpa30_skills_retirar_notas_fiscais"
+    ],
+    "87": [
+      "litigation_legal_agents_docket_watcher",
+      "ref_claude_for_legal_litigation_legal_claude",
+      "ref_claude_for_legal_litigation_legal_readme"
+    ],
+    "88": [
+      "ref_claude_for_legal_ai_governance_legal_mcp",
+      "ref_claude_for_legal_ai_governance_legal_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_ai_governance_legal_mcp_mcp_server_slack"
+    ],
+    "89": [
+      "ref_claude_for_legal_employment_legal_mcp",
+      "ref_claude_for_legal_employment_legal_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_employment_legal_mcp_mcp_server_slack"
+    ],
+    "90": [
+      "ref_claude_for_legal_privacy_legal_mcp",
+      "ref_claude_for_legal_privacy_legal_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_privacy_legal_mcp_mcp_server_slack"
+    ],
+    "91": [
+      "ref_claude_for_legal_regulatory_legal_mcp",
+      "ref_claude_for_legal_regulatory_legal_mcp_mcp_server_google_drive",
+      "ref_claude_for_legal_regulatory_legal_mcp_mcp_server_slack"
+    ],
+    "92": [
+      "00_os_commands_whatsapp_system",
+      "04_diretrizes_whatsapp_diretrizes"
+    ],
+    "93": [
+      "02_agents_automation_architect",
+      "04_diretrizes_automation_diretrizes"
+    ],
+    "94": [
+      "02_agents_product_auditor",
+      "04_diretrizes_product_hardening"
+    ],
+    "95": [
+      "05_workspace_video_imobiliario_cinematico_render_fast",
+      "05_workspace_video_imobiliario_cinematico_render_fast_sh__entry"
+    ],
+    "96": [
+      "05_workspace_video_imobiliario_cinematico_render_slideshow",
+      "05_workspace_video_imobiliario_cinematico_render_slideshow_sh__entry"
+    ],
+    "97": [
+      "15_product_release_automacoes_readme",
+      "15_product_release_claude_commands_automatizar_processo"
+    ],
+    "98": [
+      "15_product_release_claude_agents_revisao_agent",
+      "15_product_release_claude_skills_revisar"
+    ],
+    "99": [
+      "15_product_release_claude_commands_setup_nicho",
+      "15_product_release_nichos_family_classifier"
+    ],
+    "100": [
+      "15_product_release_nichos_imobiliaria_config",
+      "15_product_release_prompts_01_briefing"
+    ],
+    "101": [
+      "15_product_release_templates_gestao_dashboard_dashboard_operacional_semanal",
+      "15_product_release_templates_gestao_dashboard_kpis_por_area"
+    ],
+    "102": [
+      "15_product_release_templates_social_media_calendario_editorial_semanal",
+      "15_product_release_templates_social_media_planejamento_stories_reels"
+    ],
+    "103": [
+      "15_product_release_templates_videomaker_checklist_producao",
+      "15_product_release_templates_videomaker_roteiro_video_curto"
+    ],
+    "104": [
+      "18_automation_stack_impar_facebook_marketplace_posting_run_marketplace_publisher",
+      "18_automation_stack_impar_facebook_marketplace_posting_run_marketplace_publisher_sh__entry"
+    ],
+    "105": [
+      "18_automation_stack_nfem_joinville_run_listener",
+      "18_automation_stack_nfem_joinville_run_listener_sh__entry"
+    ],
+    "106": [
+      "19_backup_claude_backup_claude",
+      "19_backup_claude_backup_claude_sh__entry"
+    ],
+    "107": [
+      "21_BUILDER_KIT_scaffolds_diretriz_scaffold",
+      "21_BUILDER_KIT_tasks_create_diretriz"
+    ],
+    "108": [
+      "21_BUILDER_KIT_scaffolds_mcp_connector_scaffold",
+      "21_BUILDER_KIT_tasks_create_mcp_connector"
+    ],
+    "109": [
+      "21_BUILDER_KIT_scaffolds_skill_scaffold",
+      "21_BUILDER_KIT_tasks_create_skill"
+    ],
+    "110": [
+      "21_BUILDER_KIT_scaffolds_task_scaffold",
+      "21_BUILDER_KIT_tasks_create_task"
+    ],
+    "111": [
+      "_ref_claude_for_legal_corporate_legal_skills_cold_start_interview_skill",
+      "_ref_claude_for_legal_corporate_legal_skills_customize_skill"
+    ],
+    "112": [
+      "cofre_obsidian_kpa30_skills_direct_response_br",
+      "cofre_obsidian_kpa30_skills_social_content_operator"
+    ],
+    "113": [
+      "concept_legal_builder_hub",
+      "concept_mcp_connectors"
+    ],
+    "114": [
+      "legal_builder_hub_skills_skill_installer",
+      "legal_builder_hub_skills_skills_qa"
+    ],
+    "115": [
+      "legal_builder_hub_skills_skill_manager",
+      "legal_builder_hub_skills_uninstall"
+    ],
+    "116": [
+      "legal_clinic_handoffs_readme",
+      "legal_clinic_skills_semester_handoff"
+    ],
+    "117": [
+      "legal_clinic_skills_semester_handoff_skill",
+      "legal_clinic_skills_supervisor_review_queue_skill"
+    ],
+    "118": [
+      "meu_video_src_composition",
+      "meu_video_src_composition_mycomposition"
+    ],
+    "119": [
+      "ref_claude_for_legal_external_plugins_cocounsel_legal_mcp",
+      "ref_claude_for_legal_external_plugins_cocounsel_legal_mcp_mcp_server_cocounsel_legal"
+    ],
+    "120": [
+      "ref_claude_for_legal_scripts_test_cookbooks",
+      "ref_claude_for_legal_scripts_test_cookbooks_sh__entry"
+    ],
+    "121": [
+      "00_os_commands_preflight_acessos"
+    ],
+    "122": [
+      "15_product_release_nichos_advocacia_claude"
+    ],
+    "123": [
+      "15_product_release_nichos_b2b_claude"
+    ],
+    "124": [
+      "15_product_release_prompts_02_criacao"
+    ],
+    "125": [
+      "15_product_release_templates_designer_briefing_visual"
+    ],
+    "126": [
+      "15_product_release_templates_designer_checklist_entrega"
+    ],
+    "127": [
+      "15_product_release_templates_designer_feedback_revisao"
+    ],
+    "128": [
+      "15_product_release_templates_geral_proposta_comercial"
+    ],
+    "129": [
+      "15_product_release_templates_gestao_financeiro_checklist_financeiro_semanal"
+    ],
+    "130": [
+      "15_product_release_templates_gestao_landing_pages_lp_captura_isca_digital"
+    ],
+    "131": [
+      "15_product_release_templates_gestao_landing_pages_readme"
+    ],
+    "132": [
+      "15_product_release_templates_gestor_trafego_analise_criativos"
+    ],
+    "133": [
+      "15_product_release_templates_gestor_trafego_briefing_campanha"
+    ],
+    "134": [
+      "15_product_release_templates_gestor_trafego_planejamento_midia"
+    ],
+    "135": [
+      "15_product_release_templates_gestor_trafego_relatorio_mensal_campanha"
+    ],
+    "136": [
+      "15_product_release_templates_social_media_briefing_conteudo"
+    ],
+    "137": [
+      "15_product_release_templates_social_media_relatorio_engajamento"
+    ],
+    "138": [
+      "15_product_release_templates_videomaker_storyboard"
+    ],
+    "139": [
+      "15_product_release_whatsapp_fluxos_follow_up_vendas"
+    ],
+    "140": [
+      "15_product_release_whatsapp_fluxos_handoff_humano"
+    ],
+    "141": [
+      "15_product_release_whatsapp_fluxos_onboarding"
+    ],
+    "142": [
+      "15_product_release_whatsapp_fluxos_prospeccao"
+    ],
+    "143": [
+      "15_product_release_whatsapp_fluxos_reativacao"
+    ],
+    "144": [
+      "15_product_release_whatsapp_fluxos_sdr_atendimento"
+    ],
+    "145": [
+      "15_product_release_whatsapp_fluxos_sucesso_cliente"
+    ],
+    "146": [
+      "18_automation_stack_nfem_joinville_src_init"
+    ],
+    "147": [
+      "18_automation_stack_nfem_joinville_tests_init"
+    ],
+    "148": [
+      "18_automation_stack_templates_automation_blueprint"
+    ],
+    "149": [
+      "_ref-claude-for-legal_commercial-legal_skills_review-proposals_SKILL"
+    ],
+    "150": [
+      "_ref-claude-for-legal_managed-agent-cookbooks_docket-watcher_subagents_deadline-mapper"
+    ],
+    "151": [
+      "_ref-claude-for-legal_managed-agent-cookbooks_docket-watcher_subagents_docket-reader"
+    ],
+    "152": [
+      "_ref-claude-for-legal_managed-agent-cookbooks_docket-watcher_subagents_tracker-writer"
+    ],
+    "153": [
+      "_ref_claude_for_legal_corporate_legal_readme"
+    ],
+    "154": [
+      "_ref_claude_for_legal_corporate_legal_skills_board_minutes_skill"
+    ],
+    "155": [
+      "_ref_claude_for_legal_corporate_legal_skills_entity_compliance_skill"
+    ],
+    "156": [
+      "_ref_claude_for_legal_ip_legal_readme"
+    ],
+    "157": [
+      "_ref_claude_for_legal_legal_builder_hub_README"
+    ],
+    "158": [
+      "_ref_claude_for_legal_legal_builder_hub_skills_disable_SKILL"
+    ],
+    "159": [
+      "_ref_claude_for_legal_litigation_legal_skills_matter_intake"
+    ],
+    "160": [
+      "_ref_claude_for_legal_litigation_legal_skills_matter_update"
+    ],
+    "161": [
+      "_ref_claude_for_legal_litigation_legal_skills_matter_workspace"
+    ],
+    "162": [
+      "_ref_claude_for_legal_litigation_legal_skills_oc_status"
+    ],
+    "163": [
+      "_ref_claude_for_legal_litigation_legal_skills_portfolio_status"
+    ],
+    "164": [
+      "_ref_claude_for_legal_litigation_legal_skills_privilege_log_review"
+    ],
+    "165": [
+      "_ref_claude_for_legal_litigation_legal_skills_subpoena_triage"
+    ],
+    "166": [
+      "_ref_claude_for_legal_product_legal_agents_launch_watcher"
+    ],
+    "167": [
+      "_ref_claude_for_legal_product_legal_skills_cold_start_interview_skill"
+    ],
+    "168": [
+      "_ref_claude_for_legal_product_legal_skills_customize_skill"
+    ],
+    "169": [
+      "agents_whatsapp_orchestrator"
+    ],
+    "170": [
+      "claude_md_nicho_advocacia"
+    ],
+    "171": [
+      "claude_md_nicho_b2b"
+    ],
+    "172": [
+      "claude_md_nicho_clinicas"
+    ],
+    "173": [
+      "cocounsel_legal_skills_deep_research"
+    ],
+    "174": [
+      "cofre_obsidian_kpa30_agentes_copy_director"
+    ],
+    "175": [
+      "cofre_obsidian_kpa30_agentes_cowork_automation_architect"
+    ],
+    "176": [
+      "cofre_obsidian_kpa30_agentes_customer_success_bot"
+    ],
+    "177": [
+      "cofre_obsidian_kpa30_agentes_product_auditor"
+    ],
+    "178": [
+      "cofre_obsidian_kpa30_agentes_production_lead"
+    ],
+    "179": [
+      "cofre_obsidian_kpa30_agentes_prospecting_bot"
+    ],
+    "180": [
+      "cofre_obsidian_kpa30_agentes_qa_editor"
+    ],
+    "181": [
+      "cofre_obsidian_kpa30_agentes_relatorio_agent"
+    ],
+    "182": [
+      "cofre_obsidian_kpa30_agentes_researcher"
+    ],
+    "183": [
+      "cofre_obsidian_kpa30_agentes_sales_followup_bot"
+    ],
+    "184": [
+      "cofre_obsidian_kpa30_agentes_sdr_attendant"
+    ],
+    "185": [
+      "cofre_obsidian_kpa30_agentes_strategist"
+    ],
+    "186": [
+      "cofre_obsidian_kpa30_agentes_traffic_analyst"
+    ],
+    "187": [
+      "cofre_obsidian_kpa30_rotinas_setup_nicho"
+    ],
+    "188": [
+      "cofre_obsidian_kpa30_rotinas_start_here"
+    ],
+    "189": [
+      "cofre_obsidian_kpa30_rotinas_whatsapp_system"
+    ],
+    "190": [
+      "cofre_obsidian_kpa30_skills_briefing"
+    ],
+    "191": [
+      "cofre_obsidian_kpa30_skills_criar"
+    ],
+    "192": [
+      "cofre_obsidian_kpa30_skills_diagnostico"
+    ],
+    "193": [
+      "cofre_obsidian_kpa30_skills_emitir_nota_avulsa"
+    ],
+    "194": [
+      "cofre_obsidian_kpa30_skills_entregar"
+    ],
+    "195": [
+      "cofre_obsidian_kpa30_skills_follow_up"
+    ],
+    "196": [
+      "cofre_obsidian_kpa30_skills_meta_cli_install"
+    ],
+    "197": [
+      "cofre_obsidian_kpa30_skills_onboarding"
+    ],
+    "198": [
+      "cofre_obsidian_kpa30_skills_process_automation_design"
+    ],
+    "199": [
+      "cofre_obsidian_kpa30_skills_proposta"
+    ],
+    "200": [
+      "cofre_obsidian_kpa30_skills_relatorio"
+    ],
+    "201": [
+      "cofre_obsidian_kpa30_skills_revisar"
+    ],
+    "202": [
+      "cofre_obsidian_kpa30_skills_start"
+    ],
+    "203": [
+      "cofre_obsidian_kpa30_skills_whatsapp_conversation_design"
+    ],
+    "204": [
+      "employment_legal_skills_investigation_summary"
+    ],
+    "205": [
+      "kpa30_marketplace_imobiliario_juridico_skills_cold_start_interview_skill"
+    ],
+    "206": [
+      "kpa30_marketplace_imobiliario_juridico_skills_customize_skill"
+    ],
+    "207": [
+      "legal_clinic_skills_cold_start"
+    ],
+    "208": [
+      "legal_clinic_skills_research_start"
+    ],
+    "209": [
+      "legal_clinic_skills_research_start_skill"
+    ],
+    "210": [
+      "legal_clinic_skills_status"
+    ],
+    "211": [
+      "legal_clinic_skills_status_skill"
+    ],
+    "212": [
+      "legal_clinic_skills_supervisor_review_queue"
+    ],
+    "213": [
+      "meu_video_eslint_config"
+    ],
+    "214": [
+      "meu_video_readme"
+    ],
+    "215": [
+      "meu_video_remotion_config"
+    ],
+    "216": [
+      "ref_claude_for_legal_corporate_legal_skills_material_contract_schedule_SKILL"
+    ],
+    "217": [
+      "ref_claude_for_legal_corporate_legal_skills_tabular_review_SKILL"
+    ],
+    "218": [
+      "ref_claude_for_legal_employment_legal_CLAUDE"
+    ],
+    "219": [
+      "ref_claude_for_legal_references_company_profile_template"
+    ],
+    "220": [
+      "ref_claude_for_legal_references_dashboard_template"
+    ],
+    "221": [
+      "ref_claude_for_legal_regulatory_legal_claude_guardrails"
+    ],
+    "222": [
+      "ref_claude_for_legal_regulatory_legal_skills_customize_skill"
+    ],
+    "223": [
+      "ref_claude_for_legal_regulatory_legal_skills_matter_workspace_skill"
+    ]
+  },
+  "cohesion": {
+    "0": 0.052917232021709636,
+    "1": 0.07317073170731707,
+    "2": 0.11092436974789915,
+    "3": 0.13306451612903225,
+    "4": 0.11264367816091954,
+    "5": 0.14039408866995073,
+    "6": 0.07407407407407407,
+    "7": 0.08307692307692308,
+    "8": 0.13450292397660818,
+    "9": 0.19607843137254902,
+    "10": 0.2867647058823529,
+    "11": 0.275,
+    "12": 0.16483516483516483,
+    "13": 0.21978021978021978,
+    "14": 0.15384615384615385,
+    "15": 0.2878787878787879,
+    "16": 0.19696969696969696,
+    "17": 0.21212121212121213,
+    "18": 0.2545454545454545,
+    "19": 0.2,
+    "20": 0.2222222222222222,
+    "21": 0.2222222222222222,
+    "22": 0.2222222222222222,
+    "23": 0.35714285714285715,
+    "24": 0.4642857142857143,
+    "25": 0.25,
+    "26": 0.4642857142857143,
+    "27": 0.32142857142857145,
+    "28": 0.25,
+    "29": 0.25,
+    "30": 0.25,
+    "31": 0.2857142857142857,
+    "32": 0.42857142857142855,
+    "33": 0.2857142857142857,
+    "34": 0.3333333333333333,
+    "35": 0.2857142857142857,
+    "36": 0.2857142857142857,
+    "37": 0.2857142857142857,
+    "38": 0.2857142857142857,
+    "39": 0.6,
+    "40": 0.5333333333333333,
+    "41": 0.3333333333333333,
+    "42": 0.3333333333333333,
+    "43": 0.3333333333333333,
+    "44": 0.3333333333333333,
+    "45": 0.3333333333333333,
+    "46": 0.3333333333333333,
+    "47": 0.9,
+    "48": 0.4,
+    "49": 0.4,
+    "50": 0.4,
+    "51": 0.4,
+    "52": 0.5,
+    "53": 0.4,
+    "54": 0.4,
+    "55": 0.4,
+    "56": 0.6,
+    "57": 0.4,
+    "58": 0.4,
+    "59": 0.5,
+    "60": 0.8333333333333334,
+    "61": 0.5,
+    "62": 0.5,
+    "63": 0.5,
+    "64": 0.6666666666666666,
+    "65": 0.5,
+    "66": 0.5,
+    "67": 0.5,
+    "68": 0.5,
+    "69": 0.5,
+    "70": 0.5,
+    "71": 0.5,
+    "72": 0.5,
+    "73": 0.5,
+    "74": 0.5,
+    "75": 0.8333333333333334,
+    "76": 0.6666666666666666,
+    "77": 0.6666666666666666,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 0.6666666666666666,
+    "81": 0.6666666666666666,
+    "82": 0.6666666666666666,
+    "83": 0.6666666666666666,
+    "84": 0.6666666666666666,
+    "85": 0.6666666666666666,
+    "86": 1.0,
+    "87": 0.6666666666666666,
+    "88": 0.6666666666666666,
+    "89": 0.6666666666666666,
+    "90": 0.6666666666666666,
+    "91": 0.6666666666666666,
+    "92": 1.0,
+    "93": 1.0,
+    "94": 1.0,
+    "95": 1.0,
+    "96": 1.0,
+    "97": 1.0,
+    "98": 1.0,
+    "99": 1.0,
+    "100": 1.0,
+    "101": 1.0,
+    "102": 1.0,
+    "103": 1.0,
+    "104": 1.0,
+    "105": 1.0,
+    "106": 1.0,
+    "107": 1.0,
+    "108": 1.0,
+    "109": 1.0,
+    "110": 1.0,
+    "111": 1.0,
+    "112": 1.0,
+    "113": 1.0,
+    "114": 1.0,
+    "115": 1.0,
+    "116": 1.0,
+    "117": 1.0,
+    "118": 1.0,
+    "119": 1.0,
+    "120": 1.0,
+    "121": 1.0,
+    "122": 1.0,
+    "123": 1.0,
+    "124": 1.0,
+    "125": 1.0,
+    "126": 1.0,
+    "127": 1.0,
+    "128": 1.0,
+    "129": 1.0,
+    "130": 1.0,
+    "131": 1.0,
+    "132": 1.0,
+    "133": 1.0,
+    "134": 1.0,
+    "135": 1.0,
+    "136": 1.0,
+    "137": 1.0,
+    "138": 1.0,
+    "139": 1.0,
+    "140": 1.0,
+    "141": 1.0,
+    "142": 1.0,
+    "143": 1.0,
+    "144": 1.0,
+    "145": 1.0,
+    "146": 1.0,
+    "147": 1.0,
+    "148": 1.0,
+    "149": 1.0,
+    "150": 1.0,
+    "151": 1.0,
+    "152": 1.0,
+    "153": 1.0,
+    "154": 1.0,
+    "155": 1.0,
+    "156": 1.0,
+    "157": 1.0,
+    "158": 1.0,
+    "159": 1.0,
+    "160": 1.0,
+    "161": 1.0,
+    "162": 1.0,
+    "163": 1.0,
+    "164": 1.0,
+    "165": 1.0,
+    "166": 1.0,
+    "167": 1.0,
+    "168": 1.0,
+    "169": 1.0,
+    "170": 1.0,
+    "171": 1.0,
+    "172": 1.0,
+    "173": 1.0,
+    "174": 1.0,
+    "175": 1.0,
+    "176": 1.0,
+    "177": 1.0,
+    "178": 1.0,
+    "179": 1.0,
+    "180": 1.0,
+    "181": 1.0,
+    "182": 1.0,
+    "183": 1.0,
+    "184": 1.0,
+    "185": 1.0,
+    "186": 1.0,
+    "187": 1.0,
+    "188": 1.0,
+    "189": 1.0,
+    "190": 1.0,
+    "191": 1.0,
+    "192": 1.0,
+    "193": 1.0,
+    "194": 1.0,
+    "195": 1.0,
+    "196": 1.0,
+    "197": 1.0,
+    "198": 1.0,
+    "199": 1.0,
+    "200": 1.0,
+    "201": 1.0,
+    "202": 1.0,
+    "203": 1.0,
+    "204": 1.0,
+    "205": 1.0,
+    "206": 1.0,
+    "207": 1.0,
+    "208": 1.0,
+    "209": 1.0,
+    "210": 1.0,
+    "211": 1.0,
+    "212": 1.0,
+    "213": 1.0,
+    "214": 1.0,
+    "215": 1.0,
+    "216": 1.0,
+    "217": 1.0,
+    "218": 1.0,
+    "219": 1.0,
+    "220": 1.0,
+    "221": 1.0,
+    "222": 1.0,
+    "223": 1.0
+  },
+  "gods": [
+    {
+      "id": "config_claude_md",
+      "label": "CLAUDE.md Practice Profile",
+      "degree": 27
+    },
+    {
+      "id": "18_automation_stack_nfem_joinville_src_nfem_automation_nfemautomation",
+      "label": "NfemAutomation",
+      "degree": 21
+    },
+    {
+      "id": "18_automation_stack_nfem_joinville_src_cli",
+      "label": "NF-em Joinville CLI",
+      "degree": 16
+    },
+    {
+      "id": "18_automation_stack_nfem_joinville_src_pdf_manager_salvar_pdf",
+      "label": "salvar_pdf()",
+      "degree": 12
+    },
+    {
+      "id": "00_os_cos",
+      "label": "CoS V30",
+      "degree": 12
+    },
+    {
+      "id": "18_automation_stack_impar_facebook_marketplace_posting_messenger_to_whatsapp_bridge_process_payload",
+      "label": "process_payload()",
+      "degree": 11
+    },
+    {
+      "id": "meu_video_tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 11
+    },
+    {
+      "id": "18_automation_stack_nfem_joinville_src_cli_main",
+      "label": "main()",
+      "degree": 10
+    },
+    {
+      "id": "00_os_commands_gerar_contrato_locacao_editar_contrato",
+      "label": "editar_contrato()",
+      "degree": 9
+    },
+    {
+      "id": "00_os_commands_gerar_contrato_locacao_main",
+      "label": "main()",
+      "degree": 9
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Emiss\u00e3o NFS-e Dia 29",
+      "target": "NF-em Joinville CLI",
+      "source_files": [
+        "19_BACKUP_CLAUDE/snapshot/dot-claude/scheduled-tasks/emissao-nfs-dia-29/SKILL.md",
+        "18_AUTOMATION_STACK/nfem-joinville/src/cli.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Emiss\u00e3o NFS-e Dia 29` unexpectedly reaches hub `NF-em Joinville CLI`"
+    },
+    {
+      "source": "Emiss\u00e3o NFS-e Dia 30",
+      "target": "NF-em Joinville CLI",
+      "source_files": [
+        "19_BACKUP_CLAUDE/snapshot/dot-claude/scheduled-tasks/emissao-nfs-dia-30/SKILL.md",
+        "18_AUTOMATION_STACK/nfem-joinville/src/cli.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Emiss\u00e3o NFS-e Dia 30` unexpectedly reaches hub `NF-em Joinville CLI`"
+    },
+    {
+      "source": "Emitir Nota Avulsa",
+      "target": "NF-em Joinville CLI",
+      "source_files": [
+        "19_BACKUP_CLAUDE/snapshot/dot-claude/skills/emitir-nota-avulsa/SKILL.md",
+        "18_AUTOMATION_STACK/nfem-joinville/src/cli.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Emitir Nota Avulsa` unexpectedly reaches hub `NF-em Joinville CLI`"
+    },
+    {
+      "source": "Emitir Notas Fiscais",
+      "target": "NF-em Joinville CLI",
+      "source_files": [
+        "19_BACKUP_CLAUDE/snapshot/dot-claude/skills/emitir-notas-fiscais/SKILL.md",
+        "18_AUTOMATION_STACK/nfem-joinville/src/cli.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Emitir Notas Fiscais` unexpectedly reaches hub `NF-em Joinville CLI`"
+    },
+    {
+      "source": "CoS V30",
+      "target": "QA Editor Agent",
+      "source_files": [
+        "00_OS/cos.md",
+        "02_AGENTS/qa-editor.md"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; peripheral node `QA Editor Agent` unexpectedly reaches hub `CoS V30`"
+    }
+  ],
+  "tokens": {
+    "input": 1335806,
+    "output": 117665
+  }
+}

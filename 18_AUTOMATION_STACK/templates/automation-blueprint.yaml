@@ -1,0 +1,50 @@
+automation_status: draft
+process_name: ""
+segment: ""
+owner: ""
+goal: ""
+trigger:
+  type: manual | schedule | form_submission | whatsapp_message | crm_status | email_received | file_created | webhook | other
+  description: ""
+inputs:
+  - name: ""
+    source: ""
+    required: true
+    example: ""
+steps:
+  - id: "S1"
+    name: ""
+    mode: manual | ai_assisted | automated | blocked
+    actor: human | ai_agent | tool
+    description: ""
+    tool: ""
+    input: ""
+    output: ""
+    approval_required: true
+decision_points:
+  - id: "D1"
+    condition: ""
+    if_true: ""
+    if_false: ""
+human_handoff:
+  required: true
+  when: ""
+  responsible: ""
+tools:
+  - name: ""
+    purpose: ""
+    access_needed: ""
+    risk_level: low | medium | high
+data_privacy:
+  personal_data: unknown
+  sensitive_data: unknown
+  notes: ""
+test_plan:
+  dry_run_input: ""
+  expected_output: ""
+  pass_criteria: ""
+rollback_plan:
+  how_to_stop: ""
+  how_to_restore: ""
+next_action: ""
+

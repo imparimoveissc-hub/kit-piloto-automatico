@@ -1,0 +1,59 @@
+{
+  "name": "IMPAR-06-execution-logger",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "impar-log",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "impar06-wh",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "impar-log-v1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.item.json.body || $input.item.json;\nconst prj = process.env.HOME + '/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB';\nconst db = `${prj}/IMPAR_OS/database/impar.db`;\nconst { execSync } = require('child_process');\nconst ts = new Date().toISOString();\nconst action = (body.action||'unknown').replace(/'/g,\"''\").substring(0,100);\nconst status = (body.status||'unknown').replace(/'/g,\"''\").substring(0,20);\nconst origin = (body.origin||'api').replace(/'/g,\"''\").substring(0,50);\nconst summary = (body.output_summary||'').replace(/'/g,\"''\").substring(0,500);\nconst ai_used = body.ai_used ? 1 : 0;\nconst duration = parseInt(body.duration_ms||0);\ntry {\n  execSync(`sqlite3 \"${db}\" \"INSERT INTO executions (run_id,timestamp,origin,action,duration_ms,status,output_summary,exit_code,ai_used,cache_used) VALUES ('$(uuidgen 2>/dev/null || echo $$)','${ts}','${origin}','${action}',${duration},'${status}','${summary}',0,${ai_used},0);\"`, {timeout:5000});\n} catch(e) { return [{ json: { error: e.message.substring(0,200), ai_used: false } }]; }\nreturn [{ json: { ok: true, logged: true, ai_used: false, timestamp: ts } }];"
+      },
+      "id": "impar06-log",
+      "name": "Logger",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Logger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs06Logger"
+}

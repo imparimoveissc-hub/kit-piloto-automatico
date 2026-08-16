@@ -1,0 +1,65 @@
+{
+  "version": "1.0.0",
+  "type": "services_registry",
+  "description": "Registro de Serviços de Suporte e Manutenção",
+  "note": "Estes não são automações operacionais. São serviços de suporte ao kernel.",
+  "generated": "2026-07-22T22:43:00Z",
+  "services": [
+    {
+      "id": 1,
+      "name": "impar-update-current-state",
+      "category": "maintenance",
+      "type": "state_management",
+      "description": "Auto-atualizar CURRENT_STATE.md com status das automações",
+      "status": "active",
+      "launchagent": "com.impar.update-current-state.plist",
+      "function": "Executa update-current-state.py periodicamente",
+      "purpose": "Manter CURRENT_STATE.md sincronizado com estado operacional real"
+    },
+    {
+      "id": 2,
+      "name": "impar-rotate-task-ledger",
+      "category": "maintenance",
+      "type": "ledger_management",
+      "description": "Rotacionar task-ledger.md periodicamente",
+      "status": "active",
+      "launchagent": "com.impar.rotate-task-ledger.plist",
+      "function": "Arquivo de ledger cresce indefinidamente, precisa rotacionar",
+      "purpose": "Manter ledger em tamanho gerenciável"
+    },
+    {
+      "id": 3,
+      "name": "impar-relatorio-marketplace",
+      "category": "reporting",
+      "type": "daily_reporting",
+      "description": "Gerar relatórios diários de marketplace",
+      "status": "active",
+      "launchagents": [
+        "com.impar.relatorio-marketplace-manha.plist",
+        "com.impar.relatorio-marketplace-tarde.plist"
+      ],
+      "schedule": "11:30 (manhã), 17:00 (tarde)",
+      "function": "Agregação de métricas e status do marketplace",
+      "purpose": "Reportar performance do marketplace"
+    },
+    {
+      "id": 4,
+      "name": "impar-bootstrap-services",
+      "category": "bootstrap",
+      "type": "boot_management",
+      "description": "Serviços de inicialização e boot hooks",
+      "status": "active",
+      "launchagents": [
+        "com.impar.reschedule-on-boot.plist",
+        "com.impar.claude-desktop-autostart.plist"
+      ],
+      "function": "Restaurar estado do sistema ao boot",
+      "purpose": "Garantir que automações retomem corretamente após reinicialização"
+    }
+  ],
+  "metadata": {
+    "total_services": 4,
+    "active_services": 4,
+    "purpose": "Suporte ao kernel impar, não automações operacionais"
+  }
+}

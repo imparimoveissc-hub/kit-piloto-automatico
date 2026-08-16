@@ -1,0 +1,68 @@
+{
+  "name": "IMPAR-10-email-monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "impar10-trigger",
+      "name": "Trigger 15min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { status: 'CREDENTIAL_PENDING', service: 'email', ai_used: false, timestamp: new Date().toISOString(), message: 'Integração de email pendente de credencial. Configure IMAP/SMTP em credentials_status.', action_required: 'Adicionar credenciais de email no n8n e atualizar IMPAR_OS/database/impar.db tabela credentials_status' } }];"
+      },
+      "id": "impar10-email",
+      "name": "Email Monitor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Trigger 15min": {
+      "main": [
+        [
+          {
+            "node": "Email Monitor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    },
+    {
+      "name": "cron"
+    },
+    {
+      "name": "email"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs10Email"
+}

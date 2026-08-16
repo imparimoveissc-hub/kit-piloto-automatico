@@ -1,0 +1,10 @@
+{
+  "legacy_file": "07_LOGS/EXECUTION_AUDIT.jsonl",
+  "legacy_sha256": "bc700e6251c6cc284ed34dc808f1999f07361e453470c733d88205c7e9b7a53b",
+  "legacy_size":      135,
+  "legacy_lines":        1,
+  "captured_at": "2026-07-23T00:02:20Z",
+  "classification": "legacy_unverified",
+  "schema_version": "1.0",
+  "notes": "Legacy audit records do not have individual hash verification. This baseline preserves their state. New records will use hash-chaining after initialization."
+}

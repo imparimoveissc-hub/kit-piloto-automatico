@@ -1,0 +1,229 @@
+{
+  "version": "1.0.0",
+  "type": "risks",
+  "generated": "2026-07-22T22:53:00Z",
+  "description": "Riscos operacionais mapeados para cada automação",
+  "risks": [
+    {
+      "id": "risk_marketplace_ui_timeout",
+      "automation": "auto_marketplace",
+      "category": "ui_instability",
+      "severity": "CRITICAL",
+      "title": "UI Timeouts em Grupos Facebook",
+      "description": "Marketplace tenta publicar mas Facebook UI fica irresponsiva",
+      "last_occurrence": "2026-07-22T20:15:00Z",
+      "frequency": "15/19 tentativas falharam (79% falha)",
+      "impact": "Grupos não recebem publicações — 96 canais podem ficar inativos",
+      "confidence": "alta",
+      "source_type": "confirmado_agora",
+      "evidence": ["CURRENT_STATE.md", "crosspost-grupos-log.csv"],
+      "mitigation": [
+        "Aumentar timeout em Playwright",
+        "Implementar retry logic",
+        "Usar fallback ao Portal Nacional"
+      ],
+      "workaround": "Reconfigurar Playwright em main.py",
+      "owner": "Jonata",
+      "escalation": "Facebook UI issues — requer revisão da estratégia"
+    },
+    {
+      "id": "risk_messenger_crashes",
+      "automation": "auto_messenger",
+      "category": "process_stability",
+      "severity": "CRITICAL",
+      "title": "Messenger Auto-responder Crashes",
+      "description": "Messenger D1 bridge falha após enviar algumas respostas",
+      "last_occurrence": "2026-07-22T22:30:00Z",
+      "frequency": "5 crashes em 24h",
+      "impact": "Mensagens de clientes não respondidas automaticamente",
+      "confidence": "alta",
+      "source_type": "confirmado_agora",
+      "evidence": ["CURRENT_STATE.md", "LaunchAgent logs"],
+      "mitigation": [
+        "Revisar estado de recuperação",
+        "Aumentar timeout de conexão",
+        "Implementar health check"
+      ],
+      "workaround": "Reiniciar LaunchAgent manualmente (com cuidado)",
+      "owner": "Jonata",
+      "escalation": "Possível memory leak"
+    },
+    {
+      "id": "risk_whatsapp_offline",
+      "automation": "auto_whatsapp",
+      "category": "dependency_missing",
+      "severity": "MEDIUM",
+      "title": "WhatsApp Bridge Offline (Intencional)",
+      "description": "WhatsApp está desligado para testes de segurança",
+      "last_change": "2026-07-16T00:00:00Z",
+      "impact": "Leads não podem ser notificados via WhatsApp",
+      "confidence": "alta",
+      "source_type": "estrutural",
+      "evidence": ["registry.json (status: offline)", "CLAUDE.md"],
+      "restriction": "❌ NUNCA reativar sem autorização explícita",
+      "reactivation_requirement": "Formal written authorization from Jonata",
+      "escalation": "Security review pending"
+    },
+    {
+      "id": "risk_leads_dedup_loss",
+      "automation": "auto_leads",
+      "category": "data_integrity",
+      "severity": "CRITICAL",
+      "title": "Perda de Checkpoint Leads = Duplicatas",
+      "description": "Se checkpoint.json for deletado, leads receberão notificações duplicadas",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "impact": "24h de spam para todos os leads + dano à reputação",
+      "confidence": "alta",
+      "source_type": "estrutural",
+      "evidence": ["checkpoint.json structure", "deduplication logic"],
+      "mitigation": [
+        "Nunca deletar checkpoint.json",
+        "Backup diário de checkpoint",
+        "Restaurar apenas com autorização"
+      ],
+      "workaround": "Nenhum — risco total de 24h duplicatas",
+      "owner": "Jonata",
+      "escalation": "Critical file protection required"
+    },
+    {
+      "id": "risk_marketplace_duplicate_posts",
+      "automation": "auto_marketplace",
+      "category": "data_loss",
+      "severity": "HIGH",
+      "title": "Publicações Duplicadas se Checkpoint for Perdido",
+      "description": "Marketplace repete publicações de checkpoint anterior",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "impact": "2581 imóveis publicados 2x — spam no Marketplace",
+      "confidence": "alta",
+      "source_type": "estrutural",
+      "evidence": ["fila handling logic"],
+      "mitigation": [
+        "Nunca deletar crosspost-grupos-log.csv",
+        "Backup diário de checkpoints",
+        "Restaurar apenas com autorização"
+      ],
+      "workaround": "Reconfigurar fila manualmente (trabalhoso)",
+      "owner": "Jonata",
+      "escalation": "Queue protection required"
+    },
+    {
+      "id": "risk_nfse_double_issuance",
+      "automation": "auto_nfse",
+      "category": "financial",
+      "severity": "CRITICAL",
+      "title": "Emissão Dupla de Notas Fiscais",
+      "description": "Se executar 2x em mesmo dia, emite duplicatas no Portal Nacional",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "impact": "Notas duplicadas — impacto financeiro e tributário",
+      "confidence": "alta",
+      "source_type": "estrutural",
+      "evidence": ["nfem-joinville design", "CLAUDE.md"],
+      "mitigation": [
+        "LaunchAgent com agendamento fixo (20, 25, 29, 30)",
+        "Nunca executar manualmente sem verificar data",
+        "Checkpoint antes/depois de emissão"
+      ],
+      "workaround": "Contactar Portal Nacional para anular duplicatas",
+      "owner": "Jonata",
+      "escalation": "Financial/legal implications"
+    },
+    {
+      "id": "risk_browser_pane_dependency",
+      "automation": "auto_marketplace,auto_messenger,auto_nfse",
+      "category": "single_point_of_failure",
+      "severity": "CRITICAL",
+      "title": "Dependência Única em Browser Pane",
+      "description": "3 automações críticas dependem de Browser Pane (Claude Code feature)",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "impact": "Se Browser Pane cair: Marketplace, Messenger, NFS-e param simultaneamente",
+      "confidence": "alta",
+      "source_type": "estrutural",
+      "evidence": ["registry.json dependencies"],
+      "mitigation": [
+        "Monitorar saúde de Browser Pane",
+        "Implementar fallback (Playwright local?)",
+        "Alertas se Browser Pane fica offline"
+      ],
+      "workaround": "Nenhum — esperar Browser Pane voltar",
+      "owner": "Jonata",
+      "escalation": "Archit review of Browser Pane strategy"
+    },
+    {
+      "id": "risk_launchagent_interference",
+      "automation": "all",
+      "category": "system",
+      "severity": "CRITICAL",
+      "title": "Modificação Não Autorizada de LaunchAgents",
+      "description": "Se LaunchAgent for modificado, automações podem parar ou comportar diferente",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "impact": "Perda parcial ou total de capacidades automatizadas",
+      "confidence": "alta",
+      "source_type": "estrutural",
+      "evidence": ["8 LaunchAgents mapeados", "system configuration"],
+      "mitigation": [
+        "Nunca modificar LaunchAgents sem autorização",
+        "Backup de LaunchAgents",
+        "Audit trail de mudanças"
+      ],
+      "workaround": "Restaurar LaunchAgents de backup",
+      "owner": "Jonata",
+      "escalation": "System integrity risk"
+    },
+    {
+      "id": "risk_rogga_sync_failure",
+      "automation": "auto_marketplace",
+      "category": "data_sync",
+      "severity": "HIGH",
+      "title": "Falha de Sincronização Rogga → Marketplace",
+      "description": "Se Rogga sync falhar, Marketplace publica imóveis desatualizados",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "impact": "Marketplace publicita imóveis vendidos ou com info errada",
+      "confidence": "média",
+      "source_type": "estrutural",
+      "evidence": ["dependencies mapping"],
+      "mitigation": [
+        "Monitorar status de sincronização",
+        "Alertas se sync parar",
+        "Fallback manual"
+      ],
+      "workaround": "Rodar rogga-sync manualmente",
+      "owner": "Jonata",
+      "escalation": "Data quality issue"
+    },
+    {
+      "id": "risk_outlook_integration_flaky",
+      "automation": "auto_leads",
+      "category": "integration",
+      "severity": "MEDIUM",
+      "title": "Integração Outlook Instável (Composio MCP)",
+      "description": "Composio MCP às vezes não consegue ler emails do Outlook",
+      "last_verified": "2026-07-22T22:40:00Z",
+      "impact": "Leads não são detectados → perda de conversões",
+      "confidence": "média",
+      "source_type": "confirmado_agora",
+      "evidence": ["CURRENT_STATE.md (Revisão de Outlook)"],
+      "mitigation": [
+        "Aumentar timeout de Composio",
+        "Implementar retry logic",
+        "Health checks de Outlook"
+      ],
+      "workaround": "Rodar leads_automation.py manualmente",
+      "owner": "Jonata",
+      "escalation": "MCP reliability issue"
+    }
+  ],
+  "risk_count": 10,
+  "critical_count": 6,
+  "high_count": 3,
+  "medium_count": 1,
+  "total_impact": "CRÍTICO — 3 automações em status crítico, 6 riscos potencialmente catastróficos",
+  "recommendations": [
+    "Implementar monitoramento 24/7 de saúde",
+    "Criar alertas para UI timeouts e crashes",
+    "Backup diário de checkpoints e filas",
+    "Audit trail de modificações em arquivos críticos",
+    "Teste de disaster recovery mensalmente",
+    "Revisão de Playwright timeout strategy",
+    "Refatorar para reduzir dependência de Browser Pane"
+  ]
+}

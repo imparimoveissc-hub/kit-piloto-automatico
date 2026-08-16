@@ -1,0 +1,62 @@
+{
+  "name": "IMPAR-04-safe-command-router",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "impar-command",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "impar04-wh",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "impar-command-v1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.item.json.body || $input.item.json;\nconst action = body.action || '';\nconst key = $input.item.json.headers?.['x-impar-key'] || body.key || '';\nconst { execSync } = require('child_process');\nlet envKey = '';\ntry { envKey = execSync('grep IMPAR_WEBHOOK_KEY ~/.impar-n8n-core/.env | cut -d= -f2-', {timeout:3000}).toString().trim(); } catch(e) {}\nif (key !== envKey || !key) return [{ json: { error: 'unauthorized', ai_used: false, timestamp: new Date().toISOString() } }];\nif (!action || typeof action !== 'string' || action.length > 50) return [{ json: { error: 'invalid_action', ai_used: false } }];\nconst prj = process.env.HOME + '/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB';\nlet whitelist = {};\ntry { whitelist = JSON.parse(require('fs').readFileSync(`${prj}/IMPAR_OS/config/whitelist.json`,'utf8')).actions; } catch(e) {}\nconst entry = whitelist[action];\nif (!entry) return [{ json: { error: 'action_not_in_whitelist', action, ai_used: false } }];\nif (entry.category === 'BLOCKED') return [{ json: { error: 'action_blocked', action, ai_used: false } }];\nif (entry.category === 'REQUIRES_APPROVAL') return [{ json: { error: 'requires_approval', action, ai_used: false } }];\nif (entry.category !== 'READ_ONLY_AUTO') return [{ json: { error: 'not_auto', action, ai_used: false } }];\nlet out = '';\nif (entry.command && entry.command !== 'MARKETPLACE_STATUS_ONLY') {\n  try { out = execSync(`${prj}/IMPAR_OS/bin/impar-os ${entry.command.replace('impar-os ','')} 2>&1`, {timeout:15000}).toString(); } catch(e) { out = e.message; }\n}\nreturn [{ json: { status: 'ok', action, category: entry.category, ai_used: false, timestamp: new Date().toISOString(), output: out.substring(0,1000) } }];"
+      },
+      "id": "impar04-route",
+      "name": "Safe Router",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Safe Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    },
+    {
+      "name": "webhook"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs04Router"
+}

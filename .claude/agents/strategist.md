@@ -1,0 +1,10 @@
+---
+name: strategist
+description: Estrategia, oferta, Big Idea, DRE, MUP e MUS no V30.
+---
+
+# Wrapper Claude Agent - Strategist
+
+Leia e siga `02_AGENTS/strategist.md`.
+
+Carregue `04_DIRETRIZES/copy-goat-lite.md` quando precisar definir mecanismo, posicionamento ou promessa.

@@ -1,0 +1,382 @@
+{
+  "_comentario": "TOMADOR da nota = LOCADOR (proprietario). VALOR = Comissao mensal (administracao imobiliaria, item 17.12). O cliente cadastrado no Asaas e o INQUILINO (quem paga o boleto do aluguel) - por isso cada registro tem inquilino_nome e inquilino_cpf_cnpj para a automacao casar a cobranca do Asaas com o imovel/proprietario certo. Quando o mesmo inquilino aluga mais de um imovel do mesmo locador, valor_aluguel desambigua usando o valor do boleto pago.",
+  "clientes": [
+    {
+      "asaas_customer_id": "cus_JONATA",
+      "nome_tomador": "JONATA DE OLIVEIRA",
+      "cpf_cnpj": "07241433947",
+      "inquilino_cpf_cnpj": "07241433947",
+      "inquilino_nome": "JONATA DE OLIVEIRA",
+      "valor_referencia": 15.0,
+      "valor_aluguel": 15.0,
+      "descricao_servico": "Prestacao de servico de teste",
+      "endereco": "Rua Test",
+      "bairro": "Centro",
+      "municipio": "Joinville",
+      "uf": "SC",
+      "cep": "89200-000",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "asaas_customer_id": "cus_TEST",
+      "nome_tomador": "ERIC RUBSON DA SILVA ROCHA",
+      "cpf_cnpj": "00952750104",
+      "inquilino_cpf_cnpj": "00952750104",
+      "inquilino_nome": "ERIC RUBSON DA SILVA ROCHA",
+      "valor_referencia": 15.0,
+      "valor_aluguel": 3610.46,
+      "descricao_servico": "Nota de teste - Emissão Portal Nacional",
+      "endereco": "Rua Test, 123",
+      "bairro": "Test",
+      "municipio": "Joinville",
+      "uf": "SC",
+      "cep": "89200-000",
+      "tipo_imovel": "nao_residencial"
+    },
+    {
+      "nome_tomador": "LENNON FERNANDES",
+      "cpf_cnpj": "00347282954",
+      "valor_referencia": 209.0,
+      "valor_aluguel": 2090.0,
+      "descricao_servico": "Casa na rua Professor Eunaldo Verdi, 469 no bairro Jardim Sofia,\nInquilino: REINALDO CRISPIM\nCPF: 032.580.889-93",
+      "inquilino_nome": "REINALDO CRISPIM",
+      "inquilino_cpf_cnpj": "03258088993",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "LUCAS KULKAMP",
+      "cpf_cnpj": "08743256929",
+      "valor_referencia": 245.0,
+      "valor_aluguel": 2200.0,
+      "descricao_servico": "Um Apartamento, denominado apartamento 403, do residencial Brumar IX, na rua Victor Konder, 1483 no bairro Iririu, de propriedade do LOCADOR, o qual se encontra matriculado sob o n 180618\nInquilino: Alexsander Ferrantino Moreira\nCPF: 852.626.250-53",
+      "inquilino_nome": "ALEXSANDER FERRANTINO MOREIRA",
+      "inquilino_cpf_cnpj": "85262625053",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "JAIR PEREIRA",
+      "cpf_cnpj": "76068889904",
+      "valor_referencia": 181.5,
+      "valor_aluguel": 1550.0,
+      "descricao_servico": "Aluguel casa, lateral da rua das Palmas, 33. Bairro Guanabara, Joinville/SC, com inscrição imobiliária de número 13.10.35.85.19.82.0000",
+      "inquilino_nome": "RAFAELA MARIA GUEDES DUARTE E SILVA",
+      "inquilino_cpf_cnpj": "06078069900",
+      "cep_tomador": "89210563",
+      "endereco_tomador": "R. Prof. José A Dias Barreto",
+      "numero_tomador": "123",
+      "bairro_tomador": "Itaum",
+      "complemento_tomador": "",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "NELSON RUDIGER",
+      "cpf_cnpj": "54104009920",
+      "valor_referencia": 145.6,
+      "valor_aluguel": 1400.0,
+      "descricao_servico": "Apartamento na rua Marques de Olinda, 1850 no bairro America, denominado AP 202, box 14 do Ed. Sevilha de propriedade do LOCADOR, o qual se encontra matriculado sob o no 152.223, e inscrição imobiliária 13.20.42.53.5270.0043\nInquilino: Andrea Elizabeth Hodges Ferraz \nCPF: 874.281.649-15",
+      "inquilino_nome": "ANDREA ELIZABETH HODGES FERRAZ",
+      "inquilino_cpf_cnpj": "87428164915",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "ADELINA KÖPP MOTTA",
+      "cpf_cnpj": "38389991934",
+      "valor_referencia": 160.0,
+      "valor_aluguel": 1600.0,
+      "descricao_servico": "Geminado na rua Salvador Gomes de Oliveira, 392-Bairro Petrópolis.",
+      "inquilino_nome": "FERNANDO ROBERTO ALVES",
+      "inquilino_cpf_cnpj": "05653680958",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "MARIA APARECIDA GONÇALVES SANTOS",
+      "cpf_cnpj": "01488648999",
+      "valor_referencia": 220.0,
+      "valor_aluguel": 2200.0,
+      "descricao_servico": "Referente a locação de uma casa na rua Benjamim Constant, 4013 no bairro Glória,  de propriedade do LOCADOR, o qual se encontra matriculado, livre de ônus ou quaisquer dúvidas\nInquilino: Vanderleia Muller \nCPF: 039.589.159-06",
+      "inquilino_nome": "VANDERLEIA MULLER",
+      "inquilino_cpf_cnpj": "03958915906",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "RAFAEL - ROBERT E ROBERT",
+      "cpf_cnpj": "03594897000117",
+      "valor_referencia": 120.0,
+      "valor_aluguel": 1200.0,
+      "descricao_servico": "Apartamento na Rua Waldemar Kruger, 196, Floresta, Joinville/SC, denominado AP 102 do condomínio residencial logos, de propriedade do LOCADOR, o qual se encontra matriculado sob o n.o36.937, e inscrição imobiliária sob o n.o13.10.43.65.0648.002\nInquilino: Alijhenys de Melo Avelar\nCPF: 089.715.533- 59",
+      "inquilino_nome": "ALIJHENYS DE MELO AVELAR",
+      "inquilino_cpf_cnpj": "08971553359",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "ELIEL ANTUNES",
+      "cpf_cnpj": "48310824904",
+      "valor_referencia": 140.0,
+      "valor_aluguel": 1026.0,
+      "descricao_servico": "Apartamento no condomínio residencial Roma, denominado apartamento 303 na rua Padre Roma, 940 no bairro João Costa\nInquilino: Cleiton da Conceição \nCPF: 069.959.129-50",
+      "inquilino_nome": "CLEITON DA CONCEIÇÃO",
+      "inquilino_cpf_cnpj": "06995912950",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "F.R FERNANDES",
+      "cpf_cnpj": "26329419000185",
+      "valor_referencia": 135.2,
+      "valor_aluguel": 1150.0,
+      "descricao_servico": "Uma casa na rua Guaira, 1053, bairro Iririú \nInquilino: Wagner Gilvan Moraes De Souza \nCPF: 651.806.152-91",
+      "inquilino_nome": "WAGNER GILVAN MORAES DE SOUZA",
+      "inquilino_cpf_cnpj": "65180615291",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "F.R FERNANDES",
+      "cpf_cnpj": "26329419000185",
+      "valor_referencia": 182.0,
+      "valor_aluguel": 1700.0,
+      "descricao_servico": "Uma sala comercial na rua Tuiuti, 884, boa bairro IRIRIU.\nInquilino: Jaisa Iara Ferreira Fernandes \nCPF: 091.039.119-00",
+      "inquilino_nome": "JAISA IARA FERREIRA FERNANDES",
+      "inquilino_cpf_cnpj": "09103911900",
+      "tipo_imovel": "nao_residencial"
+    },
+    {
+      "nome_tomador": "RAFAEL - ROBERT E ROBERT",
+      "cpf_cnpj": "03594897000117",
+      "valor_referencia": 80.0,
+      "valor_aluguel": 1400.0,
+      "descricao_servico": "Apartamento na rua Guia Lopes, 346 do bairro Santo Antonio, denominado AP103, de propriedade do LOCADOR, o qual se encontra matriculado com inscrição imobiliária 13.30.03.73.0877.0003\nInquilino: Bruno Herbert Araujo de Lima \nCPF: 014.435.584-19",
+      "inquilino_nome": "BRUNO HERBERT ARAUJO DE LIMA",
+      "inquilino_cpf_cnpj": "01443558419",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "F.R FERNANDES",
+      "cpf_cnpj": "26329419000185",
+      "valor_referencia": 110.0,
+      "valor_aluguel": 1100.0,
+      "descricao_servico": "um Apartamento, denominado AP 02 na rua Guaira, 1053 no bairro Iririu\nInquilino: Josiane Maia Martins \nCPF: 875.333.322-53",
+      "inquilino_nome": "JOSIANE MAIA MARTINS",
+      "inquilino_cpf_cnpj": "87533332253",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "F.R FERNANDES",
+      "cpf_cnpj": "26329419000185",
+      "valor_referencia": 100.0,
+      "valor_aluguel": 1000.0,
+      "descricao_servico": "uma sala comercial na rua Tuiuti, 884 no bairro Iririu, de propriedade do LOCADOR, o qual se encontra matriculado, livre de ônus ou quaisquer dúvidas, assim denominado, SALA 02.\nInquilino: Marcelo Ribeiro\nCPF: 052.852.229-90",
+      "inquilino_nome": "MARCELO RIBEIRO",
+      "inquilino_cpf_cnpj": "05285222990",
+      "tipo_imovel": "nao_residencial"
+    },
+    {
+      "nome_tomador": "DANIEL KIRCHHOFF",
+      "cpf_cnpj": "63634627972",
+      "valor_referencia": 300.0,
+      "valor_aluguel": 3000.0,
+      "descricao_servico": "Uma casa na rua das Telefonistas, 97 no bairro Petrópolis, com instalação imobiliária 13.10.15.35.03.37.0000\nInquilino: Alex Bruno Do Nascimento\nCPF: 105.267.639-14",
+      "inquilino_nome": "ALEX BRUNO DO NASCIMENTO",
+      "inquilino_cpf_cnpj": "10526763914",
+      "cep_tomador": "89208755",
+      "endereco_tomador": "R. das Telefonistas",
+      "numero_tomador": "97",
+      "bairro_tomador": "Petrópolis",
+      "complemento_tomador": "",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "SIDNEI CIRILO DA SILVA",
+      "cpf_cnpj": "68436483987",
+      "valor_referencia": 20.0,
+      "valor_aluguel": 3388.92,
+      "descricao_servico": "Sala comercial na rua Pardal 45, bairro Costa e Silva, cep 89.220-080 \nInquilino: BARISTA COMERCIO E MANUTENCAO DE MAQUINAS E EQUIPAMENTOS PARA CAFÉ LTDA\nCNPJ: 123.724.98.0001-00",
+      "inquilino_nome": "BARISTA COMERCIO E MANUTENCAO DE MAQUINAS E EQUIPAMENTOS PARA CAFÉ LTDA",
+      "inquilino_cpf_cnpj": "12372498000100",
+      "tipo_imovel": "nao_residencial"
+    },
+    {
+      "nome_tomador": "F.R FERNANDES",
+      "cpf_cnpj": "26329419000185",
+      "valor_referencia": 114.4,
+      "valor_aluguel": 1100.0,
+      "descricao_servico": "Uma casa na rua Adolfo da Veiga, 2290 no bairro Itinga, denominado apartamento 01, na parte superior do imóvel, de propriedade do LOCADOR, o qual se encontra matriculado sob o n. 12149\nInquilino: Nilson Alves Junior \nCPF: 005.363.609-01",
+      "inquilino_nome": "NILSON ALVES JUNIOR",
+      "inquilino_cpf_cnpj": "00536360901",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "F.R FERNANDES",
+      "cpf_cnpj": "26329419000185",
+      "valor_referencia": 92.0,
+      "valor_aluguel": 1500.0,
+      "descricao_servico": "Uma casa na rua Treze de maio, no bairro Iririu, denominado apartamento 01, na parte térrea do imóvel, com inscrição imobiliária 13.31.00.81.0592.0000 de propriedade do LOCADOR\nInquilino: Cesar Minoru Kuracima \nCPF: 386.194.458-80",
+      "inquilino_nome": "CESAR MINORU KURACIMA",
+      "inquilino_cpf_cnpj": "38619445880",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "ESTER ANTUNES PETRY",
+      "cpf_cnpj": "55014100953",
+      "valor_referencia": 180.0,
+      "valor_aluguel": 1800.0,
+      "descricao_servico": "Uma casa na rua João Basilio Correa, 1417, João Costa, inscrita sob a matricula 13.221 e inscrição imobiliária 13.11.31.18.0082.0000, de propriedade do LOCADOR\nInquilino: Isaias Pereira Barreto \nCPF: 315.375.038-63",
+      "inquilino_nome": "ISAIAS PEREIRA BARRETO",
+      "inquilino_cpf_cnpj": "31537503863",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "LIDIA OLINDINA SANTOS TAVARES",
+      "cpf_cnpj": "51214490972",
+      "valor_referencia": 150.0,
+      "valor_aluguel": 1500.0,
+      "descricao_servico": "Um terreno, na rua Pardal, 80, no bairro Costa e Silva, Joinville/SC, CEP 89220-080, sem benfeitorias ou construções no Registro de imóveis e no IPTU, apenas murado em todos os lados, de propriedade do LOCADOR, o qual se encontra matriculado no n. 31.325, com inscrição imobiliária 13.30.11.04.0390.0000 \nInquilino: Bruna Lais Maia\nCPF: 076.726.009-07",
+      "inquilino_nome": "BRUNA LAIS MAIA",
+      "inquilino_cpf_cnpj": "07672600907",
+      "tipo_imovel": "nao_residencial"
+    },
+    {
+      "nome_tomador": "LUCIANA DA COSTA CIDRAL WIEMES",
+      "cpf_cnpj": "68404050953",
+      "valor_referencia": 350.0,
+      "valor_aluguel": 3500.0,
+      "descricao_servico": "Casa com garagem e edícula, na rua Simão Kruger, 512 no bairro floresta, cidade de Joinville. Matriculado sob o n. 24.546 e na prefeitura municipal de Joinville/SC sob o n. 13.10.23.49.1582.0000\nInquilino: MARLUCE FELISBERTO FACHINI \nCPF: 010.465.429-58",
+      "inquilino_nome": "MARLUCE FELISBERTO FACHINI",
+      "inquilino_cpf_cnpj": "01046542958",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "F.R FERNANDES",
+      "cpf_cnpj": "26329419000185",
+      "valor_referencia": 170.0,
+      "valor_aluguel": 1700.0,
+      "descricao_servico": "Um imóvel no bairro Itinga, para uso COMERCIAL E RESIDENCIAL, localizada na Rua Adolfo da veiga, 2290, denominado apartamento 02 térreo e sala comercial térreo na parte térrea do sobrado, devidamente registrado no Cartório de Registros de Imóveis de Joinville/SC, sob a matrícula de nº 12.149 e na Prefeitura Municipal de Joinville/SC, sob a inscrição imobiliária sob nº 13.01.30.83.0243.0000",
+      "inquilino_nome": "LEANDRO FERRARI FAGUNDES",
+      "inquilino_cpf_cnpj": "12314887948",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "MAURI ROGERIO VARGAS",
+      "cpf_cnpj": "40012816949",
+      "valor_referencia": 170.0,
+      "valor_aluguel": null,
+      "descricao_servico": "Referente a locação de um geminado, localizada na Rua Eleutério cidral, n. 64, bairro Jarivatuba, casa 03, com a matrícula matrícula de n 44.752 e na Prefeitura Municipal de Joinville/SC, sob a inscrição imobiliária sob n 13.11.23.30.8173.0003\nInquilino: Juliana Ines Wuerges \nCPF: 053.136.419-48",
+      "inquilino_nome": "JULIANA INES WUERGES",
+      "inquilino_cpf_cnpj": "05313641948",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "JÉSSICA LOUISE",
+      "cpf_cnpj": "12990790918",
+      "valor_referencia": 110.0,
+      "valor_aluguel": null,
+      "descricao_servico": "Referente ao aluguel mensal de um imóvel situado Rua Julião Favre, n 430 bairro Boehmerwald, cidade Joinville, Sc, denominado Apartamento 102, TIPO A, Bloco 01, do residencial Oliveira composto por área privativa de 43,37m2, área total de 77,67m2 com matricula 26.235 inscrição imobiliária 13.10.14.33.5497.0002 averbada na matricula na AV.2-26.235, de propriedade do LOCADOR\nInquilino: Jael Rodrigues de Araújo\nCPF: 028.615.131-60",
+      "inquilino_nome": "JAEL RODRIGUES DE ARAÚJO",
+      "inquilino_cpf_cnpj": "02861513160",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "AURI",
+      "cpf_cnpj": "03053930900",
+      "valor_referencia": 135.0,
+      "valor_aluguel": null,
+      "descricao_servico": "Referente ao aluguel de um imóvel situado Rua Julião Favre, n 430 bairro Boehmerwald, cidade Joinville, Sc, denominado Apartamento 201, TIPO A, Bloco 03, do residencial Oliveira composto por área privativa de 43,37m2, área total de 77,67m2 com matricula 26.270, inscrição imobiliária 13.10.14.33.5497.0037 - Inquilino: Liandra Gama de Castro CPF: 702.249.742-70",
+      "inquilino_nome": "LIANDRA GAMA DE CASTRO",
+      "inquilino_cpf_cnpj": "70224974270",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "RAFAEL - ROBERT E ROBERT",
+      "cpf_cnpj": "03594897000117",
+      "valor_referencia": 110.0,
+      "valor_aluguel": null,
+      "descricao_servico": "um Apartamento, denominado AP102 – Vaga de garagem coberta na rua Tenente Antonio João, 1508, no bairro Bom retiro, de propriedade do LOCADOR, o qual se encontra matriculado no numero 110.173 Inquilino: Clarita Ernst - CPFF: 660.285.829-72",
+      "inquilino_nome": "CLARITA ERNST",
+      "inquilino_cpf_cnpj": "66028582972",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "JAISOM",
+      "cpf_cnpj": "08264229930",
+      "valor_referencia": 115.0,
+      "valor_aluguel": null,
+      "descricao_servico": "Referente a locação de imóvel situado Rua Julião Favre, n 430 bairro Boehmerwald, cidade Joinville, Sc, denominado Apartamento 302, TIPO A, Bloco 01, do residencial Oliveira composto por área privativa de 43,37m2, área total de 77,67m2 com matricula 26243, inscrição imobiliária 13.10.14.33.5497.0010, de propriedade do LOCADOR. Inquilino: Laysla Emanuely Cordeiro. CPF: 096.039.519-94",
+      "inquilino_nome": "LAYSLA EMANUELY CORDEIRO",
+      "inquilino_cpf_cnpj": "09603951994",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "EDITH TEONILIA KOTSCHELLA",
+      "cpf_cnpj": "21703221915",
+      "valor_referencia": 150.0,
+      "valor_aluguel": null,
+      "descricao_servico": "Referente a locação de imóvel situado Rua Frederico Eick, n 614, bairro Costa e silva, cidade Joinville, Sc, denominado AP105, com vaga de garagem n. 105, do residencial Alto da Marquês composto por área privativa de 77,07m², área total de 94,97m² com matricula 121.209, inscrição imobiliária 13.30.02.51.1065.0005, de propriedade do LOCADOR",
+      "inquilino_nome": "NAYANNE ESTER SILVA NASCIMENTO",
+      "inquilino_cpf_cnpj": "13982758408",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "RAFAEL - ROBERT E ROBERT",
+      "cpf_cnpj": "03594897000117",
+      "valor_referencia": 150.0,
+      "valor_aluguel": null,
+      "descricao_servico": "Referente a locação de imóvel situado Rua Xanxere, n 650, bairro Saguaçu, cidade Joinville, Sc, denominado AP101, do residencial Saguaçu, de propriedade do LOCADOR Inquilino: José Cardozo de Oliveira Junior\nCPF: 201.705.358-94",
+      "inquilino_nome": "JOSÉ CARDOSO JUNIOR",
+      "inquilino_cpf_cnpj": "20170535894",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "MILENA",
+      "cpf_cnpj": "05548274929",
+      "valor_referencia": 385.0,
+      "valor_aluguel": null,
+      "descricao_servico": "Referente a locação de um imóvel situado a rua Bernardo Weilke, 165, casa 03, bairro Boa Vista, cidade de Joinville, sc, inscrição imobiliária 13.21.21.08.0626.0003, com matrícula 151.953 do primeiro registro de imóveis Inquilino: Thaynara Cristina Borba\nCPF: 113.795.649-64",
+      "inquilino_nome": "THAYNARA CRISTINA BORBA",
+      "inquilino_cpf_cnpj": "11379564964",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "MARIA DE FATIMA GONÇALVES,",
+      "cpf_cnpj": "85123633987",
+      "valor_referencia": 100.0,
+      "valor_aluguel": null,
+      "descricao_servico": "Referente a locação de uma Sala comercial na rua Princesa Isabel, 238 no bairro Centro, denominado Sala 202, no segundo andar do edifício Principe de Joinville, matriculado no primeiro registro de imóveis da cidade de Joinville sob o n. 72.346, de propriedade do LOCADOR Inquilino: Sabrina Aparecida Schroeder de Souza\nCPF: 416.303.718-74",
+      "inquilino_nome": "SABRINA APARECIDA SCHROEDER DE SOUZA",
+      "inquilino_cpf_cnpj": "41630371874",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "GRASIELA DOS ANJOS,",
+      "cpf_cnpj": "00403753902",
+      "valor_referencia": 300.0,
+      "valor_aluguel": null,
+      "descricao_servico": "Referente a locação de um imóvel situado Rua Dóris Dobner Nass, n 87, bairro Ulisses Guimarães, cidade Joinville, Sc, inscrição imobiliária 13.11.23.30.5910.0000, de propriedade do LOCADOR Inquilino: Janayna Rayani Sousa do Nascimento Pereira\nCPF: 005.139.942-38",
+      "inquilino_nome": "JANAYNA RAYANI SOUSA DO NASCIMENTO PEREIRA",
+      "inquilino_cpf_cnpj": "00513994238",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "ALEXANDRE DE OLIVEIRA",
+      "cpf_cnpj": "75120739920",
+      "valor_referencia": 110.0,
+      "valor_aluguel": null,
+      "descricao_servico": "Referente a locação de um imóvel situado Rua Julião Favre, n 430 bairro Boehmerwald, cidade Joinville, Sc, denominado Apartamento 103, TIPO A, Bloco 01, do residencial Oliveira composto por área privativa de 43,37m2, área total de 77,67m2 com matricula 26.236 inscrição imobiliária 13.10.14.33.5497.0003, de propriedade do LOCADOR Inquilino: Renata Backes da Rosa\nCPF: 008.915.670-62",
+      "inquilino_nome": "RENATA BACKES DE SOUZA",
+      "inquilino_cpf_cnpj": "00891567062",
+      "cep_tomador": "89232010",
+      "endereco_tomador": "R. Julião Favre",
+      "numero_tomador": "430",
+      "bairro_tomador": "Santa Catarina",
+      "complemento_tomador": "Ap201",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "SIDNEI CIRILO DA SILVA",
+      "cpf_cnpj": "68436483987",
+      "valor_referencia": 355.0,
+      "valor_aluguel": null,
+      "descricao_servico": "Referente a locação de uma Sala comercial, denominado sala 01, com 165m2 privativos mais vagas de estacionamento, para uso EXCLUSIVAMENTE COMERCIAL, localizada na Rua Elizabeth Rech, no 417, bairro Paranaguamirim, Joinville/SC, devidamente registrado no 3o Cartório de Registros de Imóveis de Joinville/SC, sob a matrícula de no 7.658 e na Prefeitura Municipal de Joinville/SC, sob a inscrição imobiliária sob no 13.11.23.29.2778  Aluguel: R$3550,00  IPTU + taxa de lixo: R$60,46 Total: 3610,46 / Inquilino: Eric Rubson da Silva Rocha / CPF: 009.527.501-04",
+      "inquilino_nome": "ERIC",
+      "inquilino_cpf_cnpj": "00952750104",
+      "tipo_imovel": "nao_residencial"
+    }
+  ]
+}

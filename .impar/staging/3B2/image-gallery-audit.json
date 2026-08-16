@@ -1,0 +1,56 @@
+{
+  "audit_date": "2026-07-23T08:25:00Z",
+  "property_code": "AP0205",
+  "status": "INCOMPLETE",
+  "summary": {
+    "images_found_via_csv": 1,
+    "images_expected": "UNKNOWN",
+    "images_validated": 1,
+    "images_excluded": 0,
+    "investigation_complete": false
+  },
+  "images_found": [
+    {
+      "position": 1,
+      "url": "https://www.imparimoveis.com/imagens/imoveis/202607071026237314.jpeg",
+      "source": "CSV - foto_principal",
+      "type": "primary",
+      "mime_type": "image/jpeg",
+      "validated": true,
+      "belongs_to_property": true,
+      "hash": "to_be_calculated",
+      "dimensions": "to_be_verified",
+      "size_kb": "to_be_verified"
+    }
+  ],
+  "investigation_required": {
+    "page_url": "https://www.imparimoveis.com/imovel/4283829/apartamento-locacao-joinville-sc-atiradores-morada-visconde",
+    "inspect_methods": [
+      "HTML inicial para atributos src, data-src, srcset",
+      "Lazy-load detectors para imagens carregadas após interação",
+      "Scripts JSON incorporados (<script type=\"application/ld+json\">)",
+      "Endpoints públicos da galeria (/galeria/, /fotos/, etc)",
+      "Carrossel de imagens e thumbnails",
+      "Imagens em alt-text ou aria-label",
+      "Meta Open Graph para og:image"
+    ],
+    "exclusion_criteria": [
+      "Logotipo da Impar Imóveis",
+      "Favicon",
+      "Banners promocionais",
+      "Ícones de característica",
+      "Imagem de mapa",
+      "Imagem institucional",
+      "Fotos de outros imóveis",
+      "Marcas d'água genéricas"
+    ]
+  },
+  "current_status": "IMAGE_GALLERY_INCOMPLETE",
+  "reason": "Apenas 1 imagem foi encontrada no CSV. Investigação completa da página HTML necessária antes de avançar.",
+  "cannot_proceed_without": [
+    "Inspeção completa do HTML da página",
+    "Validação de todas as URLs de imagem",
+    "Exclusão de imagens não pertencentes ao imóvel",
+    "Confirmação do total de imagens válidas"
+  ]
+}

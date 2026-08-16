@@ -1,0 +1,20 @@
+{
+  "version": "2.0",
+  "legacy_file": "07_LOGS/EXECUTION_AUDIT.jsonl",
+  "frozen_at": "2026-07-23T03:20:00Z",
+  "classification": "legacy_frozen_v2",
+  "state": {
+    "sha256": "a932238973626ec91279bad7068caab354ec49dc2eb4dace659f84d52da22edb",
+    "size":      270,
+    "lines":        2
+  },
+  "reason_for_v2": "Baseline V1 was violated when executor wrote new record. Executor corrected in ETAPA 3A.7.1 to use hash-chaining. V2 freezes current state.",
+  "v1_reference": {
+    "sha256_original": "bc700e6251c6cc284ed34dc808f1999f07361e453470c733d88205c7e9b7a53b",
+    "lines_original": 1,
+    "size_original": 135,
+    "violation_detected": "File grew from 1 to 2 lines after baseline creation"
+  },
+  "schema_version": "1.0",
+  "notes": "V2 baseline is immutable. After this point, EXECUTION_AUDIT.jsonl MUST NOT change. All new audit events go to EXECUTION_AUDIT_CHAIN.jsonl with hash-chaining."
+}

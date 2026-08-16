@@ -1,0 +1,516 @@
+{
+  "version": "1.0.0",
+  "type": "topology",
+  "generated": "2026-07-22T22:53:00Z",
+  "description": "Topologia hier\u00e1rquica das automa\u00e7\u00f5es",
+  "automations": {
+    "auto_marketplace": {
+      "name": "Marketplace Publishing",
+      "status": "active",
+      "risk": "CRITICAL",
+      "entry_point": "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/main.py",
+      "launchagents": [
+        {
+          "name": "com.impar.marketplace",
+          "schedule": "Continuous",
+          "status": "active",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "com.impar.crosspost",
+          "schedule": "11:30, 17:00, 21:30 daily",
+          "status": "active",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "com.impar.marketplace-restore-on-boot",
+          "schedule": "On macOS boot",
+          "status": "active",
+          "criticality": "CRITICAL"
+        }
+      ],
+      "dependencies": [
+        {
+          "name": "Playwright",
+          "type": "library",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "Chrome Browser Pane",
+          "type": "component",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "Facebook API",
+          "type": "integration",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "Python 3",
+          "type": "runtime",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "Rogga Sync",
+          "type": "automation",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Grupo JM Sync",
+          "type": "automation",
+          "criticality": "HIGH"
+        }
+      ],
+      "checkpoints": [
+        {
+          "file": "fila-postagens.csv",
+          "type": "queue",
+          "criticality": "CRITICAL",
+          "size": "2.5MB",
+          "loss_impact": "Queue lost \u2014 random/no publications"
+        },
+        {
+          "file": "fila-grupos-postagens.csv",
+          "type": "queue",
+          "criticality": "CRITICAL",
+          "size": "769 lines",
+          "loss_impact": "96 groups stop receiving posts"
+        },
+        {
+          "file": "crosspost-grupos-log.csv",
+          "type": "checkpoint",
+          "criticality": "CRITICAL",
+          "size": "1.2MB",
+          "loss_impact": "Duplicate publications"
+        }
+      ],
+      "logs": [
+        {
+          "path": "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/logs",
+          "files": 6,
+          "size": "1.8M"
+        }
+      ],
+      "integrations": [
+        "Facebook Marketplace",
+        "Facebook Groups (96 approved)",
+        "Browser Pane"
+      ],
+      "risks": [
+        "UI Timeouts (79% failure rate)",
+        "Duplicate publications if checkpoint lost",
+        "Single point of failure: Browser Pane"
+      ]
+    },
+    "auto_messenger": {
+      "name": "Messenger D1 Bridge",
+      "status": "active",
+      "risk": "CRITICAL",
+      "entry_point": "Browser Pane (Python + AppleScript)",
+      "launchagents": [
+        {
+          "name": "com.impar.messenger-inbox",
+          "schedule": "Continuous",
+          "status": "active",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "com.impar.messenger-inbox-5min",
+          "schedule": "Continuous",
+          "status": "active",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "com.impar.messenger-varredura-auto",
+          "schedule": "Continuous",
+          "status": "active",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "com.impar.messenger-desktop",
+          "schedule": "Continuous",
+          "status": "active",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "com.impar.messenger-bridge",
+          "schedule": "Continuous",
+          "status": "active",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "com.impar.messenger-bridge-health-check",
+          "schedule": "Continuous",
+          "status": "active",
+          "criticality": "CRITICAL"
+        }
+      ],
+      "dependencies": [
+        {
+          "name": "Playwright",
+          "type": "library",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "Chrome Browser Pane",
+          "type": "component",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "Facebook Messenger API",
+          "type": "integration",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "AppleScript",
+          "type": "library",
+          "criticality": "HIGH"
+        }
+      ],
+      "checkpoints": [
+        {
+          "file": "checkpoint.json",
+          "type": "state",
+          "criticality": "HIGH",
+          "loss_impact": "Lost conversation context"
+        }
+      ],
+      "logs": [
+        {
+          "file": "crosspost-messenger-log.csv",
+          "type": "checkpoint"
+        }
+      ],
+      "integrations": [
+        "Facebook Messenger",
+        "Browser Pane"
+      ],
+      "risks": [
+        "Crashes (5 in 24h)",
+        "UI timeouts",
+        "Single point of failure: Browser Pane"
+      ]
+    },
+    "auto_whatsapp": {
+      "name": "WhatsApp Bridge",
+      "status": "offline",
+      "reason": "Security testing",
+      "risk": "MEDIUM",
+      "entry_point": "~/.local/impar-automation/whatsapp/main.py",
+      "launchagents": [
+        {
+          "name": "(disabled)",
+          "schedule": "N/A",
+          "status": "disabled",
+          "criticality": "N/A"
+        }
+      ],
+      "restriction": "\u274c NEVER reauthenticate",
+      "dependencies": [
+        {
+          "name": "Python 3",
+          "type": "runtime",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Twilio API",
+          "type": "integration",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "WhatsApp Desktop (nativo macOS)",
+          "type": "component",
+          "criticality": "CRITICAL"
+        }
+      ],
+      "checkpoints": [
+        {
+          "file": "checkpoint.json",
+          "type": "state",
+          "criticality": "LOW",
+          "status": "do_not_modify"
+        }
+      ],
+      "logs": [],
+      "integrations": [
+        "WhatsApp Desktop",
+        "macOS native"
+      ],
+      "risks": [
+        "Offline intentionally \u2014 do not reactivate"
+      ]
+    },
+    "auto_leads": {
+      "name": "Leads Chaves na M\u00e3o",
+      "status": "active",
+      "risk": "HIGH",
+      "entry_point": "~/.local/impar-automation/chaves-na-mao/leads_automation.py",
+      "launchagents": [
+        {
+          "name": "com.impar.chaves-na-mao-checker",
+          "schedule": "Every 10 minutes",
+          "status": "active",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "com.impar.chaves-na-mao-3leads-checker",
+          "schedule": "Every 10 minutes",
+          "status": "active",
+          "criticality": "HIGH"
+        }
+      ],
+      "dependencies": [
+        {
+          "name": "Python 3",
+          "type": "runtime",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Composio MCP",
+          "type": "library",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Outlook API",
+          "type": "integration",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "WhatsApp Desktop (nativo macOS)",
+          "type": "component",
+          "criticality": "CRITICAL"
+        },
+        {
+          "name": "AppleScript",
+          "type": "library",
+          "criticality": "HIGH"
+        }
+      ],
+      "checkpoints": [
+        {
+          "file": "checkpoint.json",
+          "type": "deduplication",
+          "criticality": "CRITICAL",
+          "loss_impact": "24h of duplicate notifications to all leads"
+        }
+      ],
+      "logs": [],
+      "integrations": [
+        "Outlook",
+        "WhatsApp Desktop",
+        "Composio MCP"
+      ],
+      "risks": [
+        "Checkpoint loss = duplicates",
+        "Outlook integration flaky (Composio)",
+        "Depends on WhatsApp Desktop (local component)"
+      ],
+      "blocklist": "05_WORKSPACE/clientes/impar-imoveis/whatsapp/leads-followup.csv"
+    },
+    "auto_nfse": {
+      "name": "NFS-e Emission",
+      "status": "active",
+      "risk": "MEDIUM",
+      "entry_point": "18_AUTOMATION_STACK/nfem-joinville/emitir_lote.py",
+      "launchagents": [
+        {
+          "name": "com.impar.nfse-scheduled",
+          "schedule": "Days 20, 25, 29, 30",
+          "status": "active",
+          "criticality": "HIGH"
+        }
+      ],
+      "dependencies": [
+        {
+          "name": "Python 3",
+          "type": "runtime",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Playwright",
+          "type": "library",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Chrome Browser Pane",
+          "type": "component",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Portal Nacional credentials",
+          "type": "credentials",
+          "criticality": "CRITICAL",
+          "protected": true
+        },
+        {
+          "name": "Asaas API",
+          "type": "integration",
+          "criticality": "HIGH"
+        }
+      ],
+      "checkpoints": [
+        {
+          "file": "checkpoint.json",
+          "type": "state",
+          "criticality": "HIGH"
+        },
+        {
+          "file": "ultimas_emissoes.log",
+          "type": "log",
+          "criticality": "HIGH"
+        }
+      ],
+      "logs": [
+        {
+          "path": "18_AUTOMATION_STACK/nfem-joinville/logs",
+          "files": "multiple"
+        }
+      ],
+      "integrations": [
+        "Portal Nacional (https://www.nfse.gov.br/EmissorNacional)",
+        "Asaas API",
+        "Browser Pane"
+      ],
+      "risks": [
+        "Double issuance if executed twice per day",
+        "Financial/legal implications"
+      ],
+      "cadence": "Manual (skill trigger) + Scheduled (days 20, 25, 29, 30)"
+    },
+    "auto_rogga": {
+      "name": "Rogga Sync",
+      "status": "active",
+      "risk": "MEDIUM",
+      "entry_point": "18_AUTOMATION_STACK/rogga-sync/main.py",
+      "launchagents": [
+        {
+          "name": "com.impar.rogga-sync",
+          "schedule": "Hourly",
+          "status": "active",
+          "criticality": "HIGH"
+        }
+      ],
+      "dependencies": [
+        {
+          "name": "Python 3",
+          "type": "runtime",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Rogga API",
+          "type": "integration",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Imobibrasil API",
+          "type": "integration",
+          "criticality": "HIGH"
+        }
+      ],
+      "checkpoints": [
+        {
+          "file": "checkpoint.json",
+          "type": "state",
+          "criticality": "HIGH"
+        }
+      ],
+      "logs": [
+        {
+          "path": "18_AUTOMATION_STACK/rogga-sync/logs"
+        }
+      ],
+      "integrations": [
+        "Rogga",
+        "Imobibrasil CRM"
+      ],
+      "risks": [
+        "Sync failure = stale property data in Marketplace"
+      ]
+    },
+    "auto_grupo_jm": {
+      "name": "Grupo JM Sync",
+      "status": "active",
+      "risk": "MEDIUM",
+      "entry_point": "18_AUTOMATION_STACK/grupo-jm-sync/main.py",
+      "launchagents": [
+        {
+          "name": "com.impar.grupo-jm-sync",
+          "schedule": "Hourly",
+          "status": "active",
+          "criticality": "HIGH"
+        }
+      ],
+      "dependencies": [
+        {
+          "name": "Python 3",
+          "type": "runtime",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Grupo JM API",
+          "type": "integration",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Imobibrasil API",
+          "type": "integration",
+          "criticality": "HIGH"
+        }
+      ],
+      "checkpoints": [
+        {
+          "file": "checkpoint.json",
+          "type": "state",
+          "criticality": "HIGH"
+        }
+      ],
+      "logs": [
+        {
+          "path": "18_AUTOMATION_STACK/grupo-jm-sync/logs"
+        }
+      ],
+      "integrations": [
+        "Grupo JM",
+        "Imobibrasil CRM"
+      ],
+      "risks": [
+        "Sync failure = Group JM properties not published"
+      ]
+    },
+    "auto_notificar_leads": {
+      "name": "Notificar Leads",
+      "status": "active",
+      "risk": "MEDIUM",
+      "entry_point": "unknown (via LaunchAgent)",
+      "launchagents": [
+        {
+          "name": "com.impar.notificar-leads-planilha",
+          "schedule": "Scheduled",
+          "status": "active",
+          "criticality": "MEDIUM"
+        }
+      ],
+      "dependencies": [
+        {
+          "name": "Python 3",
+          "type": "library",
+          "criticality": "HIGH"
+        },
+        {
+          "name": "Planilha (Google Sheets/Excel)?",
+          "type": "library",
+          "criticality": "HIGH"
+        }
+      ],
+      "checkpoints": [],
+      "logs": [],
+      "integrations": [
+        "Planilha",
+        "Lead Management"
+      ],
+      "risks": [
+        "Manual execution required"
+      ]
+    }
+  }
+}

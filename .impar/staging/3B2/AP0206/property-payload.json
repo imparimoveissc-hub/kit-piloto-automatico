@@ -1,0 +1,111 @@
+{
+  "codigo": "AP0206",
+  "id_interno": 4298360,
+  "url_publica": "https://www.imparimoveis.com/imovel/4298360/apartamento-locacao-sao-francisco-do-sul-sc-ubatuba",
+  "timestamp_coleta": "2026-07-23T09:15:00Z",
+  "status": "PROPERTY_PAYLOAD_READY_FOR_APPROVAL",
+  "operacao": "locacao",
+  "tipo": "apartamento",
+  "disponibilidade": "disponivel",
+  "localizacao": {
+    "cidade": "São Francisco do Sul",
+    "estado": "SC",
+    "bairro": "Ubatuba",
+    "endereco_publico": "Av. Duque de Caxias",
+    "pais": "Brasil"
+  },
+  "especificacoes": {
+    "dormitorios": 5,
+    "suites": 1,
+    "banheiros": 2,
+    "vagas_garagem": 1,
+    "salas": 3
+  },
+  "areas": {
+    "total_m2": 200.00,
+    "privativa_m2": 200.00,
+    "construida_m2": 660.00,
+    "terreno_m2": 321.00,
+    "unidade": "m²"
+  },
+  "valores": {
+    "aluguel_mensal": 2800.00,
+    "moeda": "BRL",
+    "periodicidade": "mensal",
+    "condominio": null,
+    "iptu": null,
+    "seguro_incendio": null,
+    "taxa_adicional": null,
+    "observacao_valor": "Valor publicado como 2.800"
+  },
+  "garantia_fianca": {
+    "modalidade": null,
+    "publicada": false
+  },
+  "mobiliado": false,
+  "permuta": true,
+  "pagamento": {
+    "status": "Pronto",
+    "observacao": "Imóvel pronto para ocupação"
+  },
+  "acabamentos": [
+    "Piso Cerâmico",
+    "Vidros Blindex"
+  ],
+  "caracteristicas": [
+    "Portão Eletrônico",
+    "Alarme",
+    "cisterna de água"
+  ],
+  "comodos": [
+    "Área de Serviço",
+    "Copa",
+    "Cozinha",
+    "Despensa",
+    "Escritório",
+    "Sala"
+  ],
+  "condominio_oferece": [
+    "Iluminação"
+  ],
+  "infraestrutura": [
+    "Averbado",
+    "Com Escritura"
+  ],
+  "proximidades": [
+    "Bares e Restaurantes",
+    "Escola",
+    "Farmácia",
+    "Supermercado",
+    "BR 280",
+    "Porto Marítimo"
+  ],
+  "descricao_original": "Apartamento para Locação no bairro Ubatuba, localizado na cidade de São Francisco do Sul / SC.\n\nCom 5 dormitórios, sendo 1 suíte, possui 2 banheiros, 1 vaga de garagem, 3 salas, aceita permuta.\n\nÁrea Total de 200,00 m², Área Privativa de 200,00 m², Área Construída com 660,00 m², Área do Terreno com 321,00 m².\n\nValor do Imóvel R$ 2.800,00.",
+  "galeria": {
+    "total_imagens": 68,
+    "fonte_cdn": "imgs1.cdn-imobibrasil.com.br/imagens/imoveis/",
+    "status": "COLETA_COMPLETA",
+    "imagens_validas": 68,
+    "imagens_rejeitadas": 0
+  },
+  "fonte_dados": {
+    "site": "https://www.imparimoveis.com",
+    "metodo": "page_crawl",
+    "elementos_estruturados": 4,
+    "json_ld": true,
+    "validacao": "URL → ID → página → dados estruturados"
+  },
+  "campos_ausentes": [],
+  "conflitos": [],
+  "validacao_mapeamento": {
+    "codigo_validado": true,
+    "id_validado": true,
+    "url_validada": true,
+    "operacao_validada": true,
+    "localizacao_validada": true,
+    "preço_validado": true,
+    "disponibilidade_validada": true,
+    "dados_essenciais_completos": true,
+    "nenhuma_contaminacao_urban": true
+  }
+}

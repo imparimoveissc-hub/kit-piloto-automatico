@@ -1,0 +1,68 @@
+{
+  "name": "IMPAR-09-marketplace-monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 30
+            }
+          ]
+        }
+      },
+      "id": "impar09-trigger",
+      "name": "Trigger 30min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { execSync } = require('child_process');\nconst prj = process.env.HOME + '/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB';\nconst base = `${prj}/18_AUTOMATION_STACK/impar-facebook-marketplace-posting`;\nconst ts = new Date().toISOString();\nconst check = (cmd) => { try { return execSync(cmd, {timeout:5000}).toString().trim(); } catch(e) { return 'error'; } };\nconst fila = check(`wc -l < \"${base}/../../../05_WORKSPACE/clientes/impar/fila-postagens.csv\" 2>/dev/null || wc -l < \"${prj}/KPA30-Marketplace/fila-postagens.csv\" 2>/dev/null || echo 'n/a'`);\nconst scripts = ['crosspost_groups_v2.py','publish_daily_from_fila.py','publish_marketplace_playwright.py'].map(s => ({ name: s, exists: check(`test -f \"${base}/${s}\" && echo yes || echo no`) === 'yes' }));\nconst lastLog = check(`ls -t \"${base}/logs/\" 2>/dev/null | head -1 || echo 'none'`);\nreturn [{ json: { status: 'monitored', ai_used: false, timestamp: ts, mode: 'READ_ONLY', publish_disabled: true, queue_lines: fila, scripts, last_log: lastLog } }];"
+      },
+      "id": "impar09-monitor",
+      "name": "Monitor Marketplace",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Trigger 30min": {
+      "main": [
+        [
+          {
+            "node": "Monitor Marketplace",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    },
+    {
+      "name": "cron"
+    },
+    {
+      "name": "marketplace"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs09Mktplace"
+}

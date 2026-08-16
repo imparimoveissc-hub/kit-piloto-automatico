@@ -1,0 +1,59 @@
+{
+  "name": "IMPAR-07-error-handler",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "impar-error",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "impar07-wh",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "impar-error-v1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.item.json.body || $input.item.json;\nconst prj = process.env.HOME + '/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB';\nconst db = `${prj}/IMPAR_OS/database/impar.db`;\nconst { execSync } = require('child_process');\nconst ts = new Date().toISOString();\nconst source = (body.source||'unknown').replace(/'/g,\"''\").substring(0,100);\nconst errType = (body.error_type||'unknown').replace(/'/g,\"''\").substring(0,50);\nconst msg = (body.message||'').replace(/'/g,\"''\").substring(0,500);\nconst ctx = (body.context||'').replace(/'/g,\"''\").substring(0,200);\ntry {\n  execSync(`sqlite3 \"${db}\" \"INSERT INTO errors (timestamp,source,error_type,message,context,resolved) VALUES ('${ts}','${source}','${errType}','${msg}','${ctx}',0);\"`, {timeout:5000});\n} catch(e) { return [{ json: { error: e.message.substring(0,200), ai_used: false } }]; }\nreturn [{ json: { ok: true, recorded: true, source, error_type: errType, ai_used: false, timestamp: ts } }];"
+      },
+      "id": "impar07-err",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Error Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs07Errors"
+}

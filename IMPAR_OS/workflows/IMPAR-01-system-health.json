@@ -1,0 +1,65 @@
+{
+  "name": "IMPAR-01-system-health",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "impar01-trigger",
+      "name": "Trigger 5min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { execSync } = require('child_process');\nconst ts = new Date().toISOString();\nlet n8n_ok = true;\nlet db_ok = false;\nlet container_ok = false;\ntry {\n  const r = execSync('curl -sf http://127.0.0.1:5678/healthz 2>/dev/null', {timeout:5000}).toString();\n  n8n_ok = r.includes('ok');\n} catch(e) { n8n_ok = false; }\ntry {\n  execSync('docker ps --filter name=impar-n8n --format \"{{.Status}}\" 2>/dev/null | grep -q Up', {timeout:5000});\n  container_ok = true;\n} catch(e) { container_ok = false; }\ntry {\n  const db = process.env.HOME + '/.impar-n8n-core/../../../Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/IMPAR_OS/database/impar.db';\n  execSync(`sqlite3 \"${db}\" \".tables\" 2>/dev/null`, {timeout:5000});\n  db_ok = true;\n} catch(e) { db_ok = false; }\nreturn [{ json: { status: (n8n_ok && container_ok) ? 'healthy' : 'degraded', ai_used: false, timestamp: ts, checks: { n8n: n8n_ok, container: container_ok, database: db_ok } } }];"
+      },
+      "id": "impar01-check",
+      "name": "Verificar Saúde",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Trigger 5min": {
+      "main": [
+        [
+          {
+            "node": "Verificar Saúde",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    },
+    {
+      "name": "cron"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs01Health"
+}

@@ -1,0 +1,178 @@
+# =====================================================================
+# ROTINAS AGENDADAS — Kit Piloto Automático V30 (Impar Imóveis)
+# Manifesto para migração para um novo MacBook.
+#
+# O QUE É ISTO:
+#   Os PROMPTS de cada rotina (SKILL.md) já viajam pelo iCloud dentro de
+#   19_BACKUP_CLAUDE/snapshot/dot-claude/scheduled-tasks/ e são restaurados
+#   pelo instalar-nova-maquina.sh. O que NÃO viaja é o HORÁRIO (cron) — ele
+#   fica no serviço de agendamento do Claude, não em disco.
+#
+#   Use este arquivo no Mac novo para RECRIAR os agendamentos: peça ao Claude
+#   Code "agende estas rotinas conforme rotinas.yaml" ou recrie uma a uma com
+#   a skill /schedule usando o campo `agendamento` de cada item.
+#
+# Gerado em: 2026-07-10
+# Total de rotinas: 9
+# =====================================================================
+
+meta:
+  projeto: Kit Piloto Automático V30
+  cliente: Impar Imóveis
+  operador: Jonata (jonatasoft@gmail.com)
+  fuso: America/Sao_Paulo
+  origem_prompts: 19_BACKUP_CLAUDE/snapshot/dot-claude/scheduled-tasks/
+  numeros:
+    impar_whatsapp: "5547920026017"   # conta que fala com leads (NÃO recebe avisos)
+    jonata_avisos: "5547996876631"    # recebe TODOS os alertas/handoff
+  observacao: >
+    Restaure os prompts com instalar-nova-maquina.sh ANTES de recriar os
+    agendamentos. Depois faça /login, reconecte os MCPs (WhatsApp, Asaas,
+    Outlook/Composio) e só então reative as rotinas.
+
+rotinas:
+
+  # ---------- EMISSÃO DE NOTAS FISCAIS (mensal) ----------
+  - nome: emissao-nfs-dia-20
+    descricao: Emissão automática de NFS-e Joinville — corte do dia 20
+    agendamento: "todo dia 20 de cada mês"
+    cron: "0 9 20 * *"
+    periodo: "dia 30 do mês anterior até dia 19 deste mês"
+    tipo: automacao
+    depende_de: [Asaas, portal nfem.joinville.sc.gov.br, playwright]
+
+  - nome: emissao-nfs-dia-25
+    descricao: Emissão automática de NFS-e Joinville — corte do dia 25
+    agendamento: "todo dia 25 de cada mês"
+    cron: "0 9 25 * *"
+    periodo: "dia 20 até dia 24 deste mês"
+    tipo: automacao
+    depende_de: [Asaas, portal nfem.joinville.sc.gov.br, playwright]
+
+  - nome: emissao-nfs-dia-29
+    descricao: Emissão automática de NFS-e Joinville — corte do dia 29
+    agendamento: "todo dia 29 de cada mês"
+    cron: "0 9 29 * *"
+    periodo: "dia 25 até dia 28 deste mês"
+    tipo: automacao
+    depende_de: [Asaas, portal nfem.joinville.sc.gov.br, playwright]
+
+  - nome: emissao-nfs-dia-30
+    descricao: Emissão automática de NFS-e Joinville — corte do dia 30 + fechamento mensal
+    agendamento: "todo dia 30 de cada mês"
+    cron: "0 9 30 * *"
+    periodo: "dia 29 até dia 29 deste mês; também cobre o fechamento do mês"
+    tipo: automacao
+    depende_de: [Asaas, portal nfem.joinville.sc.gov.br, playwright]
+
+  # ---------- ATENDIMENTO / FOLLOW-UP DE LEADS (WhatsApp) ----------
+  - nome: impar-followup-manha
+    descricao: Roda o follow-up de WhatsApp dos leads frios, enviando o passo devido de cada um
+    agendamento: "todo dia às 8:30"
+    cron: "30 8 * * *"
+    janela_envio: "08:30–21:00"
+    limite: "máximo 1 mensagem por lead por dia"
+    tipo: whatsapp
+    depende_de: [MCP whatsapp, leads-followup.csv]
+
+  - nome: impar-followup-checagem-0845
+    descricao: Checa às 8:45 se o follow-up das 8:30 rodou e reporta (somente leitura, não envia)
+    agendamento: "todo dia às 8:45"
+    cron: "45 8 * * *"
+    tipo: verificacao
+    depende_de: [leads-followup.csv, MCP whatsapp (só leitura)]
+
+  - nome: impar-atende-leads-dia
+    descricao: A cada 30 min no horário comercial, responde leads que escreveram, coleta documentos e encaminha para visita
+    agendamento: "a cada 30 minutos, das 8h às 20h"
+    cron: "*/30 8-19 * * *"
+    janela_envio: "08:00–20:00"
+    limite: "máximo 1 mensagem por lead por dia"
+    tipo: whatsapp
+    depende_de: [MCP whatsapp, leads-followup.csv]
+
+  # ---------- LEADS CHAVES NA MÃO (Outlook + WhatsApp) ----------
+  - nome: leads-chaves-na-mao-whatsapp
+    descricao: A cada 10 min, verifica leads novos do Chaves na Mão no Outlook, envia 1ª mensagem ao lead sem contato e alerta Jonata
+    agendamento: "a cada 10 minutos, todos os dias"
+    cron: "*/10 * * * *"
+    limite: "máximo 1 mensagem por lead por dia; respeitar lista de bloqueio/opt-out"
+    tipo: whatsapp
+    depende_de: [Outlook via Composio, MCP whatsapp, PushNotification]
+
+  - nome: status-tudo-certo-whatsapp
+    descricao: Aviso "tudo em ordem" dos leads Chaves na Mão — confirma que todos já têm conversa iniciada
+    agendamento: "a cada 2 horas, das 8h às 18h, todos os dias"
+    cron: "0 8-18/2 * * *"
+    tipo: whatsapp
+    depende_de: [Outlook via Composio, MCP whatsapp]
+
+# =====================================================================
+# LAUNCHAGENTS macOS — Kit Corretor Digital v1
+# Processos Python/bash gerenciados pelo launchd.
+# Plists originais: 06_OUTPUTS/KIT-CORRETOR-DIGITAL-v1.zip → plists/
+# Para instalar: bash 06_OUTPUTS/KIT-CORRETOR-DIGITAL-v1/install.sh
+# =====================================================================
+
+launchagents:
+
+  # ---------- MARKETPLACE — PUBLISHER POR TURNOS ----------
+  - label: com.impar.marketplace-manha
+    descricao: Publisher Marketplace — turno manhã (08:30 → 12:00, máx 3 imóveis)
+    script: ~/impar-marketplace-automacao/run_daemon.sh
+    trigger: "08:30 diário (StartCalendarInterval Hour=8 Minute=30)"
+    env: "QUEUE=fila.json, GRUPOS=19, UNTIL=12:00"
+    tipo: launchagent
+
+  - label: com.impar.marketplace-tarde
+    descricao: Publisher Marketplace — turno tarde (14:00 → 18:00, máx 3 imóveis)
+    script: ~/impar-marketplace-automacao/run_daemon.sh
+    trigger: "14:00 diário (StartCalendarInterval Hour=14 Minute=0)"
+    env: "QUEUE=fila.json, GRUPOS=19, UNTIL=18:00"
+    tipo: launchagent
+
+  - label: com.impar.marketplace-noite
+    descricao: Publisher Marketplace — turno noite (19:30 → 21:00)
+    script: ~/impar-marketplace-automacao/run_daemon.sh
+    trigger: "19:30 diário (StartCalendarInterval Hour=19 Minute=30)"
+    env: "QUEUE=fila.json, GRUPOS=19, UNTIL=21:00"
+    tipo: launchagent
+
+  # ---------- LEADS — CHAVES NA MÃO ----------
+  - label: com.impar.chaves-na-mao-checker
+    descricao: Verifica emails do Chaves na Mão e notifica lead novo via WhatsApp
+    script: ~/.local/impar-automation/chaves-na-mao-lead-checker/run.sh
+    trigger: "a cada 15 minutos (StartInterval: 900)"
+    tipo: launchagent
+
+  # ---------- MESSENGER — VARREDURA DE INBOX ----------
+  - label: com.impar.messenger-varredura-auto
+    descricao: Varre inbox do Messenger buscando leads no Marketplace (is_marketplace=True obrigatório)
+    script: ~/.local/impar-automation/messenger/varredura_inbox.py
+    trigger: "a cada 15 minutos (StartInterval: 900)"
+    tipo: launchagent
+
+  # ---------- WHATSAPP — DISPARO DE LEADS D0 ----------
+  - label: com.impar.wa-pending-sender
+    descricao: Processa leads pendentes no CSV e envia 1ª mensagem WhatsApp (D0)
+    script: ~/.local/impar-automation/leads-planilha/wa_pending_sender.py
+    trigger: "a cada 2 minutos (StartInterval: 120)"
+    tipo: launchagent
+
+  # ---------- SAÚDE GERAL DO SISTEMA ----------
+  - label: com.impar.health-check-rotinas
+    descricao: Health check de todos os LaunchAgents + disco + WhatsApp Desktop; alerta só se crítico
+    script: ~/.local/impar-automation/health-check-rotinas.sh
+    trigger: "a cada 2 horas (StartInterval: 7200)"
+    tipo: launchagent
+
+# =====================================================================
+# COMO RECRIAR NO MAC NOVO (resumo)
+# 1. Deixe o iCloud baixar o Kit por completo.
+# 2. bash 19_BACKUP_CLAUDE/instalar-nova-maquina.sh   (restaura prompts + ~/.claude)
+# 3. Abra o Claude Code: /login
+# 4. Reconecte os MCPs pelo app: WhatsApp, Asaas, Outlook/Composio.
+# 5. Diga ao Claude: "agende as rotinas conforme 19_BACKUP_CLAUDE/rotinas.yaml"
+#    (ou recrie uma a uma com /schedule usando o campo `cron` de cada item).
+# 6. Notas fiscais: /meta-cli-install só se for usar tráfego (Meta CLI não migra).
+# =====================================================================

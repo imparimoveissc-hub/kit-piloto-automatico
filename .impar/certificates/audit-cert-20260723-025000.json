@@ -1,0 +1,147 @@
+{
+  "audit_timestamp": "2026-07-23T02:50:00Z",
+  "audit_type": "Independent Certification Audit",
+  "stage": "ETAPA 3A.6",
+  "certified_version": "3.0.0",
+  "certificate_audited": "kernel-cert-20260722-234731.json",
+  "certificate_hash": "51c5b47c7415e7a6fed829c9d1bf6b3f22294362a38e7909a9b6d71a90334cdf",
+  "kernel_hash_calculated": "b7dbe56b13fa977a6f65a5d36cca37f42f09a23cde521d55cfd3d3a66a952be8",
+  "kernel_hash_deterministic": true,
+  "hashes_verified": {
+    "version": {
+      "certified": "141d2612a1a6dddb8f273cdf8089aac72d9a02d07d86009d858b8b2c87d6393e",
+      "actual": "141d2612a1a6dddb8f273cdf8089aac72d9a02d07d86009d858b8b2c87d6393e",
+      "status": "MATCH"
+    },
+    "registry": {
+      "certified": "54e9e053e044fc9875579dfef1e842b540e715784324078dd72193c2ecaf7ce0",
+      "actual": "54e9e053e044fc9875579dfef1e842b540e715784324078dd72193c2ecaf7ce0",
+      "status": "MATCH"
+    },
+    "graph": {
+      "certified": "83ae3bcc05a36710b80bb68e25f3dc0d38137bcbcbf8f8222477531e2c64439f",
+      "actual": "83ae3bcc05a36710b80bb68e25f3dc0d38137bcbcbf8f8222477531e2c64439f",
+      "status": "MATCH"
+    },
+    "whitelist": {
+      "certified": "40bec479f7d895d6458411dd93a00226cb433d796ea5815cfcd46eaf9749cf83",
+      "actual": "40bec479f7d895d6458411dd93a00226cb433d796ea5815cfcd46eaf9749cf83",
+      "status": "MATCH"
+    }
+  },
+  "findings": [
+    {
+      "id": "F001",
+      "category": "INCONSISTENCY_DOCUMENTAL",
+      "severity": "MEDIUM",
+      "description": "Classification mismatch: VERSION/Certificate say 'Certified Candidate', but RELEASE_NOTES and Audit Report say 'Production Candidate'",
+      "evidence": [
+        ".impar/VERSION: Certified Candidate",
+        ".impar/certificates/kernel-cert-20260722-234731.json: Certified Candidate",
+        ".impar/RELEASE_NOTES.md: Production Candidate",
+        "07_LOGS/RELATORIO_CERTIFICACAO_KERNEL_3A5.md: Production Candidate"
+      ],
+      "recommendation": "Standardize on 'Certified Candidate' (correct for ETAPA 3A.5, still in testing phase)"
+    },
+    {
+      "id": "F002",
+      "category": "COVERAGE_INCOMPLETE",
+      "severity": "HIGH",
+      "description": "6 LaunchAgents not mapped in knowledge/launchagents.json (26% gap in coverage)",
+      "evidence": [
+        "Mapped: 17 LaunchAgents",
+        "Real: 23 LaunchAgents",
+        "Unmapped: com.impar.bootup-restore, com.impar.claude-desktop-autostart, com.impar.crm, com.impar.relatorio-marketplace-manha, com.impar.relatorio-marketplace-tarde, com.impar.reschedule-on-boot"
+      ],
+      "recommendation": "Add 6 LaunchAgents to knowledge mapping or document exclusion criteria"
+    },
+    {
+      "id": "F003",
+      "category": "AUDIT_LOG_IMMUTABILITY",
+      "severity": "CRITICAL",
+      "description": "EXECUTION_AUDIT.jsonl is NOT technically immutable. Documented as immutable but is a common log file with write permissions (644)",
+      "evidence": [
+        "File permissions: 644 (rw-r--r--)",
+        "Editable: YES (write permission present)",
+        "Hash-chained: NO",
+        "Cryptographically signed: NO",
+        "Filesystem immutability flag: NOT SET"
+      ],
+      "technical_classification": "Log common (append-only by convention only)",
+      "recommendation": "Either: (1) Remove write permission (440), (2) Implement hash-chaining, or (3) Add cryptographic signature"
+    },
+    {
+      "id": "F004",
+      "category": "CERTIFICATOR_ROBUSTNESS",
+      "severity": "MEDIUM",
+      "description": "Certificator has improvements needed: incorrect component counts and no hash validation",
+      "evidence": [
+        "modules count in certificate: 0 (should be 31)",
+        "libraries count in certificate: 0 (should be 9)",
+        "file_hash() returns 'FILE_NOT_FOUND' string instead of error",
+        "No validation of hashes against previous certificate"
+      ],
+      "recommendation": "Fix component counting; add hash validation; improve error handling"
+    }
+  ],
+  "components_audit": {
+    "modules": {
+      "certified_count": 0,
+      "actual_count": 31,
+      "status": "INCORRECT"
+    },
+    "libraries": {
+      "certified_count": 0,
+      "actual_count": 9,
+      "status": "INCORRECT"
+    },
+    "automations": {
+      "certified_count": 9,
+      "actual_count": 9,
+      "status": "MATCH"
+    },
+    "launchagents": {
+      "certified_count": 0,
+      "mapped_count": 17,
+      "actual_count": 23,
+      "unmapped_count": 6,
+      "coverage": "74%",
+      "status": "INCOMPLETE"
+    }
+  },
+  "whatsapp_status": {
+    "status": "offline",
+    "disabled_intentionally": true,
+    "must_not_start": true,
+    "must_not_reauthenticate": true,
+    "requires_explicit_authorization": true,
+    "verification": "CONFIRMED",
+    "protection_level": "FULL"
+  },
+  "overall_result": "PARTIAL",
+  "result_justification": {
+    "pass_criteria": [
+      "Hashes are correct and reproducible",
+      "Kernel is deterministic",
+      "WhatsApp is protected",
+      "Critical files are validated"
+    ],
+    "fail_criteria": [
+      "Classification is inconsistent (Certified vs Production)",
+      "26% of LaunchAgents unmapped",
+      "Audit log is not technically immutable",
+      "Certificator needs improvements"
+    ]
+  },
+  "next_steps": [
+    "1. Standardize classification (recommend: Certified Candidate)",
+    "2. Protect EXECUTION_AUDIT.jsonl (remove write permission or add hash-chaining)",
+    "3. Map 6 unmapped LaunchAgents",
+    "4. Improve certificator (fix counts, add hash validation)",
+    "5. Re-run certification for PASS classification"
+  ],
+  "auditor": "Claude Code",
+  "scope": "Independent verification of ETAPA 3A.5 certification",
+  "methodology": "Hash verification, component audit, log analysis, certificator code review",
+  "notes": "Certification is functional and reproducible, but requires corrections before PASS classification. No modifications to operational systems were made during audit."
+}

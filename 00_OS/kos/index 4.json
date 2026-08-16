@@ -1,0 +1,3079 @@
+{
+  "generated_at": "2026-08-06T20:38:56.556402",
+  "kit_dir": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB",
+  "stats": {
+    "functions": 245,
+    "concepts": 80,
+    "tasks": 18,
+    "launchagents": 9
+  },
+  "functions": {
+    "run": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 17,
+        "module": "geral"
+      }
+    ],
+    "require_tool": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 29,
+        "module": "geral"
+      }
+    ],
+    "load_config": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 36,
+        "module": "geral"
+      }
+    ],
+    "slugify": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 45,
+        "module": "geral"
+      }
+    ],
+    "ffprobe_duration": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 52,
+        "module": "geral"
+      }
+    ],
+    "ffprobe_streams": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 60,
+        "module": "geral"
+      }
+    ],
+    "detect_silences": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 68,
+        "module": "geral"
+      }
+    ],
+    "silence_events_to_keep_segments": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 86,
+        "module": "geral"
+      }
+    ],
+    "create_cut_source": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 110,
+        "module": "geral"
+      }
+    ],
+    "escape_filter_path": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 147,
+        "module": "geral"
+      }
+    ],
+    "build_video_filter": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 151,
+        "module": "geral"
+      }
+    ],
+    "render_final": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 181,
+        "module": "geral"
+      }
+    ],
+    "write_report": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 197,
+        "module": "geral"
+      }
+    ],
+    "parse_args": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 218,
+        "module": "geral"
+      }
+    ],
+    "main": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py",
+        "line": 232,
+        "module": "geral"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-leads-planilha-watcher/leads_watcher.py",
+        "line": 144,
+        "module": "leads"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/facebook-mcp/server.py",
+        "line": 158,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/chaves-na-mao-lead-checker/check_chaves_na_mao_leads.py",
+        "line": 233,
+        "module": "leads"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-campos-vazios.py",
+        "line": 27,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fb_driver.py",
+        "line": 40,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/login-facebook.py",
+        "line": 19,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_groups_playwright.py",
+        "line": 218,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/test_cadencia_nova.py",
+        "line": 32,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/crosspost_groups_v2.py",
+        "line": 248,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-form.py",
+        "line": 83,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 406,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_venda_queue.py",
+        "line": 16,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 459,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_evening.py",
+        "line": 101,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_daily_from_fila.py",
+        "line": 131,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fetch_group_urls.py",
+        "line": 115,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fb_interactive.py",
+        "line": 43,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_group_queue.py",
+        "line": 179,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-after-fill.py",
+        "line": 116,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 458,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fase3-publicacao-automatizada.py",
+        "line": 97,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-iframes.py",
+        "line": 24,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 209,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/server.py",
+        "line": 42,
+        "module": "geral"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/cli.py",
+        "line": 26,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace/fb_auth.py",
+        "line": 22,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/leads-planilha/leads_watcher.py",
+        "line": 84,
+        "module": "leads"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 209,
+        "module": "marketplace"
+      }
+    ],
+    "load_state": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-leads-planilha-watcher/leads_watcher.py",
+        "line": 27,
+        "module": "leads"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/leads-planilha/leads_watcher.py",
+        "line": 27,
+        "module": "leads"
+      }
+    ],
+    "save_state": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-leads-planilha-watcher/leads_watcher.py",
+        "line": 33,
+        "module": "leads"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/leads-planilha/leads_watcher.py",
+        "line": 33,
+        "module": "leads"
+      }
+    ],
+    "log": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-leads-planilha-watcher/leads_watcher.py",
+        "line": 41,
+        "module": "leads"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/chaves-na-mao-lead-checker/check_chaves_na_mao_leads.py",
+        "line": 49,
+        "module": "leads"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 46,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/scripts/whatsapp-server.py",
+        "line": 18,
+        "module": "geral"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/leads-planilha/leads_watcher.py",
+        "line": 41,
+        "module": "leads"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 46,
+        "module": "marketplace"
+      }
+    ],
+    "format_message": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-leads-planilha-watcher/leads_watcher.py",
+        "line": 48,
+        "module": "leads"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/leads-planilha/leads_watcher.py",
+        "line": 48,
+        "module": "leads"
+      }
+    ],
+    "_osascript": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-leads-planilha-watcher/leads_watcher.py",
+        "line": 71,
+        "module": "leads"
+      }
+    ],
+    "send_to_group": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-leads-planilha-watcher/leads_watcher.py",
+        "line": 75,
+        "module": "leads"
+      }
+    ],
+    "_get": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/facebook-mcp/server.py",
+        "line": 22,
+        "module": "marketplace"
+      }
+    ],
+    "_post": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/facebook-mcp/server.py",
+        "line": 28,
+        "module": "marketplace"
+      }
+    ],
+    "_call_tool": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/facebook-mcp/server.py",
+        "line": 74,
+        "module": "marketplace"
+      }
+    ],
+    "_send": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/facebook-mcp/server.py",
+        "line": 116,
+        "module": "marketplace"
+      }
+    ],
+    "_handle": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/facebook-mcp/server.py",
+        "line": 121,
+        "module": "marketplace"
+      }
+    ],
+    "load_processed": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/chaves-na-mao-lead-checker/check_chaves_na_mao_leads.py",
+        "line": 58,
+        "module": "leads"
+      }
+    ],
+    "save_processed": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/chaves-na-mao-lead-checker/check_chaves_na_mao_leads.py",
+        "line": 66,
+        "module": "leads"
+      }
+    ],
+    "normalize_phone_br": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/chaves-na-mao-lead-checker/check_chaves_na_mao_leads.py",
+        "line": 72,
+        "module": "leads"
+      }
+    ],
+    "check_outlook_emails": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/chaves-na-mao-lead-checker/check_chaves_na_mao_leads.py",
+        "line": 95,
+        "module": "leads"
+      }
+    ],
+    "extract_lead_data": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/chaves-na-mao-lead-checker/check_chaves_na_mao_leads.py",
+        "line": 103,
+        "module": "leads"
+      }
+    ],
+    "add_to_planilha": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/chaves-na-mao-lead-checker/check_chaves_na_mao_leads.py",
+        "line": 141,
+        "module": "leads"
+      }
+    ],
+    "send_notification": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/chaves-na-mao-lead-checker/check_chaves_na_mao_leads.py",
+        "line": 168,
+        "module": "leads"
+      }
+    ],
+    "process_new_lead": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/chaves-na-mao-lead-checker/check_chaves_na_mao_leads.py",
+        "line": 193,
+        "module": "leads"
+      }
+    ],
+    "load_listing": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-campos-vazios.py",
+        "line": 20,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 48,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-after-fill.py",
+        "line": 23,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 57,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-iframes.py",
+        "line": 20,
+        "module": "marketplace"
+      }
+    ],
+    "only_digits": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-campos-vazios.py",
+        "line": 24,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 44,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-after-fill.py",
+        "line": 20,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 53,
+        "module": "marketplace"
+      }
+    ],
+    "check_session": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fb_driver.py",
+        "line": 28,
+        "module": "marketplace"
+      }
+    ],
+    "log_event": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_groups_playwright.py",
+        "line": 43,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fase3-publicacao-automatizada.py",
+        "line": 34,
+        "module": "marketplace"
+      }
+    ],
+    "load_group_queue": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_groups_playwright.py",
+        "line": 52,
+        "module": "marketplace"
+      }
+    ],
+    "click_text_if_visible": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_groups_playwright.py",
+        "line": 62,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 78,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 87,
+        "module": "marketplace"
+      }
+    ],
+    "find_and_click_button": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_groups_playwright.py",
+        "line": 74,
+        "module": "marketplace"
+      }
+    ],
+    "wait_for_element_then_click": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_groups_playwright.py",
+        "line": 85,
+        "module": "marketplace"
+      }
+    ],
+    "fill_text_input_by_label": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_groups_playwright.py",
+        "line": 95,
+        "module": "marketplace"
+      }
+    ],
+    "post_to_group": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_groups_playwright.py",
+        "line": 107,
+        "module": "marketplace"
+      }
+    ],
+    "get_posts_per_day": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/test_cadencia_nova.py",
+        "line": 12,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 42,
+        "module": "marketplace"
+      }
+    ],
+    "get_random_interval": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/test_cadencia_nova.py",
+        "line": 18,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 48,
+        "module": "marketplace"
+      }
+    ],
+    "calculate_scheduled_time": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/test_cadencia_nova.py",
+        "line": 21,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 51,
+        "module": "marketplace"
+      }
+    ],
+    "__init__": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/marketplace_content_generator.py",
+        "line": 27,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/facebook_session_manager.py",
+        "line": 23,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/dedupe.py",
+        "line": 9,
+        "module": "geral"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/bridge.py",
+        "line": 12,
+        "module": "geral"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/finance_client.py",
+        "line": 8,
+        "module": "geral"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 17,
+        "module": "geral"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 67,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 50,
+        "module": "nfse"
+      }
+    ],
+    "_call_openai_api": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/marketplace_content_generator.py",
+        "line": 40,
+        "module": "marketplace"
+      }
+    ],
+    "generate_title": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/marketplace_content_generator.py",
+        "line": 71,
+        "module": "marketplace"
+      }
+    ],
+    "generate_description": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/marketplace_content_generator.py",
+        "line": 116,
+        "module": "marketplace"
+      }
+    ],
+    "generate_tags": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/marketplace_content_generator.py",
+        "line": 163,
+        "module": "marketplace"
+      }
+    ],
+    "validate_content": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/marketplace_content_generator.py",
+        "line": 241,
+        "module": "marketplace"
+      }
+    ],
+    "generate_all": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/marketplace_content_generator.py",
+        "line": 279,
+        "module": "marketplace"
+      }
+    ],
+    "log_row": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/crosspost_groups_v2.py",
+        "line": 34,
+        "module": "marketplace"
+      }
+    ],
+    "ja_publicado_hoje": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/crosspost_groups_v2.py",
+        "line": 43,
+        "module": "marketplace"
+      }
+    ],
+    "sessao_invalida": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/crosspost_groups_v2.py",
+        "line": 53,
+        "module": "marketplace"
+      }
+    ],
+    "bloqueio_temporario": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/crosspost_groups_v2.py",
+        "line": 65,
+        "module": "marketplace"
+      }
+    ],
+    "rate_limit_grupos": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/crosspost_groups_v2.py",
+        "line": 74,
+        "module": "marketplace"
+      }
+    ],
+    "fechar_dialogos": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/crosspost_groups_v2.py",
+        "line": 90,
+        "module": "marketplace"
+      }
+    ],
+    "compartilhar_no_grupo": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/crosspost_groups_v2.py",
+        "line": 106,
+        "module": "marketplace"
+      }
+    ],
+    "debug_page": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-form.py",
+        "line": 21,
+        "module": "marketplace"
+      }
+    ],
+    "fill_first_visible_text_input": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 59,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 68,
+        "module": "marketplace"
+      }
+    ],
+    "fill_by_label": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 89,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 98,
+        "module": "marketplace"
+      }
+    ],
+    "choose_combobox_option": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 110,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 119,
+        "module": "marketplace"
+      }
+    ],
+    "confirm_leave_dialog": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 133,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 142,
+        "module": "marketplace"
+      }
+    ],
+    "fill_location": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 148,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 157,
+        "module": "marketplace"
+      }
+    ],
+    "attach_photos": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 186,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-after-fill.py",
+        "line": 28,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 195,
+        "module": "marketplace"
+      }
+    ],
+    "fill_listing": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 206,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-after-fill.py",
+        "line": 50,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 215,
+        "module": "marketplace"
+      }
+    ],
+    "fill_listing_item": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 256,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 285,
+        "module": "marketplace"
+      }
+    ],
+    "maybe_publish": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_venda_playwright.py",
+        "line": 314,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py",
+        "line": 366,
+        "module": "marketplace"
+      }
+    ],
+    "select_marketplace_images": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/marketplace_image_selector.py",
+        "line": 40,
+        "module": "marketplace"
+      }
+    ],
+    "load_marketplace_selection_from_file": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/marketplace_image_selector.py",
+        "line": 138,
+        "module": "marketplace"
+      }
+    ],
+    "save_selection_report": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/marketplace_image_selector.py",
+        "line": 156,
+        "module": "marketplace"
+      }
+    ],
+    "test_select_marketplace_images": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/marketplace_image_selector.py",
+        "line": 171,
+        "module": "marketplace"
+      }
+    ],
+    "fetch": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 63,
+        "module": "marketplace"
+      }
+    ],
+    "clean_text": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 86,
+        "module": "marketplace"
+      }
+    ],
+    "first_match": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 93,
+        "module": "marketplace"
+      }
+    ],
+    "slug_to_label": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 98,
+        "module": "marketplace"
+      }
+    ],
+    "extract_price_precise": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 103,
+        "module": "marketplace"
+      }
+    ],
+    "discover_listing_pages": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 127,
+        "module": "marketplace"
+      }
+    ],
+    "extract_listing_links": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 142,
+        "module": "marketplace"
+      }
+    ],
+    "collect_links": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 154,
+        "module": "marketplace"
+      }
+    ],
+    "extract_property": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 166,
+        "module": "marketplace"
+      }
+    ],
+    "marketplace_title": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 245,
+        "module": "marketplace"
+      }
+    ],
+    "make_tags": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 260,
+        "module": "marketplace"
+      }
+    ],
+    "make_description": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 295,
+        "module": "marketplace"
+      }
+    ],
+    "write_draft": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 321,
+        "module": "marketplace"
+      }
+    ],
+    "write_csv": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 346,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_group_queue.py",
+        "line": 60,
+        "module": "marketplace"
+      }
+    ],
+    "build_queue": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 355,
+        "module": "marketplace"
+      }
+    ],
+    "codigos_publicados": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 410,
+        "module": "marketplace"
+      }
+    ],
+    "codigos_publicados_recentemente": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 417,
+        "module": "marketplace"
+      }
+    ],
+    "collect_operation": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py",
+        "line": 439,
+        "module": "marketplace"
+      }
+    ],
+    "load_queue": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_evening.py",
+        "line": 35,
+        "module": "marketplace"
+      }
+    ],
+    "filter_evening_posts": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_evening.py",
+        "line": 46,
+        "module": "marketplace"
+      }
+    ],
+    "publish_listing": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_evening.py",
+        "line": 66,
+        "module": "marketplace"
+      }
+    ],
+    "codigos_bloqueados": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_daily_from_fila.py",
+        "line": 47,
+        "module": "marketplace"
+      }
+    ],
+    "log_publicado": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_daily_from_fila.py",
+        "line": 72,
+        "module": "marketplace"
+      }
+    ],
+    "baixar_fotos": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_daily_from_fila.py",
+        "line": 81,
+        "module": "marketplace"
+      }
+    ],
+    "bloqueado": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_daily_from_fila.py",
+        "line": 123,
+        "module": "marketplace"
+      }
+    ],
+    "normalize": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fetch_group_urls.py",
+        "line": 37,
+        "module": "marketplace"
+      }
+    ],
+    "collect_groups": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fetch_group_urls.py",
+        "line": 45,
+        "module": "marketplace"
+      }
+    ],
+    "match_catalog": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fetch_group_urls.py",
+        "line": 89,
+        "module": "marketplace"
+      }
+    ],
+    "write_result": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fb_interactive.py",
+        "line": 37,
+        "module": "marketplace"
+      }
+    ],
+    "load_csv": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_group_queue.py",
+        "line": 52,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fase3-publicacao-automatizada.py",
+        "line": 42,
+        "module": "marketplace"
+      }
+    ],
+    "parse_day": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_group_queue.py",
+        "line": 68,
+        "module": "marketplace"
+      }
+    ],
+    "parse_marketplace_datetime": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_group_queue.py",
+        "line": 72,
+        "module": "marketplace"
+      }
+    ],
+    "load_group_catalog": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_group_queue.py",
+        "line": 85,
+        "module": "marketplace"
+      }
+    ],
+    "expand_groups": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_group_queue.py",
+        "line": 107,
+        "module": "marketplace"
+      }
+    ],
+    "debug_after_fill": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/debug-after-fill.py",
+        "line": 60,
+        "module": "marketplace"
+      }
+    ],
+    "_load_env": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/openai_enhance.py",
+        "line": 19,
+        "module": "marketplace"
+      }
+    ],
+    "_get_cache_path": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/openai_enhance.py",
+        "line": 49,
+        "module": "marketplace"
+      }
+    ],
+    "_hash_prompt": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/openai_enhance.py",
+        "line": 54,
+        "module": "marketplace"
+      }
+    ],
+    "_load_cache": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/openai_enhance.py",
+        "line": 59,
+        "module": "marketplace"
+      }
+    ],
+    "_save_cache": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/openai_enhance.py",
+        "line": 74,
+        "module": "marketplace"
+      }
+    ],
+    "enhance_title": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/openai_enhance.py",
+        "line": 84,
+        "module": "marketplace"
+      }
+    ],
+    "enhance_description": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/openai_enhance.py",
+        "line": 136,
+        "module": "marketplace"
+      }
+    ],
+    "is_enabled": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/openai_enhance.py",
+        "line": 190,
+        "module": "marketplace"
+      }
+    ],
+    "publish_marketplace_item": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fase3-publicacao-automatizada.py",
+        "line": 49,
+        "module": "marketplace"
+      }
+    ],
+    "publish_groups_batch": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/fase3-publicacao-automatizada.py",
+        "line": 69,
+        "module": "marketplace"
+      }
+    ],
+    "_load_status": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/facebook_session_manager.py",
+        "line": 36,
+        "module": "marketplace"
+      }
+    ],
+    "_save_status": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/facebook_session_manager.py",
+        "line": 42,
+        "module": "marketplace"
+      }
+    ],
+    "auth_setup": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/facebook_session_manager.py",
+        "line": 54,
+        "module": "marketplace"
+      }
+    ],
+    "auth_check": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/facebook_session_manager.py",
+        "line": 128,
+        "module": "marketplace"
+      }
+    ],
+    "get_authenticated_context": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/facebook_session_manager.py",
+        "line": 200,
+        "module": "marketplace"
+      }
+    ],
+    "_verify_authentication": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/facebook_session_manager.py",
+        "line": 245,
+        "module": "marketplace"
+      }
+    ],
+    "load_env": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 37,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 37,
+        "module": "marketplace"
+      }
+    ],
+    "load_checkpoint": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 52,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 52,
+        "module": "marketplace"
+      }
+    ],
+    "save_checkpoint": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 57,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 57,
+        "module": "marketplace"
+      }
+    ],
+    "extrair_telefone": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 61,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 61,
+        "module": "marketplace"
+      }
+    ],
+    "extrair_dados_formulario": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 74,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 74,
+        "module": "marketplace"
+      }
+    ],
+    "get_conversations": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 102,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 102,
+        "module": "marketplace"
+      }
+    ],
+    "get_messages": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 113,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 113,
+        "module": "marketplace"
+      }
+    ],
+    "append_lead_to_csv": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 127,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 127,
+        "module": "marketplace"
+      }
+    ],
+    "send_whatsapp_group": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 142,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 142,
+        "module": "marketplace"
+      }
+    ],
+    "montar_mensagem": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py",
+        "line": 182,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py",
+        "line": 182,
+        "module": "marketplace"
+      }
+    ],
+    "transcribe": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/transcription.py",
+        "line": 10,
+        "module": "geral"
+      }
+    ],
+    "do_POST": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/server.py",
+        "line": 14,
+        "module": "geral"
+      },
+      {
+        "file": "/Users/user/.local/impar-automation/scripts/whatsapp-server.py",
+        "line": 80,
+        "module": "geral"
+      }
+    ],
+    "seen": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/dedupe.py",
+        "line": 12,
+        "module": "geral"
+      }
+    ],
+    "remember": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/dedupe.py",
+        "line": 24,
+        "module": "geral"
+      }
+    ],
+    "handle_message": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/bridge.py",
+        "line": 15,
+        "module": "geral"
+      }
+    ],
+    "extract_text": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/ocr.py",
+        "line": 13,
+        "module": "geral"
+      }
+    ],
+    "_extract_image": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/ocr.py",
+        "line": 20,
+        "module": "geral"
+      }
+    ],
+    "_extract_pdf": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/ocr.py",
+        "line": 33,
+        "module": "geral"
+      }
+    ],
+    "create_transaction": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/finance_client.py",
+        "line": 11,
+        "module": "geral"
+      }
+    ],
+    "process": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 23,
+        "module": "geral"
+      }
+    ],
+    "_build_text": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 66,
+        "module": "geral"
+      }
+    ],
+    "_extract": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 82,
+        "module": "geral"
+      }
+    ],
+    "_find_amount": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 96,
+        "module": "geral"
+      }
+    ],
+    "_find_date": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 111,
+        "module": "geral"
+      }
+    ],
+    "_find_description": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 115,
+        "module": "geral"
+      }
+    ],
+    "_guess_category": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 130,
+        "module": "geral"
+      }
+    ],
+    "_guess_entity": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 144,
+        "module": "geral"
+      }
+    ],
+    "_confirmation_text": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 152,
+        "module": "geral"
+      }
+    ],
+    "_clarification_text": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 159,
+        "module": "geral"
+      }
+    ],
+    "_fingerprint": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 169,
+        "module": "geral"
+      }
+    ],
+    "_looks_duplicate": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 182,
+        "module": "geral"
+      }
+    ],
+    "_today": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-financeiro-whatsapp/src/pipeline.py",
+        "line": 185,
+        "module": "geral"
+      }
+    ],
+    "test_pagamento_autorizado": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 29,
+        "module": "nfse"
+      }
+    ],
+    "test_pagamento_pendente_nao_autorizado": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 34,
+        "module": "nfse"
+      }
+    ],
+    "test_pagamento_cancelado_nao_autorizado": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 39,
+        "module": "nfse"
+      }
+    ],
+    "test_status_nao_autorizados": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 45,
+        "module": "nfse"
+      }
+    ],
+    "test_montar_dados_completos": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 53,
+        "module": "nfse"
+      }
+    ],
+    "test_montar_dados_sem_config_levanta_erro": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 80,
+        "module": "nfse"
+      }
+    ],
+    "test_idempotencia": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 91,
+        "module": "nfse"
+      }
+    ],
+    "test_registro_erro_e_reset": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 99,
+        "module": "nfse"
+      }
+    ],
+    "test_salvar_pdf": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 113,
+        "module": "nfse"
+      }
+    ],
+    "test_salvar_pdf_sufixo_incremental": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 123,
+        "module": "nfse"
+      }
+    ],
+    "test_salvar_pdf_idempotente": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 134,
+        "module": "nfse"
+      }
+    ],
+    "test_nome_sanitizado": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py",
+        "line": 144,
+        "module": "nfse"
+      }
+    ],
+    "emitir_nota": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 1103,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 493,
+        "module": "nfse"
+      }
+    ],
+    "emitir_notas_em_lote": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 1146,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 499,
+        "module": "nfse"
+      }
+    ],
+    "__aenter__": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 100,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 70,
+        "module": "nfse"
+      }
+    ],
+    "__aexit__": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 128,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 88,
+        "module": "nfse"
+      }
+    ],
+    "_screenshot": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 138,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 98,
+        "module": "nfse"
+      }
+    ],
+    "_preencher": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 148,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 108,
+        "module": "nfse"
+      }
+    ],
+    "_preencher_primeiro": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 155,
+        "module": "nfse"
+      }
+    ],
+    "_definir_valor_js_primeiro": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 168,
+        "module": "nfse"
+      }
+    ],
+    "_definir_valor_por_rotulo": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 192,
+        "module": "nfse"
+      }
+    ],
+    "_clicar_por_rotulo": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 264,
+        "module": "nfse"
+      }
+    ],
+    "_selecionar": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 298,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 115,
+        "module": "nfse"
+      }
+    ],
+    "_selecionar_dom": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 303,
+        "module": "nfse"
+      }
+    ],
+    "_clicar": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 321,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 120,
+        "module": "nfse"
+      }
+    ],
+    "_ja_autenticado": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 328,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 127,
+        "module": "nfse"
+      }
+    ],
+    "_salvar_sessao": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 350,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 137,
+        "module": "nfse"
+      }
+    ],
+    "login": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 361,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 148,
+        "module": "nfse"
+      }
+    ],
+    "_navegar_emissao": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 513,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 220,
+        "module": "nfse"
+      }
+    ],
+    "_preencher_emitente": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 543,
+        "module": "nfse"
+      }
+    ],
+    "_preencher_tomador": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 619,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 246,
+        "module": "nfse"
+      }
+    ],
+    "_preencher_servico": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 810,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 314,
+        "module": "nfse"
+      }
+    ],
+    "_clicar_emitir": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 931,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 362,
+        "module": "nfse"
+      }
+    ],
+    "_baixar_danfse_adn": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 960,
+        "module": "nfse"
+      }
+    ],
+    "_obter_numero_e_pdf": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 984,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 379,
+        "module": "nfse"
+      }
+    ],
+    "emitir": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 1052,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 441,
+        "module": "nfse"
+      }
+    ],
+    "emitir_lote": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfse_nacional_automation.py",
+        "line": 1066,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 454,
+        "module": "nfse"
+      }
+    ],
+    "certificado_digital_configurado": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/config.py",
+        "line": 50,
+        "module": "nfse"
+      }
+    ],
+    "certificado_mtls_configurado": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/config.py",
+        "line": 55,
+        "module": "nfse"
+      }
+    ],
+    "client_certificates_nfse_nacional": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/config.py",
+        "line": 64,
+        "module": "nfse"
+      }
+    ],
+    "nbs_para_aluguel": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/config.py",
+        "line": 107,
+        "module": "nfse"
+      }
+    ],
+    "carregar_clientes": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/config.py",
+        "line": 143,
+        "module": "nfse"
+      }
+    ],
+    "_carregar": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/idempotency.py",
+        "line": 19,
+        "module": "nfse"
+      }
+    ],
+    "_salvar": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/idempotency.py",
+        "line": 26,
+        "module": "nfse"
+      }
+    ],
+    "ja_emitida": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/idempotency.py",
+        "line": 31,
+        "module": "nfse"
+      }
+    ],
+    "registrar_emissao": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/idempotency.py",
+        "line": 38,
+        "module": "nfse"
+      }
+    ],
+    "registrar_erro": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/idempotency.py",
+        "line": 71,
+        "module": "nfse"
+      }
+    ],
+    "listar_erros": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/idempotency.py",
+        "line": 88,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/webhook_server.py",
+        "line": 99,
+        "module": "nfse"
+      }
+    ],
+    "resetar_para_reprocessamento": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/idempotency.py",
+        "line": 98,
+        "module": "nfse"
+      }
+    ],
+    "_completar_endereco_tomador": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py",
+        "line": 287,
+        "module": "nfse"
+      }
+    ],
+    "get_logger": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/logger.py",
+        "line": 11,
+        "module": "nfse"
+      }
+    ],
+    "_buscar_pendentes_mes_atual": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/cli.py",
+        "line": 95,
+        "module": "nfse"
+      }
+    ],
+    "_imprimir_pendentes": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/cli.py",
+        "line": 155,
+        "module": "nfse"
+      }
+    ],
+    "_recarregar_dry_run": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/cli.py",
+        "line": 167,
+        "module": "nfse"
+      }
+    ],
+    "_emitir_pendentes": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/cli.py",
+        "line": 188,
+        "module": "nfse"
+      }
+    ],
+    "_parse_flags": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/cli.py",
+        "line": 219,
+        "module": "nfse"
+      }
+    ],
+    "_emitir_manual": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/cli.py",
+        "line": 235,
+        "module": "nfse"
+      }
+    ],
+    "_login_manual": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/cli.py",
+        "line": 355,
+        "module": "nfse"
+      }
+    ],
+    "_simular": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/cli.py",
+        "line": 396,
+        "module": "nfse"
+      }
+    ],
+    "_run": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/cli.py",
+        "line": 309,
+        "module": "nfse"
+      },
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/cli.py",
+        "line": 370,
+        "module": "nfse"
+      }
+    ],
+    "_so_digitos": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/pipeline.py",
+        "line": 22,
+        "module": "nfse"
+      }
+    ],
+    "_encontrar_config_cliente": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/pipeline.py",
+        "line": 26,
+        "module": "nfse"
+      }
+    ],
+    "processar_pagamento": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/pipeline.py",
+        "line": 75,
+        "module": "nfse"
+      }
+    ],
+    "processar_lote": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/pipeline.py",
+        "line": 196,
+        "module": "nfse"
+      }
+    ],
+    "_sanitizar_nome": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/pdf_manager.py",
+        "line": 13,
+        "module": "nfse"
+      }
+    ],
+    "_pasta_mes_ano": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/pdf_manager.py",
+        "line": 22,
+        "module": "nfse"
+      }
+    ],
+    "_nome_arquivo": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/pdf_manager.py",
+        "line": 31,
+        "module": "nfse"
+      }
+    ],
+    "salvar_pdf": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/pdf_manager.py",
+        "line": 39,
+        "module": "nfse"
+      }
+    ],
+    "caminho_esperado": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/pdf_manager.py",
+        "line": 72,
+        "module": "nfse"
+      }
+    ],
+    "lifespan": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/webhook_server.py",
+        "line": 27,
+        "module": "nfse"
+      }
+    ],
+    "_validar_assinatura": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/webhook_server.py",
+        "line": 36,
+        "module": "nfse"
+      }
+    ],
+    "webhook_asaas": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/webhook_server.py",
+        "line": 48,
+        "module": "nfse"
+      }
+    ],
+    "_processar_em_background": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/webhook_server.py",
+        "line": 85,
+        "module": "nfse"
+      }
+    ],
+    "health": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/webhook_server.py",
+        "line": 94,
+        "module": "nfse"
+      }
+    ],
+    "reprocessar": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/webhook_server.py",
+        "line": 105,
+        "module": "nfse"
+      }
+    ],
+    "validar_assinatura_webhook": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/asaas_client.py",
+        "line": 16,
+        "module": "nfse"
+      }
+    ],
+    "_headers": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/asaas_client.py",
+        "line": 30,
+        "module": "nfse"
+      }
+    ],
+    "buscar_pagamento": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/asaas_client.py",
+        "line": 37,
+        "module": "nfse"
+      }
+    ],
+    "buscar_cliente": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/asaas_client.py",
+        "line": 46,
+        "module": "nfse"
+      }
+    ],
+    "pagamento_autoriza_nota": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/asaas_client.py",
+        "line": 55,
+        "module": "nfse"
+      }
+    ],
+    "montar_dados_nota": [
+      {
+        "file": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/nfem-joinville/src/asaas_client.py",
+        "line": 69,
+        "module": "nfse"
+      }
+    ],
+    "_wait_for_login": [
+      {
+        "file": "/Users/user/.local/impar-automation/marketplace/fb_auth.py",
+        "line": 83,
+        "module": "marketplace"
+      }
+    ],
+    "send_individual": [
+      {
+        "file": "/Users/user/.local/impar-automation/scripts/whatsapp-server.py",
+        "line": 25,
+        "module": "geral"
+      }
+    ],
+    "send_group": [
+      {
+        "file": "/Users/user/.local/impar-automation/scripts/whatsapp-server.py",
+        "line": 34,
+        "module": "geral"
+      }
+    ],
+    "do_GET": [
+      {
+        "file": "/Users/user/.local/impar-automation/scripts/whatsapp-server.py",
+        "line": 70,
+        "module": "geral"
+      }
+    ],
+    "log_message": [
+      {
+        "file": "/Users/user/.local/impar-automation/scripts/whatsapp-server.py",
+        "line": 112,
+        "module": "geral"
+      }
+    ],
+    "send_whatsapp": [
+      {
+        "file": "/Users/user/.local/impar-automation/leads-planilha/leads_watcher.py",
+        "line": 70,
+        "module": "leads"
+      }
+    ]
+  },
+  "concepts": {
+    "Objetivo": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Marketplace.md",
+        "context": "heading",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Contratos.md",
+        "context": "heading",
+        "module": "contratos"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Sistema.md",
+        "context": "heading",
+        "module": "sistema"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "heading",
+        "module": "geral"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/NFS-e.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Arquivos principais": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Marketplace.md",
+        "context": "heading",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "heading",
+        "module": "geral"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/NFS-e.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Tarefas agendadas": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Marketplace.md",
+        "context": "heading",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Contratos.md",
+        "context": "heading",
+        "module": "contratos"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "heading",
+        "module": "geral"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/NFS-e.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "LaunchAgents (~/Library/LaunchAgents/)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Marketplace.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Estado e logs": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Marketplace.md",
+        "context": "heading",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Fluxo de execução": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Marketplace.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Como diagnosticar sem abrir código": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Marketplace.md",
+        "context": "heading",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Contratos.md",
+        "context": "heading",
+        "module": "contratos"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "heading",
+        "module": "geral"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/NFS-e.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Problemas conhecidos": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Marketplace.md",
+        "context": "heading",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Contratos.md",
+        "context": "heading",
+        "module": "contratos"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Sistema.md",
+        "context": "heading",
+        "module": "sistema"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "heading",
+        "module": "geral"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/NFS-e.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "grupos-aprovados.csv": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Marketplace.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      }
+    ],
+    "Plugin e configuração": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Contratos.md",
+        "context": "heading",
+        "module": "contratos"
+      }
+    ],
+    "Skills disponíveis": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Contratos.md",
+        "context": "heading",
+        "module": "contratos"
+      }
+    ],
+    "Dados de contratos": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Contratos.md",
+        "context": "heading",
+        "module": "contratos"
+      }
+    ],
+    "Fluxo de geração de contrato": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Contratos.md",
+        "context": "heading",
+        "module": "contratos"
+      }
+    ],
+    "Fluxo de alerta de reajuste": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Contratos.md",
+        "context": "heading",
+        "module": "contratos"
+      }
+    ],
+    "Arquitetura (consolidada 2026-08-03) — 1 caminho": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Sistema.md",
+        "context": "heading",
+        "module": "sistema"
+      }
+    ],
+    "O que a task verifica (por ordem)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Sistema.md",
+        "context": "heading",
+        "module": "sistema"
+      }
+    ],
+    "Regra de envio WhatsApp": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Sistema.md",
+        "context": "heading",
+        "module": "sistema"
+      }
+    ],
+    "Logs produzidos": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Sistema.md",
+        "context": "heading",
+        "module": "sistema"
+      }
+    ],
+    "Checkpoints monitorados": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Sistema.md",
+        "context": "heading",
+        "module": "sistema"
+      }
+    ],
+    "Como diagnosticar o sistema sem abrir código": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Sistema.md",
+        "context": "heading",
+        "module": "sistema"
+      }
+    ],
+    "gerente-notificador.sh": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Sistema.md",
+        "context": "file-reference",
+        "module": "sistema"
+      }
+    ],
+    "Fontes de leads": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "CSV de leads — colunas": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Fluxo Chaves na Mão": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Fluxo CSV Watcher (zero tokens)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Configuração Composio v3.1 (ativa desde 2026-07-27)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "ultimo-estado.json": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/Leads.md",
+        "context": "file-reference",
+        "module": "geral"
+      }
+    ],
+    "Portais e endpoints": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/NFS-e.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Parâmetros de emissão": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/NFS-e.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Fluxo de emissão automática": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/NFS-e.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Emissão manual (avulsa)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/NFS-e.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Brain Index — KOS V30": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/_INDEX.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Regra de uso": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/_INDEX.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Marketplace.md": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/_INDEX.md",
+        "context": "file-reference",
+        "module": "geral"
+      }
+    ],
+    "Leads.md": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/_INDEX.md",
+        "context": "file-reference",
+        "module": "geral"
+      }
+    ],
+    "Sistema.md": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/_INDEX.md",
+        "context": "file-reference",
+        "module": "geral"
+      }
+    ],
+    "NFS-e.md": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/_INDEX.md",
+        "context": "file-reference",
+        "module": "geral"
+      }
+    ],
+    "Contratos.md": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/_INDEX.md",
+        "context": "file-reference",
+        "module": "geral"
+      }
+    ],
+    "Automacoes-Mapa.md": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/brain/_INDEX.md",
+        "context": "file-reference",
+        "module": "geral"
+      }
+    ],
+    "Procedimentos Técnicos — Automação Marketplace + Grupos Impar": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "🔄 Fluxo Automático (NOVO 2026-07-21)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Camada 1: Reativador (A CADA 30 MIN)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Camada 2: Grupos (3 HORÁRIOS FIXOS)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "📊 Cadência de Postagens": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Marketplace (Diário)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Grupos (Automático 3x/dia)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "📂 Arquivos Principais": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Configuração": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Scripts": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "❓ Se algo der errado": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Erro: \"Nenhum imóvel encontrado em [data]\"": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Erro: \"Grupos com placeholders [A PREENCHER]\"": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Nenhuma publicação apareceu nos grupos": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Nenhuma publicação apareceu no Marketplace": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Fotos não aparecem no anúncio publicado (ou só 1 foto)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "🚀 Rodar Manualmente (Se Necessário)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Gerar fila de Marketplace": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Gerar fila de grupos (hoje)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "Gerar fila de grupos (data específica)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "📋 Checklist Diário (Opcional)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "🔑 Pontos-Chave (Evitar Erros)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "📲 Notificação WhatsApp de Lead Capturado (Jonata → Impar)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "📞 Contato para Dúvidas": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "heading",
+        "module": "marketplace"
+      }
+    ],
+    "publish_daily_from_fila.py": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      }
+    ],
+    "fila-postagens.csv": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      }
+    ],
+    "fila-grupos-postagens.csv": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      },
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      }
+    ],
+    "generate_queue.py": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      }
+    ],
+    "generate_group_queue.py": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      }
+    ],
+    "publish_marketplace_playwright.py": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      }
+    ],
+    "marketplace-publicados-log.csv": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      }
+    ],
+    "leads_marketplace_captura.csv": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      }
+    ],
+    "notificar_lead_whatsapp.py": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md",
+        "context": "file-reference",
+        "module": "marketplace"
+      }
+    ],
+    "TOKEN POLICY — Kernel de Otimização de Contexto V30": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/token-policy.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Premissa": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/token-policy.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Protocolo de execução obrigatório": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/token-policy.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Regras hard (proibições absolutas)": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/token-policy.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Protocolo One-File": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/token-policy.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Hierarquia de confiança": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/token-policy.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    "Atualização obrigatória do Brain": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/token-policy.md",
+        "context": "heading",
+        "module": "geral"
+      }
+    ],
+    ".current-state.md": [
+      {
+        "path": "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/00_OS/kos/token-policy.md",
+        "context": "file-reference",
+        "module": "geral"
+      }
+    ]
+  },
+  "tasks": {
+    "emissao-nfs-dia-20": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/emissao-nfs-dia-20/SKILL.md",
+      "module": "nfse",
+      "enabled": true,
+      "description": "Emissão automática de NFS-e Joinville — dia 20 de cada mês às 9:03"
+    },
+    "emissao-nfs-dia-25": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/emissao-nfs-dia-25/SKILL.md",
+      "module": "nfse",
+      "enabled": true,
+      "description": "Emissão automática de NFS-e Joinville — dia 25 de cada mês às 9:03"
+    },
+    "emissao-nfs-dia-29": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/emissao-nfs-dia-29/SKILL.md",
+      "module": "nfse",
+      "enabled": true,
+      "description": "Emissão automática de NFS-e Joinville — dia 29 de cada mês às 9:03"
+    },
+    "emissao-nfs-dia-30": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/emissao-nfs-dia-30/SKILL.md",
+      "module": "nfse",
+      "enabled": true,
+      "description": "Emissão automática de NFS-e Joinville — dia 30 de cada mês às 9:03"
+    },
+    "emissao-notas-fiscais": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/emissao-notas-fiscais/SKILL.md",
+      "module": "nfse",
+      "enabled": true,
+      "description": "Busca pagamentos recebidos no Asaas e emite NFS-e no Portal Nacional nos dias 20, 25, 29 e 30 do mês"
+    },
+    "impar-atende-leads-dia": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/impar-atende-leads-dia/SKILL.md",
+      "module": "leads",
+      "enabled": true,
+      "description": "Atendimento automático de leads — diário às 8:32"
+    },
+    "impar-followup-checagem-0845": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/impar-followup-checagem-0845/SKILL.md",
+      "module": "leads",
+      "enabled": true,
+      "description": "Checa às 8:47 se o follow-up das 8:28 rodou — somente leitura"
+    },
+    "impar-followup-manha": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/impar-followup-manha/SKILL.md",
+      "module": "leads",
+      "enabled": true,
+      "description": "Verifica leads em follow-up e envia lista ao Jonata — diário às 8:28"
+    },
+    "impar-gerente-digital": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/impar-gerente-digital/SKILL.md",
+      "module": "sistema",
+      "enabled": true,
+      "description": "Saúde + métricas Impar — diário às 8:13, envia só se acionável"
+    },
+    "impar-leads-chaves-na-mao": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/impar-leads-chaves-na-mao/SKILL.md",
+      "module": "leads",
+      "enabled": true,
+      "description": "Leads Chaves na Mão — alerta Jonata via WhatsApp — a cada 30 min"
+    },
+    "impar-manutencao-horaria": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/impar-manutencao-horaria/SKILL.md",
+      "module": "sistema",
+      "enabled": true,
+      "description": "DESATIVADA — lógica incorporada ao impar-gerente-digital"
+    },
+    "impar-messenger-inbox": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/impar-messenger-inbox/SKILL.md",
+      "module": "geral",
+      "enabled": true,
+      "description": "Lê inbox do Messenger Impar e processa leads — a cada 15 min"
+    },
+    "impar-notificar-leads-planilha": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/impar-notificar-leads-planilha/SKILL.md",
+      "module": "leads",
+      "enabled": true,
+      "description": "DESATIVADA — substituída por leads_watcher.py (LaunchAgent, zero tokens sem lead novo)"
+    },
+    "impar-reativador-marketplace": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/impar-reativador-marketplace/SKILL.md",
+      "module": "marketplace",
+      "enabled": true,
+      "description": "Reativador de anúncios Marketplace — a cada 2h (8h-20h)"
+    },
+    "impar-relatorio-marketplace-manha": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/impar-relatorio-marketplace-manha/SKILL.md",
+      "module": "marketplace",
+      "enabled": true,
+      "description": "Relatório diário de performance do Marketplace — 07:57"
+    },
+    "leads-chaves-na-mao-whatsapp": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/leads-chaves-na-mao-whatsapp/SKILL.md",
+      "module": "leads",
+      "enabled": true,
+      "description": "DESATIVADO — substituído por impar-leads-chaves-na-mao (alerta Jonata sem envio automático ao lead)"
+    },
+    "status-tudo-certo-whatsapp": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/status-tudo-certo-whatsapp/SKILL.md",
+      "module": "geral",
+      "enabled": true,
+      "description": "DESATIVADO — substituído por impar-leads-chaves-na-mao (que já inclui verificação de leads sem contato)"
+    },
+    "vigia-reajustes-semanal": {
+      "cron": null,
+      "skill": "/Users/user/.claude/scheduled-tasks/vigia-reajustes-semanal/SKILL.md",
+      "module": "contratos",
+      "enabled": true,
+      "description": "Verifica reajustes e vigências de contratos chegando — toda segunda 9:23"
+    }
+  },
+  "launchagents": {
+    "com.impar.impar-os-boot": {
+      "plist": "/Users/user/Library/LaunchAgents/com.impar.impar-os-boot.plist",
+      "schedule_hint": "StartInterval=300",
+      "module": "geral"
+    },
+    "com.impar.leads-planilha-watcher": {
+      "plist": "/Users/user/Library/LaunchAgents/com.impar.leads-planilha-watcher.plist",
+      "schedule_hint": "StartInterval=300",
+      "module": "leads"
+    },
+    "com.impar.marketplace-crosspost-manha": {
+      "plist": "/Users/user/Library/LaunchAgents/com.impar.marketplace-crosspost-manha.plist",
+      "schedule_hint": "Hour=11, Minute=30",
+      "module": "marketplace"
+    },
+    "com.impar.marketplace-crosspost-noite": {
+      "plist": "/Users/user/Library/LaunchAgents/com.impar.marketplace-crosspost-noite.plist",
+      "schedule_hint": "Hour=21, Minute=30",
+      "module": "marketplace"
+    },
+    "com.impar.marketplace-crosspost-tarde": {
+      "plist": "/Users/user/Library/LaunchAgents/com.impar.marketplace-crosspost-tarde.plist",
+      "schedule_hint": "Hour=17, Minute=0",
+      "module": "marketplace"
+    },
+    "com.impar.marketplace-daily-publish": {
+      "plist": "/Users/user/Library/LaunchAgents/com.impar.marketplace-daily-publish.plist",
+      "schedule_hint": "StartInterval=1800",
+      "module": "marketplace"
+    },
+    "com.impar.marketplace-gerar-fila": {
+      "plist": "/Users/user/Library/LaunchAgents/com.impar.marketplace-gerar-fila.plist",
+      "schedule_hint": "Hour=7, Minute=0",
+      "module": "marketplace"
+    },
+    "com.impar.marketplace-leads-captador": {
+      "plist": "/Users/user/Library/LaunchAgents/com.impar.marketplace-leads-captador.plist",
+      "schedule_hint": "StartInterval=300",
+      "module": "marketplace"
+    },
+    "com.impar.whatsapp-server": {
+      "plist": "/Users/user/Library/LaunchAgents/com.impar.whatsapp-server.plist",
+      "schedule_hint": "ver plist",
+      "module": "geral"
+    }
+  }
+}

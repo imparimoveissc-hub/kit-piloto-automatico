@@ -1,0 +1,281 @@
+{
+  "version": "1.0.0",
+  "type": "operational_knowledge_graph",
+  "generated": "2026-07-22T22:53:00Z",
+  "description": "Central index for Impar Im\u00f3veis automation operational graph",
+  "project": "Kit Piloto Autom\u00e1tico V30 \u2014 Impar Im\u00f3veis",
+  "summary": {
+    "total_automations": 9,
+    "active_automations": 7,
+    "offline_automations": 1,
+    "paused_automations": 1,
+    "total_launchagents": 23,
+    "launchagents_operational": 11,
+    "launchagents_infrastructure": 6,
+    "launchagents_reporting": 2,
+    "launchagents_disabled": 4,
+    "launchagents_coverage": "100%",
+    "total_dependencies": 31,
+    "critical_files": 10,
+    "identified_risks": 10,
+    "critical_risks": 6,
+    "broken_relations": 2,
+    "verified_at": "2026-07-23T03:15:00Z",
+    "sources_consulted": 9,
+    "last_updated_etapa": "3A.6.1 - LaunchAgent Mapping"
+  },
+  "health": {
+    "overall_status": "DEGRADED",
+    "critical_issues": 2,
+    "recommendations": 8,
+    "last_incident": "2026-07-22T20:15:00Z (UI Timeouts)",
+    "mttr_estimate": "30-60 minutes per critical incident"
+  },
+  "components": {
+    "automations": {
+      "file": ".impar/knowledge/automations.json",
+      "description": "8 operational automations with full metadata",
+      "fields": [
+        "name",
+        "status",
+        "entry_point",
+        "launchagents",
+        "dependencies",
+        "checkpoints",
+        "risks"
+      ],
+      "count": 8,
+      "query_time": "<100ms"
+    },
+    "dependencies": {
+      "file": ".impar/knowledge/dependencies.json",
+      "description": "10 relations between automations and components",
+      "fields": [
+        "source",
+        "target",
+        "relation_type",
+        "criticality",
+        "bidirectional"
+      ],
+      "count": 10,
+      "query_time": "<100ms"
+    },
+    "launchagents": {
+      "file": ".impar/knowledge/launchagents.json",
+      "description": "23 macOS schedulers: 11 operational, 6 infrastructure, 2 reporting, 4 disabled",
+      "fields": [
+        "bundle_id",
+        "schedule",
+        "status",
+        "criticality",
+        "classification"
+      ],
+      "count": 23,
+      "coverage": "100%",
+      "mapped_in_etapa": "3A.6.1",
+      "query_time": "<50ms"
+    },
+    "critical_files": {
+      "file": ".impar/knowledge/critical-files.json",
+      "description": "10 critical files for automation operation",
+      "fields": [
+        "path",
+        "type",
+        "criticality",
+        "loss_impact",
+        "can_modify"
+      ],
+      "count": 10,
+      "query_time": "<50ms"
+    },
+    "risks": {
+      "file": ".impar/knowledge/risks.json",
+      "description": "10 operational risks identified",
+      "fields": [
+        "title",
+        "severity",
+        "impact",
+        "mitigation",
+        "owner"
+      ],
+      "count": 10,
+      "query_time": "<100ms"
+    },
+    "topology": {
+      "file": ".impar/knowledge/topology.json",
+      "description": "Hierarchical structure of each automation",
+      "fields": [
+        "entry_point",
+        "launchagents",
+        "dependencies",
+        "checkpoints",
+        "integrations"
+      ],
+      "count": 8,
+      "query_time": "<100ms"
+    },
+    "sources": {
+      "file": ".impar/knowledge/sources.json",
+      "description": "Traceability of knowledge sources",
+      "fields": [
+        "authority",
+        "coverage",
+        "confidence",
+        "last_verified"
+      ],
+      "count": 9,
+      "query_time": "<50ms"
+    }
+  },
+  "automations_index": {
+    "auto_marketplace": {
+      "name": "Marketplace Publishing",
+      "status": "active",
+      "risk": "CRITICAL",
+      "entry_point": "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/main.py",
+      "launchagents": 3,
+      "dependencies": 6,
+      "checkpoints": 3,
+      "risks": 3,
+      "critical_issues": [
+        "UI Timeouts (79% failure)",
+        "Duplicate risk"
+      ]
+    },
+    "auto_messenger": {
+      "name": "Messenger D1 Bridge",
+      "status": "active",
+      "risk": "CRITICAL",
+      "entry_point": "Browser Pane (Python + AppleScript)",
+      "launchagents": 1,
+      "dependencies": 4,
+      "checkpoints": 1,
+      "risks": 3,
+      "critical_issues": [
+        "Crashes (5/24h)",
+        "UI timeouts"
+      ]
+    },
+    "auto_whatsapp": {
+      "name": "WhatsApp Bridge",
+      "status": "offline",
+      "reason": "Security testing \u2014 reactivation prohibited",
+      "risk": "MEDIUM",
+      "launchagents": 0,
+      "dependencies": 3,
+      "checkpoints": 1,
+      "risks": 1,
+      "restriction": "\u274c NEVER reauthenticate"
+    },
+    "auto_leads": {
+      "name": "Leads Chaves na M\u00e3o",
+      "status": "active",
+      "risk": "HIGH",
+      "entry_point": "~/.local/impar-automation/chaves-na-mao/leads_automation.py",
+      "launchagents": 1,
+      "dependencies": 5,
+      "checkpoints": 1,
+      "risks": 3,
+      "critical_issues": [
+        "Checkpoint loss = 24h duplicates",
+        "Outlook integration flaky"
+      ]
+    },
+    "auto_nfse": {
+      "name": "NFS-e Emission",
+      "status": "active",
+      "risk": "MEDIUM",
+      "entry_point": "18_AUTOMATION_STACK/nfem-joinville/emitir_lote.py",
+      "launchagents": 1,
+      "dependencies": 5,
+      "checkpoints": 2,
+      "risks": 1,
+      "critical_issues": [
+        "Double issuance risk"
+      ]
+    },
+    "auto_rogga": {
+      "name": "Rogga Sync",
+      "status": "active",
+      "risk": "MEDIUM",
+      "entry_point": "18_AUTOMATION_STACK/rogga-sync/main.py",
+      "launchagents": 1,
+      "dependencies": 3,
+      "checkpoints": 1,
+      "risks": 1
+    },
+    "auto_grupo_jm": {
+      "name": "Grupo JM Sync",
+      "status": "active",
+      "risk": "MEDIUM",
+      "entry_point": "18_AUTOMATION_STACK/grupo-jm-sync/main.py",
+      "launchagents": 1,
+      "dependencies": 3,
+      "checkpoints": 1,
+      "risks": 1
+    }
+  },
+  "query_endpoints": {
+    "impar_graph": "Show summary and statistics",
+    "impar_deps": "Show dependencies for automation",
+    "impar_impact": "Simulate impact of stopping component",
+    "impar_critical": "List critical files and components",
+    "impar_topology": "Show hierarchical structure",
+    "impar_relations": "Show all relations for component",
+    "impar_ask": "Natural language query (integrated)"
+  },
+  "integration_with_kernel": {
+    "ask_module": ".impar/modules/ask.sh",
+    "new_handlers": [
+      "handle_dependency_question",
+      "handle_impact_question",
+      "handle_critical_files_question"
+    ],
+    "routing_keywords": [
+      "depends on",
+      "break if",
+      "critical",
+      "impact",
+      "affect",
+      "stop",
+      "restart",
+      "checkpoint"
+    ]
+  },
+  "compliance": {
+    "read_only": true,
+    "no_execution": true,
+    "no_modification": true,
+    "no_credentials_exposed": true,
+    "whatsapp_remains_offline": true,
+    "source_attribution": true,
+    "blocker_keywords_enforced": [
+      "--execute",
+      "--start",
+      "--stop",
+      "--restart",
+      "--send",
+      "--publish",
+      "--login",
+      "--auth",
+      "--delete",
+      "--remove"
+    ]
+  },
+  "metadata": {
+    "build_time": "2026-07-22T22:53:00Z",
+    "builder": "Claude Code \u2014 ETAPA 2.8",
+    "schema_version": "1.0.0",
+    "documentation": ".impar/knowledge/*.json (detailed)",
+    "report": "07_LOGS/RELATORIO_GRAFO_OPERACIONAL_V1.md"
+  },
+  "next_steps": [
+    "Run: impar graph",
+    "Run: impar deps marketplace",
+    "Run: impar impact messenger",
+    "Run: impar critical",
+    "Run: impar topology",
+    "Run: impar relations impar-whatsapp-bridge",
+    "Run: impar ask 'what depends on Messenger?'"
+  ]
+}

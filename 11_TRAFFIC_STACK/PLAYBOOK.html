@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playbook — Traffic Stack do Kit Piloto Automático V30</title>
+<style>
+:root {
+  --bg: #0b0d12;
+  --bg-elev: #11151c;
+  --bg-card: #161b24;
+  --border: #232a36;
+  --border-soft: #1a2029;
+  --text: #e6ebf2;
+  --text-muted: #8a96a8;
+  --text-dim: #5d697b;
+  --accent: #00d9a3;
+  --accent-soft: rgba(0, 217, 163, 0.12);
+  --warn: #f59e0b;
+  --warn-soft: rgba(245, 158, 11, 0.1);
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.1);
+  --info: #3b82f6;
+  --info-soft: rgba(59, 130, 246, 0.1);
+  --code-bg: #0d1117;
+  --shadow: 0 4px 24px -8px rgba(0, 0, 0, 0.5);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+header.hero {
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #0e1218 0%, var(--bg) 100%);
+  padding: 56px 0 40px;
+}
+.hero-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+header.hero h1 {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+header.hero .lead {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 720px;
+}
+header.hero .meta {
+  margin-top: 20px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+header.hero .meta span::before { content: "•"; margin-right: 8px; color: var(--accent); }
+nav.toc {
+  position: sticky; top: 0;
+  background: rgba(11, 13, 18, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  z-index: 100;
+  font-size: 13px;
+}
+nav.toc ul { list-style: none; display: flex; gap: 4px; flex-wrap: wrap; }
+nav.toc a {
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+nav.toc a:hover { background: var(--bg-card); color: var(--text); }
+main { padding: 48px 0 96px; }
+section { margin-bottom: 64px; scroll-margin-top: 80px; }
+section h2 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+section h2 .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 28px 0 12px;
+  color: var(--text);
+}
+section h4 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  margin: 20px 0 10px;
+}
+p { margin-bottom: 12px; color: var(--text); }
+p.muted { color: var(--text-muted); }
+strong { color: #fff; font-weight: 600; }
+em { color: var(--text-muted); font-style: normal; }
+ul, ol { margin: 12px 0 12px 24px; }
+li { margin-bottom: 6px; }
+code {
+  font-family: "JetBrains Mono", "SF Mono", Consolas, Monaco, monospace;
+  background: var(--code-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #c9d1d9;
+  border: 1px solid var(--border-soft);
+}
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+  margin: 12px 0;
+  position: relative;
+  font-size: 13px;
+  line-height: 1.55;
+}
+pre code {
+  background: transparent;
+  padding: 0;
+  border: none;
+  font-size: 13px;
+  color: #c9d1d9;
+  white-space: pre;
+}
+pre .kw { color: #ff7b72; }
+pre .str { color: #a5d6ff; }
+pre .com { color: #6e7681; font-style: italic; }
+pre .var { color: #ffa657; }
+pre .fn { color: #d2a8ff; }
+pre .num { color: #79c0ff; background: transparent; width: auto; height: auto; display: inline; }
+.callout {
+  border-left: 3px solid;
+  padding: 14px 18px;
+  border-radius: 6px;
+  margin: 16px 0;
+  background: var(--bg-card);
+}
+.callout.info { border-color: var(--info); background: var(--info-soft); }
+.callout.warn { border-color: var(--warn); background: var(--warn-soft); }
+.callout.danger { border-color: var(--danger); background: var(--danger-soft); }
+.callout.success { border-color: var(--accent); background: var(--accent-soft); }
+.callout strong { display: block; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+.callout.info strong { color: var(--info); }
+.callout.warn strong { color: var(--warn); }
+.callout.danger strong { color: var(--danger); }
+.callout.success strong { color: var(--accent); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+}
+th, td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-soft);
+}
+th { background: var(--bg-card); font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+tr:hover td { background: var(--bg-elev); }
+.agent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin: 20px 0; }
+.agent-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+.agent-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.agent-card .head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.agent-card .icon { font-size: 22px; }
+.agent-card .name { font-family: "JetBrains Mono", monospace; font-size: 14px; color: var(--accent); font-weight: 600; }
+.agent-card .role { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+.agent-card .commands { display: flex; flex-wrap: wrap; gap: 4px; }
+.agent-card .cmd { background: var(--code-bg); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; font-family: monospace; font-size: 11px; color: #c9d1d9; }
+.workflow-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.workflow-card .title {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 17px; font-weight: 600;
+  margin-bottom: 8px;
+}
+.workflow-card .badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; }
+.workflow-card .when { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; font-style: italic; }
+.steps { counter-reset: step; }
+.step {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border-soft);
+}
+.step:last-child { border-bottom: none; }
+.step::before {
+  counter-increment: step;
+  content: counter(step);
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  background: var(--accent-soft); color: var(--accent);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 13px;
+}
+.step .body { flex: 1; }
+.step .body strong { display: block; margin-bottom: 4px; }
+.copy-prompt {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--info);
+  border-radius: 6px;
+  padding: 14px 18px;
+  font-family: monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  color: #d2dae6;
+  margin: 12px 0;
+  line-height: 1.6;
+}
+.shortcut {
+  display: inline-block;
+  font-family: monospace;
+  font-size: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #fff;
+  margin: 0 2px;
+}
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 4px;
+}
+.tag.read { background: var(--info-soft); color: var(--info); }
+.tag.write { background: var(--warn-soft); color: var(--warn); }
+.tag.danger { background: var(--danger-soft); color: var(--danger); }
+.tag.safe { background: var(--accent-soft); color: var(--accent); }
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+footer { border-top: 1px solid var(--border); padding: 32px 0; color: var(--text-dim); font-size: 13px; text-align: center; }
+@media (max-width: 768px) {
+  header.hero h1 { font-size: 28px; }
+  section h2 { font-size: 22px; }
+  .container { padding: 0 16px; }
+}
+@media print {
+  nav.toc { position: static; }
+  body { background: white; color: black; }
+  pre, code { background: #f5f5f5; color: black; border-color: #ddd; }
+  .callout, .agent-card, .workflow-card { border: 1px solid #ccc; background: white; }
+  a { color: black; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <span class="hero-tag">Playbook · v1.0</span>
+    <h1>Traffic Stack — Manual de Operação</h1>
+    <p class="lead">Como usar a stack de 8 agentes especializados em Direct Response com o CLI <code>meta</code> nativo (WSL no Windows / nativo no macOS) pra puxar dados reais, analisar campanhas e tomar decisão sem chute.</p>
+    <div class="meta">
+      <span>Cliente exemplo: <code>&lt;SEU_CLIENTE&gt;</code></span>
+      <span>Conta: <code>act_XXXXXXXXXXXXXXX</code></span>
+      <span>Stack: <code>Kit-Piloto-Automatico-V30/11_TRAFFIC_STACK</code></span>
+      <span>Atualizado: 2026-05-05</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="container">
+    <ul>
+      <li><a href="#tldr">TL;DR</a></li>
+      <li><a href="#stack">A Stack</a></li>
+      <li><a href="#prereqs">Pré-requisitos</a></li>
+      <li><a href="#abrir-sessao">Abrir Sessão</a></li>
+      <li><a href="#agentes">8 Agentes</a></li>
+      <li><a href="#workflows">Workflows</a></li>
+      <li><a href="#cli">CLI Meta</a></li>
+      <li><a href="#multi-conta">Multi-conta</a></li>
+      <li><a href="#regras">Regras</a></li>
+      <li><a href="#trouble">Troubleshooting</a></li>
+      <li><a href="#refs">Referências</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container">
+
+<section id="tldr">
+  <h2><span class="num">0</span>TL;DR</h2>
+  <p>A Traffic Stack vive em <code>Kit-Piloto-Automatico-V30/11_TRAFFIC_STACK/</code>. Pra usar:</p>
+  <ol>
+    <li>Abre PowerShell (Windows) ou Terminal (macOS/Linux) na raiz <code>Kit-Piloto-Automatico-V30/</code></li>
+    <li>Roda <code>claude</code></li>
+    <li>Cola o <strong>prompt-pai</strong> (seção 4)</li>
+    <li>Pede o que quer (<code>*diagnostico 7d</code>, <code>*kill-list</code>, etc.)</li>
+    <li>Confirma toda ação destrutiva (pause/edit/budget)</li>
+  </ol>
+
+  <div class="callout info">
+    <strong>Nota terminológica</strong>
+    "MCP do Meta" e "Ads CLI" não são a mesma coisa. Aqui usamos o <strong>CLI Python <code>meta-ads</code></strong> oficial (rodando nativamente no macOS/Linux ou via WSL no Windows). O Windows usa o wrapper <code>&lt;HOME&gt;\bin\meta.cmd</code> que roteia comandos pro WSL transparentemente. Pra instalar tudo do zero, rode <code>/meta-cli-install</code> dentro do Claude Code.
+  </div>
+</section>
+
+<section id="stack">
+  <h2><span class="num">1</span>O que é a Traffic Stack</h2>
+  <p>Camada operacional dentro do Kit Piloto Automático V30. Enquanto o resto do kit (CoS, agents de copy, pipeline) está orientado a <strong>criar</strong> campanhas (briefing → estrutura → criativo → subir), a Traffic Stack é orientada a <strong>operar</strong> campanhas vivas:</p>
+  <ul>
+    <li>Diagnóstico de queda de performance</li>
+    <li>Análise de criativos (hook rate, retention, padrão vencedor)</li>
+    <li>Auditoria de tracking (Pixel + CAPI saúde)</li>
+    <li>Escala de vencedores (ABO/CBO/Oxigênio/horizontal/multi-account)</li>
+    <li>Inteligência competitiva (Meta Ad Library, swipe, engenharia reversa)</li>
+    <li>Análise de funil end-to-end (ads → LP → VSL → quiz → checkout)</li>
+  </ul>
+
+  <h3>Arquitetura — quem faz o quê</h3>
+  <pre><code><span class="com">┌──────────────────────────────────────────────────────────┐</span>
+<span class="com">│  L0 — Orquestração                                        │</span>
+<span class="com">│  @traffic-orchestrator (entry point único)                │</span>
+<span class="com">└──────────────┬───────────────────────────────────────────┘</span>
+               <span class="com">│ delega</span>
+   <span class="com">┌───────────┼───────────┬─────────────┬────────────┬────┐</span>
+   <span class="com">▼           ▼           ▼             ▼            ▼    ▼</span>
+ Execução   Análise    Tracking    Otimização    Intel
+ ────────   ──────────  ─────────  ─────────────  ────────────
+ meta-dr-   creative-  attribut-  diagnostician  competitor-
+ specialist analyst    ion-       scaling-       spy
+            funnel-    auditor    strategist
+            analyst</code></pre>
+
+  <p>A stack é <strong>multi-conta por design</strong>: cada cliente em <code>05_WORKSPACE/clientes/&lt;cliente&gt;/</code> tem context próprio (CLAUDE.md, act-mapping.yaml, funil.md, icp.md, baseline-kpis.md). O orchestrator carrega o context certo antes de qualquer análise.</p>
+</section>
+
+<section id="prereqs">
+  <h2><span class="num">2</span>Pré-requisitos (verificar 1× só)</h2>
+
+  <h3>2.1 — CLI Meta funcionando</h3>
+  <p>Rodar no PowerShell pra confirmar:</p>
+  <pre><code><span class="kw">&amp;</span> <span class="str">"&lt;HOME&gt;\bin\meta.cmd"</span> auth status</code></pre>
+  <p>Esperado: <code>Authenticated (token: EAA&lt;SEU_TOKEN_TRUNCADO&gt;)</code>. Se não, token expirou — gerar novo System User Token no Business Manager e atualizar <code>~/.profile</code> do WSL (variável <code>ACCESS_TOKEN</code>).</p>
+
+  <h3>2.2 — WSL ativo</h3>
+  <pre><code>wsl --list --quiet</code></pre>
+  <p>Esperado: <code>Ubuntu</code>. Se WSL travou: <code>wsl --shutdown</code> e tenta novamente.</p>
+
+  <h3>2.3 — Estrutura do Kit presente</h3>
+  <pre><code><span class="kw">cd</span> &lt;PASTA_DO_KIT&gt;\Kit-Piloto-Automatico-V30
+<span class="kw">ls</span> 11_TRAFFIC_STACK\agents
+<span class="kw">ls</span> 05_WORKSPACE\clientes\&lt;seu-cliente&gt;</code></pre>
+  <p>Esperado: 8 arquivos de agente em <code>agents/</code> e 5+ arquivos na pasta do seu cliente.</p>
+
+  <h3>2.4 — Cliente configurado</h3>
+  <p>Antes de usar a stack pra qualquer cliente, garantir que existe <code>05_WORKSPACE/clientes/&lt;cliente&gt;/</code> com:</p>
+  <table>
+    <thead><tr><th>Arquivo</th><th>Função</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><code>CLAUDE.md</code></td><td>Context operacional, regras, roteamento</td><td>obrigatório</td></tr>
+      <tr><td><code>act-mapping.yaml</code></td><td>Contas Meta, pixel, attribution, geo</td><td>obrigatório</td></tr>
+      <tr><td><code>funil.md</code></td><td>Stack técnica (LP, VSL, checkout)</td><td>obrigatório</td></tr>
+      <tr><td><code>icp.md</code></td><td>Avatar(es) por produto</td><td>obrigatório</td></tr>
+      <tr><td><code>baseline-kpis.md</code></td><td>KPIs históricos vs alvos</td><td>recomendado</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <strong>Antes do primeiro diagnóstico real</strong>
+    Popular <code>baseline-kpis.md</code> com 90 dias de histórico. Sem isso, agentes usam benchmark genérico DR pt-BR (mascara problema/oportunidade). Pipeline: <code>meta ads insights get --date-preset last_90d -o json</code> → calcular médias por produto → preencher arquivo.
+  </div>
+</section>
+
+<section id="abrir-sessao">
+  <h2><span class="num">3</span>Abrir uma sessão</h2>
+
+  <h3>3.1 — No terminal</h3>
+  <pre><code><span class="com"># Windows (PowerShell):</span>
+<span class="kw">cd</span> &lt;PASTA_DO_KIT&gt;\Kit-Piloto-Automatico-V30
+claude
+
+<span class="com"># macOS / Linux:</span>
+<span class="kw">cd</span> ~/Kit-Piloto-Automatico-V30
+claude</code></pre>
+  <p class="muted">Importante abrir o Claude Code <strong>dentro</strong> de <code>Kit-Piloto-Automatico-V30/</code> — assim o <code>CLAUDE.md</code> raiz é carregado e o sistema sabe contexto.</p>
+
+  <h3>3.2 — Prompt-pai (cola tudo)</h3>
+  <p>Esse é o prompt mestre que invoca a stack. Cola no Claude Code recém-aberto:</p>
+  <div class="copy-prompt">Quero rodar a Traffic Stack pra &lt;SEU_CLIENTE&gt;.
+
+1. Lê 11_TRAFFIC_STACK/agents/traffic-orchestrator.md e adota essa persona
+2. Lê 05_WORKSPACE/clientes/&lt;seu-cliente&gt;/CLAUDE.md + act-mapping.yaml + funil.md + icp.md inteiros
+3. Lê 11_TRAFFIC_STACK/tasks/diagnosticar-campanha-meta-cli.md (pipeline a executar)
+4. Confirma o greeting do orchestrator e me lista os comandos disponíveis
+
+Auto mode ON. Pode rodar CLI sem perguntar (só leitura).
+Confirma comigo antes de QUALQUER ação destrutiva (pause/edit/budget).
+Fala em pt-BR. Acentuação 100% correta.</div>
+  <p>Após esse prompt, o Claude vai assumir a persona do <code>@traffic-orchestrator</code> e listar os 8 comandos. A partir daí, você pede o que quiser.</p>
+
+  <h3>3.3 — Variantes de abertura</h3>
+
+  <p><strong>Pra um diagnóstico direto</strong> (sem confirmar greeting antes):</p>
+  <div class="copy-prompt">Aciona @traffic-orchestrator (11_TRAFFIC_STACK/agents/traffic-orchestrator.md), carrega context &lt;SEU_CLIENTE&gt; (05_WORKSPACE/clientes/&lt;seu-cliente&gt;/), e roda *diagnostico 7d filtrando produto &lt;PRODUTO&gt;.</div>
+
+  <p><strong>Pra cliente diferente</strong> (depois de adicionar):</p>
+  <div class="copy-prompt">Aciona @traffic-orchestrator pra cliente <strong>&lt;outro-cliente&gt;</strong>. Roda *diagnostico 14d. Filtra produto principal.</div>
+
+  <p><strong>Pra teste rápido</strong> (1 comando CLI só):</p>
+  <div class="copy-prompt">Aciona @meta-dr-specialist e roda *list — só quero ver as campanhas ATIVAS de &lt;SEU_CLIENTE&gt; filtradas por &lt;PRODUTO&gt;.</div>
+
+  <h3>3.4 — Atalhos úteis no Claude Code</h3>
+  <table>
+    <thead><tr><th>Atalho</th><th>O que faz</th><th>Quando usar</th></tr></thead>
+    <tbody>
+      <tr><td><span class="shortcut">/clear</span></td><td>Limpa contexto da sessão</td><td>Entre testes de cliente diferente</td></tr>
+      <tr><td><span class="shortcut">Shift+Tab</span></td><td>Plan Mode (planeja antes de executar)</td><td>Tarefa complexa que quer revisar</td></tr>
+      <tr><td><span class="shortcut">Alt+T</span></td><td>Toggle extended thinking</td><td>Análise que precisa raciocínio profundo</td></tr>
+      <tr><td><span class="shortcut">Ctrl+O</span></td><td>Verbose mode (ver thinking)</td><td>Debug do que o agente tá fazendo</td></tr>
+      <tr><td><span class="shortcut">Ctrl+C</span></td><td>Interrompe</td><td>Quando saiu do trilho</td></tr>
+      <tr><td><span class="shortcut">!&lt;cmd&gt;</span></td><td>Roda comando shell direto</td><td>Auth manual, comandos interativos</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="agentes">
+  <h2><span class="num">4</span>Os 8 agentes — guia rápido</h2>
+  <p>Cada agente é um arquivo <code>.md</code> em <code>11_TRAFFIC_STACK/agents/</code>. O Claude carrega e adota a persona ao ser invocado por nome (<code>@nome-agente</code>) ou comando (<code>*comando</code>).</p>
+
+  <div class="agent-grid">
+
+    <div class="agent-card">
+      <div class="head"><span class="icon">🎯</span><span class="name">@traffic-orchestrator</span></div>
+      <div class="role">Chief — entry point único. Recebe pedido, detecta cliente, lê context, roteia pro especialista certo.</div>
+      <div class="commands">
+        <span class="cmd">*diagnostico</span>
+        <span class="cmd">*criativos</span>
+        <span class="cmd">*funil</span>
+        <span class="cmd">*atribuicao</span>
+        <span class="cmd">*queda</span>
+        <span class="cmd">*escalar</span>
+        <span class="cmd">*espiar</span>
+        <span class="cmd">*full-report</span>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <div class="head"><span class="icon">🔥</span><span class="name">@meta-dr-specialist</span></div>
+      <div class="role">Direct Response Meta — broad targeting, kill criteria, lateralização Oxigênio, ABO/CBO. Roda CLI direto.</div>
+      <div class="commands">
+        <span class="cmd">*list</span>
+        <span class="cmd">*insights</span>
+        <span class="cmd">*estrutura</span>
+        <span class="cmd">*kill-list</span>
+        <span class="cmd">*lateralizar</span>
+        <span class="cmd">*targeting-debate</span>
+        <span class="cmd">*abo-cbo</span>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <div class="head"><span class="icon">🎬</span><span class="name">@creative-analyst</span></div>
+      <div class="role">Análise de criativos — hook rate, retention curve, DNA do vencedor, lateralizações genuínas, scatter de decisão.</div>
+      <div class="commands">
+        <span class="cmd">*analise</span>
+        <span class="cmd">*dna</span>
+        <span class="cmd">*lateralizar</span>
+        <span class="cmd">*kill-creative</span>
+        <span class="cmd">*hook-retention</span>
+        <span class="cmd">*scatter</span>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <div class="head"><span class="icon">🔻</span><span class="name">@funnel-analyst</span></div>
+      <div class="role">Funil end-to-end. Drop-off por estágio (ads → LP → VSL → quiz → checkout). Identifica gargalo real.</div>
+      <div class="commands">
+        <span class="cmd">*analise-funil</span>
+        <span class="cmd">*vsl</span>
+        <span class="cmd">*quiz</span>
+        <span class="cmd">*lp</span>
+        <span class="cmd">*checkout</span>
+        <span class="cmd">*onde-quebrou</span>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <div class="head"><span class="icon">🛡️</span><span class="name">@attribution-auditor</span></div>
+      <div class="role">Saúde do tracking — Pixel + CAPI, EMQ, dedup, atribuição Standard vs Incremental. Pré-requisito de qualquer análise séria.</div>
+      <div class="commands">
+        <span class="cmd">*audit-pixel</span>
+        <span class="cmd">*audit-capi</span>
+        <span class="cmd">*match-quality</span>
+        <span class="cmd">*events</span>
+        <span class="cmd">*dedup</span>
+        <span class="cmd">*compare-attribution</span>
+        <span class="cmd">*dda-status</span>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <div class="head"><span class="icon">🔍</span><span class="name">@traffic-diagnostician</span></div>
+      <div class="role">Investigação forensic — queda de performance, root cause analysis em 6 camadas (tracking → criativo → audience → oferta → funil → externo).</div>
+      <div class="commands">
+        <span class="cmd">*investigar</span>
+        <span class="cmd">*queda-cpa</span>
+        <span class="cmd">*queda-roas</span>
+        <span class="cmd">*saturacao</span>
+        <span class="cmd">*post-mortem</span>
+        <span class="cmd">*checklist</span>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <div class="head"><span class="icon">📈</span><span class="name">@scaling-strategist</span></div>
+      <div class="role">Escala de vencedores — decide método (ABO duplicate / CBO ramp / Oxigênio / horizontal / multi-account) por estágio + nicho.</div>
+      <div class="commands">
+        <span class="cmd">*plano-escala</span>
+        <span class="cmd">*lateralizar</span>
+        <span class="cmd">*horizontal</span>
+        <span class="cmd">*multi-account</span>
+        <span class="cmd">*teto-escala</span>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <div class="head"><span class="icon">🕵️</span><span class="name">@competitor-spy</span></div>
+      <div class="role">Inteligência competitiva — Meta Ad Library, BigSpy, swipe, engenharia reversa de funil concorrente, benchmark de nicho.</div>
+      <div class="commands">
+        <span class="cmd">*spy</span>
+        <span class="cmd">*reverse-funnel</span>
+        <span class="cmd">*swipe</span>
+        <span class="cmd">*benchmark</span>
+        <span class="cmd">*new-entrants</span>
+      </div>
+    </div>
+
+  </div>
+
+  <h3>4.1 — Como invocar um agente diretamente</h3>
+  <p>Em vez de passar pelo orchestrator, você pode acionar agente específico:</p>
+  <div class="copy-prompt">Aciona @creative-analyst — leia 11_TRAFFIC_STACK/agents/creative-analyst.md e adota essa persona. Cliente: &lt;seu-cliente&gt;. Roda *dna nas 3 campanhas &lt;PRODUTO&gt; dos últimos 14 dias.</div>
+
+  <h3>4.2 — Como o handoff entre agentes funciona</h3>
+  <p>Cada agente sabe pra qual outro agente delegar. Exemplo: <code>@meta-dr-specialist</code> identifica vencedor → handoff pra <code>@scaling-strategist</code> → escala via <code>@creative-analyst</code> (lateralização). Você não precisa orquestrar manualmente — o orchestrator e os agentes coordenam.</p>
+</section>
+
+<section id="workflows">
+  <h2><span class="num">5</span>Workflows comuns (receitas prontas)</h2>
+
+  <div class="workflow-card">
+    <div class="title"><span class="badge">Diário</span>Diagnóstico de saúde</div>
+    <div class="when">Toda manhã, ou quando quiser checar como tá rodando</div>
+    <p><strong>Objetivo:</strong> ver semáforo (verde/amarelo/vermelho), top 3 vencedores, top 3 problemas, próxima ação.</p>
+    <div class="copy-prompt">Aciona @traffic-orchestrator. Cliente: &lt;seu-cliente&gt;. Roda *diagnostico 1d filtrando &lt;PRODUTO&gt;. Foco em: o que mudou nas últimas 24h vs últimos 7 dias.</div>
+    <p><strong>Output esperado:</strong> markdown com tabela de campanhas, semáforo, kill-list (precisa confirmação), próximas ações 24h.</p>
+  </div>
+
+  <div class="workflow-card">
+    <div class="title"><span class="badge">Semanal</span>Relatório semanal</div>
+    <div class="when">Segunda-feira de manhã</div>
+    <p><strong>Objetivo:</strong> visão completa da semana — performance, criativos, funil, atribuição, comparado vs semana anterior.</p>
+    <div class="copy-prompt">Aciona @traffic-orchestrator. Cliente: &lt;seu-cliente&gt;. Roda *full-report 7d filtrando &lt;PRODUTO&gt;. Compara com semana anterior. Salva em 05_WORKSPACE/clientes/&lt;seu-cliente&gt;/_relatorios/.</div>
+    <p><strong>O que rola por baixo:</strong> orchestrator coordena <code>@attribution-auditor</code> + <code>@meta-dr-specialist</code> + <code>@creative-analyst</code> + <code>@funnel-analyst</code> + <code>@data-analyst</code> (squad oficial) pra montar relatório consolidado HTML.</p>
+  </div>
+
+  <div class="workflow-card">
+    <div class="title"><span class="badge">Reativo</span>Algo caiu — investigação forensic</div>
+    <div class="when">CPA disparou / ROAS despencou / vendas sumiram</div>
+    <div class="copy-prompt">Aciona @traffic-diagnostician. Cliente: &lt;seu-cliente&gt;, produto &lt;PRODUTO&gt;. Sintoma: [DESCREVA O QUE VOCÊ TÁ VENDO]. Roda *investigar — quero árvore de hipóteses ranqueada por probabilidade + ação imediata.</div>
+    <p><strong>Investigação em 6 camadas (em ordem):</strong></p>
+    <ol>
+      <li><strong>Tracking</strong> — Pixel/CAPI quebrou? Atribuição mudou?</li>
+      <li><strong>Criativo</strong> — saturação? hook rate caindo?</li>
+      <li><strong>Audience</strong> — overlap? exclusion errada?</li>
+      <li><strong>Oferta</strong> — preço mudou? bônus removido?</li>
+      <li><strong>Funil</strong> — LP/VSL/checkout quebrou?</li>
+      <li><strong>Externo</strong> — sazonalidade? mudança Meta? competição?</li>
+    </ol>
+    <p>Não pula camada. Cada hipótese precisa <strong>evidência</strong> antes de virar conclusão.</p>
+  </div>
+
+  <div class="workflow-card">
+    <div class="title"><span class="badge">Crescimento</span>Escalar um vencedor</div>
+    <div class="when">Identificou criativo/campanha vencedora (ROAS estável >7 dias)</div>
+    <div class="copy-prompt">Aciona @scaling-strategist. Cliente: &lt;seu-cliente&gt;, produto &lt;PRODUTO&gt;.
+Vencedor identificado: [campaign_id ou nome]. Validação: [N] dias com ROAS [X]x.
+Roda *plano-escala — quero método recomendado (ABO duplicate / CBO ramp / Oxigênio / horizontal), cronograma de ramp, métricas pra abandonar plano.</div>
+    <p><strong>Decisões que ele toma:</strong></p>
+    <ul>
+      <li><strong>&lt;3 dias validação:</strong> ABO duplicate (cauteloso)</li>
+      <li><strong>3-7 dias:</strong> CBO ramp +20%/dia</li>
+      <li><strong>&gt;7 dias + frequência alta:</strong> Lateralização Oxigênio (escala via criativo)</li>
+      <li><strong>Já lateralizou + saturando:</strong> Horizontal (novos formatos/audiences)</li>
+      <li><strong>Esgotou tudo:</strong> Multi-account</li>
+    </ul>
+  </div>
+
+  <div class="workflow-card">
+    <div class="title"><span class="badge">Crescimento</span>Análise profunda de criativos</div>
+    <div class="when">Quer entender por que alguns criativos batem e outros não</div>
+    <div class="copy-prompt">Aciona @creative-analyst. Cliente: &lt;seu-cliente&gt;, produto &lt;PRODUTO&gt;. Janela: 14 dias.
+1. Roda *analise — top 10 vencedores + top 10 perdedores
+2. Roda *dna nos top 3 vencedores — identifica padrão estrutural comum
+3. Roda *scatter — matriz hook rate × retention × CPA
+4. Sugere *lateralizar pro vencedor #1 — 5-10 variações genuínas
+
+Salva resultado em 05_WORKSPACE/clientes/&lt;seu-cliente&gt;/_relatorios/2026-MM-DD-criativos.md</div>
+  </div>
+
+  <div class="workflow-card">
+    <div class="title"><span class="badge">Manutenção</span>Auditoria de tracking</div>
+    <div class="when">Mensal, ou quando suspeita que ROAS está fantasma</div>
+    <div class="copy-prompt">Aciona @attribution-auditor. Cliente: &lt;seu-cliente&gt;.
+1. *audit-pixel — checklist 10 pontos
+2. *audit-capi — checklist 8 pontos (CAPI integrado via &lt;sua-plataforma-checkout&gt;)
+3. *match-quality — EMQ score atual
+4. *compare-attribution — Standard ROAS vs Incremental últimos 30d
+
+Pixel ID: &lt;SEU_PIXEL_ID&gt;. Checkout: &lt;sua-plataforma&gt;. LP: &lt;sua-stack&gt;.</div>
+    <p><strong>Por que importa:</strong> Pixel sem CAPI perde 30-40% das conversões. ROAS Standard pode estar 20-35% inflado vs Incremental real.</p>
+  </div>
+
+  <div class="workflow-card">
+    <div class="title"><span class="badge">Inteligência</span>Espionar concorrentes</div>
+    <div class="when">Quer saber quem está rodando agressivo no nicho</div>
+    <div class="copy-prompt">Aciona @competitor-spy. Cliente: &lt;seu-cliente&gt;, nicho: &lt;seu-nicho&gt;.
+1. *new-entrants — quem lançou nas últimas 4 semanas
+2. *spy [nome do concorrente] — análise dos criativos rodando
+3. *reverse-funnel [URL da LP] — engenharia reversa do funil
+4. *swipe — coleta organizada em 05_WORKSPACE/clientes/&lt;seu-cliente&gt;/_swipe/[concorrente]/
+
+Foco em: estrutura de funil, oferta principal, upsells, gaps de oportunidade.</div>
+  </div>
+
+  <div class="workflow-card">
+    <div class="title"><span class="badge">Setup</span>Subir nova campanha (Paused-First)</div>
+    <div class="when">Lançar nova oferta / nova variante</div>
+    <div class="copy-prompt">Aciona @meta-dr-specialist. Cliente: &lt;seu-cliente&gt;, produto: &lt;PRODUTO&gt;.
+Quero subir [N] criativos novos como ABO teste.
+Roda *estrutura — me dá briefing completo da estrutura de campanha (objective, advantage_state, targeting, budget, naming).
+IMPORTANTE: tudo PAUSED. Eu valido no Gerenciador antes de ativar.</div>
+    <div class="callout danger">
+      <strong>Regra de ouro</strong>
+      Toda criação (campanha/adset/ad) inicia em PAUSED. Validar visualmente no Gerenciador, corrigir UTMs/budget/targeting/criativo, e SÓ DEPOIS ativar manualmente. Por quê: <code>url_tags</code> não é editável depois, gasto durante validação é dinheiro queimado, armadilhas são reais.
+    </div>
+  </div>
+
+  <div class="workflow-card">
+    <div class="title"><span class="badge">Setup</span>Adicionar conta nova / cliente novo</div>
+    <div class="when">Quer integrar outra conta de anúncios</div>
+    <p>Você manda os dados, eu populo:</p>
+    <div class="copy-prompt">Adiciona conta:
+- act_id: act_XXXXXXXXX
+- cliente: [nome]
+- nicho: [nicho]
+- tipo: [DR / lançamento / lead gen / ecommerce]
+- ticket médio: [R$ X]
+
+Cria 05_WORKSPACE/clientes/[cliente]/ com os 5 arquivos do template (CLAUDE.md, act-mapping.yaml, funil.md, icp.md, baseline-kpis.md). Adiciona em 00_OS/clients-map.yaml.</div>
+    <p><strong>Pré-requisito:</strong> System User Token tem acesso à conta no Business Manager. Se não tem, atribuir via BM → Configurações → Usuários do Sistema → Atribuir Conta de Anúncios.</p>
+  </div>
+
+</section>
+
+<section id="cli">
+  <h2><span class="num">6</span>CLI <code>meta</code> — referência rápida</h2>
+  <p>Se quiser rodar comandos diretamente no terminal (sem agente), aqui as receitas mais usadas. Path do wrapper: <code>&lt;HOME&gt;\bin\meta.cmd</code>.</p>
+
+  <h3>6.1 — Anatomia do comando</h3>
+  <pre><code>meta &lt;grupo&gt; &lt;recurso&gt; &lt;ação&gt; [--flags]
+meta ads     campaign  list
+meta ads     adset     get      &lt;ID&gt;
+meta ads     insights  get      --date-preset last_7d
+meta auth    status</code></pre>
+
+  <h3>6.2 — Receitas leitura <span class="tag read">SEGURO</span></h3>
+
+  <h4>Listar todas campanhas ativas</h4>
+  <pre><code><span class="kw">&amp;</span> <span class="str">"&lt;HOME&gt;\bin\meta.cmd"</span> ads campaign list <span class="var">`</span>
+  --ad-account-id act_XXXXXXXXXXXXXXX <span class="var">`</span>
+  --filter <span class="str">"effective_status=ACTIVE"</span> <span class="var">`</span>
+  -o json</code></pre>
+
+  <h4>Performance dos últimos 7 dias (nível campanha)</h4>
+  <pre><code><span class="kw">&amp;</span> <span class="str">"&lt;HOME&gt;\bin\meta.cmd"</span> ads insights get <span class="var">`</span>
+  --ad-account-id act_XXXXXXXXXXXXXXX <span class="var">`</span>
+  --date-preset last_7d <span class="var">`</span>
+  --level campaign <span class="var">`</span>
+  --fields spend,impressions,clicks,ctr,cpc,cpm,actions,purchase_roas <span class="var">`</span>
+  -o json</code></pre>
+
+  <h4>Top 10 ads ordenados por gasto</h4>
+  <pre><code><span class="kw">&amp;</span> <span class="str">"&lt;HOME&gt;\bin\meta.cmd"</span> ads insights get <span class="var">`</span>
+  --ad-account-id act_XXXXXXXXXXXXXXX <span class="var">`</span>
+  --date-preset last_14d <span class="var">`</span>
+  --level ad <span class="var">`</span>
+  --sort spend_descending <span class="var">`</span>
+  --limit 10 <span class="var">`</span>
+  -o json</code></pre>
+
+  <h4>Detalhes de um ad específico (com creative)</h4>
+  <pre><code><span class="kw">&amp;</span> <span class="str">"&lt;HOME&gt;\bin\meta.cmd"</span> ads ad get <span class="var">&lt;AD_ID&gt;</span> -o json
+<span class="kw">&amp;</span> <span class="str">"&lt;HOME&gt;\bin\meta.cmd"</span> ads creative get <span class="var">&lt;CREATIVE_ID&gt;</span> -o json</code></pre>
+
+  <h4>Listar contas que o token tem acesso</h4>
+  <pre><code><span class="kw">&amp;</span> <span class="str">"&lt;HOME&gt;\bin\meta.cmd"</span> ads adaccount list -o json</code></pre>
+
+  <h3>6.3 — Receitas escrita <span class="tag danger">DESTRUTIVO</span></h3>
+
+  <div class="callout danger">
+    <strong>Confirma SEMPRE antes</strong>
+    Pause/edit/budget/delete via CLI mexem em campanhas reais. Não rodar em automação cega. Sempre validar o ID alvo, ler o efeito esperado, e só executar com confirmação humana.
+  </div>
+
+  <h4>Pausar uma campanha</h4>
+  <pre><code><span class="kw">&amp;</span> <span class="str">"&lt;HOME&gt;\bin\meta.cmd"</span> ads campaign update <span class="var">&lt;CAMPAIGN_ID&gt;</span> --status PAUSED</code></pre>
+
+  <h4>Ativar uma campanha (após validar tudo)</h4>
+  <pre><code><span class="kw">&amp;</span> <span class="str">"&lt;HOME&gt;\bin\meta.cmd"</span> ads campaign update <span class="var">&lt;CAMPAIGN_ID&gt;</span> --status ACTIVE</code></pre>
+
+  <h4>Mudar budget diário (CBO)</h4>
+  <pre><code><span class="com"># Limite recomendado: max +20-30%/dia. Nunca dobrar.</span>
+<span class="kw">&amp;</span> <span class="str">"&lt;HOME&gt;\bin\meta.cmd"</span> ads campaign update <span class="var">&lt;CAMPAIGN_ID&gt;</span> --daily-budget 60000
+<span class="com"># 60000 = R$ 600,00 (em centavos)</span></code></pre>
+
+  <h3>6.4 — Formatos de saída</h3>
+  <table>
+    <thead><tr><th>Flag</th><th>Formato</th><th>Quando usar</th></tr></thead>
+    <tbody>
+      <tr><td>(default)</td><td>Tabela ASCII</td><td>Leitura humana rápida</td></tr>
+      <tr><td><code>-o json</code></td><td>JSON completo</td><td>Pipe pra <code>jq</code> ou parsing</td></tr>
+      <tr><td><code>-o plain</code></td><td>Texto puro</td><td>Pipe pra <code>grep</code></td></tr>
+      <tr><td><code>--debug</code></td><td>+ HTTP requests</td><td>Debug de erro</td></tr>
+    </tbody>
+  </table>
+
+  <h3>6.5 — Quando o CLI NÃO basta — Graph API direto</h3>
+  <p>Setup avançado precisa Python WSL no venv do <code>meta-ads</code>:</p>
+  <pre><code><span class="com"># No WSL (não PowerShell):</span>
+PYTHON=$HOME/.local/share/pipx/venvs/meta-ads-cli/bin/python
+
+<span class="com"># Token sem expor secret:</span>
+$PYTHON -c <span class="str">"
+from meta.config import get_access_token
+TOKEN = get_access_token()
+# usar TOKEN nas chamadas Graph API requests/SDK
+"</span></code></pre>
+
+  <p><strong>Quando ir pra Graph API:</strong></p>
+  <ul>
+    <li>Placements específicos (Stories-only, Feed-only)</li>
+    <li><code>is_adset_budget_sharing_enabled</code> (declarar <code>false</code> em ABO)</li>
+    <li><code>promoted_object</code> completo (pixel + custom_event_type)</li>
+    <li><code>url_tags</code> em AdCreative (NÃO editável depois)</li>
+    <li><code>attribution_spec</code> customizado</li>
+    <li>Upload de imagem (<code>/adimages</code> → <code>image_hash</code>)</li>
+  </ul>
+
+  <p>Detalhes técnicos: <code>~/.claude/.../memory/reference_meta_ads_cli_vs_graphapi.md</code>.</p>
+</section>
+
+<section id="multi-conta">
+  <h2><span class="num">7</span>Multi-conta — operar várias contas</h2>
+
+  <h3>7.1 — Estrutura</h3>
+  <p>O CLI aceita <code>--ad-account-id act_OUTRO_ID</code> em qualquer comando. A stack mantém o mapeamento em dois lugares:</p>
+  <ul>
+    <li><code>00_OS/clients-map.yaml</code> — mapa global <code>act_id ↔ cliente</code></li>
+    <li><code>05_WORKSPACE/clientes/&lt;cliente&gt;/act-mapping.yaml</code> — todas as contas daquele cliente (alguns têm múltiplas)</li>
+  </ul>
+
+  <h3>7.2 — Conta unificada (multi-produto)</h3>
+  <p>É comum o operador rodar vários produtos próprios numa mesma conta de anúncios. Convenção recomendada:</p>
+  <ul>
+    <li><strong>&lt;PRODUTO_A&gt;</strong> — descrição</li>
+    <li><strong>&lt;PRODUTO_B&gt;</strong> — descrição</li>
+    <li><strong>&lt;MARCA_PESSOAL&gt;</strong> — topo de funil</li>
+    <li>Outros produtos — adicionar conforme lançar</li>
+  </ul>
+  <p>Filtragem por produto via <strong>naming convention</strong> das campanhas:</p>
+  <pre><code><span class="com"># Campanhas do produto A</span>
+meta ads campaign list --ad-account-id act_XXXXXXXXXXXXXXX <span class="var">`</span>
+  --filter <span class="str">"name:CONTAINS=PRODUTO_A_"</span> -o json
+
+<span class="com"># Campanhas do produto B</span>
+meta ads campaign list --ad-account-id act_XXXXXXXXXXXXXXX <span class="var">`</span>
+  --filter <span class="str">"name:CONTAINS=PRODUTO_B_"</span> -o json</code></pre>
+
+  <h3>7.3 — Adicionar nova conta</h3>
+  <p>Pra integrar uma conta nova (ex: cliente da agência):</p>
+  <ol>
+    <li><strong>Atribuir conta ao System User</strong> no Business Manager (BM → Configurações → Usuários do Sistema → Atribuir Conta de Anúncios)</li>
+    <li><strong>Validar acesso</strong>:
+      <pre><code><span class="kw">&amp;</span> <span class="str">"&lt;HOME&gt;\bin\meta.cmd"</span> ads adaccount get act_NOVO_ID -o json</code></pre>
+    </li>
+    <li><strong>Pedir pra criar context</strong> em sessão Claude Code (ver workflow "Adicionar conta nova")</li>
+  </ol>
+
+  <h3>7.4 — Multi-cliente — caso de agência</h3>
+  <p>Cada cliente tem sua pasta. Cria conforme adiciona contas:</p>
+  <pre><code>05_WORKSPACE/clientes/
+├── &lt;cliente-1&gt;/                <span class="com"># sua marca / produto principal</span>
+├── &lt;cliente-2&gt;/                <span class="com"># cliente da agência</span>
+├── &lt;cliente-3&gt;/                <span class="com"># ...</span>
+└── &lt;cliente-N&gt;/                <span class="com"># um por act_id ou um por marca</span></code></pre>
+  <p>Antes de qualquer análise, agente lê o <code>CLAUDE.md</code> do cliente alvo. <strong>Nunca misturar context entre clientes</strong> — cada um tem ICP, baseline, restrições próprias.</p>
+</section>
+
+<section id="regras">
+  <h2><span class="num">8</span>Regras inegociáveis</h2>
+
+  <div class="callout danger">
+    <strong>1. Paused-First</strong>
+    Toda criação (campanha/adset/ad) inicia em <code>status: "PAUSED"</code>. Validar no Gerenciador. Ativar só depois com confirmação. Sem exceção.
+  </div>
+
+  <div class="callout danger">
+    <strong>2. Confirmação destrutiva</strong>
+    Pause / edit / delete / mudança de budget &gt;20% — agente lista a ação proposta e PEDE confirmação antes de executar. Mesmo em auto mode.
+  </div>
+
+  <div class="callout warn">
+    <strong>3. Cliente context obrigatório</strong>
+    Sem <code>05_WORKSPACE/clientes/&lt;cliente&gt;/CLAUDE.md</code> carregado, agente recusa executar análise. Não usar benchmark genérico quando há baseline próprio.
+  </div>
+
+  <div class="callout warn">
+    <strong>4. Dados reais sempre</strong>
+    Nenhum agente inventa número. Se CLI falha, agente reporta erro e para. Sem estimativas mascaradas de fato.
+  </div>
+
+  <div class="callout info">
+    <strong>5. pt-BR coloquial, acentuação 100%</strong>
+    Output em pt-BR (estilo Pedro, não corporativo). Acentuação correta — NUNCA passar texto pt-BR inline em curl no Windows (UTF-8 quebra). Salvar em arquivo JSON via Write antes.
+  </div>
+
+  <div class="callout info">
+    <strong>6. VTurb anti-loop</strong>
+    Toda mexida em LP que tem VSL VTurb precisa passar pelo checklist <code>~/.claude/rules/vturb-embed.md</code>. Sem isso, VSL fica recarregando infinito. (Aplica também a Panda Video, Vimeo, YouTube embeds.)
+  </div>
+
+  <div class="callout success">
+    <strong>7. Frameworks tier 1 padronizados</strong>
+    Todos seguem: (1) DRE 5 níveis, (2) Funil 4 estágios, (3) "Onde Quebrou?" decision tree, (4) Andrômeda Era (Meta API v25). Sem invenção.
+  </div>
+</section>
+
+<section id="trouble">
+  <h2><span class="num">9</span>Troubleshooting</h2>
+
+  <table>
+    <thead><tr><th>Sintoma</th><th>Causa provável</th><th>Solução</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>meta: command not found</code></td>
+        <td>Wrapper não no PATH OU WSL down</td>
+        <td>Rodar com path absoluto <code>&lt;HOME&gt;\bin\meta.cmd</code> OU <code>wsl --shutdown</code> e retry</td>
+      </tr>
+      <tr>
+        <td><code>Invalid OAuth access token</code></td>
+        <td>Token expirou no <code>~/.profile</code> (WSL ou shell nativo)</td>
+        <td>Gerar novo System User Token no seu Business Manager. Atualizar a variável de ambiente no <code>.env</code> local (NUNCA commitar) ou em <code>~/.profile</code>. Rodar <code>source ~/.profile</code> ou abrir nova sessão</td>
+      </tr>
+      <tr>
+        <td><code>(#100) Unsupported get request</code></td>
+        <td><code>act_id</code> errado OU sem permissão</td>
+        <td>Validar contra <code>act-mapping.yaml</code>. Verificar Business Manager → conta atribuída ao System User</td>
+      </tr>
+      <tr>
+        <td>Empty response do CLI</td>
+        <td>Sem dados na janela (campanha pausada)</td>
+        <td>Reportar lacuna ao agente. Tentar janela maior (last_30d)</td>
+      </tr>
+      <tr>
+        <td>Claude responde genérico, não roda CLI</td>
+        <td>Agente "esqueceu" que tem que rodar o pipeline</td>
+        <td>Reforçar: "Roda os comandos CLI agora. Não invente. Execute o pipeline definido na task."</td>
+      </tr>
+      <tr>
+        <td>Claude tenta usar MCP (Pipeboard)</td>
+        <td>Memória <code>feedback_meta_ads_cli_default.md</code> não carregada</td>
+        <td>Reforçar: "Meta Ads = SEMPRE CLI nativo via WSL. Nunca MCP."</td>
+      </tr>
+      <tr>
+        <td>Claude pausa/edita sem perguntar</td>
+        <td>Agente ignorou regra paused-first</td>
+        <td>Reforçar: "Antes de qualquer ação destrutiva, lista o que vai fazer e PEDE confirmação. Mesmo em auto mode."</td>
+      </tr>
+      <tr>
+        <td>Output em pt-BR sem acentos</td>
+        <td>Encoding quebrado (Windows curl inline)</td>
+        <td>Reforçar regra global. Se for output pra API externa: salvar em arquivo JSON via Write antes</td>
+      </tr>
+      <tr>
+        <td>Resposta truncada / agente confuso</td>
+        <td>Context overflow (sessão muito longa)</td>
+        <td><code>/clear</code> e re-invoca com prompt-pai</td>
+      </tr>
+      <tr>
+        <td>WSL warnings <code>Chave desconhecida wsl2.autoMemoryReclaim</code></td>
+        <td>Cosmético — chaves no <code>.wslconfig</code> mas WSL não reconhece</td>
+        <td>Ignorar — não afeta funcionamento. Se quiser limpar, editar <code>&lt;HOME&gt;\.wslconfig</code></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="refs">
+  <h2><span class="num">10</span>Referências e arquivos relacionados</h2>
+
+  <h3>10.1 — Arquivos da stack</h3>
+  <table>
+    <thead><tr><th>Path</th><th>O que é</th></tr></thead>
+    <tbody>
+      <tr><td><code>11_TRAFFIC_STACK/README.md</code></td><td>Documentação da stack</td></tr>
+      <tr><td><code>11_TRAFFIC_STACK/agents/*.md</code></td><td>8 agentes especializados</td></tr>
+      <tr><td><code>11_TRAFFIC_STACK/tasks/diagnosticar-campanha-meta-cli.md</code></td><td>Pipeline CLI → análise → relatório</td></tr>
+      <tr><td><code>11_TRAFFIC_STACK/skills/direct-response-br/SKILL.md</code></td><td>DR brasileiro: Oxigênio, kill criteria, paused-first, Graph API quirks</td></tr>
+      <tr><td><code>00_OS/clients-map.yaml</code></td><td>Mapa global act_id ↔ cliente</td></tr>
+    </tbody>
+  </table>
+
+  <h3>10.2 — Cliente exemplo (template)</h3>
+  <table>
+    <thead><tr><th>Path</th><th>O que é</th></tr></thead>
+    <tbody>
+      <tr><td><code>05_WORKSPACE/clientes/&lt;seu-cliente&gt;/CLAUDE.md</code></td><td>Context operacional, regras, roteamento</td></tr>
+      <tr><td><code>05_WORKSPACE/clientes/&lt;seu-cliente&gt;/act-mapping.yaml</code></td><td>act_id, pixel id, attribution, geo (NUNCA commitar valores reais — usar .env)</td></tr>
+      <tr><td><code>05_WORKSPACE/clientes/&lt;seu-cliente&gt;/funil.md</code></td><td>Stack técnica: Ad → [Quiz/Bridge] → LP → VSL → Checkout</td></tr>
+      <tr><td><code>05_WORKSPACE/clientes/&lt;seu-cliente&gt;/icp.md</code></td><td>Avatar(es) por produto</td></tr>
+      <tr><td><code>05_WORKSPACE/clientes/&lt;seu-cliente&gt;/baseline-kpis.md</code></td><td>KPIs históricos vs alvos</td></tr>
+      <tr><td><code>05_WORKSPACE/clientes/&lt;seu-cliente&gt;/_swipe/_creatives_validados.md</code></td><td>Criativos já validados + estrutura técnica</td></tr>
+    </tbody>
+  </table>
+
+  <h3>10.3 — Memória do operador (auto)</h3>
+  <p>Localização: <code>&lt;HOME&gt;/.claude/projects/&lt;PROJECT_DIR&gt;/memory/</code></p>
+  <p>Claude Code mantém memória persistente por projeto automaticamente — feedbacks, decisões, padrões aprendidos. Nada precisa ser configurado manualmente.</p>
+
+  <h3>10.4 — Skills compartilhadas do V30</h3>
+  <table>
+    <thead><tr><th>Path</th><th>O que cobre</th></tr></thead>
+    <tbody>
+      <tr><td><code>11_TRAFFIC_STACK/skills/direct-response-br/SKILL.md</code></td><td>DR brasileiro: Oxigênio, kill criteria, paused-first, Graph API quirks</td></tr>
+      <tr><td><code>04_DIRETRIZES/</code></td><td>Diretrizes acionáveis (carregadas sob demanda pelo CoS)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>10.5 — Regras globais recomendadas</h3>
+  <p>Cada operador pode adicionar suas regras em <code>~/.claude/rules/</code> ou <code>~/.claude/CLAUDE.md</code>. Sugestões pra quem opera DR pt-BR:</p>
+  <table>
+    <thead><tr><th>Tópico</th><th>O que cobre</th></tr></thead>
+    <tbody>
+      <tr><td><code>voz-humana-pt-br.md</code></td><td>Como copy pt-BR deve soar (vocativos, marcadores coloquiais, frases banidas)</td></tr>
+      <tr><td><code>vturb-embed.md</code></td><td>Anti-loop VSL VTurb / Panda / Vimeo (CSS, Elementor)</td></tr>
+      <tr><td><code>CLAUDE.md</code> raiz</td><td>Encoding pt-BR, contas pessoais, MCPs, hooks</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<hr>
+
+<section>
+  <h3>Cheat sheet — abrir e rodar (cole nos favoritos)</h3>
+  <pre><code><span class="com"># 1. Abrir terminal (Windows: PowerShell / macOS-Linux: Terminal):</span>
+<span class="kw">cd</span> &lt;PASTA_DO_KIT&gt;/Kit-Piloto-Automatico-V30
+claude
+
+<span class="com"># 2. Cola este prompt-pai:</span>
+Aciona @traffic-orchestrator (11_TRAFFIC_STACK/agents/traffic-orchestrator.md).
+Carrega context &lt;SEU_CLIENTE&gt; (05_WORKSPACE/clientes/&lt;seu-cliente&gt;/).
+Lista comandos disponíveis e aguarda meu pedido.
+Auto mode ON. Confirma antes de qualquer ação destrutiva. pt-BR.
+
+<span class="com"># 3. Pede o que precisar:</span>
+*diagnostico 7d filtrando &lt;PRODUTO&gt;
+*kill-list
+*lateralizar &lt;ID&gt;
+*queda
+*plano-escala
+*spy [concorrente]</code></pre>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>Traffic Stack do Kit Piloto Automático V30 · v1.0 · Atualizado 2026-05-05</p>
+    <p>Pra reportar problema ou sugerir melhoria: abrir sessão Claude Code em <code>Kit-Piloto-Automatico-V30/</code> e descrever — a stack é iterada continuamente.</p>
+  </div>
+</footer>
+
+</body>
+</html>

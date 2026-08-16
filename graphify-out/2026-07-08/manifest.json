@@ -1,0 +1,587 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1783551361.8056543,
+    "ast_hash": "7676d03354c789d2be6b4d9ef9ffe078",
+    "semantic_hash": "7676d03354c789d2be6b4d9ef9ffe078"
+  },
+  ".claude/settings.local.json": {
+    "mtime": 1783458810.0,
+    "ast_hash": "27ef6836b2eb7a88db1cb96d0ae15ac4",
+    "semantic_hash": "27ef6836b2eb7a88db1cb96d0ae15ac4"
+  },
+  "00_OS/commands/gerar-contrato-locacao.py": {
+    "mtime": 1782866619.0,
+    "ast_hash": "8d310017033e68ee88761133f7f7916e",
+    "semantic_hash": "8d310017033e68ee88761133f7f7916e"
+  },
+  "05_WORKSPACE/guias/build_guia_ferramentas.py": {
+    "mtime": 1783453869.0,
+    "ast_hash": "d337b4b69b4973585f577603fb6df400",
+    "semantic_hash": "d337b4b69b4973585f577603fb6df400"
+  },
+  "05_WORKSPACE/reels-impar/build_final.sh": {
+    "mtime": 1783014919.0,
+    "ast_hash": "9638e760c60bea26a6cfb3bfb230bb2a",
+    "semantic_hash": "9638e760c60bea26a6cfb3bfb230bb2a"
+  },
+  "05_WORKSPACE/reels-impar/build_norm.sh": {
+    "mtime": 1783014943.0,
+    "ast_hash": "a1d51d243669d1dc117976ad76722b08",
+    "semantic_hash": "a1d51d243669d1dc117976ad76722b08"
+  },
+  "05_WORKSPACE/video-imobiliario-cinematico/render_fast.sh": {
+    "mtime": 1783448617.0,
+    "ast_hash": "eacf4d94572877e6efdcc1f7b90fdbf2",
+    "semantic_hash": "eacf4d94572877e6efdcc1f7b90fdbf2"
+  },
+  "05_WORKSPACE/video-imobiliario-cinematico/render_slideshow.sh": {
+    "mtime": 1783448438.0,
+    "ast_hash": "4f3aaf3682b92e7c57b5a78f1a6726cd",
+    "semantic_hash": "4f3aaf3682b92e7c57b5a78f1a6726cd"
+  },
+  "05_WORKSPACE/video-imobiliario-cinematico/render_video.sh": {
+    "mtime": 1783448115.0,
+    "ast_hash": "1e50d6e96c36b3e12c9b7b5e363984be",
+    "semantic_hash": "1e50d6e96c36b3e12c9b7b5e363984be"
+  },
+  "10_TEMPLATES_OPERACIONAIS/install_backup_codex.sh": {
+    "mtime": 1783540253.0,
+    "ast_hash": "59ded9f8d85f1dfa310438b5b1c96820",
+    "semantic_hash": "59ded9f8d85f1dfa310438b5b1c96820"
+  },
+  "18_AUTOMATION_STACK/cinematic-video-editor/cinematic_editor.py": {
+    "mtime": 1783432223.0,
+    "ast_hash": "173de154e2ad8f13dabf7a49d6358e6f",
+    "semantic_hash": "173de154e2ad8f13dabf7a49d6358e6f"
+  },
+  "18_AUTOMATION_STACK/cinematic-video-editor/config.json": {
+    "mtime": 1783432196.0,
+    "ast_hash": "807f68bf6daa3ce96f834c55210526ec",
+    "semantic_hash": "807f68bf6daa3ce96f834c55210526ec"
+  },
+  "18_AUTOMATION_STACK/impar-dashboard-whatsapp-setores/bridge-server.js": {
+    "mtime": 1783363691.0,
+    "ast_hash": "d2f060c135b7d494db71757bde5bdf3f",
+    "semantic_hash": "d2f060c135b7d494db71757bde5bdf3f"
+  },
+  "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py": {
+    "mtime": 1783462802.0,
+    "ast_hash": "70f77823f55245b91194abcc72a32dda",
+    "semantic_hash": "70f77823f55245b91194abcc72a32dda"
+  },
+  "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/messenger_to_whatsapp_bridge.py": {
+    "mtime": 1783508261.0,
+    "ast_hash": "4865a906c198dbf7bff774a9dc0e6f99",
+    "semantic_hash": "4865a906c198dbf7bff774a9dc0e6f99"
+  },
+  "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py": {
+    "mtime": 1783538832.0,
+    "ast_hash": "f48bdb2409efa1e724220e92cbdf6928",
+    "semantic_hash": "f48bdb2409efa1e724220e92cbdf6928"
+  },
+  "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/run_marketplace_publisher.sh": {
+    "mtime": 1783538569.0,
+    "ast_hash": "9ec6197f5f0d910f8a00281bc3520129",
+    "semantic_hash": "9ec6197f5f0d910f8a00281bc3520129"
+  },
+  "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/run_messenger_bridge.sh": {
+    "mtime": 1783464971.0,
+    "ast_hash": "3e61edd38eafec58be65a1058bb037e3",
+    "semantic_hash": "3e61edd38eafec58be65a1058bb037e3"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/config/clientes.json": {
+    "mtime": 1782829741.0,
+    "ast_hash": "29a904511e610cb7afe60b9a6beb633a",
+    "semantic_hash": "29a904511e610cb7afe60b9a6beb633a"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/data/emissoes.json": {
+    "mtime": 1782829952.0,
+    "ast_hash": "dfa42f20d2dc1c2eb981803d9cab9f1c",
+    "semantic_hash": "dfa42f20d2dc1c2eb981803d9cab9f1c"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/logs/resultado_lote_junho2026_v2.json": {
+    "mtime": 1782825540.0,
+    "ast_hash": "9e94a831b34d8b33d8c2e43d8ef8c2f8",
+    "semantic_hash": "9e94a831b34d8b33d8c2e43d8ef8c2f8"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/run_listener.sh": {
+    "mtime": 1783369896.0,
+    "ast_hash": "9f8f42cc0ce793392e249a86a37aa5dc",
+    "semantic_hash": "9f8f42cc0ce793392e249a86a37aa5dc"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/src/__init__.py": {
+    "mtime": 1782779942.0,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/src/asaas_client.py": {
+    "mtime": 1782829773.0,
+    "ast_hash": "531106342dea2c41bc4d0d876d6aa023",
+    "semantic_hash": "531106342dea2c41bc4d0d876d6aa023"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/src/cli.py": {
+    "mtime": 1783366989.0,
+    "ast_hash": "7b787393d84e52d6a6dcf867582f9d61",
+    "semantic_hash": "7b787393d84e52d6a6dcf867582f9d61"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/src/config.py": {
+    "mtime": 1783366868.0,
+    "ast_hash": "6e76d3946df3802e5772acea96fc1e9e",
+    "semantic_hash": "6e76d3946df3802e5772acea96fc1e9e"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/src/idempotency.py": {
+    "mtime": 1782779974.0,
+    "ast_hash": "32e8e3b136b5fb9557d23b4caa78ab0a",
+    "semantic_hash": "32e8e3b136b5fb9557d23b4caa78ab0a"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/src/logger.py": {
+    "mtime": 1782779963.0,
+    "ast_hash": "686a525fe09f774f03625a1df314d009",
+    "semantic_hash": "686a525fe09f774f03625a1df314d009"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/src/nfem_automation.py": {
+    "mtime": 1783366933.0,
+    "ast_hash": "b360de97668862233de571b4a613c5fd",
+    "semantic_hash": "b360de97668862233de571b4a613c5fd"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/src/pdf_manager.py": {
+    "mtime": 1782780007.0,
+    "ast_hash": "4d4bfc0d6e273b9ded4f6a249e5eecab",
+    "semantic_hash": "4d4bfc0d6e273b9ded4f6a249e5eecab"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/src/pipeline.py": {
+    "mtime": 1782823567.0,
+    "ast_hash": "abcf48d1e1147003501b74ddb627f907",
+    "semantic_hash": "abcf48d1e1147003501b74ddb627f907"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/src/webhook_server.py": {
+    "mtime": 1782780098.0,
+    "ast_hash": "842a55813bacd56244937c95eb722caf",
+    "semantic_hash": "842a55813bacd56244937c95eb722caf"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/src/whatsapp_listener.py": {
+    "mtime": 1783367121.0,
+    "ast_hash": "8f3e9e4c628269a5b7c1bec656aedf3b",
+    "semantic_hash": "8f3e9e4c628269a5b7c1bec656aedf3b"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/tests/__init__.py": {
+    "mtime": 1782780143.0,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "18_AUTOMATION_STACK/nfem-joinville/tests/test_pipeline.py": {
+    "mtime": 1782785927.0,
+    "ast_hash": "830cd090e99f0130bd4d315ee23cbf4f",
+    "semantic_hash": "830cd090e99f0130bd4d315ee23cbf4f"
+  },
+  "19_BACKUP_CLAUDE/backup-claude.sh": {
+    "mtime": 1783540470.0,
+    "ast_hash": "a43cb8e3f383b00ca05c3f776634e980",
+    "semantic_hash": "a43cb8e3f383b00ca05c3f776634e980"
+  },
+  "19_BACKUP_CLAUDE/instalar-nova-maquina.sh": {
+    "mtime": 1783539692.0,
+    "ast_hash": "6c9c7752a865a37451272e448ebddb48",
+    "semantic_hash": "6c9c7752a865a37451272e448ebddb48"
+  },
+  "19_BACKUP_CLAUDE/snapshot/dot-claude/plugins/installed_plugins.json": {
+    "mtime": 1783540490.0,
+    "ast_hash": "13e31ae1d70bd6484ce057cd69f7d006",
+    "semantic_hash": "13e31ae1d70bd6484ce057cd69f7d006"
+  },
+  "19_BACKUP_CLAUDE/snapshot/dot-claude/plugins/known_marketplaces.json": {
+    "mtime": 1783540490.0,
+    "ast_hash": "dfd232dcd30c25bdd515a245c248934a",
+    "semantic_hash": "dfd232dcd30c25bdd515a245c248934a"
+  },
+  "19_BACKUP_CLAUDE/snapshot/dot-claude/settings.json": {
+    "mtime": 1783540490.0,
+    "ast_hash": "e2f70e164ab128e6718fe41dea8f4dab",
+    "semantic_hash": "e2f70e164ab128e6718fe41dea8f4dab"
+  },
+  "19_BACKUP_CLAUDE/snapshot/dot-claude/skills/retirar-notas-fiscais/scripts/calcular_periodo.py": {
+    "mtime": 1783540490.0,
+    "ast_hash": "77fe436bec89170999151069ec418e06",
+    "semantic_hash": "77fe436bec89170999151069ec418e06"
+  },
+  "22_CLAUDE_DESKTOP/claude-desktop-config.json": {
+    "mtime": 1778694640.0,
+    "ast_hash": "2b4071d5d135377d59c59fef2267d758",
+    "semantic_hash": "2b4071d5d135377d59c59fef2267d758"
+  },
+  "KPA30-Marketplace/.claude-plugin/marketplace.json": {
+    "mtime": 1783072526.0,
+    "ast_hash": "d62a660e26eebe00f5a15f3cbde8aed4",
+    "semantic_hash": "d62a660e26eebe00f5a15f3cbde8aed4"
+  },
+  "KPA30-Marketplace/imobiliario-juridico/.claude-plugin/plugin.json": {
+    "mtime": 1783072537.0,
+    "ast_hash": "ba0f5f74ac1dfe82e140d0f545da5a61",
+    "semantic_hash": "ba0f5f74ac1dfe82e140d0f545da5a61"
+  },
+  "KPA30-Marketplace/imobiliario-juridico/.mcp.json": {
+    "mtime": 1783072548.0,
+    "ast_hash": "34005124f3e31f2671187b4083a48d1c",
+    "semantic_hash": "34005124f3e31f2671187b4083a48d1c"
+  },
+  "KPA30-Marketplace/imobiliario-juridico/hooks/hooks.json": {
+    "mtime": 1783072551.0,
+    "ast_hash": "6743b3e1a4b443f838e37cfe489e7c85",
+    "semantic_hash": "6743b3e1a4b443f838e37cfe489e7c85"
+  },
+  "KPA30-Marketplace/validar.py": {
+    "mtime": 1783072785.0,
+    "ast_hash": "2e05fc4c2ead464a28dc2bafcf0517ca",
+    "semantic_hash": "2e05fc4c2ead464a28dc2bafcf0517ca"
+  },
+  "_ref-claude-for-legal/.claude-plugin/marketplace.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "64f42176aca6acdd51168c13f341d019",
+    "semantic_hash": "64f42176aca6acdd51168c13f341d019"
+  },
+  "_ref-claude-for-legal/ai-governance-legal/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "3b0fdc0fa0f87802260befbc371491c4",
+    "semantic_hash": "3b0fdc0fa0f87802260befbc371491c4"
+  },
+  "_ref-claude-for-legal/ai-governance-legal/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "383c3862be0a4668f74f3e70f119ec2a",
+    "semantic_hash": "383c3862be0a4668f74f3e70f119ec2a"
+  },
+  "_ref-claude-for-legal/commercial-legal/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "df49917d0bae3f54c337c620a6d0c5e2",
+    "semantic_hash": "df49917d0bae3f54c337c620a6d0c5e2"
+  },
+  "_ref-claude-for-legal/commercial-legal/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "f5a6014a4409aba900bed5a7fe219b18",
+    "semantic_hash": "f5a6014a4409aba900bed5a7fe219b18"
+  },
+  "_ref-claude-for-legal/commercial-legal/hooks/hooks.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "6743b3e1a4b443f838e37cfe489e7c85",
+    "semantic_hash": "6743b3e1a4b443f838e37cfe489e7c85"
+  },
+  "_ref-claude-for-legal/corporate-legal/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "49547f3f20bcc6c95655d8cd2c24136e",
+    "semantic_hash": "49547f3f20bcc6c95655d8cd2c24136e"
+  },
+  "_ref-claude-for-legal/corporate-legal/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "da172cdf63348c12dd8f887ea8b6a111",
+    "semantic_hash": "da172cdf63348c12dd8f887ea8b6a111"
+  },
+  "_ref-claude-for-legal/corporate-legal/hooks/hooks.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "6743b3e1a4b443f838e37cfe489e7c85",
+    "semantic_hash": "6743b3e1a4b443f838e37cfe489e7c85"
+  },
+  "_ref-claude-for-legal/employment-legal/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "44e86d20131029d744512aa059fc56c3",
+    "semantic_hash": "44e86d20131029d744512aa059fc56c3"
+  },
+  "_ref-claude-for-legal/employment-legal/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "04e340cc6f6a72ad7887b39fbfe28db4",
+    "semantic_hash": "04e340cc6f6a72ad7887b39fbfe28db4"
+  },
+  "_ref-claude-for-legal/employment-legal/hooks/hooks.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "6743b3e1a4b443f838e37cfe489e7c85",
+    "semantic_hash": "6743b3e1a4b443f838e37cfe489e7c85"
+  },
+  "_ref-claude-for-legal/external_plugins/cocounsel-legal/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "1ef0b2a05bd35979b025faa850433dd7",
+    "semantic_hash": "1ef0b2a05bd35979b025faa850433dd7"
+  },
+  "_ref-claude-for-legal/external_plugins/cocounsel-legal/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "4799ffd388feb5030f59203fc6f34090",
+    "semantic_hash": "4799ffd388feb5030f59203fc6f34090"
+  },
+  "_ref-claude-for-legal/ip-legal/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "2541aa9778899a77589f1a35573af471",
+    "semantic_hash": "2541aa9778899a77589f1a35573af471"
+  },
+  "_ref-claude-for-legal/ip-legal/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "390334210ba45e53d790a8da8a8600e4",
+    "semantic_hash": "390334210ba45e53d790a8da8a8600e4"
+  },
+  "_ref-claude-for-legal/ip-legal/hooks/hooks.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "6743b3e1a4b443f838e37cfe489e7c85",
+    "semantic_hash": "6743b3e1a4b443f838e37cfe489e7c85"
+  },
+  "_ref-claude-for-legal/law-student/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "f9b05fbd56d68ed216dbfea3ca692021",
+    "semantic_hash": "f9b05fbd56d68ed216dbfea3ca692021"
+  },
+  "_ref-claude-for-legal/law-student/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "afe572cfe129b469970acaa75a49bc77",
+    "semantic_hash": "afe572cfe129b469970acaa75a49bc77"
+  },
+  "_ref-claude-for-legal/law-student/hooks/hooks.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "6743b3e1a4b443f838e37cfe489e7c85",
+    "semantic_hash": "6743b3e1a4b443f838e37cfe489e7c85"
+  },
+  "_ref-claude-for-legal/legal-builder-hub/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "a0f588ba08a0f3a7c46d0f1a18de4697",
+    "semantic_hash": "a0f588ba08a0f3a7c46d0f1a18de4697"
+  },
+  "_ref-claude-for-legal/legal-builder-hub/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "604827c9b579773040144e19f3479d70",
+    "semantic_hash": "604827c9b579773040144e19f3479d70"
+  },
+  "_ref-claude-for-legal/legal-builder-hub/hooks/hooks.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "6743b3e1a4b443f838e37cfe489e7c85",
+    "semantic_hash": "6743b3e1a4b443f838e37cfe489e7c85"
+  },
+  "_ref-claude-for-legal/legal-clinic/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "d397dad7383cc55cce1a1a175a8d5867",
+    "semantic_hash": "d397dad7383cc55cce1a1a175a8d5867"
+  },
+  "_ref-claude-for-legal/legal-clinic/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "81ff1e2b29d6b9d0fc541da094f39785",
+    "semantic_hash": "81ff1e2b29d6b9d0fc541da094f39785"
+  },
+  "_ref-claude-for-legal/legal-clinic/hooks/hooks.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "6743b3e1a4b443f838e37cfe489e7c85",
+    "semantic_hash": "6743b3e1a4b443f838e37cfe489e7c85"
+  },
+  "_ref-claude-for-legal/litigation-legal/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "5ca7a7634b45b870c4779313af5acd87",
+    "semantic_hash": "5ca7a7634b45b870c4779313af5acd87"
+  },
+  "_ref-claude-for-legal/litigation-legal/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "e9f8a7d4ba53246eecf015a76b0fea91",
+    "semantic_hash": "e9f8a7d4ba53246eecf015a76b0fea91"
+  },
+  "_ref-claude-for-legal/managed-agent-cookbooks/diligence-grid/steering-examples.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "5d93d08c37f7fe1b574ebeb0ff540fc8",
+    "semantic_hash": "5d93d08c37f7fe1b574ebeb0ff540fc8"
+  },
+  "_ref-claude-for-legal/managed-agent-cookbooks/docket-watcher/steering-examples.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "b190703059c6f05f3e1c68c21449a972",
+    "semantic_hash": "b190703059c6f05f3e1c68c21449a972"
+  },
+  "_ref-claude-for-legal/managed-agent-cookbooks/launch-radar/steering-examples.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "76e5523c968e852f20d9e6f11394c3ad",
+    "semantic_hash": "76e5523c968e852f20d9e6f11394c3ad"
+  },
+  "_ref-claude-for-legal/managed-agent-cookbooks/reg-monitor/steering-examples.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "f568d4d3ee6885a78c5ac63247312099",
+    "semantic_hash": "f568d4d3ee6885a78c5ac63247312099"
+  },
+  "_ref-claude-for-legal/managed-agent-cookbooks/renewal-watcher/steering-examples.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "3be03748050782595fabf183dd097c9a",
+    "semantic_hash": "3be03748050782595fabf183dd097c9a"
+  },
+  "_ref-claude-for-legal/privacy-legal/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "01681cdbed69e4f61c9947eeb3417d5a",
+    "semantic_hash": "01681cdbed69e4f61c9947eeb3417d5a"
+  },
+  "_ref-claude-for-legal/privacy-legal/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "c17d2f0937987bb32aa035a450ff4f22",
+    "semantic_hash": "c17d2f0937987bb32aa035a450ff4f22"
+  },
+  "_ref-claude-for-legal/privacy-legal/hooks/hooks.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "6743b3e1a4b443f838e37cfe489e7c85",
+    "semantic_hash": "6743b3e1a4b443f838e37cfe489e7c85"
+  },
+  "_ref-claude-for-legal/product-legal/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "aef94e0cc16fe08529d217ec0f58fc3a",
+    "semantic_hash": "aef94e0cc16fe08529d217ec0f58fc3a"
+  },
+  "_ref-claude-for-legal/product-legal/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "56808035fa93bffa73ea3d2aab39e4a5",
+    "semantic_hash": "56808035fa93bffa73ea3d2aab39e4a5"
+  },
+  "_ref-claude-for-legal/product-legal/hooks/hooks.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "6743b3e1a4b443f838e37cfe489e7c85",
+    "semantic_hash": "6743b3e1a4b443f838e37cfe489e7c85"
+  },
+  "_ref-claude-for-legal/regulatory-legal/.claude-plugin/plugin.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "adc46aa0609c553e95f4e2213e656d29",
+    "semantic_hash": "adc46aa0609c553e95f4e2213e656d29"
+  },
+  "_ref-claude-for-legal/regulatory-legal/.mcp.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "26e041c03985245e901b583dc1e0908d",
+    "semantic_hash": "26e041c03985245e901b583dc1e0908d"
+  },
+  "_ref-claude-for-legal/regulatory-legal/hooks/hooks.json": {
+    "mtime": 1783072397.0,
+    "ast_hash": "6743b3e1a4b443f838e37cfe489e7c85",
+    "semantic_hash": "6743b3e1a4b443f838e37cfe489e7c85"
+  },
+  "_ref-claude-for-legal/scripts/deploy-managed-agent.sh": {
+    "mtime": 1783072397.0,
+    "ast_hash": "810b86db5343626658c9e0a7715110b2",
+    "semantic_hash": "810b86db5343626658c9e0a7715110b2"
+  },
+  "_ref-claude-for-legal/scripts/lint-tool-scope.py": {
+    "mtime": 1783072397.0,
+    "ast_hash": "234c8fc056102dd803bcbb9c0c140736",
+    "semantic_hash": "234c8fc056102dd803bcbb9c0c140736"
+  },
+  "_ref-claude-for-legal/scripts/orchestrate.py": {
+    "mtime": 1783072397.0,
+    "ast_hash": "52d9df50cd4b15c102c050143b36c4f0",
+    "semantic_hash": "52d9df50cd4b15c102c050143b36c4f0"
+  },
+  "_ref-claude-for-legal/scripts/test-cookbooks.sh": {
+    "mtime": 1783072397.0,
+    "ast_hash": "c8c8cfc21bec444cf9534ed9a5b268e2",
+    "semantic_hash": "c8c8cfc21bec444cf9534ed9a5b268e2"
+  },
+  "_ref-claude-for-legal/scripts/validate.py": {
+    "mtime": 1783072397.0,
+    "ast_hash": "35a3f254a95abe354f1a8b482570b7ce",
+    "semantic_hash": "35a3f254a95abe354f1a8b482570b7ce"
+  },
+  "meu-video/eslint.config.mjs": {
+    "mtime": 1771420082.0,
+    "ast_hash": "e20d59bb6b64567da14d80c3da2c6b15",
+    "semantic_hash": "e20d59bb6b64567da14d80c3da2c6b15"
+  },
+  "meu-video/package.json": {
+    "mtime": 1783004258.0,
+    "ast_hash": "7a4ecac93148f3927fec22f8f031a786",
+    "semantic_hash": "7a4ecac93148f3927fec22f8f031a786"
+  },
+  "meu-video/remotion.config.ts": {
+    "mtime": 1783004258.0,
+    "ast_hash": "989f1d8038590cb5a802522f7589ba3e",
+    "semantic_hash": "989f1d8038590cb5a802522f7589ba3e"
+  },
+  "meu-video/src/Composition.tsx": {
+    "mtime": 1771420082.0,
+    "ast_hash": "02f2b0c0fc83361ef41d81381c8fc848",
+    "semantic_hash": "02f2b0c0fc83361ef41d81381c8fc848"
+  },
+  "meu-video/src/ReelsVideo.tsx": {
+    "mtime": 1783007754.0,
+    "ast_hash": "f1a42f36d2d2e7003a689fc7221c221f",
+    "semantic_hash": "f1a42f36d2d2e7003a689fc7221c221f"
+  },
+  "meu-video/src/Root.tsx": {
+    "mtime": 1783007763.0,
+    "ast_hash": "a8277041defb694ff75525d5a23b59c0",
+    "semantic_hash": "a8277041defb694ff75525d5a23b59c0"
+  },
+  "meu-video/src/index.ts": {
+    "mtime": 1771420082.0,
+    "ast_hash": "d92d9dee1ab16aa44a75ae7fbfb843ca",
+    "semantic_hash": "d92d9dee1ab16aa44a75ae7fbfb843ca"
+  },
+  "meu-video/tsconfig.json": {
+    "mtime": 1771420082.0,
+    "ast_hash": "c3be8c3e7ded8023557fe8fb5c068f91",
+    "semantic_hash": "c3be8c3e7ded8023557fe8fb5c068f91"
+  },
+  "05_WORKSPACE/reels-impar/norm/01_facade.mp4": {
+    "mtime": 1783014982.0,
+    "ast_hash": "0e752fe02fc40159c2fb7ff19ed12d77",
+    "semantic_hash": "0e752fe02fc40159c2fb7ff19ed12d77"
+  },
+  "05_WORKSPACE/reels-impar/norm/02_sala.mp4": {
+    "mtime": 1783015011.0,
+    "ast_hash": "440faea5b077b9af82723fff73fbcec5",
+    "semantic_hash": "440faea5b077b9af82723fff73fbcec5"
+  },
+  "05_WORKSPACE/reels-impar/norm/03_jantar.mp4": {
+    "mtime": 1783015038.0,
+    "ast_hash": "147ac4140248491308ea30f49aec19af",
+    "semantic_hash": "147ac4140248491308ea30f49aec19af"
+  },
+  "05_WORKSPACE/reels-impar/norm/04_vista.mp4": {
+    "mtime": 1783015068.0,
+    "ast_hash": "e392d83526072e3e48954da271985994",
+    "semantic_hash": "e392d83526072e3e48954da271985994"
+  },
+  "05_WORKSPACE/reels-impar/norm/05_cozinha.mp4": {
+    "mtime": 1783015098.0,
+    "ast_hash": "c33425d3bc5aca04f33c6b99b606fc08",
+    "semantic_hash": "c33425d3bc5aca04f33c6b99b606fc08"
+  },
+  "05_WORKSPACE/reels-impar/norm/06_quarto1.mp4": {
+    "mtime": 1783015119.0,
+    "ast_hash": "bb0edd368bbb243bfee9162dc059e4d5",
+    "semantic_hash": "bb0edd368bbb243bfee9162dc059e4d5"
+  },
+  "05_WORKSPACE/reels-impar/norm/07_quarto2.mp4": {
+    "mtime": 1783015145.0,
+    "ast_hash": "dd2e301587c94963ae7972b505d0d586",
+    "semantic_hash": "dd2e301587c94963ae7972b505d0d586"
+  },
+  "05_WORKSPACE/reels-impar/norm/08_janela.mp4": {
+    "mtime": 1783015174.0,
+    "ast_hash": "9fcf1edc18c86eb0d2714d1d416310e5",
+    "semantic_hash": "9fcf1edc18c86eb0d2714d1d416310e5"
+  },
+  "05_WORKSPACE/reels-impar/norm/09_piscina.mp4": {
+    "mtime": 1783015200.0,
+    "ast_hash": "9c1ec35a39b02050535c82d3e63f7252",
+    "semantic_hash": "9c1ec35a39b02050535c82d3e63f7252"
+  },
+  "05_WORKSPACE/reels-impar/norm/10_cta.mp4": {
+    "mtime": 1783015236.0,
+    "ast_hash": "bbb966c40eeb9a573f39becd926abcda",
+    "semantic_hash": "bbb966c40eeb9a573f39becd926abcda"
+  },
+  "05_WORKSPACE/reels-impar/segA.wav": {
+    "mtime": 1783013943.0,
+    "ast_hash": "af797ffe18a00a8b2f66a2f6496a1489",
+    "semantic_hash": "af797ffe18a00a8b2f66a2f6496a1489"
+  },
+  "05_WORKSPACE/reels-impar/segC.wav": {
+    "mtime": 1783013944.0,
+    "ast_hash": "4c076fe1d6aa66ec7153c9b63d20a000",
+    "semantic_hash": "4c076fe1d6aa66ec7153c9b63d20a000"
+  },
+  "05_WORKSPACE/reels-impar/v_concat.mp4": {
+    "mtime": 1783015434.0,
+    "ast_hash": "ba766a7085e81e67b9d35505e503513a",
+    "semantic_hash": "ba766a7085e81e67b9d35505e503513a"
+  },
+  "05_WORKSPACE/reels-impar/voice_edit.wav": {
+    "mtime": 1783013948.0,
+    "ast_hash": "a7842c4cd5d4e7ca88864b204bd4911a",
+    "semantic_hash": "a7842c4cd5d4e7ca88864b204bd4911a"
+  },
+  "meu-video/public/input-video.mp4": {
+    "mtime": 1783007748.0,
+    "ast_hash": "759055d3e6518d420f2d0ae9e3d7a025",
+    "semantic_hash": "759055d3e6518d420f2d0ae9e3d7a025"
+  }
+}

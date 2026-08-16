@@ -1,0 +1,14 @@
+{
+  "alwaysUpdateLinks": true,
+  "newFileLocation": "current",
+  "attachmentFolderPath": "Assets",
+  "showUnsupportedFiles": false,
+  "useMarkdownLinks": false,
+  "newLinkFormat": "shortest",
+  "readableLineLength": true,
+  "strictLineBreaks": false,
+  "foldHeading": true,
+  "foldIndent": true,
+  "showLineNumber": false,
+  "vimMode": false
+}

@@ -1,0 +1,25 @@
+{
+  "critical_files": {
+    "VERSION": "141d2612a1a6dddb8f273cdf8089aac72d9a02d07d86009d858b8b2c87d6393e",
+    "registry.json": "54e9e053e044fc9875579dfef1e842b540e715784324078dd72193c2ecaf7ce0",
+    "graph.json": "23161fe23ca4e7b2373c9c607765bcb856dd3d6b455e73d6b27bd1c5cf1ca044",
+    "executor_whitelist.json": "40bec479f7d895d6458411dd93a00226cb433d796ea5815cfcd46eaf9749cf83",
+    "CHANGELOG.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "RELEASE_NOTES.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "audit_files": {
+    "EXECUTION_AUDIT.jsonl": "a932238973626ec91279bad7068caab354ec49dc2eb4dace659f84d52da22edb",
+    "LEGACY_AUDIT_BASELINE_V2.json": "a932238973626ec91279bad7068caab354ec49dc2eb4dace659f84d52da22edb"
+  },
+  "knowledge_files": {
+    "automations.json": "computed_on_freeze",
+    "launchagents.json": "computed_on_freeze",
+    "topology.json": "computed_on_freeze",
+    "dependencies.json": "computed_on_freeze",
+    "critical-files.json": "computed_on_freeze",
+    "risks.json": "computed_on_freeze",
+    "sources.json": "computed_on_freeze"
+  },
+  "timestamp": "2026-07-23T07:58:00Z",
+  "baseline_status": "Frozen for RC-1"
+}

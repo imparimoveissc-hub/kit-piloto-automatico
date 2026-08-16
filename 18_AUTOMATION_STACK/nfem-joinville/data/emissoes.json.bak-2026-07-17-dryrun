@@ -1,0 +1,549 @@
+{
+  "pay_SIMULACAO_001": {
+    "cliente": "ERIC RUBSON DA SILVA ROCHA",
+    "valor": 3610.46,
+    "data_pagamento": "2026-06-25",
+    "numero_nota": "DRY-001",
+    "caminho_pdf": "/tmp/teste.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-29T21:43:36.479546"
+  },
+  "pay_fyh7w0vay71r2v78": {
+    "cliente": "SIDNEI CIRILO DA SILVA",
+    "valor": 20.0,
+    "data_pagamento": "2026-06-10",
+    "numero_nota": "277",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-SIDNEI CIRILO DA SILVA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T09:09:41.185113"
+  },
+  "pay_i6jwqp6agmk0lpe8": {
+    "cliente": "SIDNEI CIRILO DA SILVA",
+    "valor": 355.0,
+    "data_pagamento": "2026-06-07",
+    "numero_nota": "278",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-SIDNEI CIRILO DA SILVA-1.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T09:55:50.858881"
+  },
+  "pay_q0aqnb3frbdk03jf": {
+    "cliente": "MILENA",
+    "valor": 385.0,
+    "data_pagamento": "2026-06-21",
+    "numero_nota": "279",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-MILENA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:09:55.782212"
+  },
+  "pay_0er2whsyiqsddx1c": {
+    "cliente": "RAFAEL - ROBERT E ROBERT",
+    "valor": 110.0,
+    "data_pagamento": "2026-06-17",
+    "numero_nota": "280",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-RAFAEL - ROBERT E ROBERT.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.892785"
+  },
+  "pay_71meo0nr21f8rmyb": {
+    "cliente": "LENNON FERNANDES",
+    "valor": 209.0,
+    "data_pagamento": "2026-06-15",
+    "numero_nota": "281",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-LENNON FERNANDES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.904341"
+  },
+  "pay_ibfttia8ekdj2ja4": {
+    "cliente": "GRASIELA DOS ANJOS,",
+    "valor": 300.0,
+    "data_pagamento": "2026-06-10",
+    "numero_nota": "282",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-GRASIELA DOS ANJOS.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.908428"
+  },
+  "pay_qgy2fdvqbqcgr33k": {
+    "cliente": "RAFAEL - ROBERT E ROBERT",
+    "valor": 150.0,
+    "data_pagamento": "2026-06-07",
+    "numero_nota": "283",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-RAFAEL - ROBERT E ROBERT-1.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.914213"
+  },
+  "pay_o5wkexrlqgz4vg7y": {
+    "cliente": "EDITH TEONILIA KOTSCHELLA",
+    "valor": 150.0,
+    "data_pagamento": "2026-06-06",
+    "numero_nota": "284",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-EDITH TEONILIA KOTSCHELLA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.921359"
+  },
+  "pay_dplaz1xvytjsvv94": {
+    "cliente": "JAISOM",
+    "valor": 115.0,
+    "data_pagamento": "2026-06-05",
+    "numero_nota": "285",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-JAISOM.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.925875"
+  },
+  "pay_roy1pbc5trc8pvfn": {
+    "cliente": "JÉSSICA LOUISE",
+    "valor": 110.0,
+    "data_pagamento": "2026-06-09",
+    "numero_nota": "286",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-JÉSSICA LOUISE.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.928482"
+  },
+  "pay_nw278it84ism8yra": {
+    "cliente": "MARIA APARECIDA GONÇALVES SANTOS",
+    "valor": 220.0,
+    "data_pagamento": "2026-06-03",
+    "numero_nota": "287",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-MARIA APARECIDA GONCALVES SANTOS.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.937458"
+  },
+  "pay_djp1hcoxfengzg0l": {
+    "cliente": "LUCIANA DA COSTA CIDRAL WIEMES",
+    "valor": 350.0,
+    "data_pagamento": "2026-06-10",
+    "numero_nota": "288",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-LUCIANA DA COSTA CIDRAL WIEMES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.942259"
+  },
+  "pay_c9z4rjb5e8s89pr2": {
+    "cliente": "LIDIA OLINDINA SANTOS TAVARES",
+    "valor": 150.0,
+    "data_pagamento": "2026-06-09",
+    "numero_nota": "289",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-LIDIA OLINDINA SANTOS TAVARES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.947506"
+  },
+  "pay_5tr3d0jnbm5rop59": {
+    "cliente": "NELSON RUDIGER",
+    "valor": 145.6,
+    "data_pagamento": "2026-06-10",
+    "numero_nota": "290",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-NELSON RUDIGER.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.958349"
+  },
+  "pay_zklqs65hprn3zy9l": {
+    "cliente": "RAFAEL - ROBERT E ROBERT",
+    "valor": 80.0,
+    "data_pagamento": "2026-06-05",
+    "numero_nota": "291",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-RAFAEL - ROBERT E ROBERT-2.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.963796"
+  },
+  "pay_ztaf47tpuif2gze5": {
+    "cliente": "ESTER ANTUNES PETRY",
+    "valor": 180.0,
+    "data_pagamento": "2026-06-18",
+    "numero_nota": "292",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-ESTER ANTUNES PETRY.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.973313"
+  },
+  "pay_8phcu7zguoe8w9kj": {
+    "cliente": "F.R FERNANDES",
+    "valor": 92.0,
+    "data_pagamento": "2026-06-07",
+    "numero_nota": "293",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-FR FERNANDES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.976083"
+  },
+  "pay_l7l7i532ljyr5trx": {
+    "cliente": "F.R FERNANDES",
+    "valor": 114.4,
+    "data_pagamento": "2026-06-07",
+    "numero_nota": "294",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-FR FERNANDES-1.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:18:59.979874"
+  },
+  "pay_9t29mwtsktwmr3un": {
+    "cliente": "F.R FERNANDES",
+    "valor": 100.0,
+    "data_pagamento": "2026-06-08",
+    "numero_nota": "295",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-FR FERNANDES-2.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:19:00.008392"
+  },
+  "pay_hecwo9j4li8pekbb": {
+    "cliente": "F.R FERNANDES",
+    "valor": 110.0,
+    "data_pagamento": "2026-06-08",
+    "numero_nota": "296",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-FR FERNANDES-3.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:19:00.022886"
+  },
+  "pay_zfb4urrzsc7xrm8b": {
+    "cliente": "F.R FERNANDES",
+    "valor": 135.2,
+    "data_pagamento": "2026-06-05",
+    "numero_nota": "297",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-FR FERNANDES-4.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:19:00.038381"
+  },
+  "pay_zrb489vx6yllwx0y": {
+    "cliente": "ELIEL ANTUNES",
+    "valor": 140.0,
+    "data_pagamento": "2026-06-03",
+    "numero_nota": "298",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-ELIEL ANTUNES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:19:00.044481"
+  },
+  "pay_k2n5vs3xrrq94j5m": {
+    "cliente": "ADELINA KÖPP MOTTA",
+    "valor": 160.0,
+    "data_pagamento": "2026-06-06",
+    "numero_nota": "299",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-ADELINA KÖPP MOTTA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T10:19:00.055672"
+  },
+  "pay_vql4buv4uwh9p2fw": {
+    "cliente": "ALEXANDRE DE OLIVEIRA",
+    "valor": 110.0,
+    "data_pagamento": "2026-06-08",
+    "numero_nota": "300",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-ALEXANDRE DE OLIVEIRA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T11:32:32.933977"
+  },
+  "pay_k0yffi67o1bdp9fl": {
+    "cliente": "JAIR PEREIRA",
+    "valor": 181.5,
+    "data_pagamento": "2026-06-10",
+    "numero_nota": "301",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-JAIR PEREIRA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T11:32:32.942753"
+  },
+  "pay_12lpsrgu1ia3zdpm": {
+    "cliente": "DANIEL KIRCHHOFF",
+    "valor": 300.0,
+    "data_pagamento": "2026-06-06",
+    "numero_nota": "302",
+    "caminho_pdf": "/Users/user/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/06-2026/06-2026-DANIEL KIRCHHOFF.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-06-30T11:32:32.946934"
+  },
+  "manual_20260711191649": {
+    "cliente": "25.027.928/0001-90 - CREDPAGO SERVICOS DE COBRANCA S/A",
+    "valor": 101.3,
+    "data_pagamento": "2026-07-11",
+    "numero_nota": "305",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-250279280001-90 - CREDPAGO SERVICOS DE COBRANCA SA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-11T19:17:12.846437"
+  },
+  "manual_20260711191824": {
+    "cliente": "25.027.928/0001-90 - CREDPAGO SERVICOS DE COBRANCA S/A",
+    "valor": 74.7,
+    "data_pagamento": "2026-07-11",
+    "numero_nota": "306",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-250279280001-90 - CREDPAGO SERVICOS DE COBRANCA SA-1.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-11T19:18:46.557078"
+  },
+  "manual_20260713123303": {
+    "cliente": "50.886.299/0001-00",
+    "valor": 20000.0,
+    "status": "erro",
+    "erro": "Tomador com CPF/CNPJ 50.886.299/0001-00 não está cadastrado no NF-em. Cadastre-o manualmente em Serviços > Configurações > Clientes (Emissão NF-em) antes de emitir a nota, ou complete o cadastro na aba 'Tomador' do formulário.",
+    "emitido_em": "2026-07-13T12:33:16.994542"
+  },
+  "manual_20260713123513": {
+    "cliente": "07.721.486/0001-04 - JTM ADMINISTRADORA DE BENS LTDA",
+    "valor": 20000.0,
+    "data_pagamento": "2026-07-13",
+    "numero_nota": "309",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-077214860001-04 - JTM ADMINISTRADORA DE BENS LTDA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-13T12:35:36.582018"
+  },
+  "pay_9t3t7r6pn0mrpluy": {
+    "cliente": "SIDNEI CIRILO DA SILVA",
+    "valor": 355.0,
+    "data_pagamento": "2026-07-10",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-SIDNEI CIRILO DA SILVA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.061454"
+  },
+  "pay_3eekonzr4yl37nzw": {
+    "cliente": "RAFAEL - ROBERT E ROBERT",
+    "valor": 110.0,
+    "data_pagamento": "2026-07-17",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-RAFAEL - ROBERT E ROBERT.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.063800"
+  },
+  "pay_xp1ulknwzybmpztn": {
+    "cliente": "LENNON FERNANDES",
+    "valor": 209.0,
+    "data_pagamento": "2026-07-13",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-LENNON FERNANDES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.064481"
+  },
+  "pay_3gn5ksksdjjsro56": {
+    "cliente": "GRASIELA DOS ANJOS,",
+    "valor": 300.0,
+    "data_pagamento": "2026-07-10",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-GRASIELA DOS ANJOS.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.065176"
+  },
+  "pay_ukq8ni9krihclm1x": {
+    "cliente": "ALEXANDRE DE OLIVEIRA",
+    "valor": 110.0,
+    "data_pagamento": "2026-07-07",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-ALEXANDRE DE OLIVEIRA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.066089"
+  },
+  "pay_s3xwj1dqbh2h9rgl": {
+    "cliente": "RAFAEL - ROBERT E ROBERT",
+    "valor": 150.0,
+    "data_pagamento": "2026-07-07",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-RAFAEL - ROBERT E ROBERT.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.066677"
+  },
+  "pay_5athldg65ohyfbmh": {
+    "cliente": "EDITH TEONILIA KOTSCHELLA",
+    "valor": 150.0,
+    "data_pagamento": "2026-07-10",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-EDITH TEONILIA KOTSCHELLA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.067454"
+  },
+  "pay_yb11jkg7tvb56p3p": {
+    "cliente": "JAISOM",
+    "valor": 115.0,
+    "data_pagamento": "2026-07-07",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-JAISOM.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.069637"
+  },
+  "pay_ig27ld41qxbofmek": {
+    "cliente": "MARIA APARECIDA GONÇALVES SANTOS",
+    "valor": 220.0,
+    "data_pagamento": "2026-07-03",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-MARIA APARECIDA GONCALVES SANTOS.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.074297"
+  },
+  "pay_vikngfknaf7uln5m": {
+    "cliente": "JÉSSICA LOUISE",
+    "valor": 110.0,
+    "data_pagamento": "2026-07-06",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-JÉSSICA LOUISE.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.075042"
+  },
+  "pay_8hx4zqio4dfqxj4h": {
+    "cliente": "LUCIANA DA COSTA CIDRAL WIEMES",
+    "valor": 350.0,
+    "data_pagamento": "2026-07-10",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-LUCIANA DA COSTA CIDRAL WIEMES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.075820"
+  },
+  "pay_9650qccjjhtiqjvo": {
+    "cliente": "LIDIA OLINDINA SANTOS TAVARES",
+    "valor": 150.0,
+    "data_pagamento": "2026-07-08",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-LIDIA OLINDINA SANTOS TAVARES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.076564"
+  },
+  "pay_yusql5cwqz2kil22": {
+    "cliente": "NELSON RUDIGER",
+    "valor": 145.6,
+    "data_pagamento": "2026-07-10",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-NELSON RUDIGER.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.077326"
+  },
+  "pay_b2tuy7sxi8my2tje": {
+    "cliente": "RAFAEL - ROBERT E ROBERT",
+    "valor": 80.0,
+    "data_pagamento": "2026-07-06",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-RAFAEL - ROBERT E ROBERT.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.077981"
+  },
+  "pay_vb7oq0hygx65v3au": {
+    "cliente": "F.R FERNANDES",
+    "valor": 92.0,
+    "data_pagamento": "2026-07-06",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-FR FERNANDES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.078724"
+  },
+  "pay_fj6c5h2jqv1s7qnr": {
+    "cliente": "F.R FERNANDES",
+    "valor": 114.4,
+    "data_pagamento": "2026-07-07",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-FR FERNANDES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.079443"
+  },
+  "pay_20xvfjh0s5c988hy": {
+    "cliente": "SIDNEI CIRILO DA SILVA",
+    "valor": 20.0,
+    "data_pagamento": "2026-07-10",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-SIDNEI CIRILO DA SILVA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.080468"
+  },
+  "pay_ltfpqh87ker2pasf": {
+    "cliente": "DANIEL KIRCHHOFF",
+    "valor": 300.0,
+    "data_pagamento": "2026-07-06",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-DANIEL KIRCHHOFF.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.081865"
+  },
+  "pay_zmglomr8o2196qbw": {
+    "cliente": "JAIR PEREIRA",
+    "valor": 181.5,
+    "data_pagamento": "2026-07-09",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-JAIR PEREIRA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.082740"
+  },
+  "pay_76huubhydnohnc9i": {
+    "cliente": "F.R FERNANDES",
+    "valor": 100.0,
+    "data_pagamento": "2026-07-08",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-FR FERNANDES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.083442"
+  },
+  "pay_i494hhw6vv29int5": {
+    "cliente": "F.R FERNANDES",
+    "valor": 110.0,
+    "data_pagamento": "2026-07-03",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-FR FERNANDES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.084260"
+  },
+  "pay_b985bu7rzz3dir1t": {
+    "cliente": "F.R FERNANDES",
+    "valor": 135.2,
+    "data_pagamento": "2026-07-10",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-FR FERNANDES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.086153"
+  },
+  "pay_p201d8cvfatz73kf": {
+    "cliente": "ELIEL ANTUNES",
+    "valor": 140.0,
+    "data_pagamento": "2026-07-02",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-ELIEL ANTUNES.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.087279"
+  },
+  "pay_y5vd5om7ej3rv2oz": {
+    "cliente": "ADELINA KÖPP MOTTA",
+    "valor": 160.0,
+    "data_pagamento": "2026-07-08",
+    "numero_nota": "DRY-RUN",
+    "caminho_pdf": "/Users/usuario/Desktop/backup Jonata/contabilidade Impar imóveis/notas fiscais/07-2026/07-2026-ADELINA KÖPP MOTTA.pdf",
+    "status": "sucesso",
+    "erro": null,
+    "emitido_em": "2026-07-17T16:13:35.088351"
+  }
+}

@@ -1,0 +1,8 @@
+1
+00:00:00,000 --> 00:00:02,500
+Coloque aqui a primeira frase do vídeo.
+
+2
+00:00:02,500 --> 00:00:05,000
+Esta legenda será queimada no vídeo final.
+

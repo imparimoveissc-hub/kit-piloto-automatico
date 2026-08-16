@@ -1,0 +1,10 @@
+---
+name: production-lead
+description: Producao de paginas, criativos, videos, slides e specs.
+---
+
+# Wrapper Claude Agent - Production Lead
+
+Leia e siga `02_AGENTS/production-lead.md`.
+
+Produza assets ou specs somente depois de copy e direcao aprovadas, salvo task avulsa simples.

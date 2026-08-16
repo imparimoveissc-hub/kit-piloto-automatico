@@ -1,0 +1,80 @@
+{
+  "stage": "3B.1",
+  "mode": "READ_ONLY",
+  "marketplace_readonly": true,
+  "allow_publish": false,
+  "allow_messages": false,
+  "allow_mutations": false,
+  "browser": {
+    "headless": false,
+    "timeout": 30000,
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    }
+  },
+  "guards": {
+    "block_http_methods": ["POST", "PUT", "PATCH", "DELETE"],
+    "allow_http_methods": ["GET", "HEAD", "OPTIONS"],
+    "block_keywords": [
+      "create",
+      "publish",
+      "submit",
+      "save",
+      "update",
+      "delete",
+      "renew",
+      "sold",
+      "message",
+      "send",
+      "mutation"
+    ],
+    "block_button_texts": [
+      "Publicar",
+      "Avançar",
+      "Salvar",
+      "Enviar",
+      "Renovar",
+      "Excluir",
+      "Editar",
+      "Marcar como vendido",
+      "Confirmar",
+      "Impulsionar anúncio"
+    ]
+  },
+  "selectors_to_find": {
+    "creation_link": {
+      "names": ["Criar classificado", "Vender", "Oferecer"],
+      "roles": ["link", "button"]
+    },
+    "ad_type_selector": {
+      "description": "Tipo de anúncio (Venda, Aluguel, etc)"
+    },
+    "title_field": {
+      "description": "Campo de título do anúncio"
+    },
+    "price_field": {
+      "description": "Campo de preço"
+    },
+    "category_selector": {
+      "description": "Seletor de categoria"
+    },
+    "description_field": {
+      "description": "Campo de descrição"
+    },
+    "image_upload": {
+      "description": "Campo de upload de imagens"
+    },
+    "publish_button": {
+      "names": ["Publicar", "Publish"],
+      "critical": true
+    }
+  },
+  "session": {
+    "use_existing_only": true,
+    "allow_login": false,
+    "allow_2fa": false,
+    "allow_captcha": false,
+    "allow_checkpoint": false
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "phase": "A",
+  "stage": "3B.2",
+  "property_code": "AP0206",
+  "evaluation_date": "2026-07-23T08:30:00Z",
+  "status": "PROPERTY_NOT_READY",
+  "reason": "Imóvel novo com dados incompletos e pendências críticas",
+  "property_type": "Apartamento na Planta (Pré-Lançamento)",
+  "development": {
+    "name": "Urban Orquídeas",
+    "location": "Pirabeiraba, Joinville, SC",
+    "completion_status": "99,85% construído",
+    "expected_delivery": "Janeiro/2026",
+    "source_url": "https://www.rogga.com.br/empreendimentos/joinville/urban-orquideas"
+  },
+  "publication_history": {
+    "ever_published_on_marketplace": false,
+    "status": "NEVER_PUBLISHED_CONFIRMED",
+    "evidence": "Imóvel não encontrado em listas de publicação do Marketplace ou logs locais"
+  },
+  "data_completeness": {
+    "código": "COMPLETE",
+    "empreendimento": "COMPLETE (Urban Orquídeas)",
+    "bairro": "COMPLETE (Pirabeiraba)",
+    "cidade": "COMPLETE (Joinville)",
+    "operacao": "CANNOT_DETERMINE (na planta - venda ou aluguel?)",
+    "preço": "MISSING (obrigatório - pendente confirmação MENOR valor SEM garagem)",
+    "dormitorios": "MISSING (obrigatório - dados indisponíveis na página pública)",
+    "suites": "MISSING (obrigatório - dados indisponíveis na página pública)",
+    "banheiros": "MISSING (obrigatório - dados indisponíveis na página pública)",
+    "vagas": "MISSING (não constam - dados indisponíveis na página pública)",
+    "area": "MISSING (obrigatório - dados indisponíveis na página pública)",
+    "fotos": "PARTIAL (13 de 15 válidas - 2 descartadas)"
+  },
+  "critical_blockers": [
+    {
+      "blocker": "VALOR_AUSENTE",
+      "severity": "CRITICAL",
+      "description": "Preço não consta no listing.json. Regra exige MENOR valor residencial SEM garagem",
+      "source": "Rogga.com.br (exige login para acessar tabela de vendas)",
+      "action_required": "Obter valor mínimo de unidade SEM garagem antes de publicar"
+    },
+    {
+      "blocker": "UNIDADES_SEM_DADOS",
+      "severity": "CRITICAL",
+      "description": "Dormitórios, suítes, banheiros, vagas e área não constam na página pública",
+      "source": "Urban Orquídeas página pública da Rogga",
+      "action_required": "Confirmar dados na tabela de unidades (exige login Rogga)"
+    },
+    {
+      "blocker": "CRM_CONFIRMACAO",
+      "severity": "HIGH",
+      "description": "Falta confirmar no CRM que a referência AP0206 está livre",
+      "source": "Sistema interno Impar",
+      "action_required": "Validar no CRM antes de proceder"
+    }
+  ],
+  "images": {
+    "total_found": 15,
+    "valid_count": 13,
+    "discarded_count": 2,
+    "discarded_reason": "foto_02 (selo GPTW), foto_13 (imagem branca)",
+    "location": "05_WORKSPACE/clientes/impar-imoveis/automacoes/cadastro-imoveis/fontes/AP0206/fotos/",
+    "need_verification": "Conferir as 13 imagens restantes"
+  },
+  "ready_for_marketplace_phase_b": false,
+  "facebook_access": "NOT_ATTEMPTED",
+  "rc1_status": "INTACT",
+  "can_proceed_without_fixing": [
+    "Obter VALOR mínimo de unidade SEM garagem",
+    "Confirmar ESPECIFICAÇÕES da unidade padrão (dorms, baths, area)",
+    "Validar no CRM que AP0206 está livre",
+    "Verificar todas as 13 imagens"
+  ]
+}

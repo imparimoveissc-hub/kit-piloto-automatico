@@ -1,0 +1,8 @@
+{
+  "name": "imobiliario-juridico",
+  "version": "1.0.0",
+  "description": "Revisa e gera contratos de locação (residencial e comercial) contra o playbook da imobiliária e a Lei 8.245/91, acompanha reajustes por índice e fins de vigência antes dos prazos, e traduz a revisão em um memorando que o corretor e o proprietário realmente leem.",
+  "author": {
+    "name": "KPA30"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "approval_id": "approval-3A7-1-20260723074516",
+  "timestamp_unix": 1784803516,
+  "timestamp_iso": "2026-07-23T10:45:16Z",
+  "valid_for_seconds": 60,
+  "expires_at_unix": 1784803576,
+  "service": "impar-update-current-state",
+  "plan_hash": "40bec479f7d895d6",
+  "single_use": true,
+  "consumed": true,
+  "authorization": "EXPLICIT USER AUTHORIZATION FOR DISASTER RECOVERY REVALIDATION ETAPA 3A7-1",
+  "whitelist_check": "PASS",
+  "service_in_whitelist": true,
+  "audit_chain_status": "PASS",
+  "negative_tests_status": "PASS (20/20)",
+  "fail_closed_status": "PASS"
+}

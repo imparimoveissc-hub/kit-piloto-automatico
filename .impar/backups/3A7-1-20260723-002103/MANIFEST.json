@@ -1,0 +1,40 @@
+{
+  "backup_id": "3A7-1",
+  "purpose": "Evidence of baseline violation in ETAPA 3A.7",
+  "captured_at": "2026-07-23T03:15:00Z",
+  "issue": "EXECUTION_AUDIT.jsonl grew from 1 to 2 lines after baseline creation",
+  "files": [
+    {
+      "name": "executor.sh",
+      "purpose": "Original executor that wrote to legacy audit",
+      "hash": "WILL_BE_CALCULATED"
+    },
+    {
+      "name": "audit-chain.sh",
+      "purpose": "Hash-chaining library created in 3A.6.1",
+      "hash": "WILL_BE_CALCULATED"
+    },
+    {
+      "name": "execute.sh",
+      "purpose": "Execute module that called executor",
+      "hash": "WILL_BE_CALCULATED"
+    },
+    {
+      "name": "verify-audit.sh",
+      "purpose": "Verify module — altered to accept baseline growth",
+      "hash": "WILL_BE_CALCULATED"
+    },
+    {
+      "name": "EXECUTION_AUDIT.jsonl",
+      "size": 270,
+      "lines": 2,
+      "sha256": "a932238973626ec91279bad7068caab354ec49dc2eb4dace659f84d52da22edb",
+      "violation": "Original had 135 bytes, 1 line. Now 270 bytes, 2 lines."
+    },
+    {
+      "name": "LEGACY_AUDIT_BASELINE.json",
+      "purpose": "Original baseline — now violated",
+      "sha256_baseline": "bc700e6251c6cc284ed34dc808f1999f07361e453470c733d88205c7e9b7a53b"
+    }
+  ]
+}

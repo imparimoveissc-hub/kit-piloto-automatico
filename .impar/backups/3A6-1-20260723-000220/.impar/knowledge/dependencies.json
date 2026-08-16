@@ -1,0 +1,156 @@
+{
+  "version": "1.0.0",
+  "type": "dependencies",
+  "generated": "2026-07-22T22:53:00Z",
+  "description": "Mapa de dependências entre automações e componentes",
+  "relations": [
+    {
+      "id": "rel_marketplace_messenger",
+      "source": "auto_marketplace",
+      "target": "auto_messenger",
+      "relation_type": "automation_uses_automation",
+      "description": "Marketplace publica → Messenger responde D1 automaticamente",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "bidirectional": true,
+      "criticality": "CRITICAL",
+      "evidence": ["CURRENT_STATE.md", "registry.json", "LaunchAgents"]
+    },
+    {
+      "id": "rel_marketplace_whatsapp",
+      "source": "auto_marketplace",
+      "target": "auto_whatsapp",
+      "relation_type": "automation_would_use_automation",
+      "description": "Marketplace poderia notificar leads via WhatsApp (atualmente offline)",
+      "confidence": "média",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "bidirectional": false,
+      "criticality": "MEDIUM",
+      "evidence": ["CLAUDE.md", "design docs"],
+      "status": "inactive_due_to_whatsapp_offline"
+    },
+    {
+      "id": "rel_leads_whatsapp",
+      "source": "auto_leads",
+      "target": "auto_whatsapp",
+      "relation_type": "automation_depends_on_integration",
+      "description": "Leads Chaves na Mão depende de WhatsApp Desktop para enviar D0",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "bidirectional": false,
+      "criticality": "CRITICAL",
+      "evidence": ["leads_automation.py", "checkpoint.json", "CURRENT_STATE.md"],
+      "risk_if_broken": "Leads não serão notificados — impacto alto em conversões"
+    },
+    {
+      "id": "rel_marketplace_rogga",
+      "source": "auto_marketplace",
+      "target": "auto_rogga",
+      "relation_type": "automation_reads_data_from",
+      "description": "Marketplace lê imóveis do Rogga (sincronizados)",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "bidirectional": false,
+      "criticality": "HIGH",
+      "evidence": ["generate_queue.py", "fila-postagens.csv"],
+      "risk_if_broken": "Fila de publicações desatualizada — publicações podem ser duplicadas ou obsoletas"
+    },
+    {
+      "id": "rel_marketplace_grupo_jm",
+      "source": "auto_marketplace",
+      "target": "auto_grupo_jm",
+      "relation_type": "automation_reads_data_from",
+      "description": "Marketplace lê imóveis do Grupo JM (sincronizados)",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "bidirectional": false,
+      "criticality": "HIGH",
+      "evidence": ["generate_queue.py"],
+      "risk_if_broken": "Imóveis do Grupo JM não são publicados"
+    },
+    {
+      "id": "rel_nfse_asaas",
+      "source": "auto_nfse",
+      "target": "integration_asaas",
+      "relation_type": "automation_reads_data_from",
+      "description": "NFS-e busca pagamentos no Asaas para emitir notas",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "bidirectional": false,
+      "criticality": "HIGH",
+      "evidence": ["nfem-joinville/README.md", "CLAUDE.md"],
+      "risk_if_broken": "Notas fiscais não são emitidas — impacto financeiro"
+    },
+    {
+      "id": "rel_marketplace_browser_pane",
+      "source": "auto_marketplace",
+      "target": "component_browser_pane",
+      "relation_type": "automation_depends_on_component",
+      "description": "Marketplace usa Browser Pane para Playwright + UI automation",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "bidirectional": false,
+      "criticality": "CRITICAL",
+      "evidence": ["main.py", "crosspost_groups_v2.py", "CURRENT_STATE.md"],
+      "risk_if_broken": "Marketplace para completamente — risco CRÍTICO"
+    },
+    {
+      "id": "rel_messenger_browser_pane",
+      "source": "auto_messenger",
+      "target": "component_browser_pane",
+      "relation_type": "automation_depends_on_component",
+      "description": "Messenger usa Browser Pane para UI automation",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "bidirectional": false,
+      "criticality": "CRITICAL",
+      "evidence": ["messenger_automation.py"],
+      "risk_if_broken": "Messenger para completamente"
+    },
+    {
+      "id": "rel_leads_outlook",
+      "source": "auto_leads",
+      "target": "integration_outlook",
+      "relation_type": "automation_reads_data_from",
+      "description": "Leads lê emails do Outlook via Composio MCP",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "bidirectional": false,
+      "criticality": "CRITICAL",
+      "evidence": ["leads_automation.py", "Composio MCP"],
+      "risk_if_broken": "Leads não são detectados"
+    },
+    {
+      "id": "rel_all_launchagents",
+      "source": "all_automations",
+      "target": "component_launchagents",
+      "relation_type": "automation_scheduled_by",
+      "description": "23 LaunchAgents gerenciam cadência de todas as automações",
+      "confidence": "alta",
+      "verified_at": "2026-07-22T22:40:00Z",
+      "bidirectional": false,
+      "criticality": "CRITICAL",
+      "evidence": ["~/Library/LaunchAgents/", "system logs"],
+      "risk_if_broken": "Nenhuma automação roda (sem scheduler)"
+    }
+  ],
+  "relation_count": 10,
+  "critical_relations": 5,
+  "broken_relations": 2,
+  "notes": {
+    "broken_relations_detail": [
+      {
+        "relation": "marketplace_whatsapp",
+        "reason": "WhatsApp está offline",
+        "impact": "Marketplace não pode notificar leads via WhatsApp atualmente",
+        "fixable": "Sim, reativando WhatsApp (requer autorização)"
+      },
+      {
+        "relation": "marketplace_broadcast_teams",
+        "reason": "Teams não está mapeada como automação",
+        "impact": "Não há notificação em Teams de publicações",
+        "status": "Não foi solicitado no escopo"
+      }
+    ]
+  }
+}

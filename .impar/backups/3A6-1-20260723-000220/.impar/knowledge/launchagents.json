@@ -1,0 +1,171 @@
+{
+  "version": "1.0.0",
+  "type": "launchagents",
+  "generated": "2026-07-22T22:53:00Z",
+  "description": "Mapa de LaunchAgents (macOS schedulers) para automa\u00e7\u00f5es",
+  "agents": [
+    {
+      "id": "la_com_impar_marketplace",
+      "bundle_id": "com.impar.marketplace",
+      "automation": "impar-facebook-marketplace-posting",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_crosspost",
+      "bundle_id": "com.impar.crosspost",
+      "automation": "impar-facebook-marketplace-posting",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_marketplace-restore-on-boot",
+      "bundle_id": "com.impar.marketplace-restore-on-boot",
+      "automation": "impar-facebook-marketplace-posting",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-inbox",
+      "bundle_id": "com.impar.messenger-inbox",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-inbox-5min",
+      "bundle_id": "com.impar.messenger-inbox-5min",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-varredura-auto",
+      "bundle_id": "com.impar.messenger-varredura-auto",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-desktop",
+      "bundle_id": "com.impar.messenger-desktop",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-bridge",
+      "bundle_id": "com.impar.messenger-bridge",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_messenger-bridge-health-check",
+      "bundle_id": "com.impar.messenger-bridge-health-check",
+      "automation": "impar-messenger-bridge",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_chaves-na-mao-checker",
+      "bundle_id": "com.impar.chaves-na-mao-checker",
+      "automation": "chaves-na-mao-lead-checker",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_chaves-na-mao-3leads-checker",
+      "bundle_id": "com.impar.chaves-na-mao-3leads-checker",
+      "automation": "chaves-na-mao-lead-checker",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_notificar-leads-planilha",
+      "bundle_id": "com.impar.notificar-leads-planilha",
+      "automation": "impar-notificar-leads",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_rogga-sync",
+      "bundle_id": "com.impar.rogga-sync",
+      "automation": "impar-atualizacao-rogga-imobibrasil",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_grupo-jm-sync",
+      "bundle_id": "com.impar.grupo-jm-sync",
+      "automation": "impar-atualizacao-grupo-jm-imobibrasil",
+      "status": "active",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_gerente-digital-whatsapp-startup_plist_disabled",
+      "bundle_id": "com.impar.gerente-digital-whatsapp-startup.plist.disabled",
+      "automation": "impar-whatsapp-bridge",
+      "status": "disabled",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_whatsapp-responder_plist_disabled",
+      "bundle_id": "com.impar.whatsapp-responder.plist.disabled",
+      "automation": "impar-whatsapp-bridge",
+      "status": "disabled",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    },
+    {
+      "id": "la_com_impar_whatsapp-startup-notifier_plist_disabled",
+      "bundle_id": "com.impar.whatsapp-startup-notifier.plist.disabled",
+      "automation": "impar-whatsapp-bridge",
+      "status": "disabled",
+      "verified_at": "2026-07-22T23:30:00Z",
+      "source_type": "estrutural",
+      "confidence": "alta"
+    }
+  ],
+  "launchagent_count": 17,
+  "active_count": 8,
+  "critical_count": 4,
+  "notes": {
+    "total_system_launchagents": 23,
+    "impar_count": 8,
+    "other_count": 15,
+    "managed_by_impar": 8,
+    "warning": "N\u00e3o alterar LaunchAgents sem autoriza\u00e7\u00e3o expl\u00edcita"
+  }
+}

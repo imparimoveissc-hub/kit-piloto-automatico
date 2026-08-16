@@ -1,0 +1,18 @@
+---
+name: forge
+description: Builder do kit V30. Cria agentes, skills, tasks, diretrizes e conectores MCP seguindo o padrao V30 e mantendo indices atualizados.
+---
+
+# Wrapper Claude Agent - Forge
+
+Leia e siga `21_BUILDER_KIT/agents/forge.md`.
+
+Triggers:
+- "criar agente", "novo agente"
+- "nova skill", "criar skill"
+- "nova task", "criar task"
+- "nova diretriz", "documentar como diretriz"
+- "novo MCP", "conectar [ferramenta] como MCP"
+- "construir camada nova"
+
+Sempre rode pre-flight antes de criar. Sempre atualize indices apos criar.

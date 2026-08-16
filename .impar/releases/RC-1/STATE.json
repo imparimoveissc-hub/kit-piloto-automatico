@@ -1,0 +1,40 @@
+{
+  "kernel_state": {
+    "version": "3.0.0",
+    "stage": "ETAPA 3A.8",
+    "classification": "Release Candidate",
+    "frozen": true,
+    "frozen_timestamp": "2026-07-23T11:15:16Z",
+    "frozen_unix": 1784805316
+  },
+  "automation_state": {
+    "marketplace_enabled": false,
+    "messenger_enabled": false,
+    "whatsapp_enabled": false,
+    "leads_automation_enabled": false,
+    "crm_enabled": false,
+    "nfs_enabled": false,
+    "launchagents_running": 0,
+    "whatsapp_status": "offline_intentional"
+  },
+  "security_state": {
+    "whitelist_restricted": true,
+    "whitelist_services": ["impar-update-current-state"],
+    "executor_signature": "hash_validated",
+    "audit_chain_integrity": "PASS",
+    "legacy_baseline_integrity": "PASS",
+    "approval_system_active": true,
+    "fail_closed_enabled": true
+  },
+  "validation_state": {
+    "verify_audit": "PASS",
+    "certify": "PASS",
+    "negative_tests": "20/20",
+    "fail_closed_test": "PASS",
+    "disaster_recovery_revalidation": "PASS",
+    "last_certification": "2026-07-23T07:52:55Z"
+  },
+  "ready_for_etapa_3b": false,
+  "requires_new_authorization": true,
+  "notes": "RC-1 is a frozen checkpoint. No modifications allowed without full recertification."
+}

@@ -1,0 +1,62 @@
+{
+  "name": "IMPAR-11-lead-router",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "impar-lead",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "impar11-wh",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "impar-lead-v1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.item.json.body || $input.item.json;\nconst ts = new Date().toISOString();\nconst lead = { name: body.name||'', phone: body.phone||'', email: body.email||'', source: body.source||'unknown', message: body.message||'' };\nconst agents = ['Jonata','Jaciel','Sidnei'];\nconst prj = process.env.HOME + '/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB';\nconst db = `${prj}/IMPAR_OS/database/impar.db`;\nconst { execSync } = require('child_process');\nlet counter = 0;\ntry { counter = parseInt(execSync(`sqlite3 \"${db}\" \"SELECT COALESCE(value,0) FROM system_state WHERE key='lead_counter';\"`, {timeout:3000}).toString().trim()) || 0; } catch(e) {}\nconst assigned = agents[counter % agents.length];\ncounter++;\ntry { execSync(`sqlite3 \"${db}\" \"INSERT OR REPLACE INTO system_state VALUES ('lead_counter','${counter}','${ts}');\"`, {timeout:3000}); } catch(e) {}\nreturn [{ json: { status: 'classified', ai_used: false, timestamp: ts, lead_name: lead.name, source: lead.source, assigned_to: assigned, production_send: false, note: 'DRY-RUN: mensagem NÃO enviada. Ative production_mode para enviar.' } }];"
+      },
+      "id": "impar11-route",
+      "name": "Lead Router",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Lead Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    },
+    {
+      "name": "leads"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs11Leads"
+}

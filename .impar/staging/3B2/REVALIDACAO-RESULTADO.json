@@ -1,0 +1,81 @@
+{
+  "phase": "A",
+  "stage": "3B.2",
+  "revalidation_date": "2026-07-23T08:25:00Z",
+  "property_code": "AP0205",
+  "status": "PROPERTY_PAYLOAD_REQUIRES_CORRECTION",
+  "authorization_decision": "NÃO AUTORIZAR FASE B",
+  "reason": "Coleta incompleta de taxas e galeria de imagens",
+  "issues": {
+    "fees_incomplete": {
+      "severity": "CRITICAL",
+      "description": "Taxas (condomínio, IPTU, adicionais) não foram validadas na página pública",
+      "expected_values": {
+        "condominium": "R$ 570,00",
+        "property_tax_iptu": "R$ 82,42",
+        "additional_fees": "R$ 47,55"
+      },
+      "current_status": "não_informado",
+      "action": "Revalidar cada valor na página pública antes de prosseguir"
+    },
+    "image_gallery_incomplete": {
+      "severity": "HIGH",
+      "description": "Apenas 1 imagem foi coletada. Investigação profunda da página HTML necessária",
+      "current_count": 1,
+      "investigation_methods": [
+        "Lazy-load e imagens carregadas após interação",
+        "Scripts JSON incorporados",
+        "Atributos data-src e srcset",
+        "Endpoints da galeria",
+        "Carrossel e thumbnails"
+      ],
+      "action": "Inspecionar completamente a página antes de validar contagem final"
+    },
+    "characteristics_unvalidated": {
+      "severity": "MEDIUM",
+      "description": "Características não foram revalidadas na página pública",
+      "items": [
+        "Nome do empreendimento (Morada Visconde)",
+        "Quantidade de salas",
+        "Ar-condicionado",
+        "Móveis planejados",
+        "Elevador",
+        "Piscina/salão de festas",
+        "Portaria"
+      ],
+      "action": "Verificar cada característica antes de gerar descrição final"
+    }
+  },
+  "next_steps": [
+    "1. Acessar https://www.imparimoveis.com/imovel/4283829/apartamento-locacao-joinville-sc-atiradores-morada-visconde",
+    "2. Investigar seção de taxas/valores (condomínio, IPTU, adicionais)",
+    "3. Inspecionar HTML completo para galeria de imagens",
+    "4. Validar cada característica listada na página",
+    "5. Atualizar property-payload.json com valores confirmados",
+    "6. Confirmar número total de imagens válidas",
+    "7. Regenerar descrição Marketplace com informações completas",
+    "8. Criar novo FASE-A-RESUMO.json com dados revalidados",
+    "9. Somente então apresentar resultado para aprovação"
+  ],
+  "approval_conditions": {
+    "ready_when": [
+      "✓ Todas as taxas confirmadas (condomínio, IPTU, adicionais)",
+      "✓ Galeria completa de imagens coletada e validada",
+      "✓ Todas as imagens comprovadamente pertencem a AP0205",
+      "✓ Características revalidadas na fonte pública",
+      "✓ Nenhum conflito essencial permanece",
+      "✓ Descrição Marketplace atualizada com informações completas"
+    ]
+  },
+  "files_updated": [
+    ".impar/staging/3B2/fees-audit.json (NOVO)",
+    ".impar/staging/3B2/image-gallery-audit.json (NOVO)",
+    ".impar/staging/3B2/REVALIDACAO-RESULTADO.json (NOVO)",
+    ".impar/staging/3B2/history/ (VERSIONAMENTO ATIVADO)"
+  ],
+  "previous_versions_archived": true,
+  "previous_archive_location": ".impar/staging/3B2/history/",
+  "cannot_proceed_to_phase_b": true,
+  "facebook_marketplace_access": "BLOCKED",
+  "reason_for_blocking": "Payload ainda não validado - coleta incompleta"
+}

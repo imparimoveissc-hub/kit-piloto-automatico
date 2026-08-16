@@ -1,0 +1,68 @@
+{
+  "name": "IMPAR-15-daily-report",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "impar15-trigger",
+      "name": "Trigger Diário 07h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { execSync } = require('child_process');\nconst prj = process.env.HOME + '/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB';\nconst db = `${prj}/IMPAR_OS/database/impar.db`;\nconst ts = new Date().toISOString();\nconst get = (q) => { try { return execSync(`sqlite3 \"${db}\" \"${q}\"`, {timeout:5000}).toString().trim(); } catch(e) { return '0'; } };\nconst today = new Date().toISOString().substring(0,10);\nconst exec_total = get(`SELECT COUNT(*) FROM executions WHERE timestamp LIKE '${today}%';`);\nconst exec_ok = get(`SELECT COUNT(*) FROM executions WHERE timestamp LIKE '${today}%' AND status='ok';`);\nconst errors = get(`SELECT COUNT(*) FROM errors WHERE timestamp LIKE '${today}%';`);\nconst ai_calls = get(`SELECT COUNT(*) FROM executions WHERE timestamp LIKE '${today}%' AND ai_used=1;`);\nconst tokens_saved = get(`SELECT COALESCE(SUM(tokens_saved),0) FROM token_savings WHERE date='${today}';`);\nconst report = { date: today, executions: { total: parseInt(exec_total), ok: parseInt(exec_ok) }, errors: parseInt(errors), ai_calls_today: parseInt(ai_calls), tokens_saved_today: parseInt(tokens_saved), ai_used: false, generated_at: ts };\nconst rpath = `${prj}/IMPAR_OS/reports/daily-${today}.json`;\ntry { require('fs').writeFileSync(rpath, JSON.stringify(report, null, 2)); } catch(e) {}\nreturn [{ json: report }];"
+      },
+      "id": "impar15-report",
+      "name": "Daily Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Trigger Diário 07h": {
+      "main": [
+        [
+          {
+            "node": "Daily Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "impar-os"
+    },
+    {
+      "name": "cron"
+    },
+    {
+      "name": "report"
+    }
+  ],
+  "pinData": {},
+  "id": "imparOs15Report"
+}

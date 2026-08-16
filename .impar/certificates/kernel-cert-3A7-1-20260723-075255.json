@@ -1,0 +1,30 @@
+{
+  "version": "3.0.0",
+  "stage": "ETAPA 3A.7.1",
+  "classification": "Certified Candidate",
+  "timestamp": "2026-07-23T10:52:55Z",
+  "revalidation": {
+    "phase": "Disaster Recovery Revalidation",
+    "status": "COMPLETE",
+    "execution_type": "controlled_single_service",
+    "service_executed": "impar-update-current-state",
+    "execution_exit_code": 0,
+    "rollback_executed": true,
+    "rollback_exit_code": 0,
+    "state_restored": true
+  },
+  "verifications": {
+    "negative_tests": "20/20 PASS",
+    "fail_closed": "PASS",
+    "verify_audit": "PASS",
+    "certify": "PASS",
+    "deterministic_hash": "PASS"
+  },
+  "protections": {
+    "legacy_audit_baseline": "UNTOUCHED (a932238973626ec91279bad7068caab354ec49dc2eb4dace659f84d52da22edb)",
+    "audit_chain": "VALID",
+    "whitelist": "RESTRICTED (impar-update-current-state only)",
+    "approval_single_use": "ENFORCED"
+  },
+  "certificate_file": ".impar/certificates/kernel-cert-3A7-1-20260723-075255.json"
+}

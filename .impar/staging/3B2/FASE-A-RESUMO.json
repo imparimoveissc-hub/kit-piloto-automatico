@@ -1,0 +1,71 @@
+{
+  "phase": "A",
+  "stage": "3B.2",
+  "execution_date": "2026-07-23T08:20:00Z",
+  "property_code": "AP0205",
+  "status": "PROPERTY_PAYLOAD_READY_FOR_APPROVAL",
+  "validations": {
+    "code_found": true,
+    "code_unique": true,
+    "url_confirmed": true,
+    "url_matches_code": true,
+    "availability_confirmed": true,
+    "internal_data_valid": true,
+    "public_data_valid": true,
+    "no_critical_conflicts": true,
+    "images_collected": true,
+    "payload_generated": true,
+    "comparison_generated": true
+  },
+  "property_summary": {
+    "code": "AP0205",
+    "url_public": "https://www.imparimoveis.com/imovel/4283829/apartamento-locacao-joinville-sc-atiradores-morada-visconde",
+    "status_internal": "Ativo (Inicial)",
+    "status_public": "Página acessível e ativa",
+    "availability_confirmed": true,
+    "operation": "Locação",
+    "title_original": "Apartamento para Locação, Joinville / SC, bairro Atiradores, 2 dormitórios, sendo 1 suíte, 2 banheiros, 1 vaga de garagem, mobiliado, área total 90,00 m², área construída 68,50 m², área útil 68,50 m²",
+    "title_marketplace": "Apartamento Mobiliado para Aluguel - Atiradores, Joinville | 2 Quartos, 1 Suíte | R$ 3.350",
+    "price": "R$ 3.350",
+    "city": "Joinville",
+    "state": "SC",
+    "neighborhood": "Atiradores",
+    "location_public": "Joinville, SC - Bairro Atiradores",
+    "bedrooms": 2,
+    "suites": 1,
+    "bathrooms": 2,
+    "parking_spaces": 1,
+    "area_total": "90,00 m²",
+    "area_private": "68,50 m²",
+    "area_built": "68,50 m²",
+    "furnished": true,
+    "condominium_fee": null,
+    "property_tax": null,
+    "additional_fees": "Nenhuma"
+  },
+  "images": {
+    "found": 1,
+    "valid": 1,
+    "duplicates_removed": 0,
+    "corrupted_removed": 0,
+    "directory": ".impar/staging/3B2/images/AP0205/"
+  },
+  "adaptations": {
+    "title": "Removidas repetições de localização, destacados recursos principais, ajustado para 117 caracteres",
+    "description": "Reorganizado com formatação e emojis, destacado informações principais, mantida precisão dos dados"
+  },
+  "conflicts": {
+    "total": 0,
+    "critical": 0,
+    "list": []
+  },
+  "missing_fields": [],
+  "artefacts_created": [
+    ".impar/staging/3B2/property-payload.json",
+    ".impar/staging/3B2/source-comparison.json",
+    ".impar/staging/3B2/FASE-A-RESUMO.json",
+    ".impar/staging/3B2/images/AP0205/"
+  ],
+  "next_step": "FASE B - Aguardando autorização explícita do usuário para preencher o Marketplace",
+  "authorization_required": "AUTORIZO O PREENCHIMENTO 3B.2 DO IMÓVEL AP0205"
+}

@@ -126,7 +126,7 @@ def wa_link(telefone):
         digits = '55' + digits
     return f"https://wa.me/{digits}"
 
-GRUPO_LEADS = "Novos leads"
+GRUPO_LEADS = "NOVOS LEADS"
 
 def notificar_jonata(nome, telefone, imovel, link_anuncio) -> bool:
     """Envia alerta via notificar_lead_whatsapp.py (método CGEvent validado + formato correto).

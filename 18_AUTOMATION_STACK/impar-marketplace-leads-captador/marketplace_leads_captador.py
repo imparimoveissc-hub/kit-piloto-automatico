@@ -2,7 +2,7 @@
 """
 marketplace_leads_captador.py
 Detecta novas conversas no Facebook Marketplace da Página Impar Imóveis,
-adiciona o lead ao CSV de follow-up e notifica o grupo "Novos leads" no WhatsApp nativo macOS.
+adiciona o lead ao CSV de follow-up e notifica o grupo "NOVOS LEADS" no WhatsApp nativo macOS.
 
 Custo: 0 tokens — usa osascript + lclick diretamente, sem chamar Claude.
 
@@ -32,7 +32,7 @@ LOG        = LOG_DIR / "marketplace-leads-captador.log"
 LCLICK     = STATE_DIR / "lclick"
 MSG_TMP    = Path("/tmp/wa_msg_utf8.txt")
 
-GRUPO      = "Novos leads"
+GRUPO      = "NOVOS LEADS"
 FB_VERSION = "v20.0"
 
 # ── Helpers básicos ────────────────────────────────────────────────────────────

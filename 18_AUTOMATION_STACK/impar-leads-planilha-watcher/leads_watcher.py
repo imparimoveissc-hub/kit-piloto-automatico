@@ -21,7 +21,7 @@ LOG_DIR = KIT_DIR / "07_LOGS"
 
 STATE = Path.home() / ".local/impar-automation/leads-planilha/ultimo-estado.json"
 LOG = LOG_DIR / "notificar-leads-planilha.log"
-GRUPO = "Novos leads"
+GRUPO = "NOVOS LEADS"
 
 
 def load_state() -> dict:

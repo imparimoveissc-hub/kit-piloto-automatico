@@ -21,7 +21,7 @@ GROUP_FILE = Path("/tmp/wa_followup_group.txt")
 MSG_FILE = Path("/tmp/wa_followup_msg.txt")
 RESULT_FILE = Path("/tmp/wa_followup_result.txt")
 LOG_FILE = Path("/tmp/wa_followup_sender.log")
-GRUPO = "FOLLOW UP IMPAR"
+GRUPO = "FOLLOW UP"
 
 LEADS_TESTE = {
     "Gustavo": {

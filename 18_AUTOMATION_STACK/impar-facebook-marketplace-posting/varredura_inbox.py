@@ -599,12 +599,7 @@ def analisar_com_regras(conv_text, nome, preview):
 
 def analisar_com_ia(conv_text, nome, preview):
     try:
-        import anthropic
-        api_key = os.environ.get("ANTHROPIC_API_KEY")
-        if not api_key:
-            return analisar_com_regras(conv_text, nome, preview)
-        client = anthropic.Anthropic(api_key=api_key)
-        system = (
+        prompt = (
             "Você é assistente de atendimento da Impar Imóveis. "
             "Analise a conversa do Facebook Messenger e retorne APENAS JSON válido.\n\n"
             "Regras:\n"
@@ -612,15 +607,19 @@ def analisar_com_ia(conv_text, nome, preview):
             "2. Última mensagem nossa + lead não respondeu depois → acao: SEM_ACAO.\n"
             "3. Lead respondeu sem telefone → acao: PEDIR_CONTATO.\n"
             "4. Sem resposta nova → acao: SEM_ACAO.\n\n"
-            "Formato: {\"acao\": \"CAPTUROU_CONTATO|PEDIR_CONTATO|SEM_ACAO\", \"telefone\": \"digitos ou null\"}"
+            f"Formato: {{\"acao\": \"CAPTUROU_CONTATO|PEDIR_CONTATO|SEM_ACAO\", \"telefone\": \"digitos ou null\"}}\n\n"
+            f"Lead: {nome}\nPreview: {preview}\n\n{conv_text[-3000:]}"
         )
-        resp = client.messages.create(
-            model="claude-opus-4-8",
-            max_tokens=256,
-            system=system,
-            messages=[{"role": "user", "content": f"Lead: {nome}\nPreview: {preview}\n\n{conv_text[-3000:]}"}],
+        result = subprocess.run(
+            ["claude", "-p", prompt],
+            capture_output=True, text=True, timeout=60,
         )
-        return json.loads(resp.content[0].text)
+        if result.returncode != 0:
+            return analisar_com_regras(conv_text, nome, preview)
+        raw = result.stdout.strip()
+        # extrai JSON mesmo se vier com texto ao redor
+        match = re.search(r'\{.*?\}', raw, re.DOTALL)
+        return json.loads(match.group()) if match else analisar_com_regras(conv_text, nome, preview)
     except Exception:
         return analisar_com_regras(conv_text, nome, preview)
 

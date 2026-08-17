@@ -38,39 +38,29 @@ set the clipboard to txt
         return False
     time.sleep(0.3)
 
-    # 2. Ativar WhatsApp com delay generoso (evita race com Claude Code)
-    activate_script = 'tell application "WhatsApp" to activate'
-    subprocess.run(["osascript", "-e", activate_script], capture_output=True, timeout=5)
-    time.sleep(2.5)  # espera suficiente para WhatsApp estar REALMENTE na frente
-
-    # 3. Clicar na caixa de busca (coordenadas relativas à janela no topo-esquerdo)
+    # 2. Cmd+F abre busca global, Cmd+A limpa, digita grupo, espera 3s
     open_script = f"""
+tell application "WhatsApp" to activate
+delay 1.5
 tell application "System Events" to tell process "WhatsApp"
-    click at {{245, 95}}
-    delay 0.6
+    set frontmost to true
+    key code 3 using {{command down}}
+    delay 0.8
     keystroke "a" using command down
     delay 0.3
     keystroke "{group_name}"
-    delay 3
+    delay 3.0
 end tell
 """
-    r = subprocess.run(["osascript", "-e", open_script], capture_output=True, text=True, timeout=20)
-    if r.returncode != 0:
-        log(f"ERRO busca: {r.stderr.strip()}")
-        return False
+    subprocess.run(["osascript", "-e", open_script], capture_output=True, text=True, timeout=20)
 
-    time.sleep(0.3)
-
-    # 4. CGEvent click no primeiro resultado da busca
+    # 3. CGEvent click no primeiro resultado (hardcoded: 245, 197)
     if not LCLICK.exists():
         log(f"ERRO: binário lclick não encontrado em {LCLICK}")
         return False
-    r = subprocess.run([str(LCLICK)], capture_output=True, timeout=5)
-    if r.returncode != 0:
-        log(f"ERRO CGEvent click: código {r.returncode}")
-        return False
+    subprocess.run([str(LCLICK)], capture_output=True, timeout=5)
 
-    # 5. Aguardar carregamento + re-ativar + limpar rascunho + colar + Enter
+    # 4. Aguardar carregamento + re-ativar + limpar rascunho + colar + Enter
     time.sleep(4)
     send_script = """
 tell application "WhatsApp" to activate

@@ -97,29 +97,24 @@ set the clipboard to txt
         return False
     time.sleep(0.3)
 
+    # Cmd+F abre busca global, Cmd+A limpa, digita grupo, espera 3s
     script_open = f'''
 tell application "WhatsApp" to activate
-delay 1.2
+delay 1.5
 tell application "System Events" to tell process "WhatsApp"
-    click at {{245, 95}}
-    delay 0.5
+    set frontmost to true
+    key code 3 using {{command down}}
+    delay 0.8
     keystroke "a" using command down
     delay 0.2
     keystroke "{GRUPO}"
-    delay 2.5
+    delay 3.0
 end tell
 '''
-    r = subprocess.run(['osascript', '-e', script_open], capture_output=True, text=True, timeout=20)
-    if r.returncode != 0:
-        log(f"ERROR abrir busca: {r.stderr.strip()}")
-        return False
+    subprocess.run(['osascript', '-e', script_open], capture_output=True, text=True, timeout=20)
 
-    time.sleep(0.3)
-    r = subprocess.run([str(LCLICK)], capture_output=True, timeout=5)
-    if r.returncode != 0:
-        log(f"ERROR CGEvent click: código {r.returncode}")
-        return False
-
+    # CGEvent click no primeiro resultado (hardcoded: 245, 197)
+    subprocess.run([str(LCLICK)], capture_output=True, timeout=5)
     time.sleep(4)
     script_send = '''
 tell application "WhatsApp" to activate

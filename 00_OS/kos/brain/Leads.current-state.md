@@ -9,4 +9,4 @@ chaves_na_mao: operacional com Composio ativo
 d0_arquitetura: WhatsApp nativo (utils/whatsapp_native.py) — sem bridge
 problema: csv_watcher não lê iCloud sem FDA (silencioso, não crasha)
 acao_pendente: conceder Full Disk Access a /usr/bin/python3 em System Settings → Privacy & Security
-ultima_mudanca: "grupo novos leads renomeado para NOVOS LEADS; follow-up redirecionado para grupo FOLLOW UP"
+ultima_mudanca: "rotina impar-atende-leads-dia: resumo de 24 leads ativos enviado ao Jonata via WhatsApp"

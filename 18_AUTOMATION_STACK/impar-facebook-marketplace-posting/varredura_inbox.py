@@ -3,18 +3,19 @@
 Varredura Messenger Marketplace v3 — Impar Imóveis.
 Correções: deduplicação por Y, press_sequentially para input, verificação de envio por screenshot.
 """
-import csv, json, os, re, shutil, subprocess, sys, time
+import csv, json, re, shutil, subprocess, sys, time
 from datetime import datetime
 from pathlib import Path
+from openai import OpenAI
 
-_PROFILE_LOCAL  = Path.home() / ".local/impar-automation/messenger/browser-profile"
-_PROFILE_ICLOUD = Path("/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/facebook-marketplace/browser-profile")
-PROFILE = _PROFILE_LOCAL if (_PROFILE_LOCAL / "Default").exists() else _PROFILE_ICLOUD
-CSV_PATH   = Path("/Users/user/.local/impar-automation/messenger/leads_marketplace_captura.csv")
-CSV_ICLOUD = Path("/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/facebook-marketplace/leads_marketplace_captura.csv")
-LOG_PATH   = Path("/Users/user/.local/impar-automation/messenger/messenger-rodadas.md")
+PROFILE    = Path("/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/facebook-marketplace/browser-profile")
+CSV_PATH   = Path("/Users/usuario/.local/impar-automation/messenger/leads_marketplace_captura.csv")
+CSV_ICLOUD = Path("/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/facebook-marketplace/leads_marketplace_captura.csv")
+LOG_PATH   = Path("/Users/usuario/.local/impar-automation/messenger/messenger-rodadas.md")
 JONATA_WA  = "554796876631"
 INBOX_URL  = "https://www.facebook.com/marketplace/inbox/"
+OPENAI_KEY = "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"
+OPENAI_MODEL = "gpt-4o-mini"
 PHONE_RE  = re.compile(
     r'(?:\+?55[\s.\-]?)?'        # +55 opcional
     r'(?:\(?\d{2}\)?[\s.\-]?)?'  # DDD opcional
@@ -22,23 +23,16 @@ PHONE_RE  = re.compile(
     r'\d{4}[\s.\-]?\d{4}'        # 8 dígitos principais
 )
 
-NOTIF_ICLOUD     = Path("/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/notificar_lead_whatsapp.py")
+NOTIF_ICLOUD     = Path("/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/notificar_lead_whatsapp.py")
 NOTIF_LOCAL      = Path.home() / ".local/impar-automation/messenger/notificar_lead_whatsapp.py"
-SELF_ICLOUD      = Path("/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py")
 NOTIFICADOS_PATH = Path.home() / ".local/impar-automation/messenger/notificados-varredura.json"
 
 def _sync_notif_script():
-    """Copia notificar_lead_whatsapp.py e varredura_inbox.py do kit → local se kit for mais novo."""
+    """Copia notificar_lead_whatsapp.py do iCloud → local se iCloud for mais novo."""
     try:
         if NOTIF_ICLOUD.exists():
             if not NOTIF_LOCAL.exists() or NOTIF_ICLOUD.stat().st_mtime > NOTIF_LOCAL.stat().st_mtime:
                 shutil.copy2(NOTIF_ICLOUD, NOTIF_LOCAL)
-    except Exception:
-        pass
-    try:
-        self_local = Path(__file__).resolve()
-        if SELF_ICLOUD.exists() and SELF_ICLOUD.stat().st_mtime > self_local.stat().st_mtime:
-            shutil.copy2(SELF_ICLOUD, self_local)
     except Exception:
         pass
 
@@ -126,11 +120,10 @@ def wa_link(telefone):
         digits = '55' + digits
     return f"https://wa.me/{digits}"
 
-GRUPO_LEADS = "NOVOS LEADS"
+GRUPO_LEADS = "Novos leads"
 
-def notificar_jonata(nome, telefone, imovel, link_anuncio) -> bool:
-    """Envia alerta via notificar_lead_whatsapp.py (método CGEvent validado + formato correto).
-    Retorna True somente se o envio ao WhatsApp foi confirmado (exit 0)."""
+def notificar_jonata(nome, telefone, imovel, link_anuncio):
+    """Envia alerta via notificar_lead_whatsapp.py (método CGEvent validado + formato correto)."""
     notif_script = Path.home() / ".local/impar-automation/messenger/notificar_lead_whatsapp.py"
     try:
         result = subprocess.run(
@@ -144,13 +137,10 @@ def notificar_jonata(nome, telefone, imovel, link_anuncio) -> bool:
         )
         if result.returncode == 0:
             print(f"    📱 Grupo '{GRUPO_LEADS}' notificado: {nome} / {telefone}")
-            return True
         else:
-            print(f"    ⚠ notificar_jonata: exit {result.returncode} — NÃO marcando como notificado")
-            return False
+            print(f"    ⚠ notificar_jonata: exit {result.returncode}")
     except Exception as e:
-        print(f"    ⚠ notificar_jonata: {e} — NÃO marcando como notificado")
-        return False
+        print(f"    ⚠ notificar_jonata: {e}")
 
 def update_log(stats, leads, status, ts):
     if status == "INBOX_VAZIA":
@@ -193,21 +183,9 @@ def get_unique_threads(page, messages_mode=False):
     UI_WORDS = {'mais', 'more', 'vendendo', 'comprando', 'marketplace', 'inbox',
                 'conversas', 'mensagens', 'filtros', 'all', 'todos', 'arquivadas',
                 'spam', 'solicitações', 'requests', 'bate-papo', 'chats',
-                'recarregar', 'reload', 'tentar novamente', 'tentar de novo',
-                # categorias da sidebar do marketplace
-                'suprimentos', 'venda', 'vestuário', 'grupos', 'eletrônicos',
-                'veículos', 'casa e jardim', 'itens', 'hobbies', 'brinquedos',
-                'esporte', 'jardim', 'ferramentas', 'roupas', 'calçados',
-                'moveis', 'móveis', 'livros', 'jogos', 'animais', 'pets',
-                'colecionáveis', 'instrumentos', 'beleza', 'saúde', 'bebês',
-                'artes', 'antiguidades', 'alimentos', 'serviços', 'alugueis',
-                'aluguel', 'propriedades', 'imóveis', 'imoveis',
-                # itens de navegação do sidebar do marketplace/inbox
-                'explorar', 'notificações', 'notificacoes', 'caixa', 'acesso',
-                'compra', 'locação', 'locacao', 'artigos', 'veículos', 'criar',
-                'conta', 'central', 'ajuda', 'configurações', 'configuracoes'}
+                'recarregar', 'reload', 'tentar novamente', 'tentar de novo'}
 
-    x_min = 60 if messages_mode else 60
+    x_min = 60 if messages_mode else 300
     x_max = 450 if messages_mode else 9999
 
     raw = page.evaluate(f"""
@@ -218,16 +196,7 @@ def get_unique_threads(page, messages_mode=False):
             const bb = el.getBoundingClientRect();
             if (bb.width < 200 || bb.height < 20 || bb.height > 120) return;
             if (bb.x < x_min || bb.x > x_max) return;
-            if (bb.y < 160 || bb.y > 850) return;  // exclui topo e categorias da sidebar abaixo do viewport
-            // Excluir links de navegação do Marketplace (não são conversas)
-            if (el.tagName === 'A') {{
-                const href = el.href || '';
-                const navPaths = ['/marketplace/notifications', '/marketplace/status',
-                    '/marketplace/you', '/marketplace/category', '/marketplace/search',
-                    '/marketplace/create', '/marketplace/help'];
-                if (navPaths.some(p => href.includes(p))) return;
-                if (/facebook\\.com\\/marketplace\\/?$/.test(href)) return;
-            }}
+            if (bb.y < 160) return;  // exclui botões de navegação do topo
             const txt = (el.innerText || '').trim();
             if (txt.length < 3 || txt.length > 500) return;
             const lines = txt.split('\\n').map(s => s.trim()).filter(Boolean);
@@ -252,9 +221,7 @@ def get_unique_threads(page, messages_mode=False):
             continue
         # Filtro: ignorar palavras da UI de navegação do Facebook
         nome_lower = t['nome'].lower()
-        nome_first = nome_lower.split()[0] if nome_lower else ''
-        if nome_lower in UI_WORDS or nome_first in UI_WORDS \
-                or nome_lower[:3] == 'voc' \
+        if nome_lower in UI_WORDS or nome_lower[:3] == 'voc' \
                 or nome_lower.startswith('recarreg') or nome_lower.startswith('reload') \
                 or nome_lower.startswith('tentar'):
             continue
@@ -337,52 +304,21 @@ def get_conv_text(page):
         except Exception: return ""
 
 def get_listing_url(page):
-    """Extrai link do anúncio da conversa — card acima + DOM completo + URL atual + scroll."""
-    pat = re.compile(r'marketplace/item/(\d+)')
-
-    def _eval(js):
-        try:
-            return page.evaluate(js)
-        except Exception:
-            return None
-
-    # 1. Card do anúncio visível acima da conversa
-    url = _eval("""
+    """Extrai link do anúncio da conversa — busca no log e no card de anúncio acima."""
+    url = page.evaluate("""
     () => {
         const pat = /marketplace\\/item\\/(\\d+)/;
-        for (const a of document.querySelectorAll('a[href*="/marketplace/item/"]')) {
+        // 1. Card do anúncio (fica fora do [role=log], acima da conversa)
+        const allLinks = [...document.querySelectorAll('a[href*="/marketplace/item/"]')];
+        for (const a of allLinks) {
             const m = (a.href || '').match(pat);
             if (m) return 'https://www.facebook.com/marketplace/item/' + m[1] + '/';
         }
-        return null;
-    }
-    """)
-    if url:
-        return url
-
-    # 2. URL atual já contém o item (quando FB navega para a thread do item)
-    cur = page.url or ''
-    m = pat.search(cur)
-    if m:
-        return f'https://www.facebook.com/marketplace/item/{m.group(1)}/'
-
-    # 3. Scroll para o topo da conversa e tentar de novo (card pode estar acima do scroll)
-    try:
-        page.evaluate("() => { const log = document.querySelector('[role=\"log\"]'); if (log) log.scrollTop = 0; window.scrollTo(0,0); }")
-        time.sleep(1.5)
-    except Exception:
-        pass
-    url = _eval("""
-    () => {
-        const pat = /marketplace\\/item\\/(\\d+)/;
-        for (const a of document.querySelectorAll('a[href]')) {
+        // 2. Fallback: qualquer href na página que contenha o padrão
+        for (const a of [...document.querySelectorAll('a[href]')]) {
             const m = (a.href || '').match(pat);
             if (m) return 'https://www.facebook.com/marketplace/item/' + m[1] + '/';
         }
-        // Fallback: varrer todo o innerHTML em busca do padrão
-        const html = document.body.innerHTML || '';
-        const fm = html.match(/marketplace\\/item\\/(\\d+)/);
-        if (fm) return 'https://www.facebook.com/marketplace/item/' + fm[1] + '/';
         return null;
     }
     """)
@@ -409,33 +345,8 @@ def get_conv_nome(page):
         return None
 
 def extract_imovel(text):
-    """Extrai título do imóvel do texto da conversa — card de anúncio ou palavras-chave."""
-    # 1. Padrão típico de título de anúncio: "Apartamento X quartos em Bairro"
-    title_pat = re.compile(
-        r'((?:Apartamento|Apto|Casa|Sobrado|Terreno|Sala|Galpão|Kitnet|Studio|Cobertura|Loft|Lote|Chácara|Sítio)'
-        r'[^\n\.!?]{5,80})',
-        re.IGNORECASE
-    )
-    m = title_pat.search(text)
-    if m:
-        titulo = m.group(1).strip()
-        if len(titulo) > 10:
-            return titulo[:120]
-
-    # 2. Fallback: primeira linha não-vazia que contém palavra de imóvel
-    tipos = ['Casa','Terreno','Comercial','Sala','Galpão','Kitnet','Studio','Sobrado',
-             'Cobertura','Loft','Lote','Chácara','Sítio','Apartamento','Apto']
-    for line in text.split('\n'):
-        line = line.strip()
-        if 5 < len(line) < 120:
-            for kw in tipos:
-                if kw.lower() in line.lower():
-                    return line
-
-    # 3. Última reserva: tipo genérico
-    for kw in tipos:
-        if kw.lower() in text.lower():
-            return kw
+    for kw in ['Casa','Terreno','Comercial','Sala','Galpão','Kitnet','Studio','Sobrado']:
+        if kw.lower() in text.lower(): return kw
     return 'Apartamento'
 
 def wait_for_conversation_open(page, timeout=15, base_url=None):
@@ -597,9 +508,12 @@ def analisar_com_regras(conv_text, nome, preview):
     return {"acao": "SEM_ACAO", "telefone": None}
 
 
+# Mantido como fallback caso OpenAI seja reativada no futuro
 def analisar_com_ia(conv_text, nome, preview):
     try:
-        prompt = (
+        from openai import OpenAI as _OAI
+        client = _OAI(api_key=OPENAI_KEY)
+        system = (
             "Você é assistente de atendimento da Impar Imóveis. "
             "Analise a conversa do Facebook Messenger e retorne APENAS JSON válido.\n\n"
             "Regras:\n"
@@ -607,19 +521,15 @@ def analisar_com_ia(conv_text, nome, preview):
             "2. Última mensagem nossa + lead não respondeu depois → acao: SEM_ACAO.\n"
             "3. Lead respondeu sem telefone → acao: PEDIR_CONTATO.\n"
             "4. Sem resposta nova → acao: SEM_ACAO.\n\n"
-            f"Formato: {{\"acao\": \"CAPTUROU_CONTATO|PEDIR_CONTATO|SEM_ACAO\", \"telefone\": \"digitos ou null\"}}\n\n"
-            f"Lead: {nome}\nPreview: {preview}\n\n{conv_text[-3000:]}"
+            "Formato: {\"acao\": \"CAPTUROU_CONTATO|PEDIR_CONTATO|SEM_ACAO\", \"telefone\": \"digitos ou null\"}"
         )
-        result = subprocess.run(
-            ["claude", "-p", prompt],
-            capture_output=True, text=True, timeout=60,
+        resp = client.chat.completions.create(
+            model=OPENAI_MODEL,
+            messages=[{"role": "system", "content": system},
+                      {"role": "user", "content": f"Lead: {nome}\nPreview: {preview}\n\n{conv_text[-3000:]}"}],
+            response_format={"type": "json_object"}, temperature=0
         )
-        if result.returncode != 0:
-            return analisar_com_regras(conv_text, nome, preview)
-        raw = result.stdout.strip()
-        # extrai JSON mesmo se vier com texto ao redor
-        match = re.search(r'\{.*?\}', raw, re.DOTALL)
-        return json.loads(match.group()) if match else analisar_com_regras(conv_text, nome, preview)
+        return json.loads(resp.choices[0].message.content)
     except Exception:
         return analisar_com_regras(conv_text, nome, preview)
 
@@ -857,12 +767,9 @@ def run():
                     if acao_ia == 'CAPTUROU_CONTATO' and telefone_ia:
                         if telefone_ia in known:
                             if telefone_ia not in notificados:
-                                ok = notificar_jonata(nome, telefone_ia, imovel, link or '')
-                                if ok:
-                                    mark_notified(notificados, telefone_ia)
-                                    print(f"    ↳ {telefone_ia} já no CSV — notificando grupo (1ª vez hoje)")
-                                else:
-                                    print(f"    ↳ {telefone_ia} já no CSV — falha no envio, será tentado novamente")
+                                notificar_jonata(nome, telefone_ia, imovel, link or '')
+                                mark_notified(notificados, telefone_ia)
+                                print(f"    ↳ {telefone_ia} já no CSV — notificando grupo (1ª vez hoje)")
                             else:
                                 print(f"    ↳ {telefone_ia} já no CSV e já notificado hoje — pulando")
                             stats['p'] += 1
@@ -875,9 +782,8 @@ def run():
                             known.add(telefone_ia)
                             leads.append({'nome': nome, 'telefone': telefone_ia, 'imovel': imovel})
                             stats['t'] += 1
-                            ok = notificar_jonata(nome, telefone_ia, imovel, link or '')
-                            if ok:
-                                mark_notified(notificados, telefone_ia)
+                            notificar_jonata(nome, telefone_ia, imovel, link or '')
+                            mark_notified(notificados, telefone_ia)
                     elif acao_ia == 'PEDIR_CONTATO':
                         resp = "Certo, vou atualizar essa informação e retorno.\nQual seu whatsapp para retorno ?"
                         sent = send_message(page, resp)
@@ -916,60 +822,10 @@ def run():
             }
             """)
             if in_browse_mode:
-                print(f"  ⚠ Browse mode detectado — navegando para inbox")
-                page.evaluate(f"window.location.replace('{INBOX_URL}')")
-                try:
-                    page.wait_for_load_state("domcontentloaded", timeout=20000)
-                except Exception:
-                    pass
-                time.sleep(6)
+                print(f"  ⚠ Browse mode detectado — reload para inbox")
+                page.reload(wait_until="domcontentloaded", timeout=20000)
+                time.sleep(5)
                 threads = get_unique_threads(page)
-                # Se ainda vazio após navegação → forçar fallback messages/
-                if not threads:
-                    print(f"  ⚠ Inbox ainda vazio após navegação — forçando fallback messages/")
-                    page.evaluate(f"window.location.replace('{MESSAGES_URL}')")
-                    try:
-                        page.wait_for_load_state("domcontentloaded", timeout=15000)
-                    except Exception:
-                        pass
-                    time.sleep(4)
-                    effective_base = MESSAGES_URL
-                    messages_mode = True
-                    try:
-                        page.wait_for_selector('a[href*="/messages/t/"], [role="row"]', timeout=8000)
-                    except Exception:
-                        pass
-                    time.sleep(2)
-                    raw_links = page.evaluate("""
-                    () => {
-                        const seen = new Set();
-                        const results = [];
-                        document.querySelectorAll('a[href]').forEach(a => {
-                            const href = a.href || '';
-                            if (!href.includes('/messages/t/') && !href.includes('/messages/e2ee/t/')) return;
-                            const bb = a.getBoundingClientRect();
-                            if (bb.x > 500 || bb.y < 150 || bb.width < 80) return;
-                            if (seen.has(href)) return;
-                            seen.add(href);
-                            const lines = (a.innerText || '').trim().split('\\n').filter(Boolean);
-                            results.push({
-                                text: lines[0] || 'Lead',
-                                preview: lines[lines.length - 1] || '',
-                                url: href,
-                                cx: bb.x + bb.width / 2,
-                                cy: bb.y + bb.height / 2,
-                                y: bb.y
-                            });
-                        });
-                        return results;
-                    }
-                    """)
-                    NOSSAS_FRASES_LOCAL = ["Certo, vou atualizar", "Obrigado, vamos entrar em contato",
-                                           "Qual seu whatsapp para retorno", "Recebi seu n",
-                                           "Vou verificar com o corretor"]
-                    threads = [t for t in raw_links
-                               if not any(p in t.get('preview', '') for p in NOSSAS_FRASES_LOCAL)]
-                    print(f"  Threads messages/ (fallback Browse): {len(threads)}")
 
         # Se inbox em estado de erro (Recarregar), clicar e tentar de novo
         if not threads:
@@ -1025,13 +881,10 @@ def run():
             stats['v'] += 1
 
             try:
-                # Navegar por URL direta (messages/ fallback) ou clicar via DOM
-                if messages_mode and thread.get('url'):
-                    page.goto(thread['url'], wait_until="domcontentloaded", timeout=20000)
-                else:
-                    clicked = click_thread(page, thread['text'])
-                    if not clicked:
-                        page.mouse.click(thread.get('cx', 700), thread.get('cy', thread['y']))
+                # Clicar via DOM (scrollIntoView + click) — evita problema de y fora do viewport
+                clicked = click_thread(page, thread['text'])
+                if not clicked:
+                    page.mouse.click(thread.get('cx', 700), thread.get('cy', thread['y']))
                 time.sleep(1.5)
 
                 # Aguardar input de mensagem aparecer (confirma que conversa abriu)
@@ -1139,12 +992,9 @@ def run():
                 if acao_ia == 'CAPTUROU_CONTATO' and telefone_ia:
                     if telefone_ia in known:
                         if telefone_ia not in notificados:
-                            ok = notificar_jonata(nome, telefone_ia, imovel, link)
-                            if ok:
-                                mark_notified(notificados, telefone_ia)
-                                print(f"    ↳ Telefone {telefone_ia} já no CSV — notificando grupo (1ª vez hoje)")
-                            else:
-                                print(f"    ↳ Telefone {telefone_ia} já no CSV — falha no envio, será tentado novamente")
+                            notificar_jonata(nome, telefone_ia, imovel, link)
+                            mark_notified(notificados, telefone_ia)
+                            print(f"    ↳ Telefone {telefone_ia} já no CSV — notificando grupo (1ª vez hoje)")
                         else:
                             print(f"    ↳ Telefone {telefone_ia} já no CSV e já notificado hoje — pulando")
                         stats['p'] += 1
@@ -1159,9 +1009,8 @@ def run():
                         known.add(telefone_ia)
                         leads.append({'nome': nome, 'telefone': telefone_ia, 'imovel': imovel})
                         stats['t'] += 1
-                        ok = notificar_jonata(nome, telefone_ia, imovel, link)
-                        if ok:
-                            mark_notified(notificados, telefone_ia)
+                        notificar_jonata(nome, telefone_ia, imovel, link)
+                        mark_notified(notificados, telefone_ia)
 
                 elif acao_ia == 'PEDIR_CONTATO':
                     resp = "Certo, vou atualizar essa informação e retorno.\nQual seu whatsapp para retorno ?"

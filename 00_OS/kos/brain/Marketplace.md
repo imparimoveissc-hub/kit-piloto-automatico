@@ -1,6 +1,6 @@
 ---
 module: Marketplace
-lastModified: 2026-07-26
+lastModified: 2026-08-16
 status: ativo
 ---
 
@@ -8,6 +8,32 @@ status: ativo
 
 Publicar imóveis da Impar Imóveis no Facebook Marketplace e em 96 grupos aprovados.
 Pipeline 100% automático: geração de fila → publicação diária → crosspost em grupos (3 turnos).
+
+---
+
+## Geração de conteúdo (tags, título, descrição)
+
+| Arquivo | Papel |
+|---------|-------|
+| `~/impar-marketplace-automacao/claude_enhance.py` | Gera título + descrição + 20 tags via Claude API (requer ANTHROPIC_API_KEY) |
+| `~/impar-marketplace-automacao/tag_generator.py` | Fallback local — gera 20 tags por regras sem API |
+| `~/impar-marketplace-automacao/enrich_fila.py` | Enriquece fila.json existente; roda após `build_fila.py` |
+| `~/impar-marketplace-automacao/.env` | Config: ANTHROPIC_API_KEY, CLAUDE_ENHANCE_MODEL, CLAUDE_ENHANCE_ENABLED |
+
+**Fluxo de geração:**
+```
+build_fila.py (coleta site) → claude_enhance.py (Claude API) → fila.json com tags+título+desc
+                                      ↓ se sem API key
+                              tag_generator.py (local, fallback)
+```
+
+**Para ativar Claude API:**
+Editar `~/impar-marketplace-automacao/.env` e descomentar `ANTHROPIC_API_KEY=sk-ant-...`
+
+**Para re-enriquecer a fila existente sem rebuild:**
+```bash
+cd ~/impar-marketplace-automacao && python3 enrich_fila.py
+```
 
 ---
 

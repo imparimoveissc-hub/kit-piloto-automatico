@@ -1,0 +1,261 @@
+# KOS Registry — Módulos e Automações Impar
+# Gerado: 2026-07-26 | Fase 2 do KOS
+#
+# Uso pelo Claude:
+#   1. Identifique o módulo neste arquivo
+#   2. Leia o campo `brain` → abra apenas esse Brain module
+#   3. Só abra código se o Brain não responder
+
+modules:
+
+  marketplace:
+    name: Marketplace Facebook
+    description: Publicação automática de imóveis no Facebook Marketplace + 96 grupos aprovados
+    status: ativo
+    criticidade: alta
+    brain: 00_OS/kos/brain/Marketplace.md
+    arquivos_principais:
+      - 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_groups_playwright.py
+      - 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py
+      - 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_group_queue.py
+      - 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/MECANICO-IMPAR-PROCEDIMENTOS.md
+    estado:
+      - ~/.local/impar-automation/marketplace/queue.json
+      - ~/.local/impar-automation/marketplace/checkpoint.json
+    logs:
+      - 07_LOGS/marketplace-reativador.log
+      - 07_LOGS/marketplace-publisher.log
+    launchagents:
+      - com.impar.marketplace-manha                # 8:30 diário (V30)
+      - com.impar.marketplace-tarde                # tarde diário (V30)
+      - com.impar.marketplace-noite                # noite diário (V30)
+      # DESATIVADO 2026-08-10: com.impar.crosspost (sistema externo impar-marketplace-automacao/ — duplicava turnos V30)
+    tasks_agendadas:
+      - id: impar-reativador-marketplace
+        mecanismo: MCP scheduled-tasks
+        frequencia: "a cada 2h (8h-20h)"
+        cron: "0 8-20/2 * * *"
+        enabled: true
+    config:
+      - 05_WORKSPACE/clientes/impar-imoveis/automacoes/facebook-marketplace/grupos-aprovados.csv
+    dependencias:
+      - playwright
+      - facebook_login_cookies
+    entradas:
+      - queue.json (fila gerada semanalmente pelo generate_queue.py)
+    saidas:
+      - Posts no Marketplace individual
+      - Posts nos 96 grupos aprovados
+    ultima_alteracao: 2026-08-19
+    problemas_conhecidos:
+      - Login Facebook expira periodicamente (checar cookies)
+      - Playwright pode quebrar após update do macOS ou do Facebook
+      - Grupos podem ser removidos da lista aprovada (manter CSV atualizado)
+
+  leads:
+    name: Leads — Chaves na Mão + Follow-up CSV
+    description: Pipeline de leads do portal Chaves na Mão (via N8n) + cadência D1-D30 via CSV
+    status: ativo
+    criticidade: alta
+    brain: 00_OS/kos/brain/Leads.md
+    arquivos_principais:
+      - ~/.local/impar-automation/chaves-na-mao/leads_automation.py
+      - ~/.local/impar-automation/leads-planilha/wa_pending_sender.py
+    estado:
+      - ~/.local/impar-automation/chaves-na-mao/checkpoint.json
+      - ~/.impar-n8n-core/state/pending-wa-leads.json
+    logs:
+      - ~/.local/impar-automation/chaves-na-mao/leads.log
+      - ~/.local/impar-automation/leads-planilha/wa-sent.log
+      - 07_LOGS/chaves-na-mao.log
+    launchagents:
+      - com.impar.wa-pending-sender                # D0 via fila N8n — a cada 2 min (zero tokens)
+      - com.impar.chaves-na-mao-checker            # verifica emails Chaves na Mão — a cada 15 min
+      - com.impar.chaves-na-mao-email-bridge       # bridge Outlook — a cada 10 min
+      - com.impar.chaves-na-mao-3leads-checker     # monitor leads ativos — a cada 15 min
+      # DESATIVADO 2026-08-10: leads-planilha-watcher (duplicava wa_pending_sender para Chaves na Mão)
+    tasks_agendadas:
+      - id: impar-followup-manha
+        mecanismo: MCP scheduled-tasks (cloud)
+        frequencia: "diário 8:30"
+        enabled: true
+        observacao: Cadência D1-D30 — única alternativa sem N8n para esta função
+    config:
+      - 05_WORKSPACE/clientes/impar-imoveis/whatsapp/leads-followup.csv
+    blocklist:
+      - 05_WORKSPACE/clientes/impar-imoveis/whatsapp/leads-followup.csv (coluna opt_out)
+    dependencias:
+      - N8n (fila pending-wa-leads.json) — para D0 via wa_pending_sender
+      - WhatsApp Desktop nativo macOS — para envio
+    entradas:
+      - Emails Chaves na Mão (via N8n → Outlook)
+      - CSV leads-followup.csv (D1-D30 pelo followup-manha)
+    saidas:
+      - Notificação D0 ao grupo "Novos leads" via wa_pending_sender (N8n)
+      - Links D1-D30 ao grupo "FOLLOW UP IMPAR" via impar-followup-manha
+    ultima_alteracao: 2026-08-18
+    problemas_conhecidos:
+      - Composio migrado para v3 em 2026-07-27 (rube.app estava morto — DNS NXDOMAIN)
+      - Novo server ID: a85fa137-a257-491d-a4b5-54d4ef5f8c82 | endpoint: backend.composio.dev/v3/mcp
+      - Deduplicação 24h via checkpoint.json evita envios duplicados
+
+  sistema:
+    name: Sistema — Gerente Digital + Saúde Horária
+    description: Monitoramento horário de todas as automações; alerta apenas quando há algo acionável
+    status: ativo
+    criticidade: media
+    brain: 00_OS/kos/brain/Sistema.md
+    arquivos_principais:
+      - ~/.claude/scheduled-tasks/impar-gerente-digital/SKILL.md
+    estado:
+      - 07_LOGS/gerente-digital-YYYY-MM-DD-HH.log
+      - 07_LOGS/manutencao-horaria.log
+    logs:
+      - 07_LOGS/gerente-digital-*.log
+      - 07_LOGS/manutencao-horaria.log
+    tasks_agendadas:
+      - id: impar-gerente-digital
+        mecanismo: MCP scheduled-tasks
+        frequencia: "8h–18h horário (minuto 13)"
+        cron: "13 8-18 * * *"
+        enabled: true
+      - id: impar-manutencao-horaria
+        mecanismo: MCP scheduled-tasks
+        frequencia: DESATIVADA
+        enabled: false
+        observacao: Lógica incorporada ao impar-gerente-digital
+    dependencias:
+      - Leitura de logs de todas as outras automações
+    entradas:
+      - Logs de marketplace, leads, messenger, nfse
+      - Estado do disco
+    saidas:
+      - Mensagem WhatsApp ao Jonata (apenas se CRÍTICO ou acionável)
+      - Log horário em 07_LOGS/
+    regras_envio:
+      - Enviar se disco > 90%
+      - Enviar se automação parada > 2h
+      - Enviar se erro crítico nos logs
+      - Enviar se lead de alto valor sem resposta
+      - NÃO enviar se tudo OK
+    ultima_alteracao: 2026-08-17
+    problemas_conhecidos:
+      - Nenhum crítico no momento
+
+  nfse:
+    name: NFS-e — Emissão de Notas Fiscais
+    description: Emissão automática (lote Asaas) e avulsa via Portal Nacional nfse.gov.br
+    status: ativo
+    criticidade: alta
+    brain: 00_OS/kos/brain/NFS-e.md
+    arquivos_principais:
+      - 18_AUTOMATION_STACK/nfem-joinville/
+      - 18_AUTOMATION_STACK/nfem-joinville/.env
+    skills:
+      - emitir-notas-fiscais    # lote automático Asaas
+      - emitir-nota-avulsa      # uma nota manual
+      - retirar-notas-fiscais   # download PDFs
+    parametros_fixos:
+      portal: https://www.nfse.gov.br/EmissorNacional
+      natureza: 107
+      item_aluguel: 1712
+      item_venda: 1005
+    dias_automaticos:
+      - 20
+      - 25
+      - 29
+      - 30
+    triggers_usuario:
+      - emitir notas
+      - notas pendentes
+      - rodar emissão
+      - NFS-e
+      - emitir nota avulsa
+      - emitir uma nota
+      - nota de aluguel avulsa
+    dependencias:
+      - Chrome com sessão ativa no Portal Nacional
+      - Asaas API (busca pagamentos confirmados)
+    entradas:
+      - Pagamentos confirmados no Asaas
+      - CNPJ/CPF + valor (para nota avulsa)
+    saidas:
+      - PDF da nota fiscal enviado no WhatsApp do Jonata
+      - Nota registrada no portal nfse.gov.br
+    ultima_alteracao: 2026-07-29
+    problemas_conhecidos:
+      - Captcha no portal exige sessão Chrome ativa
+      - Portal em manutenção → tentar em 1-2h
+      - CPF sem formatação no Asaas causa erro
+
+  contratos:
+    name: Contratos — Locação Imobiliária
+    description: Geração, revisão e acompanhamento de contratos de locação (Lei 8.245/91)
+    status: ativo
+    criticidade: alta
+    brain: 00_OS/kos/brain/Contratos.md
+    arquivos_principais:
+      - ~/.claude/plugins/config/kpa30/imobiliario-juridico/CLAUDE.md
+    skills:
+      - gerar-contrato-locacao
+    agentes:
+      - imobiliario-juridico:vigia-reajustes
+    tasks_agendadas:
+      - id: vigia-reajustes-semanal
+        mecanismo: agendamento manual / weekly
+        frequencia: semanal
+        enabled: true
+    dependencias:
+      - Plugin imobiliario-juridico
+      - Google Drive (armazenamento de contratos)
+    entradas:
+      - Dados do locatário, imóvel, valor, prazo, índice
+      - Contratos existentes para revisão
+    saidas:
+      - Contrato gerado em 06_OUTPUTS/
+      - Alertas de reajuste e vencimento
+    indices_suportados:
+      - IGPM
+      - IPCA
+      - INPC
+    ultima_alteracao: 2026-08-03
+    problemas_conhecidos:
+      - Vigia de reajustes depende de dados corretos no registro de contratos
+
+  followup:
+    name: Follow-up Leads — Cadência D1–D30
+    description: Cadência de mensagens WhatsApp para leads que não converteram (CSV de estado)
+    status: ativo
+    criticidade: media
+    brain: 00_OS/kos/brain/Leads.md
+    arquivos_principais:
+      - 05_WORKSPACE/clientes/impar-imoveis/whatsapp/leads-followup.csv
+      - ~/.local/impar-automation/leads-planilha/leads_watcher.py
+    estado:
+      - 05_WORKSPACE/clientes/impar-imoveis/whatsapp/leads-followup.csv
+      - ~/.local/impar-automation/leads-planilha/ultimo-estado.json
+    logs:
+      - ~/.local/impar-automation/leads-planilha/watcher.log
+    launchagents:
+      - com.impar.leads-planilha-watcher          # a cada 5 min
+    csv_colunas:
+      - nome
+      - telefone
+      - imovel_ref
+      - data_contato
+      - status         # ativo | encerrado
+      - opt_out        # sim | nao
+      - d1 / d3 / d7 / d14 / d30  # datas de envio de cada etapa
+    dependencias:
+      - WhatsApp Desktop nativo macOS
+      - claude CLI (/usr/local/bin/claude)
+    entradas:
+      - Nova linha no CSV leads-followup.csv
+    saidas:
+      - Mensagem WhatsApp ao lead (D0 imediato quando detectado)
+      - Notificação ao Jonata
+    ultima_alteracao: 2026-08-14
+    problemas_conhecidos:
+      - opt_out=sim impede envio (respeitar sempre)
+      - status=encerrado impede envio
+      - Watcher roda a cada 5 min; novo lead recebe mensagem em até 5 min

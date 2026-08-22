@@ -1,6 +1,6 @@
 ---
 modulo: leads
-atualizado: 2026-08-16
+atualizado: 2026-08-18
 ---
 status: ativo
 composio_mcp: OK — Outlook jonata_oliveira@outlook.com.br ATIVO (restaurado 2026-07-26)
@@ -9,4 +9,4 @@ chaves_na_mao: operacional com Composio ativo
 d0_arquitetura: WhatsApp nativo (utils/whatsapp_native.py) — sem bridge
 problema: csv_watcher não lê iCloud sem FDA (silencioso, não crasha)
 acao_pendente: conceder Full Disk Access a /usr/bin/python3 em System Settings → Privacy & Security
-ultima_mudanca: "rotina impar-atende-leads-dia: resumo de 24 leads ativos enviado ao Jonata via WhatsApp"
+ultima_mudanca: "corrige get_conv_nome: adiciona historico/faltando ao skipWords para nao capturar mensagem UI do Facebook como nome de lead"

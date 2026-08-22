@@ -192,24 +192,46 @@ def get_unique_threads(page, messages_mode=False):
     () => {{
         const x_min = {x_min}, x_max = {x_max};
         const byName = {{}};
-        document.querySelectorAll('div, a').forEach(el => {{
+        // Prioridade: links <a> com href de thread do marketplace/inbox
+        document.querySelectorAll('a[href*="/marketplace/inbox/"]').forEach(el => {{
             const bb = el.getBoundingClientRect();
-            if (bb.width < 200 || bb.height < 20 || bb.height > 120) return;
+            if (bb.width < 100 || bb.height < 20 || bb.height > 120) return;
             if (bb.x < x_min || bb.x > x_max) return;
-            if (bb.y < 160) return;  // exclui botões de navegação do topo
+            if (bb.y < 160) return;
             const txt = (el.innerText || '').trim();
             if (txt.length < 3 || txt.length > 500) return;
             const lines = txt.split('\\n').map(s => s.trim()).filter(Boolean);
             const nome = lines[0] || '';
             if (!nome || nome.length > 40 || nome.startsWith('·')) return;
+            const href = el.href || '';
             if (!byName[nome] || bb.y < byName[nome].y) {{
                 byName[nome] = {{
                     nome, lines, txt: txt.slice(0, 300),
                     cx: Math.round(bb.x + bb.width / 2),
                     cy: Math.round(bb.y + bb.height / 2),
-                    y: bb.y
+                    y: bb.y, url: href
                 }};
             }}
+        }});
+        // Fallback: qualquer div/a na área de threads
+        document.querySelectorAll('div, a').forEach(el => {{
+            const bb = el.getBoundingClientRect();
+            if (bb.width < 200 || bb.height < 20 || bb.height > 120) return;
+            if (bb.x < x_min || bb.x > x_max) return;
+            if (bb.y < 160) return;
+            const txt = (el.innerText || '').trim();
+            if (txt.length < 3 || txt.length > 500) return;
+            const lines = txt.split('\\n').map(s => s.trim()).filter(Boolean);
+            const nome = lines[0] || '';
+            if (!nome || nome.length > 40 || nome.startsWith('·')) return;
+            if (byName[nome]) return;  // já temos pelo link direto
+            const href = (el.tagName === 'A') ? (el.href || '') : '';
+            byName[nome] = {{
+                nome, lines, txt: txt.slice(0, 300),
+                cx: Math.round(bb.x + bb.width / 2),
+                cy: Math.round(bb.y + bb.height / 2),
+                y: bb.y, url: href
+            }};
         }});
         return Object.values(byName);
     }}
@@ -235,6 +257,7 @@ def get_unique_threads(page, messages_mode=False):
         if not is_our_reply:
             unique.append({'text': t['nome'], 'preview': preview,
                            'imovel_hint': t['txt'],
+                           'url': t.get('url', ''),
                            'cx': t['cx'], 'cy': t['cy'], 'y': t['cy']})
 
     return unique
@@ -329,8 +352,29 @@ def get_conv_nome(page):
     try:
         return page.evaluate("""
         () => {
-            const skipWords = ['marketplace', 'conversas', 'inbox', 'mensagens', 'messages', 'messenger', 'chats', 'explorar', 'escrever', 'write', 'compose'];
+            const skipWords = [
+                'marketplace', 'conversas', 'inbox', 'mensagens', 'messages',
+                'messenger', 'chats', 'explorar', 'escrever', 'write', 'compose',
+                'histórico', 'historico', 'faltando', 'notificações', 'notifications',
+                'selecione uma conversa', 'select a conversation',
+                'novas', 'nova', 'novas mensagens', 'new messages', 'new',
+                'solicitações', 'requests', 'spam', 'arquivadas', 'archived',
+                'filtros', 'filters', 'todos', 'all', 'bate-papo', 'pessoas',
+                'people', 'grupos', 'groups'
+            ];
+            // Prioridade: headings fora do sidebar esquerdo (x > 380px = área de conversa)
             const candidates = [...document.querySelectorAll('h1, h2, [role="heading"]')];
+            // Primeiro tenta heading na área de conversa (direita)
+            for (const el of candidates) {
+                const bb = el.getBoundingClientRect();
+                if (bb.x < 380) continue;  // ignora sidebar esquerdo
+                const txt = (el.innerText || '').trim();
+                const low = txt.toLowerCase();
+                if (txt && txt.length > 1 && txt.length < 60
+                    && !skipWords.some(w => low.includes(w)))
+                    return txt;
+            }
+            // Fallback: qualquer heading fora do skipWords
             for (const el of candidates) {
                 const txt = (el.innerText || '').trim();
                 const low = txt.toLowerCase();
@@ -452,6 +496,33 @@ def send_message(page, text):
         print(f"    ⚠ send_message erro: {e}")
         return False
 
+def dismiss_notifications_panel(page):
+    """
+    Fecha painel de Notificações do Facebook se estiver sobreposto ao inbox.
+    Sem isso, clicks nas threads abrem o painel em vez da conversa.
+    """
+    try:
+        # Verifica se painel de notificações está visível
+        has_notif = page.evaluate("""
+        () => {
+            const heads = [...document.querySelectorAll('h1, h2, [role="heading"]')];
+            return heads.some(el => {
+                const t = (el.innerText || '').trim().toLowerCase();
+                return t === 'notificações' || t === 'notifications';
+            });
+        }
+        """)
+        if has_notif:
+            page.keyboard.press('Escape')
+            time.sleep(0.5)
+            # Clicar numa área neutra (canto superior esquerdo da página, fora do inbox)
+            page.mouse.click(640, 60)
+            time.sleep(0.8)
+            page.keyboard.press('Escape')
+            time.sleep(0.5)
+    except Exception:
+        pass
+
 def is_thread_open(page):
     """Verifica se uma conversa está aberta (URL diferente do inbox)."""
     return '/marketplace/inbox/' in page.url and page.url != INBOX_URL
@@ -459,9 +530,14 @@ def is_thread_open(page):
 def is_marketplace_conv(page):
     """
     Guard obrigatório — verifica se a conversa aberta é do Marketplace.
+
+    ⛔ REGRA: este script responde SOMENTE conversas do Facebook Marketplace.
+    Conversas pessoais, de grupos, de páginas ou qualquer outra origem
+    devem ser IGNORADAS — nunca enviar mensagem nesses casos.
+
     Critério: presença de a[href*="/marketplace/item/"] OU URL com /marketplace/.
     Aguarda até 6s pelo link do item (carregamento assíncrono em messages/ mode).
-    Se retornar False → pular com stats['p'], NUNCA enviar.
+    Se retornar False → stats['p'] += 1, NUNCA enviar.
     """
     if '/marketplace/' in page.url:
         return True
@@ -727,17 +803,14 @@ def run():
                     if not nome:
                         nome = 'Interessado(a)'
 
-                    # Guard obrigatório: só processar se for conversa do Marketplace
-                    # Se viemos do indicador de marketplace no messages/, confiar no filtro de origem
-                    mp_ok = is_marketplace_conv(page)
-                    if not mp_ok and not via_marketplace_indicator:
-                        print(f"    ⏭ Não é Marketplace (is_marketplace=False) — pulando")
+                    # Guard obrigatório: só processar se for conversa do Marketplace.
+                    # Conversas pessoais são SEMPRE ignoradas — nunca enviar.
+                    if not is_marketplace_conv(page):
+                        print(f"    ⏭ CONVERSA PESSOAL — is_marketplace=False — ignorando (nunca envia aqui)")
                         stats['p'] += 1
                         page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
                         time.sleep(2)
                         continue
-                    if not mp_ok and via_marketplace_indicator:
-                        print(f"    ⚠ Link item não encontrado (via indicador marketplace — processando mesmo assim)")
 
                     conv_text = get_conv_text(page)
                     if len(conv_text.strip()) < 20:
@@ -766,12 +839,7 @@ def run():
 
                     if acao_ia == 'CAPTUROU_CONTATO' and telefone_ia:
                         if telefone_ia in known:
-                            if telefone_ia not in notificados:
-                                notificar_jonata(nome, telefone_ia, imovel, link or '')
-                                mark_notified(notificados, telefone_ia)
-                                print(f"    ↳ {telefone_ia} já no CSV — notificando grupo (1ª vez hoje)")
-                            else:
-                                print(f"    ↳ {telefone_ia} já no CSV e já notificado hoje — pulando")
+                            print(f"    ↳ {telefone_ia} já no CSV — pulando (lead já capturado)")
                             stats['p'] += 1
                         else:
                             sent = send_message(page, "Obrigado, vamos entrar em contato via whatsapp.")
@@ -881,10 +949,18 @@ def run():
             stats['v'] += 1
 
             try:
-                # Clicar via DOM (scrollIntoView + click) — evita problema de y fora do viewport
-                clicked = click_thread(page, thread['text'])
-                if not clicked:
-                    page.mouse.click(thread.get('cx', 700), thread.get('cy', thread['y']))
+                # Navegar direto pela URL se disponível (evita click interceptado por painel Notificações)
+                thread_url = thread.get('url', '')
+                _nav_patterns = ('/marketplace/inbox/', '/messages/t/', '/messages/e2ee/t/')
+                if thread_url and any(p in thread_url for p in _nav_patterns):
+                    print(f"    → navegando por URL direta")
+                    page.goto(thread_url, wait_until="domcontentloaded", timeout=20000)
+                else:
+                    # Fechar painel de Notificações e clicar
+                    dismiss_notifications_panel(page)
+                    clicked = click_thread(page, thread['text'])
+                    if not clicked:
+                        page.mouse.click(thread.get('cx', 700), thread.get('cy', thread['y']))
                 time.sleep(1.5)
 
                 # Aguardar input de mensagem aparecer (confirma que conversa abriu)
@@ -947,9 +1023,10 @@ def run():
                 if not nome:
                     nome = 'Interessado(a)'
 
-                # Guard obrigatório: só processar se for conversa do Marketplace
+                # Guard obrigatório: só processar se for conversa do Marketplace.
+                # Conversas pessoais são SEMPRE ignoradas — nunca envia mensagem aqui.
                 if not is_marketplace_conv(page):
-                    print(f"    ⏭ Não é Marketplace (is_marketplace=False) — pulando")
+                    print(f"    ⏭ CONVERSA PESSOAL — is_marketplace=False — ignorando (nunca envia aqui)")
                     stats['p'] += 1
                     page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
                     time.sleep(2)
@@ -991,12 +1068,7 @@ def run():
 
                 if acao_ia == 'CAPTUROU_CONTATO' and telefone_ia:
                     if telefone_ia in known:
-                        if telefone_ia not in notificados:
-                            notificar_jonata(nome, telefone_ia, imovel, link)
-                            mark_notified(notificados, telefone_ia)
-                            print(f"    ↳ Telefone {telefone_ia} já no CSV — notificando grupo (1ª vez hoje)")
-                        else:
-                            print(f"    ↳ Telefone {telefone_ia} já no CSV e já notificado hoje — pulando")
+                        print(f"    ↳ {telefone_ia} já no CSV — pulando (lead já capturado)")
                         stats['p'] += 1
                     else:
                         link = link or ''
@@ -1055,13 +1127,31 @@ def run():
 if __name__ == "__main__":
     import fcntl, os as _os
     LOCK_PATH = Path.home() / ".local/impar-automation/messenger/.varredura.lock"
+    LOCK_MAX_AGE = 900  # 15 min — mata processo travado automaticamente
     try:
         lock_fd = open(LOCK_PATH, 'w')
         fcntl.flock(lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except BlockingIOError:
-        print("⏳ Outra instância da varredura está rodando — saindo.")
-        sys.exit(0)
+        age = time.time() - LOCK_PATH.stat().st_mtime if LOCK_PATH.exists() else 0
+        if age > LOCK_MAX_AGE:
+            print(f"⚠ Lock preso há {age:.0f}s — matando processo travado e reiniciando...")
+            import signal as _sig
+            try:
+                pid = int(LOCK_PATH.read_text().strip()) if LOCK_PATH.read_text().strip().isdigit() else None
+                if pid:
+                    _os.kill(pid, _sig.SIGTERM)
+                    time.sleep(2)
+            except Exception:
+                pass
+            LOCK_PATH.unlink(missing_ok=True)
+            lock_fd = open(LOCK_PATH, 'w')
+            fcntl.flock(lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        else:
+            print(f"⏳ Outra instância rodando há {age:.0f}s — saindo.")
+            sys.exit(0)
 
+    lock_fd.write(str(_os.getpid()))
+    lock_fd.flush()
     _sync_notif_script()
     _sync_csv_from_icloud()
     ts = datetime.now().strftime('%Y-%m-%d %H:%M')

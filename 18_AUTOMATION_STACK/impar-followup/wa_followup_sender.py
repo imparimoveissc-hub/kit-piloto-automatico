@@ -60,8 +60,32 @@ end tell
         return False
     subprocess.run([str(LCLICK)], capture_output=True, timeout=5)
 
-    # 4. Aguardar carregamento + re-ativar + limpar rascunho + colar + Enter
+    # 3b. Verificar se a conversa aberta é realmente "Follow up" antes de enviar
     time.sleep(4)
+    verify_script = """
+tell application "System Events" to tell process "WhatsApp"
+    set wTitle to title of window 1
+    return wTitle
+end tell
+"""
+    rv = subprocess.run(["osascript", "-e", verify_script], capture_output=True, text=True, timeout=10)
+    if rv.returncode != 0:
+        log(f"ABORTADO: não foi possível verificar o título da conversa — {rv.stderr.strip()}")
+        RESULT_FILE.write_text("ABORTADO: falha ao verificar título da conversa", encoding="utf-8")
+        return False
+
+    active_title = rv.stdout.strip()
+    if "follow up" not in active_title.lower():
+        log(f"ABORTADO: conversa aberta não é 'Follow up'. Título detectado: '{active_title}'")
+        RESULT_FILE.write_text(
+            f"ABORTADO: conversa '{active_title}' não é 'Follow up'. Nada foi enviado.",
+            encoding="utf-8",
+        )
+        return False
+
+    log(f"Conversa verificada: '{active_title}' — prosseguindo com envio.")
+
+    # 4. Re-ativar + limpar rascunho + colar + Enter
     send_script = """
 tell application "WhatsApp" to activate
 delay 1

@@ -1,6 +1,6 @@
 ---
 modulo: sistema
-atualizado: 2026-08-17
+atualizado: 2026-08-20
 ---
 status: ativo
 gerente_digital: cron 13 * * * * (horário)
@@ -12,4 +12,4 @@ messenger_api: ativo (porta 9876, ok:true)
 disco: OK
 problema: nenhum
 acao_pendente: nenhuma
-ultima_mudanca: "marketplace-daily-publish.plist recriado e carregado — plist havia sumido, health-check falhava toda rodada"
+ultima_mudanca: "regra boot v2: bootup-restore atualizado com 26 agentes + WhatsApp autostart + sync iCloud"

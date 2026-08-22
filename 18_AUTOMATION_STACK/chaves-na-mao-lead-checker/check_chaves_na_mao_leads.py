@@ -1,26 +1,27 @@
 #!/usr/bin/env python3
 """
-Verificador de leads Chaves na Mão (cada 15 min, 24/7)
+Processador de leads Chaves na Mão
 
-Fluxo:
-1. Consulta emails Chaves na Mão (nospam@chavesnamao.com.br) desde o último timestamp
-2. Detecta leads novos (não processados ainda)
-3. Adiciona à planilha leads_marketplace_captura.csv (aba Chaves na Mão)
-4. Envia notificação para Impar (5547920026017) via WhatsApp Desktop do Jonata
-5. Registra timestamp do último email processado para próxima execução
+Arquitetura:
+  Claude (cron) → Outlook via Rube MCP → extrai leads → chama este script com JSON
+
+Uso:
+  python3 check_chaves_na_mao_leads.py --leads '[{"nome":"...","telefone":"...","ref":"...","received_at":"...","resumo":"..."}]'
+  python3 check_chaves_na_mao_leads.py --lead-json '{"nome":...}'   # lead único
 
 Saídas:
-- logs/chaves-na-mao-processed.json = registro de leads processados (para deduplicação)
-- logs/chaves-na-mao-check.log = log de execuções
+  logs/chaves-na-mao-processed.json  — deduplicação (24h por telefone)
+  logs/chaves-na-mao-check.log       — log de execuções
+  planilha leads_marketplace_captura.csv — linha adicionada por lead novo
 """
 
+import argparse
 import csv
 import json
 import os
 import re
 import subprocess
 import sys
-import urllib.parse
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -31,23 +32,20 @@ LOGS_DIR.mkdir(exist_ok=True)
 STATE_FILE = LOGS_DIR / "chaves-na-mao-processed.json"
 LOG_FILE = LOGS_DIR / "chaves-na-mao-check.log"
 
-# Caminho da planilha
 KIT_ROOT = Path(__file__).resolve().parent.parent.parent
 PLANILHA_CSV = (
     KIT_ROOT / "05_WORKSPACE" / "clientes" / "impar-imoveis" / "automacoes"
     / "facebook-marketplace" / "leads_marketplace_captura.csv"
 )
 
-# Script de notificação
 NOTIFY_SCRIPT = (
     BASE.parent / "impar-facebook-marketplace-posting" / "notificar_lead_whatsapp.py"
 )
 
-IMPAR_WHATSAPP_NUMBER = "5547920026017"
+CHECKPOINT_FILE = Path.home() / ".local" / "impar-automation" / "chaves-na-mao" / "checkpoint.json"
 
 
 def log(msg: str):
-    """Escreve no log."""
     ts = datetime.now(timezone.utc).isoformat()
     line = f"{ts} | {msg}"
     print(line)
@@ -55,8 +53,7 @@ def log(msg: str):
         f.write(line + "\n")
 
 
-def load_processed():
-    """Carrega registro de leads já processados."""
+def load_processed() -> dict:
     if not STATE_FILE.exists():
         return {}
     with open(STATE_FILE) as f:
@@ -64,13 +61,18 @@ def load_processed():
 
 
 def save_processed(data: dict):
-    """Salva registro de leads processados."""
     with open(STATE_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def normalize_phone_br(raw: str):
-    """Normaliza telefone para formato 55+DDD+numero."""
+def update_checkpoint():
+    CHECKPOINT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    data = {"alerted_leads_24h": {}, "last_checked": datetime.now(timezone.utc).isoformat()}
+    with open(CHECKPOINT_FILE, "w") as f:
+        json.dump(data, f)
+
+
+def normalize_phone_br(raw: str) -> str | None:
     d = re.sub(r"\D+", "", raw or "")
     if not d:
         return None
@@ -92,151 +94,123 @@ def normalize_phone_br(raw: str):
     return d
 
 
-def check_outlook_emails():
-    """Retorna lista de novos emails Chaves na Mão desde o último timestamp."""
-    # Nota: Em produção, isso usaria COMPOSIO ou API de Outlook
-    # Por enquanto, retorna vazio para trigger manual ou cron
-    # (Jonata fornecerá os dados via CLI ou webhook)
-    return []
+def is_duplicate(telefone_norm: str, received_at: str, processed: dict) -> bool:
+    key = f"{telefone_norm}_{received_at}"
+    return key in processed
 
 
-def extract_lead_data(html_body: str, subject: str) -> dict:
-    """Extrai dados de um email Chaves na Mão."""
-    text = re.sub('<[^<]+?>',' ', html_body or '')
-    text = re.sub(r'\s+', ' ', text)
-
-    nome = None
-    telefone = None
-    ref = None
-
-    # Extrair do subject (padrão: [LEAD] Tipo - Ref. XXXX | Nome)
-    if '|' in subject:
-        nome = subject.split('|')[-1].strip()
-    if 'Ref.' in subject or 'AP' in subject or 'GM' in subject or 'CS' in subject:
-        ref_match = re.search(r'(AP|GM|CS|SE|SL|VS|CR)\d{4}', subject)
-        if ref_match:
-            ref = ref_match.group()
-
-    # Extrair do corpo
-    for line in text.split(' '):
-        if 'Nome:' in line:
-            idx = text.find('Nome:')
-            nome_section = text[idx:idx+100]
-            match = re.search(r'Nome:\s*([A-Z][a-z\s]+)', nome_section)
-            if match:
-                nome = match.group(1).strip().split('\n')[0]
-
-        if 'Telefone:' in line:
-            tel_match = re.search(r'\(?\d{2}\)?\s?\d{4,5}-?\d{4}', text)
-            if tel_match:
-                telefone = normalize_phone_br(tel_match.group())
-
-    return {
-        'nome': nome,
-        'telefone': telefone,
-        'ref': ref,
-    }
-
-
-def add_to_planilha(nome: str, telefone: str, ref: str, resumo: str, data_contato: str):
-    """Adiciona lead à planilha de leads."""
+def add_to_planilha(nome: str, telefone: str, ref: str, resumo: str, data_contato: str) -> bool:
     if not PLANILHA_CSV.exists():
-        log(f"ERROR: Planilha não encontrada em {PLANILHA_CSV}")
+        log(f"ERRO: Planilha não encontrada em {PLANILHA_CSV}")
         return False
-
     try:
-        with open(PLANILHA_CSV, 'a', newline='', encoding='utf-8') as f:
+        with open(PLANILHA_CSV, "a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
-            writer.writerow([
-                nome,
-                telefone,
-                "Venda",
-                ref,
-                "[A PREENCHER]",
-                "Telefone Capturado",
-                data_contato,
-                "Chaves na Mão",
-                resumo
-            ])
+            writer.writerow([nome, telefone, "Venda", ref, "[A PREENCHER]",
+                             "Telefone Capturado", data_contato, "Chaves na Mão", resumo])
         log(f"✅ {nome} adicionado à planilha")
         return True
     except Exception as e:
-        log(f"ERROR ao adicionar {nome} à planilha: {e}")
+        log(f"ERRO ao adicionar {nome} à planilha: {e}")
         return False
 
 
-def send_notification(nome: str, telefone: str, ref: str, resumo: str):
-    """Envia notificação para Impar via WhatsApp."""
+def send_notification(nome: str, telefone: str, ref: str, resumo: str) -> bool:
+    if not NOTIFY_SCRIPT.exists():
+        log(f"AVISO: script de notificação não encontrado em {NOTIFY_SCRIPT}")
+        return False
     try:
-        cmd = [
-            sys.executable,
-            str(NOTIFY_SCRIPT),
-            "--nome", nome,
-            "--telefone", telefone,
-            "--resumo", resumo,
-            "--link-imovel", ref,
-            "--origem", "chaves_na_mao",
-        ]
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
-
+        result = subprocess.run(
+            [sys.executable, str(NOTIFY_SCRIPT),
+             "--nome", nome, "--telefone", telefone,
+             "--resumo", resumo, "--link-imovel", ref or "",
+             "--origem", "chaves_na_mao"],
+            capture_output=True, text=True, timeout=30
+        )
         if result.returncode == 0:
-            log(f"✅ WhatsApp enviado para Impar: {nome} ({telefone})")
+            log(f"✅ WhatsApp enviado: {nome} ({telefone})")
             return True
         else:
-            log(f"⚠️ WhatsApp falhou para {nome}: {result.stderr}")
+            log(f"⚠️ WhatsApp falhou para {nome}: {result.stderr.strip()}")
             return False
     except Exception as e:
-        log(f"ERROR ao enviar WhatsApp para {nome}: {e}")
+        log(f"ERRO ao enviar WhatsApp para {nome}: {e}")
         return False
 
 
-def process_new_lead(nome: str, telefone: str, ref: str, resumo: str, received_at: str):
-    """Processa um novo lead: adiciona à planilha e envia WhatsApp."""
-    if not nome or not telefone:
-        log(f"⚠️ Dados incompletos: {nome} / {telefone}")
+def process_lead(lead: dict, processed: dict) -> bool:
+    nome = (lead.get("nome") or "").strip()
+    telefone_raw = (lead.get("telefone") or "").strip()
+    ref = (lead.get("ref") or "").strip()
+    resumo = (lead.get("resumo") or "").strip()
+    received_at = lead.get("received_at") or datetime.now(timezone.utc).isoformat()
+
+    if not nome or not telefone_raw:
+        log(f"⚠️ Dados incompletos — nome='{nome}' tel='{telefone_raw}' — pulando")
         return False
 
-    telefone_norm = normalize_phone_br(telefone) if not telefone.startswith('55') else telefone
-    if not telefone_norm:
-        log(f"⚠️ Telefone inválido: {telefone}")
+    telefone = normalize_phone_br(telefone_raw)
+    if not telefone:
+        log(f"⚠️ Telefone inválido: {telefone_raw} — pulando {nome}")
         return False
 
-    # Marcar como processado ANTES de executar (para evitar duplicação em caso de falha)
-    processed = load_processed()
-    key = f"{telefone_norm}_{received_at}"
+    key = f"{telefone}_{received_at}"
     if key in processed:
-        log(f"ℹ️ {nome} já foi processado anteriormente")
+        log(f"ℹ️  {nome} ({telefone}) já processado — pulando")
         return False
 
-    # Adicionar à planilha
-    data_contato = received_at.split('T')[0]  # YYYY-MM-DD
-    if not add_to_planilha(nome, telefone_norm, ref, resumo, data_contato):
+    data_contato = received_at[:10]  # YYYY-MM-DD
+    if not add_to_planilha(nome, telefone, ref, resumo, data_contato):
         return False
 
-    # Enviar WhatsApp
-    if not send_notification(nome, telefone_norm, ref, resumo):
-        # Ainda marca como processado para não reenviar em loop
-        pass
+    send_notification(nome, telefone, ref, resumo)
 
-    # Marcar como processado
     processed[key] = {
-        'nome': nome,
-        'telefone': telefone_norm,
-        'ref': ref,
-        'processado_em': datetime.now(timezone.utc).isoformat(),
+        "nome": nome, "telefone": telefone, "ref": ref,
+        "processado_em": datetime.now(timezone.utc).isoformat(),
     }
-    save_processed(processed)
-
     return True
 
 
 def main():
-    """Verifica e processa novos leads Chaves na Mão."""
-    log("🔄 Iniciando verificação de emails Chaves na Mão...")
+    parser = argparse.ArgumentParser(description="Processador de leads Chaves na Mão")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--leads", help="JSON array de leads")
+    group.add_argument("--lead-json", help="JSON de um único lead")
+    parser.add_argument("--dry-run", action="store_true", help="Não grava nada, só loga")
+    args = parser.parse_args()
 
-    # Em produção: buscar emails via COMPOSIO
-    # Por agora, registra que a verificação rodou
-    log("✅ Verificação concluída (modo: nenhum email pendente detectado)")
+    log("🔄 Iniciando processamento de leads Chaves na Mão...")
+
+    if args.leads:
+        leads = json.loads(args.leads)
+    elif args.lead_json:
+        leads = [json.loads(args.lead_json)]
+    else:
+        log("ℹ️  Nenhum lead passado — encerrando (use --leads '[...]' com dados do Outlook via Rube MCP)")
+        update_checkpoint()
+        return
+
+    if not leads:
+        log("✅ Lista de leads vazia — nenhum novo lead")
+        update_checkpoint()
+        return
+
+    processed = load_processed()
+    novos = 0
+
+    for lead in leads:
+        if args.dry_run:
+            log(f"[DRY-RUN] lead: {lead}")
+            continue
+        if process_lead(lead, processed):
+            novos += 1
+
+    if not args.dry_run:
+        save_processed(processed)
+        update_checkpoint()
+
+    log(f"✅ Concluído — {novos} lead(s) novo(s) processado(s) de {len(leads)} recebido(s)")
 
 
 if __name__ == "__main__":

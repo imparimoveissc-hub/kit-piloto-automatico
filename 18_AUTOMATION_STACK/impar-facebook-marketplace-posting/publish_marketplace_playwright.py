@@ -154,6 +154,57 @@ def confirm_leave_dialog(page):
     return False
 
 
+def fill_tags(page, tags_raw: str) -> bool:
+    """Preenche o campo Tags do Marketplace digitando cada tag + Enter.
+
+    tags_raw: string de tags separadas por ponto e vírgula (output do content_generator).
+    Retorna True se pelo menos uma tag foi inserida, False se o campo não existir.
+    """
+    if not tags_raw:
+        return False
+
+    tags = [t.strip() for t in tags_raw.split(";") if t.strip()]
+    if not tags:
+        return False
+
+    # Localiza o campo de tags — o FB usa label "Tags" em pt-BR
+    field = None
+    for label_text in ("Tags", "tags", "Etiquetas"):
+        try:
+            containers = page.locator("label", has_text=label_text)
+            for i in range(containers.count()):
+                c = containers.nth(i)
+                if not c.is_visible():
+                    continue
+                inp = c.locator("input, textarea").first
+                if inp.count() >= 1:
+                    field = inp
+                    break
+            if field:
+                break
+        except Exception:
+            pass
+
+    if field is None:
+        print("[TAGS] Campo de tags não encontrado — pulando (campo pode não existir neste fluxo)")
+        return False
+
+    inserted = 0
+    for tag in tags:
+        try:
+            field.click(timeout=2000)
+            field.type(tag, delay=30)
+            page.keyboard.press("Enter")
+            page.wait_for_timeout(350)
+            inserted += 1
+        except Exception as e:
+            print(f"[TAGS] Erro ao inserir tag '{tag}': {e}")
+            break
+
+    print(f"[TAGS] {inserted}/{len(tags)} tags inseridas")
+    return inserted > 0
+
+
 def fill_location(page, city_text):
     """Preenche o autocomplete de localizacao (input dentro de label sem texto)."""
     try:
@@ -278,6 +329,8 @@ def fill_listing(page, listing):
         if fill_by_label(page, descricao_label, listing["descricao"]):
             break
 
+    fill_tags(page, listing.get("tags", ""))
+
 
 ITEM_CREATE_URL = "https://www.facebook.com/marketplace/create/item"
 
@@ -361,6 +414,8 @@ def fill_listing_item(page, listing):
     for descricao_label in ("Descrição", "Descricao"):
         if fill_by_label(page, descricao_label, listing["descricao"]):
             break
+
+    fill_tags(page, listing.get("tags", ""))
 
 
 def maybe_publish(page, publish):

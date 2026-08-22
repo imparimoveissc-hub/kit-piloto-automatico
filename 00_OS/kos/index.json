@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-19T07:10:49.961383",
+  "generated_at": "2026-08-22T07:18:05.448758",
   "kit_dir": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB",
   "stats": {
-    "functions": 370,
+    "functions": 371,
     "concepts": 110,
     "tasks": 25,
     "launchagents": 28
@@ -16,7 +16,7 @@
       },
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 542,
+        "line": 613,
         "module": "marketplace"
       },
       {
@@ -41,7 +41,7 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 542,
+        "line": 592,
         "module": "geral"
       }
     ],
@@ -413,6 +413,11 @@
         "module": "leads"
       },
       {
+        "file": "/Users/usuario/.local/impar-automation/followup/wa_followup_sender.py",
+        "line": 111,
+        "module": "leads"
+      },
+      {
         "file": "/Users/usuario/.local/impar-automation/followup/followup_diario.py",
         "line": 175,
         "module": "leads"
@@ -534,7 +539,7 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/notificar_lead_whatsapp.py",
-        "line": 110,
+        "line": 115,
         "module": "geral"
       },
       {
@@ -649,6 +654,11 @@
         "module": "leads"
       },
       {
+        "file": "/Users/usuario/.local/impar-automation/followup/wa_followup_sender.py",
+        "line": 22,
+        "module": "leads"
+      },
+      {
         "file": "/Users/usuario/.local/impar-automation/followup/followup_diario.py",
         "line": 43,
         "module": "leads"
@@ -751,6 +761,11 @@
       },
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-followup/wa_followup_sender.py",
+        "line": 26,
+        "module": "leads"
+      },
+      {
+        "file": "/Users/usuario/.local/impar-automation/followup/wa_followup_sender.py",
         "line": 26,
         "module": "leads"
       },
@@ -2187,7 +2202,7 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/notificar_lead_whatsapp.py",
-        "line": 71,
+        "line": 76,
         "module": "geral"
       },
       {
@@ -3103,7 +3118,7 @@
     "get_nome": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 242,
+        "line": 265,
         "module": "marketplace"
       },
       {
@@ -3118,14 +3133,14 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 242,
+        "line": 265,
         "module": "geral"
       }
     ],
     "click_thread": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 245,
+        "line": 268,
         "module": "marketplace"
       },
       {
@@ -3145,14 +3160,14 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 245,
+        "line": 268,
         "module": "geral"
       }
     ],
     "get_conv_text": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 292,
+        "line": 315,
         "module": "marketplace"
       },
       {
@@ -3177,14 +3192,14 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 292,
+        "line": 315,
         "module": "geral"
       }
     ],
     "get_listing_url": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 306,
+        "line": 329,
         "module": "marketplace"
       },
       {
@@ -3204,14 +3219,14 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 306,
+        "line": 329,
         "module": "geral"
       }
     ],
     "get_conv_nome": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 327,
+        "line": 350,
         "module": "marketplace"
       },
       {
@@ -3226,14 +3241,14 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 327,
+        "line": 350,
         "module": "geral"
       }
     ],
     "extract_imovel": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 347,
+        "line": 391,
         "module": "marketplace"
       },
       {
@@ -3258,14 +3273,14 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 347,
+        "line": 370,
         "module": "geral"
       }
     ],
     "wait_for_conversation_open": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 352,
+        "line": 396,
         "module": "marketplace"
       },
       {
@@ -3280,14 +3295,14 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 352,
+        "line": 375,
         "module": "geral"
       }
     ],
     "send_message": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 414,
+        "line": 458,
         "module": "marketplace"
       },
       {
@@ -3312,14 +3327,26 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 414,
+        "line": 437,
+        "module": "geral"
+      }
+    ],
+    "dismiss_notifications_panel": [
+      {
+        "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
+        "line": 499,
+        "module": "marketplace"
+      },
+      {
+        "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
+        "line": 478,
         "module": "geral"
       }
     ],
     "is_thread_open": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 455,
+        "line": 526,
         "module": "marketplace"
       },
       {
@@ -3334,14 +3361,14 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 455,
+        "line": 505,
         "module": "geral"
       }
     ],
     "is_marketplace_conv": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 459,
+        "line": 530,
         "module": "marketplace"
       },
       {
@@ -3356,14 +3383,14 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 459,
+        "line": 509,
         "module": "geral"
       }
     ],
     "analisar_com_regras": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 487,
+        "line": 558,
         "module": "marketplace"
       },
       {
@@ -3378,14 +3405,14 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 487,
+        "line": 537,
         "module": "geral"
       }
     ],
     "analisar_com_ia": [
       {
         "file": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/varredura_inbox.py",
-        "line": 517,
+        "line": 588,
         "module": "marketplace"
       },
       {
@@ -3405,7 +3432,7 @@
       },
       {
         "file": "/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py",
-        "line": 517,
+        "line": 567,
         "module": "geral"
       }
     ],

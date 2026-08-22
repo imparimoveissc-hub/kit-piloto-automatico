@@ -14,6 +14,29 @@ Sempre opere em pt-BR. Siga `00_OS/kos/token-policy.md` em TODA task — sem exc
 
 Credenciais NFS-e: `18_AUTOMATION_STACK/nfem-joinville/.env`. Portal: https://www.nfse.gov.br/EmissorNacional
 
+## ✅ Regra Boot/Restart (ordem 2026-08-20)
+
+Ao detectar que o Mac reiniciou, hibernou, ou a rede reconectou → o sistema restaura tudo automaticamente via `com.impar.bootup-restore` → `~/.local/impar-automation/bootup-restore-automation.sh`.
+
+**O script garante:**
+1. Todos os 26 LaunchAgents `com.impar.*` recarregados via `launchctl bootstrap`
+2. WhatsApp Desktop aberto (pré-requisito para qualquer notificação)
+3. Claude Desktop aberto
+4. CRM verificado em `http://127.0.0.1:8890/` (retry 3×)
+5. Scripts críticos sincronizados iCloud → local (`varredura_inbox.py`, `notificar_lead_whatsapp.py`, `wa_followup_sender.py`)
+
+**Se algo falhar no boot → verificar:**
+```
+tail -50 ~/Library/Logs/impar-bootup-restore.log
+```
+
+**Para atualizar a lista de agentes ou scripts sincronizados:**
+Editar `~/.local/impar-automation/bootup-restore-automation.sh` (arrays `AGENTS` e `SYNC_PAIRS`).
+
+**Nunca** criar LaunchAgent novo sem adicionar ao array `AGENTS` do bootup-restore.
+
+---
+
 ## ⛔ Regra Messenger Marketplace (ordem 2026-08-09)
 
 `varredura_inbox.py` deve processar e enviar mensagens SOMENTE para conversas do Facebook Marketplace.

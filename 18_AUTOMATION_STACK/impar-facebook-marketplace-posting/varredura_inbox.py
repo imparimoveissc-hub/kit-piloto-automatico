@@ -8,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from openai import OpenAI
 
-PROFILE    = Path("/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/facebook-marketplace/browser-profile")
+PROFILE    = Path("/Users/usuario/.local/impar-automation/messenger/browser-profile")
 CSV_PATH   = Path("/Users/usuario/.local/impar-automation/messenger/leads_marketplace_captura.csv")
 CSV_ICLOUD = Path("/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/automacoes/facebook-marketplace/leads_marketplace_captura.csv")
 LOG_PATH   = Path("/Users/usuario/.local/impar-automation/messenger/messenger-rodadas.md")
@@ -120,7 +120,7 @@ def wa_link(telefone):
         digits = '55' + digits
     return f"https://wa.me/{digits}"
 
-GRUPO_LEADS = "Novos leads"
+GRUPO_LEADS = "NOVOS LEADS"
 
 def notificar_jonata(nome, telefone, imovel, link_anuncio):
     """Envia alerta via notificar_lead_whatsapp.py (método CGEvent validado + formato correto)."""
@@ -535,7 +535,9 @@ def is_marketplace_conv(page):
     Conversas pessoais, de grupos, de páginas ou qualquer outra origem
     devem ser IGNORADAS — nunca enviar mensagem nesses casos.
 
-    Critério: presença de a[href*="/marketplace/item/"] OU URL com /marketplace/.
+    Critério: presença de a[href*="/marketplace/item/"] na ÁREA DE CONVERSA (x>350)
+    OU URL com /marketplace/. O sidebar esquerdo (~x<350) também contém links de
+    anúncios de outras conversas — ignorá-lo evita falso-positivo em conversas pessoais.
     Aguarda até 6s pelo link do item (carregamento assíncrono em messages/ mode).
     Se retornar False → stats['p'] += 1, NUNCA enviar.
     """
@@ -544,14 +546,21 @@ def is_marketplace_conv(page):
     # Aguardar carregamento assíncrono do link do item (comum em messages/ mode)
     try:
         page.wait_for_selector('a[href*="/marketplace/item/"]', timeout=6000)
-        return True
     except Exception:
-        pass
-    # Verificação DOM como último recurso
+        return False
+    # Confirmar que o link está na ÁREA DE CONVERSA (x>350, y>80).
+    # O sidebar esquerdo exibe links de anúncios de outras conversas — não indica
+    # que a conversa ATUAL é do marketplace. Conversas pessoais não têm card de anúncio.
     try:
-        return bool(page.evaluate(
-            "() => document.querySelector('a[href*=\"/marketplace/item/\"]') !== null"
-        ))
+        return bool(page.evaluate("""
+        () => {
+            const links = [...document.querySelectorAll('a[href*="/marketplace/item/"]')];
+            return links.some(a => {
+                const bb = a.getBoundingClientRect();
+                return bb.width > 0 && bb.x > 350 && bb.y > 80;
+            });
+        }
+        """))
     except Exception:
         return False
 
@@ -630,7 +639,7 @@ def run():
         page = ctx.new_page()
 
         print(f"→ Acessando inbox ({ts})...")
-        page.goto(INBOX_URL, wait_until="domcontentloaded", timeout=25000)
+        page.goto(INBOX_URL, wait_until="domcontentloaded", timeout=60000)
 
         # Verificar login
         try:
@@ -825,7 +834,8 @@ def run():
                     if link:
                         print(f"    🔗 Link: {link}")
                     else:
-                        print(f"    ⚠ Link do anúncio não encontrado")
+                        link = turl.get('url') or (page.url if page.url != effective_base else '')
+                        print(f"    ⚠ Link do anúncio não encontrado — usando URL da conversa: {link}")
                     imovel = extract_imovel(conv_text)
 
                     resultado_ia = analisar_com_regras(conv_text, nome, turl.get('preview', ''))
@@ -1037,6 +1047,10 @@ def run():
                 if not link:
                     time.sleep(2)
                     link = get_listing_url(page)
+                if not link:
+                    _thread_url = thread.get('url', '')
+                    link = _thread_url or (page.url if '/marketplace/item/' not in page.url and page.url != effective_base else '')
+                    print(f"    ⚠ Link do anúncio não encontrado — usando URL da conversa: {link}")
                 imovel = extract_imovel(conv_text) if not link else (
                     'Sala Comercial' if 'sala' in (link + conv_text).lower()
                     else ('Casa' if 'casa' in (link + conv_text).lower()

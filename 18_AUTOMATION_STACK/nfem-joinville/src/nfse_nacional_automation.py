@@ -48,8 +48,11 @@ from src.config import (
     CODIGO_SERVICO,
     ITEM_LISTA_SERVICO,
     ALIQUOTA_ISS,
+    ALIQUOTA_SIMPLES,
     MUNICIPIO_INCIDENCIA,
     ISS_RETIDO,
+    NBS_CORRETAGEM_SEGUROS,
+    nbs_para_aluguel,
 )
 
 TIMEOUT = 30_000  # 30s
@@ -159,6 +162,11 @@ class NfseNacionalAutomation:
                 el = self._page.locator(selector).first
                 if await el.count() == 0:
                     continue
+                readonly = await el.evaluate(
+                    "(element) => element.hasAttribute('readonly') || element.disabled"
+                )
+                if readonly:
+                    continue
                 await self._preencher(selector, valor, limpar=limpar, timeout=10_000)
                 return True
             except Exception:
@@ -261,6 +269,109 @@ class NfseNacionalAutomation:
         except Exception:
             return False
 
+    async def _definir_select_direto(self, selector: str, valor: str, texto: str) -> bool:
+        """Define selects AJAX/chosen/select2 criando a opção quando necessário."""
+        try:
+            return bool(
+                await self._page.evaluate(
+                    """
+                    ({ selector, value, text }) => {
+                      const el = document.querySelector(selector);
+                      if (!el) return false;
+                      el.disabled = false;
+                      el.removeAttribute("readonly");
+                      if (el.tagName === "SELECT") {
+                        let option = Array.from(el.options || []).find((opt) => opt.value === value);
+                        if (!option) {
+                          option = new Option(text, value, true, true);
+                          el.add(option);
+                        }
+                        option.selected = true;
+                      } else {
+                        el.value = value;
+                      }
+                      el.value = value;
+                      el.dispatchEvent(new Event("input", { bubbles: true }));
+                      el.dispatchEvent(new Event("change", { bubbles: true }));
+                      el.dispatchEvent(new Event("blur", { bubbles: true }));
+                      if (window.jQuery) {
+                        const $el = window.jQuery(el);
+                        $el.trigger("change");
+                        $el.trigger("chosen:updated");
+                        $el.trigger("change.select2");
+                      }
+                      return true;
+                    }
+                    """,
+                    {"selector": selector, "value": valor, "text": texto},
+                )
+            )
+        except Exception:
+            return False
+
+    async def _selecionar_select2(self, selector: str, termo: str) -> bool:
+        """Seleciona um Select2 usando a busca do próprio Portal."""
+        try:
+            campo = self._page.locator(selector).first
+            if await campo.count() == 0:
+                return False
+            await campo.wait_for(state="attached", timeout=TIMEOUT)
+            await campo.evaluate(
+                """
+                (element) => {
+                  element.disabled = false;
+                  if (window.jQuery) {
+                    window.jQuery(element).select2("open");
+                  } else {
+                    element.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+                  }
+                }
+                """
+            )
+            busca = self._page.locator(
+                "input.select2-search__field, input[role='searchbox'], .select2-search input"
+            ).last
+            await busca.fill(termo, timeout=10_000)
+            await asyncio.sleep(1)
+
+            primeira_opcao = self._page.locator(".select2-results__option").first
+            if await primeira_opcao.count() > 0:
+                await primeira_opcao.click(timeout=10_000)
+            else:
+                await self._page.keyboard.press("Enter")
+
+            await asyncio.sleep(1)
+            return True
+        except Exception as e:
+            log.debug("Não consegui selecionar %s via Select2: %s", selector, e)
+            return False
+
+    async def _marcar_radio(self, name: str, valor: str) -> bool:
+        """Marca um radio mesmo quando o Portal o renderiza com estilos customizados."""
+        try:
+            return bool(
+                await self._page.evaluate(
+                    """
+                    ({ name, value }) => {
+                      const radios = Array.from(document.querySelectorAll(
+                        `input[type="radio"][name="${name}"]`
+                      ));
+                      const alvo = radios.find((radio) => radio.value === value);
+                      if (!alvo) return false;
+                      alvo.disabled = false;
+                      alvo.checked = true;
+                      alvo.click();
+                      alvo.dispatchEvent(new Event("input", { bubbles: true }));
+                      alvo.dispatchEvent(new Event("change", { bubbles: true }));
+                      return true;
+                    }
+                    """,
+                    {"name": name, "value": valor},
+                )
+            )
+        except Exception:
+            return False
+
     async def _clicar_por_rotulo(self, rotulo: str) -> bool:
         """Clica no primeiro elemento visível cujo texto coincida com o rótulo."""
         try:
@@ -292,6 +403,78 @@ class NfseNacionalAutomation:
                     rotulo,
                 )
             )
+        except Exception:
+            return False
+
+    async def _selecionar_dropdown_por_rotulo(self, rotulo: str, termo: str) -> bool:
+        """Seleciona opção em dropdown/select2 localizado pelo rótulo visível."""
+        try:
+            abriu = bool(
+                await self._page.evaluate(
+                    """
+                    (labelText, searchText) => {
+                      const norm = (text) => (text || "")
+                        .replace(/\\s+/g, " ")
+                        .trim()
+                        .toLowerCase();
+                      const alvo = norm(labelText);
+                      const termo = norm(searchText);
+                      const labels = Array.from(document.querySelectorAll(
+                        'label, span, div, p, strong, h1, h2, h3, legend'
+                      ));
+
+                      for (const label of labels) {
+                        if (!label.isConnected || !label.getClientRects().length) continue;
+                        if (!norm(label.textContent).includes(alvo)) continue;
+
+                        let node = label;
+                        for (let depth = 0; depth < 7 && node; depth += 1, node = node.parentElement) {
+                          const select = node.querySelector("select");
+                          if (select) {
+                            const options = Array.from(select.options || []);
+                            const option = options.find((opt) => {
+                              const texto = norm(opt.textContent);
+                              const valor = norm(opt.value);
+                              return texto.includes(termo) || valor.includes(termo) || termo.includes(valor);
+                            });
+                            if (option) {
+                              select.value = option.value;
+                              select.dispatchEvent(new Event("input", { bubbles: true }));
+                              select.dispatchEvent(new Event("change", { bubbles: true }));
+                              select.dispatchEvent(new Event("blur", { bubbles: true }));
+                              return true;
+                            }
+                          }
+
+                          const campo = node.querySelector(
+                            ".select2-selection, [role='combobox'], input:not([type='hidden'])"
+                          );
+                          if (campo) {
+                            campo.click();
+                            return true;
+                          }
+                        }
+                      }
+                      return false;
+                    }
+                    """,
+                    rotulo,
+                    termo,
+                )
+            )
+            if not abriu:
+                return False
+
+            await asyncio.sleep(0.5)
+            busca = self._page.locator(
+                "input.select2-search__field, input[role='searchbox'], .select2-search input"
+            ).last
+            if await busca.count() > 0:
+                await busca.fill(termo, timeout=5_000)
+                await asyncio.sleep(1)
+                await self._page.keyboard.press("Enter")
+                await asyncio.sleep(0.5)
+            return True
         except Exception:
             return False
 
@@ -549,6 +732,21 @@ class NfseNacionalAutomation:
             data_competencia = datetime.fromisoformat(data_competencia).strftime("%d/%m/%Y")
         except Exception:
             data_competencia = datetime.now().strftime("%d/%m/%Y")
+
+        # O Portal Nacional passou a exigir esta escolha antes de habilitar
+        # a data de competencia na etapa inicial.
+        try:
+            ibs_cbs_nao = self._page.locator(
+                "xpath=(//*[contains(normalize-space(.), 'Preencher as informações IBS/CBS') or "
+                "contains(normalize-space(.), 'Preencher as informacoes IBS/CBS')]/following::input[@type='radio'])[2]"
+            ).first
+            if await ibs_cbs_nao.count() > 0:
+                try:
+                    await ibs_cbs_nao.check(timeout=5_000)
+                except Exception:
+                    await ibs_cbs_nao.evaluate("(el) => el.click()")
+        except Exception:
+            log.debug("Campo IBS/CBS não ficou disponível nesta etapa")
 
         await self._preencher_primeiro(
             [
@@ -811,9 +1009,82 @@ class NfseNacionalAutomation:
         """Preenche dados do serviço."""
         log.debug("Preenchendo dados do serviço...")
 
-        # [AJUSTAR] Testar seletores contra a interface real
-        # Descrição do serviço
+        if not await self._selecionar_select2("#LocalPrestacao_CodigoMunicipioPrestacao", MUNICIPIO_INCIDENCIA):
+            await self._definir_select_direto(
+                "#LocalPrestacao_CodigoMunicipioPrestacao",
+                "4209102",
+                "Joinville/SC",
+            )
+            await self._definir_valor_js_primeiro(
+                ["#LocalPrestacao_DescricaoMunicipioPrestacao"],
+                "Joinville/SC",
+            )
+        await asyncio.sleep(1)
+
+        codigo_servico = re.sub(r"\D", "", str(dados.get("codigo_servico") or self.codigo_servico))
+        if codigo_servico == "1005":
+            codigo_tributacao = "10.05"
+            codigo_tributacao_valor = "10.05.01"
+            codigo_tributacao_texto = (
+                "10.05.01 - Agenciamento, corretagem ou intermediação de bens móveis ou imóveis."
+            )
+        else:
+            codigo_tributacao = "17.12"
+            codigo_tributacao_valor = "17.12.01"
+            codigo_tributacao_texto = (
+                "17.12.01 - Administração em geral, inclusive de bens e negócios de terceiros."
+            )
+
+        if not await self._selecionar_select2("#ServicoPrestado_CodigoTributacaoNacional", codigo_tributacao):
+            await self._definir_select_direto(
+                "#ServicoPrestado_CodigoTributacaoNacional",
+                codigo_tributacao_valor,
+                codigo_tributacao_texto,
+            )
+            await self._definir_valor_js_primeiro(
+                ["#ServicoPrestado_DescricaoCodigoTributacaoNacional"],
+                codigo_tributacao_texto,
+            )
+        await asyncio.sleep(1)
+
+        await self._marcar_radio("ServicoPrestado.HaExportacaoImunidadeNaoIncidencia", "0")
+
+        if codigo_servico == "1005":
+            nbs = re.sub(r"\D", "", NBS_CORRETAGEM_SEGUROS)
+            nbs_texto = (
+                "109061100 - Serviços de agenciamento e corretagem de seguros, "
+                "resseguros e previdência complementar, exceto de seguros saúde"
+            )
+        else:
+            nbs = re.sub(r"\D", "", nbs_para_aluguel(dados.get("tipo_imovel")))
+            nbs_texto = (
+                "109051200 - Serviços de corretagem de derivativos e commodities"
+                if nbs == "109051200"
+                else (
+                    "110011290 - Serviços de administração e locação de outros imóveis não residenciais"
+                    if nbs == "110011290"
+                    else "110011100 - Serviços de administração e locação de imóveis residenciais"
+                )
+            )
+        await self._definir_select_direto("#ServicoPrestado_CodigoNBS", nbs, nbs_texto)
+        try:
+            await self._page.wait_for_function(
+                """
+                () => {
+                  const campo = document.querySelector("#ServicoPrestado_Descricao");
+                  return campo && !campo.disabled && !campo.readOnly;
+                }
+                """,
+                timeout=20_000,
+            )
+        except Exception:
+            log.debug("Campo de descrição do serviço não destravou antes do preenchimento")
+
+        # O Portal só libera a descrição depois que Tributação Nacional e NBS
+        # ficam consistentes.
         candidatos_descricao = [
+            "#ServicoPrestado_Descricao",
+            "textarea[name='ServicoPrestado.Descricao']",
             "textarea[name='descricao']",
             "textarea[name='descricaoServico']",
             "textarea[name='Descricao']",
@@ -838,72 +1109,6 @@ class NfseNacionalAutomation:
             if not await self._definir_valor_js_primeiro(candidatos_descricao, dados["descricao_servico"]):
                 raise NfseNacionalError("Não encontrei campo de descrição do serviço")
 
-        # Valor do serviço (formato brasileiro: vírgula decimal)
-        valor_str = f"{dados['valor_servico']:.2f}".replace(".", ",")
-        candidatos_valor = [
-            "input[name='valor']",
-            "input[name='valorServico']",
-            "input[name='Valor']",
-            "input[name='ValorServico']",
-            "input[id='valor']",
-            "input[id='valorServico']",
-            "input[id*='valor' i]",
-            "input[name*='valor' i]",
-            "input[placeholder*='Valor' i]",
-            "input[aria-label*='Valor' i]",
-            "input[inputmode='decimal']",
-            "input[type='tel']",
-        ]
-        try:
-            if not await self._preencher_primeiro(candidatos_valor, valor_str):
-                if not await self._definir_valor_js_primeiro(candidatos_valor, valor_str):
-                    raise NfseNacionalError("Não encontrei campo de valor do serviço")
-        except PlaywrightTimeout:
-            raise NfseNacionalError("Não encontrei campo de valor do serviço")
-
-        # Município da prestação e código de tributação nacional.
-        municipio_prestacao = f"{MUNICIPIO_INCIDENCIA}/SC"
-        candidatos_municipio = [
-            "input[name*='Municipio' i]",
-            "input[id*='Municipio' i]",
-            "input[placeholder*='Município' i]",
-            "input[placeholder*='Municipio' i]",
-            "select[name*='Municipio' i]",
-            "select[id*='Municipio' i]",
-            "input[name*='local' i]",
-            "input[id*='local' i]",
-        ]
-        if not await self._preencher_primeiro(candidatos_municipio, municipio_prestacao):
-            if not await self._definir_valor_js_primeiro(candidatos_municipio, municipio_prestacao):
-                await self._definir_valor_por_rotulo("Município", municipio_prestacao)
-
-        candidatos_codigo_tributacao = [
-            "input[name*='tributacao' i]",
-            "input[id*='tributacao' i]",
-            "input[placeholder*='Código' i]",
-            "input[placeholder*='Tributação' i]",
-            "select[name*='tributacao' i]",
-            "select[id*='tributacao' i]",
-        ]
-        codigo_tributacao_preferido = dados.get("codigo_servico") or self.item_lista_servico or self.codigo_servico
-        if not await self._preencher_primeiro(candidatos_codigo_tributacao, codigo_tributacao_preferido):
-            if not await self._definir_valor_js_primeiro(candidatos_codigo_tributacao, codigo_tributacao_preferido):
-                # Tenta o código sem separador caso o portal espere apenas números.
-                codigo_sem_ponto = re.sub(r"\D", "", codigo_tributacao_preferido)
-                if codigo_sem_ponto and not await self._preencher_primeiro(candidatos_codigo_tributacao, codigo_sem_ponto):
-                    if not await self._definir_valor_js_primeiro(candidatos_codigo_tributacao, codigo_sem_ponto):
-                        await self._definir_valor_por_rotulo("Código de Tributação Nacional", codigo_sem_ponto)
-
-        # O caso ISSQN deve ficar em "Não" para esta locação.
-        try:
-            await self._page.locator("input[type='radio']").first.check(timeout=5_000)
-        except Exception:
-            try:
-                if not await self._clicar_por_rotulo("Não"):
-                    await self._page.get_by_text("Não", exact=True).first.click(timeout=5_000)
-            except Exception:
-                log.warning("Não consegui marcar a opção 'Não' para o caso de ISSQN")
-
         # Item de serviço (código) — [AJUSTAR] Testar se é dropdown ou campo livre
         try:
             await self._preencher("input[name='itemLista']", dados.get("codigo_servico") or self.codigo_servico)
@@ -923,33 +1128,99 @@ class NfseNacionalAutomation:
             except Exception:
                 log.warning("Não consegui avançar da etapa de serviço para a etapa de valores")
 
+        try:
+            confirmar = self._page.locator(
+                "button:has-text('SIM'), button:has-text('Sim')"
+            ).last
+            if await confirmar.count() > 0 and await confirmar.is_visible():
+                await confirmar.click(timeout=5_000)
+                await self._page.wait_for_load_state("networkidle", timeout=15_000)
+        except Exception:
+            log.debug("Nenhum modal de confirmação apareceu ao avançar do serviço")
+
         await asyncio.sleep(1)
         await self._screenshot("05b_servico_avancado")
+
+    async def _preencher_valores(self, dados: dict) -> None:
+        """Preenche a etapa de valores/tributação e avança para revisão."""
+        log.debug("Preenchendo valores e tributação...")
+
+        valor_str = f"{dados['valor_servico']:.2f}".replace(".", ",")
+        if not await self._preencher_primeiro(["#Valores_ValorServico"], valor_str):
+            if not await self._definir_valor_js_primeiro(["#Valores_ValorServico"], valor_str):
+                raise NfseNacionalError("Não encontrei campo de valor do serviço na etapa Valores")
+
+        await asyncio.sleep(1)
+
+        # Locação simples: sem retenção, sem benefício, sem dedução e sem
+        # estimativa detalhada de tributos. Estes campos são defaults do
+        # Portal, mas marcamos explicitamente para evitar validação pendente.
+        await self._marcar_radio("ISSQN.HaRetencao", "0")
+        await self._marcar_radio("ISSQN.HaBeneficioMunicipal", "0")
+        await self._marcar_radio("ISSQN.HaDeducaoReducao", "0")
+        await self._marcar_radio("ValorTributos.TipoValorTributos", "4")
+        await self._definir_valor_js_primeiro(
+            ["#ValorTributos_AliquotaSN"],
+            f"{ALIQUOTA_SIMPLES:.2f}".replace(".", ","),
+        )
+        await self._definir_select_direto(
+            "#TributacaoFederal_PISCofins_SituacaoTributaria",
+            "0",
+            "00 - Nenhum",
+        )
+        await self._definir_select_direto(
+            "#TributacaoFederal_PISCofins_TipoRetencao",
+            "0",
+            "0 - PIS/COFINS/CSLL Não Retidos",
+        )
+
+        for selector in (
+            "#TributacaoFederal_ValorIRRF",
+            "#TributacaoFederal_ValorCSLL",
+            "#TributacaoFederal_ValorCP",
+        ):
+            await self._definir_valor_js_primeiro([selector], "0,00")
+
+        await self._screenshot("06_valores_preenchido")
+
+        try:
+            await self._clicar("button#btnAvancar")
+        except Exception:
+            try:
+                await self._clicar("button:has-text('Avançar')")
+            except Exception:
+                log.warning("Não consegui avançar da etapa de valores para revisão")
+
+        await asyncio.sleep(2)
+        await self._screenshot("06b_valores_avancado")
 
     # ── emitir ────────────────────────────────────────────────────────────────
 
     async def _clicar_emitir(self) -> None:
         if self.dry_run:
-            log.warning("DRY RUN ativo — clicando em 'Visualizar prévia' (não emite de verdade).")
-            try:
-                await self._clicar("button:has-text('Prévia')")
-            except Exception:
-                try:
-                    await self._clicar("button:has-text('Validar')")
-                except PlaywrightTimeout:
-                    raise NfseNacionalError("Não encontrei botão de prévia/validação")
-            await asyncio.sleep(2)
-            await self._screenshot("06_dry_run_previa")
+            log.warning("DRY RUN ativo — formulário revisado; não clicando em 'Emitir NFS-e'.")
+            await self._screenshot("07_dry_run_revisao")
             return
 
         # Emissão real
-        try:
-            await self._clicar("button:has-text('Emitir')")
-        except Exception:
+        for selector in (
+            "a#btnProsseguir[href*='/DPS/NFSe']",
+            "button:has-text('Emitir NFS-e')",
+            "a.btn-primary:has-text('Emitir NFS-e')",
+            "input[value*='Emitir NFS-e']",
+            "button:has-text('Emitir')",
+            "a.btn-primary:has-text('Emitir')",
+            "input[value*='Emitir']",
+            "button:has-text('Enviar')",
+            "a.btn-primary:has-text('Enviar')",
+        ):
             try:
-                await self._clicar("button:has-text('Enviar')")
-            except PlaywrightTimeout:
-                raise NfseNacionalError("Não encontrei botão de emissão no formulário")
+                await self._page.locator(selector).first.click(timeout=10_000)
+                break
+            except Exception:
+                continue
+        else:
+            raise NfseNacionalError("Não encontrei botão de emissão no formulário")
 
         await self._page.wait_for_load_state("networkidle", timeout=30_000)
         await self._screenshot("06_pos_emissao")
@@ -1013,31 +1284,54 @@ class NfseNacionalAutomation:
                     e,
                 )
 
-        # Localiza link para download do PDF
+        # Localiza link para download do PDF. No Portal Nacional, o botão
+        # oficial costuma ser um <a> com imagem e sem texto visível.
         pdf_link = None
-        try:
-            pdf_link = self._page.locator("a[href*='.pdf']").first
-            await pdf_link.wait_for(state="attached", timeout=10_000)
-        except PlaywrightTimeout:
-            # Tenta botão de download
+        for selector in (
+            "#btnDownloadDANFSE",
+            "a[href*='/Notas/Download/DANFSe/']",
+            "a[href*='DANFSe']",
+            "button:has-text('Baixar DANFSe')",
+            "button:has-text('DANFSe')",
+            "a[href*='.pdf']",
+        ):
             try:
-                pdf_link = self._page.locator("button:has-text('Baixar')").first
-                await pdf_link.wait_for(state="visible", timeout=10_000)
+                candidate = self._page.locator(selector).first
+                await candidate.wait_for(state="visible", timeout=5_000)
+                pdf_link = candidate
+                break
             except PlaywrightTimeout:
-                log.warning(
-                    "NF-e %s emitida, mas não encontrei link para download do PDF. "
-                    "A nota pode estar disponível na Consulta.", numero
-                )
-                return numero, b"%PDF-1.4 PDF not available"
+                continue
+            except Exception:
+                continue
+
+        if pdf_link is None:
+            log.warning(
+                "NF-e %s emitida, mas não encontrei link para download do PDF. "
+                "A nota pode estar disponível na Consulta.", numero
+            )
+            return numero, b"%PDF-1.4 PDF not available"
 
         try:
-            async with self._context.expect_download(timeout=20_000) as download_info:
+            async with self._page.expect_download(timeout=20_000) as download_info:
                 await pdf_link.click()
             download = await download_info.value
             pdf_path = await download.path()
             with open(pdf_path, "rb") as f:
                 pdf_bytes = f.read()
         except Exception as e:
+            try:
+                conteudo_pos_download = await self._page.inner_text("body")
+                if "VALIDAÇÃO DE USUÁRIO" in conteudo_pos_download or "Sou humano" in conteudo_pos_download:
+                    log.warning(
+                        "Portal exigiu hCaptcha para baixar o DANFSe da nota %s. "
+                        "A nota foi emitida, mas o PDF oficial precisa ser baixado "
+                        "após validação humana no Portal Nacional.",
+                        numero,
+                    )
+                    return numero, b"%PDF-1.4 DANFSe requires hCaptcha"
+            except Exception:
+                pass
             log.warning("Erro ao baixar PDF da nota %s: %s", numero, e)
             return numero, b"%PDF-1.4 Erro no download"
 
@@ -1059,6 +1353,7 @@ class NfseNacionalAutomation:
         await self._preencher_emitente(dados)
         await self._preencher_tomador(dados)
         await self._preencher_servico(dados)
+        await self._preencher_valores(dados)
         await self._clicar_emitir()
         numero, pdf = await self._obter_numero_e_pdf()
         return pdf, numero
@@ -1088,6 +1383,7 @@ class NfseNacionalAutomation:
                 await self._preencher_emitente(dados)
                 await self._preencher_tomador(dados)
                 await self._preencher_servico(dados)
+                await self._preencher_valores(dados)
                 await self._clicar_emitir()
                 numero, pdf = await self._obter_numero_e_pdf()
                 resultados.append({"sucesso": True, "numero_nota": numero, "pdf_bytes": pdf})

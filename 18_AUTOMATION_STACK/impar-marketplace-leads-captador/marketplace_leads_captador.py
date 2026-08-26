@@ -2,7 +2,7 @@
 """
 marketplace_leads_captador.py
 Detecta novas conversas no Facebook Marketplace da Página Impar Imóveis,
-adiciona o lead ao CSV de follow-up e notifica o grupo "NOVOS LEADS" no WhatsApp nativo macOS.
+adiciona o lead ao CSV de follow-up e notifica o grupo "Novos leads" no WhatsApp nativo macOS.
 
 Custo: 0 tokens — usa osascript + lclick diretamente, sem chamar Claude.
 
@@ -21,18 +21,20 @@ from pathlib import Path
 import httpx
 
 # ── Configuração ───────────────────────────────────────────────────────────────
-KIT_DIR  = Path.home() / "Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB"
-ENV_FILE = KIT_DIR / "18_AUTOMATION_STACK/facebook-mcp/.env"
-CSV_PATH = KIT_DIR / "05_WORKSPACE/clientes/impar-imoveis/whatsapp/leads-followup.csv"
-LOG_DIR  = KIT_DIR / "07_LOGS"
-
-STATE_DIR  = Path.home() / ".local/impar-automation/marketplace-leads"
+# ATENÇÃO: Python 3.9 (CommandLineTools) NÃO tem acesso a iCloud Drive em LaunchAgents.
+# Todos os caminhos usados pelo Python são locais. O wrapper run_captador.sh cuida
+# da sincronização iCloud ↔ local via cp (bash tem acesso).
+STATE_DIR  = Path("/Users/usuario/.local/impar-automation/marketplace-leads")
+ENV_FILE   = STATE_DIR / ".env"          # copiado do iCloud pelo wrapper antes da execução
+CSV_PATH   = STATE_DIR / "leads-marketplace.csv"  # sincronizado de/para iCloud pelo wrapper
+LOG        = STATE_DIR / "captador.log"
 CHECKPOINT = STATE_DIR / "checkpoint.json"
-LOG        = LOG_DIR / "marketplace-leads-captador.log"
 LCLICK     = STATE_DIR / "lclick"
 MSG_TMP    = Path("/tmp/wa_msg_utf8.txt")
 
-GRUPO      = "NOVOS LEADS"
+ICLOUD_CSV = Path("/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/whatsapp/leads-followup.csv")
+
+GRUPO      = "Novos leads"
 FB_VERSION = "v20.0"
 
 # ── Helpers básicos ────────────────────────────────────────────────────────────
@@ -46,7 +48,7 @@ def load_env() -> dict:
     return env
 
 def log(msg: str):
-    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
     ts = datetime.now().isoformat(timespec="seconds")
     with open(LOG, "a") as f:
         f.write(f"[{ts}] {msg}\n")
@@ -80,7 +82,7 @@ def extrair_dados_lead(mensagens: list, page_id: str) -> dict:
     return {"telefone": telefone, "email": email}
 
 # ── Facebook Graph API ─────────────────────────────────────────────────────────
-def get_conversations(page_id: str, token: str, limit: int = 25) -> list:
+def get_conversations(page_id: str, token: str, limit: int = 50) -> list:
     r = httpx.get(
         f"https://graph.facebook.com/{FB_VERSION}/{page_id}/conversations",
         params={"fields": "id,participants,updated_time,snippet", "limit": limit, "access_token": token},
@@ -93,13 +95,32 @@ def get_messages(conv_id: str, token: str, limit: int = 25) -> list:
     try:
         r = httpx.get(
             f"https://graph.facebook.com/{FB_VERSION}/{conv_id}/messages",
-            params={"fields": "message,from,created_time", "limit": limit, "access_token": token},
+            params={"fields": "message,from,created_time,attachments{title,description,url,type}", "limit": limit, "access_token": token},
             timeout=15,
         )
         r.raise_for_status()
         return r.json().get("data", [])
     except Exception:
         return []
+
+def extrair_link_marketplace(mensagens: list) -> str:
+    """Extrai URL real do item Marketplace dos attachments das mensagens."""
+    for msg in mensagens:
+        for att in msg.get("attachments", {}).get("data", []):
+            url = att.get("url", "")
+            if "/marketplace/item/" in url:
+                return url
+    return ""
+
+def extrair_descricao_imovel(mensagens: list) -> str:
+    """Extrai título do anúncio Marketplace dos attachments."""
+    for msg in mensagens:
+        for att in msg.get("attachments", {}).get("data", []):
+            if "/marketplace/item/" in att.get("url", ""):
+                title = att.get("title", "").strip()
+                if title:
+                    return title
+    return "Marketplace FB"
 
 # ── Formato de mensagem — formato validado 2026-08-10 ─────────────────────────
 import urllib.parse as _urlparse
@@ -160,7 +181,9 @@ def format_message(lead: dict) -> str:
 
     return msg
 
-# ── Envio WhatsApp — cópia exata do leads_watcher.py ──────────────────────────
+# ── Envio WhatsApp — arquitetura CGEvent validada 2026-08-15 ──────────────────
+# 4 etapas: ativar WA → lclick 245,95 (busca) → lclick 245,197 (grupo) → paste+Enter
+# `click at` dentro de System Events trava; usar LCLICK binário para todos os cliques.
 def send_to_group(message: str) -> bool:
     MSG_TMP.write_text(message, encoding="utf-8")
     clip_script = f'''
@@ -175,26 +198,46 @@ set the clipboard to txt
         return False
     time.sleep(0.3)
 
-    # Cmd+F abre busca global, Cmd+A limpa, digita grupo, espera 3s
-    script_open = f'''
-tell application "WhatsApp" to activate
-delay 1.5
+    # Etapa 1 — ativar WhatsApp
+    r = subprocess.run(
+        ["osascript", "-e", 'tell application "WhatsApp" to activate'],
+        capture_output=True, text=True, timeout=10,
+    )
+    if r.returncode != 0:
+        log(f"ERROR ativar WA: {r.stderr.strip()}")
+        return False
+    time.sleep(1.2)
+
+    # Etapa 2 — CGEvent lclick {245, 95}: abre campo de busca
+    r = subprocess.run([str(LCLICK), "245", "95"], capture_output=True, timeout=5)
+    if r.returncode != 0:
+        log(f"ERROR CGEvent lclick busca: código {r.returncode}")
+        return False
+    time.sleep(0.5)
+
+    # Digitar nome do grupo no campo de busca
+    type_script = f'''
 tell application "System Events" to tell process "WhatsApp"
-    set frontmost to true
-    key code 3 using {{command down}}
-    delay 0.8
     keystroke "a" using command down
     delay 0.2
     keystroke "{GRUPO}"
-    delay 3.0
+    delay 2.5
 end tell
 '''
-    subprocess.run(["osascript", "-e", script_open], capture_output=True, text=True, timeout=20)
+    r = subprocess.run(["osascript", "-e", type_script], capture_output=True, text=True, timeout=15)
+    if r.returncode != 0:
+        log(f"ERROR digitar grupo: {r.stderr.strip()}")
+        return False
 
-    # CGEvent click no primeiro resultado (hardcoded: 245, 197)
-    subprocess.run([str(LCLICK)], capture_output=True, timeout=5)
+    # Etapa 3 — CGEvent lclick {245, 197}: seleciona grupo nos resultados
+    r = subprocess.run([str(LCLICK), "245", "197"], capture_output=True, timeout=5)
+    if r.returncode != 0:
+        log(f"ERROR CGEvent lclick grupo: código {r.returncode}")
+        return False
     time.sleep(4)
-    script_send = '''
+
+    # Etapa 4 — reativar WA + paste + Enter
+    send_script = '''
 tell application "WhatsApp" to activate
 delay 0.8
 tell application "System Events" to tell process "WhatsApp"
@@ -207,7 +250,7 @@ tell application "System Events" to tell process "WhatsApp"
     key code 36
 end tell
 '''
-    result = subprocess.run(["osascript", "-e", script_send], capture_output=True, text=True, timeout=20)
+    result = subprocess.run(["osascript", "-e", send_script], capture_output=True, text=True, timeout=20)
     if result.returncode == 0:
         return True
     log(f"ERROR envio: {result.stderr.strip()}")
@@ -260,23 +303,25 @@ def main():
                 nome = p.get("name", "Desconhecido")
                 break
 
-        # Extrai telefone e email do formulário
-        msgs    = get_messages(conv_id, token)
-        dados   = extrair_dados_lead(msgs, page_id)
-        telefone = dados.get("telefone", "")
-        email    = dados.get("email", "")
+        # Extrai telefone, email, URL real do item e descrição do anúncio
+        msgs      = get_messages(conv_id, token)
+        dados     = extrair_dados_lead(msgs, page_id)
+        telefone  = dados.get("telefone", "")
+        email     = dados.get("email", "")
+        link_item = extrair_link_marketplace(msgs)
+        descricao = extrair_descricao_imovel(msgs)
 
-        # Link da conversa como referência do imóvel
         num_conv   = conv_id.replace("t_", "")
         link_conv  = f"https://www.facebook.com/messages/t/{num_conv}"
+        link_final = link_item if link_item else link_conv
         data_hoje  = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
         lead_row = {
             "telefone":             telefone,
             "nome":                 nome,
-            "link_imovel":          link_conv,
-            "ref_imovel":           link_conv,
-            "descricao_imovel":     "Marketplace FB",
+            "link_imovel":          link_final,
+            "ref_imovel":           link_final,
+            "descricao_imovel":     descricao,
             "canal_entrada":        "marketplace",
             "data_entrada":         data_hoje,
             "ultimo_passo_enviado": "D0",

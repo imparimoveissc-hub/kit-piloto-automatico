@@ -138,7 +138,7 @@ modules:
       - Enviar se erro crítico nos logs
       - Enviar se lead de alto valor sem resposta
       - NÃO enviar se tudo OK
-    ultima_alteracao: 2026-08-20
+    ultima_alteracao: 2026-08-26
     problemas_conhecidos:
       - Nenhum crítico no momento
 

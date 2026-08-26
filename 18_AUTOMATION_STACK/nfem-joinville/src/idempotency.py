@@ -32,7 +32,7 @@ def ja_emitida(payment_id: str) -> bool:
     """Retorna True se já existe uma nota emitida para este pagamento."""
     with _lock:
         dados = _carregar()
-        return payment_id in dados
+        return dados.get(payment_id, {}).get("status") == "sucesso"
 
 
 def registrar_emissao(

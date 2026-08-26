@@ -6,8 +6,8 @@
 	<string>com.impar.messenger-varredura-auto</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/bin/python3</string>
-		<string>/Users/usuario/.local/impar-automation/messenger/varredura_inbox.py</string>
+		<string>/bin/bash</string>
+		<string>/Users/usuario/.local/impar-automation/messenger/run_varredura.sh</string>
 	</array>
 	<key>StartInterval</key>
 	<integer>300</integer>

@@ -141,6 +141,7 @@ def montar_dados_nota(pagamento: dict, cliente_asaas: dict, cliente_config: Opti
         # Serviço
         "descricao_servico": descricao,
         "valor_servico": float(valor),
+        "tipo_imovel": cfg.get("tipo_imovel", ""),
         # Pagamento
         "data_pagamento": data_pagamento,
     }

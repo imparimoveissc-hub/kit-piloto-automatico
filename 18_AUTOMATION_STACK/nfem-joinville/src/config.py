@@ -96,12 +96,12 @@ ALIQUOTA_SIMPLES: float = float(os.getenv("ALIQUOTA_SIMPLES", "6.0"))
 # ── Itens NBS por situação (exigidos pelo Portal Nacional) ─────────────────────
 # Cód. tributação 10.05 (intermediação/corretagem):
 NBS_VENDA_IMOVEL: str = "1.1001.21.00"        # venda de imóvel, residencial ou não
-NBS_CORRETAGEM_SEGUROS: str = "1.0905.00.00"  # comissões de seguro incêndio, fiança
+NBS_CORRETAGEM_SEGUROS: str = "1.0906.11.00"  # comissões de seguro incêndio, fiança
                                               # locatícia, taxa setup, garantia Investe,
                                               # tomadores Loft/Zurich etc.
 # Cód. tributação 17.12 (administração/locação — lote mensal do Asaas):
-NBS_ALUGUEL_RESIDENCIAL: str = "1.1001.11.00"
-NBS_ALUGUEL_NAO_RESIDENCIAL: str = "1.1001.11.90"
+NBS_ALUGUEL_RESIDENCIAL: str = "1.0905.12.00"
+NBS_ALUGUEL_NAO_RESIDENCIAL: str = "1.0905.12.00"
 
 
 def nbs_para_aluguel(tipo_imovel: Optional[str]) -> str:

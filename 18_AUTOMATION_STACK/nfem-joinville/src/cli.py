@@ -248,6 +248,7 @@ def _emitir_manual(args: dict) -> None:
 
     tipo = (args.get("tipo") or "").strip().lower()
     cpf_cnpj = (args.get("cpf-cnpj") or args.get("cpf_cnpj") or "").strip()
+    nome_tomador = (args.get("nome-tomador") or args.get("nome_tomador") or cpf_cnpj).strip()
     descricao = (args.get("descricao") or "").strip()
     valor_raw = (args.get("valor") or "").strip()
 
@@ -269,6 +270,7 @@ def _emitir_manual(args: dict) -> None:
     codigo_servico = "1005" if tipo == "venda" else "1712"
 
     dados = {
+        "nome_tomador": nome_tomador,
         "cpf_cnpj": cpf_cnpj,
         "descricao_servico": descricao,
         "valor_servico": valor,

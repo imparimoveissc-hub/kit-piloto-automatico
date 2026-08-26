@@ -75,15 +75,19 @@ def _osascript(script: str) -> subprocess.CompletedProcess:
 def send_to_group(message: str) -> bool:
     """Envia mensagem para o grupo via WhatsApp Desktop (nativo macOS).
 
-    Fluxo validado 2026-08-04:
-    1. Escreve mensagem em arquivo UTF-8 e copia via AppleScript (garante emojis e acentos)
-    2. Ativa WhatsApp, busca grupo na caixa de pesquisa
-    3. CGEvent left-click no resultado (y=197) — único método que abre grupos via busca
-    4. Aguarda carregamento, re-ativa WhatsApp e envia
+    Arquitetura copiada de leads_automation.py (Chaves na Mão — validada em produção):
+    1. Clipboard UTF-8 seguro via AppleScript
+    2. Ativa WhatsApp, Cmd+F, digita nome do grupo, aguarda resultado
+    3. Mouse click no resultado (lclick 245 197) — não Enter
+    4. Aguarda chat carregar (3s)
+    5. click text area 1 para garantir foco do campo de mensagem
+    6. Cmd+V para colar
+    7. keystroke return para enviar
     """
     LCLICK = Path.home() / ".local/impar-automation/leads-planilha/lclick"
     MSG_TMP = Path("/tmp/wa_msg_utf8.txt")
 
+    # 1. Grava mensagem e copia para clipboard via AppleScript (UTF-8 seguro)
     MSG_TMP.write_text(message, encoding='utf-8')
     clip_script = f'''
 set f to open for access POSIX file "{MSG_TMP}"
@@ -97,7 +101,7 @@ set the clipboard to txt
         return False
     time.sleep(0.3)
 
-    # Cmd+F abre busca global, Cmd+A limpa, digita grupo, espera 3s
+    # 2. Ativa WhatsApp, Cmd+F, digita grupo, aguarda resultado
     script_open = f'''
 tell application "WhatsApp" to activate
 delay 1.5
@@ -108,28 +112,40 @@ tell application "System Events" to tell process "WhatsApp"
     keystroke "a" using command down
     delay 0.2
     keystroke "{GRUPO}"
-    delay 3.0
+    delay 2.0
 end tell
 '''
     subprocess.run(['osascript', '-e', script_open], capture_output=True, text=True, timeout=20)
+    time.sleep(0.5)
 
-    # CGEvent click no primeiro resultado (hardcoded: 245, 197)
-    subprocess.run([str(LCLICK)], capture_output=True, timeout=5)
-    time.sleep(4)
-    script_send = '''
-tell application "WhatsApp" to activate
-delay 0.8
+    # 3. Mouse click no resultado do grupo (não Enter)
+    subprocess.run([str(LCLICK), "245", "197"], capture_output=True, timeout=5)
+    time.sleep(3.0)  # Aguarda o chat carregar completamente
+
+    # 4. Clica no campo de texto para garantir foco (padrão Chaves na Mão)
+    subprocess.run(['osascript', '-e', '''
 tell application "System Events" to tell process "WhatsApp"
-    keystroke "a" using command down
-    delay 0.3
-    key code 51
-    delay 0.3
-    keystroke "v" using command down
-    delay 1
-    key code 36
+    set frontmost to true
+    try
+        click text area 1 of window 1
+    end try
 end tell
-'''
-    result = subprocess.run(['osascript', '-e', script_send], capture_output=True, text=True, timeout=20)
+'''], capture_output=True, text=True, timeout=10)
+    time.sleep(0.5)
+
+    # 5. Cola a mensagem
+    subprocess.run(['osascript', '-e', '''
+tell application "System Events" to tell process "WhatsApp"
+    keystroke "v" using command down
+    delay 1.0
+end tell
+'''], capture_output=True, timeout=10)
+    time.sleep(1.0)
+
+    # 6. Envia (keystroke return — padrão Chaves na Mão)
+    result = subprocess.run(['osascript', '-e',
+        'tell application "System Events" to tell process "WhatsApp" to keystroke return'],
+        capture_output=True, text=True, timeout=10)
     if result.returncode == 0:
         return True
     log(f"ERROR envio: {result.stderr.strip()}")

@@ -377,6 +377,66 @@
       "inquilino_nome": "ERIC",
       "inquilino_cpf_cnpj": "00952750104",
       "tipo_imovel": "nao_residencial"
+    },
+    {
+      "nome_tomador": "NEUZIMAR SOARES PEREIRA",
+      "cpf_cnpj": "93681453934",
+      "valor_referencia": 400.0,
+      "valor_aluguel": 4000.0,
+      "descricao_servico": "Referente a locação do imóvel situado à Rua Piratuba, nº 1150 – Bom Retiro – Joinville/SC, denominado casa residencial e Sala 02, piso superior (imóvel residencial + sala comercial), composto por área privativa de 193,87 m² e área total de 450 m², matrícula nº 37.831, inscrição imobiliária nº 13.30.05.57.2065.00.",
+      "endereco": "Rua Piratuba",
+      "numero": "1150",
+      "bairro": "Bom Retiro",
+      "municipio": "Joinville",
+      "uf": "SC",
+      "inquilino_nome": "KELLY CRISTINA SANTOS DE PAULO",
+      "inquilino_cpf_cnpj": "",
+      "tipo_imovel": "misto"
+    },
+    {
+      "nome_tomador": "RAQUEL ANTUNES",
+      "cpf_cnpj": "89032594915",
+      "valor_referencia": 220.0,
+      "valor_aluguel": 2613.82,
+      "descricao_servico": "Referente a locação do geminado no bairro Jarivatuba, para uso EXCLUSIVAMENTE RESIDENCIAL, localizada na Rua Eleutério Cidral, 64, casa 03, bairro Jarivatuba, Joinville/SC, Estado de Santa Catarina, devidamente registrado no 3º Cartório de Registros de Imóveis de Joinville/SC, sob a matrícula de nº 44.752 e na Prefeitura Municipal de Joinville/SC, sob a inscrição imobiliária sob nº 13.11.23.30.8173.0003.",
+      "endereco": "Rua Eleutério Cidral",
+      "numero": "64",
+      "bairro": "João Costa",
+      "municipio": "Joinville",
+      "uf": "SC",
+      "inquilino_nome": "STHEFANY DO CARMO ALVES",
+      "inquilino_cpf_cnpj": "",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "ROBERT & ROBERT CONSULTORIA EMPRESARIAL LTDA",
+      "cpf_cnpj": "03594897000117",
+      "valor_referencia": 150.0,
+      "valor_aluguel": 1670.0,
+      "descricao_servico": "Referente a locação de um apartamento, denominado AP02 do bloco A com a vaga de garagem 31, na rua Rio Negrinho, 150 no bairro Saguaçu, matriculado sob o n. 182.729 do 1 registro de imóveis de Joinville, com inscrição imobiliária 13.20.44.59.0468.0002.",
+      "endereco": "Rua Rio Negrinho",
+      "numero": "150",
+      "bairro": "Saguaçu",
+      "municipio": "Joinville",
+      "uf": "SC",
+      "inquilino_nome": "KARINA FERREIRA DE MELO",
+      "inquilino_cpf_cnpj": "",
+      "tipo_imovel": "residencial"
+    },
+    {
+      "nome_tomador": "MIRIA CARDOSO MACHADO",
+      "cpf_cnpj": "16873033987",
+      "valor_referencia": 230.0,
+      "valor_aluguel": 2819.25,
+      "descricao_servico": "Referente a locação de um apartamento, denominado AP306-T1 na rua Pouso Alegre, 221 no bairro Glória, com inscrição imobiliária 13.20.31.93.0439.0022.",
+      "endereco": "Rua Pouso Alegre",
+      "numero": "221",
+      "bairro": "Glória",
+      "municipio": "Joinville",
+      "uf": "SC",
+      "inquilino_nome": "VITORIA ISABELE LOPES QUINTILIANO MONTEIRO",
+      "inquilino_cpf_cnpj": "",
+      "tipo_imovel": "residencial"
     }
   ]
 }

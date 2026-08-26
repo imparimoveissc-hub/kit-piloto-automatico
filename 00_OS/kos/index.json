@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-26T08:00:46.028812",
+  "generated_at": "2026-08-26T08:14:09.547037",
   "kit_dir": "/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB",
   "stats": {
     "functions": 385,
     "concepts": 110,
     "tasks": 28,
-    "launchagents": 31
+    "launchagents": 32
   },
   "functions": {
     "run": [
@@ -6568,6 +6568,11 @@
     "com.impar.crosspost": {
       "plist": "/Users/usuario/Library/LaunchAgents/com.impar.crosspost.plist",
       "schedule_hint": "Hour=11, Minute=0, Hour=17, Minute=0",
+      "module": "geral"
+    },
+    "com.impar.docker-n8n-startup": {
+      "plist": "/Users/usuario/Library/LaunchAgents/com.impar.docker-n8n-startup.plist",
+      "schedule_hint": "StartInterval=3600",
       "module": "geral"
     },
     "com.impar.followup-diario": {

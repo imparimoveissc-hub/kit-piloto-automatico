@@ -9,6 +9,22 @@ Custo: 0 tokens — usa osascript + lclick diretamente, sem chamar Claude.
 Fonte no kit: 18_AUTOMATION_STACK/impar-marketplace-leads-captador/marketplace_leads_captador.py
 Destino na máquina: ~/.local/impar-automation/marketplace-leads/marketplace_leads_captador.py
 """
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║              ⛔⛔  REGRAS SUPREMAS — LER ANTES DE TUDO  ⛔⛔                ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  REGRA 1 — SOMENTE MARKETPLACE                                              ║
+# ║  Este script processa EXCLUSIVAMENTE conversas com link /marketplace/item/  ║
+# ║  nos attachments das mensagens. Conversas sem esse link são contatos        ║
+# ║  pessoais ou de página — IGNORAR: log [IGNORADO], processados.add(conv_id),║
+# ║  continue. Nunca notificar nem gravar CSV fora do Marketplace.              ║
+# ║  Guard: extrair_link_marketplace(msgs) → se vazio → IGNORAR.               ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  REGRA 2 — NUNCA RESPONDER "FACEBOOK MARKETPLACE ASSISTANT"                 ║
+# ║  Qualquer conversa cujo nome esteja em NOMES_BLOQUEADOS é um bot do         ║
+# ║  Facebook — não é um lead real. NUNCA processar, notificar ou gravar.       ║
+# ║  Guard: nome.strip().lower() in NOMES_BLOQUEADOS → verificar ANTES da       ║
+# ║  extração de mensagens e ANTES do guard de Marketplace.                     ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
 import csv
 import json
 import re
@@ -35,6 +51,16 @@ MSG_TMP    = Path("/tmp/wa_msg_utf8.txt")
 ICLOUD_CSV = Path("/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/whatsapp/leads-followup.csv")
 
 GRUPO      = "Novos leads"
+
+# ⛔ Nomes que NUNCA devem ser processados como leads.
+# "Facebook Marketplace Assistant" é um bot do Facebook — não é um lead real.
+# Conversas pessoais do Jonata são bloqueadas pelo guard de link /marketplace/item/.
+NOMES_BLOQUEADOS = {
+    "facebook marketplace assistant",
+    "marketplace assistant",
+    "facebook assistant",
+    "assistant",
+}
 FB_VERSION = "v20.0"
 
 # ── Helpers básicos ────────────────────────────────────────────────────────────
@@ -129,15 +155,14 @@ def _build_wa_link(tel_clean: str, nome: str, link_imovel: str) -> str:
     primeiro_nome = nome.split()[0] if nome else "você"
     if link_imovel:
         d0 = (
-            f"Oi {primeiro_nome}, tudo bem?\n"
-            f"Somos da Impar Imóveis. Vi que você demonstrou interesse no nosso anúncio: {link_imovel}\n\n"
-            f"Você gostaria de tirar mais dúvidas ou agendar uma visita?"
+            f"Oi {primeiro_nome}, tudo bem? Aqui é a Impar Imóveis!\n"
+            f"Vi que você entrou em contato pelo Marketplace sobre este imóvel:\n"
+            f"{link_imovel}"
         )
     else:
         d0 = (
-            f"Oi {primeiro_nome}, tudo bem?\n"
-            f"Somos da Impar Imóveis e ficamos sabendo do seu interesse em um dos nossos imóveis. "
-            f"Você gostaria de tirar mais dúvidas ou agendar uma visita?"
+            f"Oi {primeiro_nome}, tudo bem? Aqui é a Impar Imóveis!\n"
+            f"Vi que você demonstrou interesse em um dos nossos imóveis."
         )
     return f"https://wa.me/{tel_clean}?text={_urlparse.quote(d0)}"
 
@@ -181,80 +206,33 @@ def format_message(lead: dict) -> str:
 
     return msg
 
-# ── Envio WhatsApp — arquitetura CGEvent validada 2026-08-15 ──────────────────
-# 4 etapas: ativar WA → lclick 245,95 (busca) → lclick 245,197 (grupo) → paste+Enter
-# `click at` dentro de System Events trava; usar LCLICK binário para todos os cliques.
+def _telegram_send(mensagem: str) -> bool:
+    import json as _json, urllib.request as _req, os as _os
+    cfg_path = Path.home() / ".impar-n8n-core/state/config.json"
+    cfg      = _json.loads(cfg_path.read_text()) if cfg_path.exists() else {}
+    token    = _os.environ.get("TELEGRAM_BOT_TOKEN") or cfg.get("telegram_bot_token", "")
+    chat_id  = _os.environ.get("TELEGRAM_CHAT_ID")   or cfg.get("telegram_chat_id", "")
+    if not token or not chat_id:
+        log("ERRO: telegram_bot_token ou telegram_chat_id não configurado")
+        return False
+    url     = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = _json.dumps({"chat_id": chat_id, "text": mensagem}).encode()
+    req     = _req.Request(url, data=payload, headers={"Content-Type": "application/json"})
+    try:
+        with _req.urlopen(req, timeout=15) as resp:
+            return _json.loads(resp.read()).get("ok", False)
+    except Exception as e:
+        log(f"Telegram erro: {e}")
+        return False
+
+
 def send_to_group(message: str) -> bool:
-    MSG_TMP.write_text(message, encoding="utf-8")
-    clip_script = f'''
-set f to open for access POSIX file "{MSG_TMP}"
-set txt to read f as «class utf8»
-close access f
-set the clipboard to txt
-'''
-    r = subprocess.run(["osascript", "-e", clip_script], capture_output=True, text=True, timeout=10)
-    if r.returncode != 0:
-        log(f"ERROR clipboard: {r.stderr.strip()}")
-        return False
-    time.sleep(0.3)
-
-    # Etapa 1 — ativar WhatsApp
-    r = subprocess.run(
-        ["osascript", "-e", 'tell application "WhatsApp" to activate'],
-        capture_output=True, text=True, timeout=10,
-    )
-    if r.returncode != 0:
-        log(f"ERROR ativar WA: {r.stderr.strip()}")
-        return False
-    time.sleep(1.2)
-
-    # Etapa 2 — CGEvent lclick {245, 95}: abre campo de busca
-    r = subprocess.run([str(LCLICK), "245", "95"], capture_output=True, timeout=5)
-    if r.returncode != 0:
-        log(f"ERROR CGEvent lclick busca: código {r.returncode}")
-        return False
-    time.sleep(0.5)
-
-    # Digitar nome do grupo no campo de busca
-    type_script = f'''
-tell application "System Events" to tell process "WhatsApp"
-    keystroke "a" using command down
-    delay 0.2
-    keystroke "{GRUPO}"
-    delay 2.5
-end tell
-'''
-    r = subprocess.run(["osascript", "-e", type_script], capture_output=True, text=True, timeout=15)
-    if r.returncode != 0:
-        log(f"ERROR digitar grupo: {r.stderr.strip()}")
-        return False
-
-    # Etapa 3 — CGEvent lclick {245, 197}: seleciona grupo nos resultados
-    r = subprocess.run([str(LCLICK), "245", "197"], capture_output=True, timeout=5)
-    if r.returncode != 0:
-        log(f"ERROR CGEvent lclick grupo: código {r.returncode}")
-        return False
-    time.sleep(4)
-
-    # Etapa 4 — reativar WA + paste + Enter
-    send_script = '''
-tell application "WhatsApp" to activate
-delay 0.8
-tell application "System Events" to tell process "WhatsApp"
-    keystroke "a" using command down
-    delay 0.3
-    key code 51
-    delay 0.3
-    keystroke "v" using command down
-    delay 1
-    key code 36
-end tell
-'''
-    result = subprocess.run(["osascript", "-e", send_script], capture_output=True, text=True, timeout=20)
-    if result.returncode == 0:
-        return True
-    log(f"ERROR envio: {result.stderr.strip()}")
-    return False
+    ok = _telegram_send(message)
+    if ok:
+        log("Notificação enviada via Telegram")
+    else:
+        log("ERRO ao enviar notificação via Telegram")
+    return ok
 
 # ── CSV ────────────────────────────────────────────────────────────────────────
 def append_lead_to_csv(lead: dict):
@@ -303,6 +281,12 @@ def main():
                 nome = p.get("name", "Desconhecido")
                 break
 
+        # ⛔ Guard nome bloqueado: bots do Facebook e variantes do Marketplace Assistant.
+        if nome.strip().lower() in NOMES_BLOQUEADOS:
+            log(f"[IGNORADO] {nome} | {conv_id} — nome bloqueado (bot/assistant do Facebook)")
+            processados.add(conv_id)
+            continue
+
         # Extrai telefone, email, URL real do item e descrição do anúncio
         msgs      = get_messages(conv_id, token)
         dados     = extrair_dados_lead(msgs, page_id)
@@ -311,9 +295,16 @@ def main():
         link_item = extrair_link_marketplace(msgs)
         descricao = extrair_descricao_imovel(msgs)
 
+        # ⛔ REGRA: processar SOMENTE leads do Marketplace.
+        # Conversas pessoais/de páginas sem link /marketplace/item/ são ignoradas.
+        if not link_item:
+            log(f"[IGNORADO] {nome} | {conv_id} — sem link /marketplace/item/ (conversa pessoal ou não-marketplace)")
+            processados.add(conv_id)
+            continue
+
         num_conv   = conv_id.replace("t_", "")
         link_conv  = f"https://www.facebook.com/messages/t/{num_conv}"
-        link_final = link_item if link_item else link_conv
+        link_final = link_item
         data_hoje  = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
         lead_row = {

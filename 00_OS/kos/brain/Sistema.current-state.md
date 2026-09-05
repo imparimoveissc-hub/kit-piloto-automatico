@@ -1,6 +1,6 @@
 ---
 modulo: sistema
-atualizado: 2026-08-26
+atualizado: 2026-09-02
 ---
 status: ativo
 gerente_digital: cron 13 * * * * (horário)
@@ -12,4 +12,4 @@ messenger_api: ativo (porta 9876, ok:true)
 disco: OK
 problema: nenhum
 acao_pendente: nenhuma
-ultima_mudanca: "gerente-digital remove check porta 8791 fantasma; LaunchAgent docker-n8n-startup criado e ativo"
+ultima_mudanca: "Deploy followup + relatorio-manha no VPS (45.140.193.77) via cron; LaunchAgent sync-csv-vps criado no Mac (GDrive XLSX → CSV → VPS a cada 1h)"

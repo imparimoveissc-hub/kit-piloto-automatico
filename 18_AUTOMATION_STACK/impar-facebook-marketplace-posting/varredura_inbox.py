@@ -3,7 +3,24 @@
 Varredura Messenger Marketplace v3 — Impar Imóveis.
 Correções: deduplicação por Y, press_sequentially para input, verificação de envio por screenshot.
 """
-import csv, json, re, shutil, subprocess, sys, time
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║              ⛔⛔  REGRAS SUPREMAS — LER ANTES DE TUDO  ⛔⛔                ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  REGRA 1 — SOMENTE MARKETPLACE                                              ║
+# ║  Esta automação processa EXCLUSIVAMENTE conversas originadas no Facebook    ║
+# ║  Marketplace. Contatos pessoais, amigos, grupos e qualquer conversa sem     ║
+# ║  link /marketplace/ são SEMPRE ignorados. Nunca enviar mensagem ou          ║
+# ║  registrar como lead fora desse contexto.                                   ║
+# ║  Guard: is_marketplace_conv(page) → deve retornar True antes de qualquer   ║
+# ║  ação. Se False → stats['p'] += 1, nunca enviar, nunca registrar.           ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  REGRA 2 — NUNCA RESPONDER "FACEBOOK MARKETPLACE ASSISTANT"                 ║
+# ║  Qualquer conversa cujo nome corresponda a "Facebook Marketplace            ║
+# ║  Assistant" ou variante listada em NOMES_BLOQUEADOS é um bot do Facebook   ║
+# ║  — não é um lead real. NUNCA responder, NUNCA notificar, NUNCA gravar.      ║
+# ║  Guard: is_nome_bloqueado(nome) → verificar ANTES de is_marketplace_conv.   ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+import csv, json, os, re, shutil, subprocess, sys, time, unicodedata
 from datetime import datetime
 from pathlib import Path
 from openai import OpenAI
@@ -14,8 +31,20 @@ CSV_ICLOUD = Path("/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/K
 LOG_PATH   = Path("/Users/usuario/.local/impar-automation/messenger/messenger-rodadas.md")
 JONATA_WA  = "554796876631"
 INBOX_URL  = "https://www.facebook.com/marketplace/inbox/"
-OPENAI_KEY = "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"
+OPENAI_KEY = os.environ.get("OPENAI_API_KEY", "")
 OPENAI_MODEL = "gpt-4o-mini"
+ACCOUNT_ID = os.environ.get("IMPAR_ACCOUNT_ID", "jonata")
+
+# ⛔ Nomes que NUNCA devem ser respondidos automaticamente.
+# Inclui bots do Facebook e qualquer variante do assistente do Marketplace.
+# Conversas pessoais do Jonata já são bloqueadas pelo guard is_marketplace_conv(),
+# mas nomes listados aqui são bloqueados antes de qualquer outra verificação.
+NOMES_BLOQUEADOS = {
+    "facebook marketplace assistant",
+    "marketplace assistant",
+    "facebook assistant",
+    "assistant",
+}
 PHONE_RE  = re.compile(
     r'(?:\+?55[\s.\-]?)?'        # +55 opcional
     r'(?:\(?\d{2}\)?[\s.\-]?)?'  # DDD opcional
@@ -26,6 +55,7 @@ PHONE_RE  = re.compile(
 NOTIF_ICLOUD     = Path("/Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/18_AUTOMATION_STACK/impar-facebook-marketplace-posting/notificar_lead_whatsapp.py")
 NOTIF_LOCAL      = Path.home() / ".local/impar-automation/messenger/notificar_lead_whatsapp.py"
 NOTIFICADOS_PATH = Path.home() / ".local/impar-automation/messenger/notificados-varredura.json"
+PENDING_NOTIF    = Path.home() / ".local/impar-automation/messenger/pending-notif.json"
 
 def _sync_notif_script():
     """Copia notificar_lead_whatsapp.py do iCloud → local se iCloud for mais novo."""
@@ -44,6 +74,41 @@ def _sync_csv_from_icloud():
                 shutil.copy2(CSV_ICLOUD, CSV_PATH)
     except Exception:
         pass
+
+def _sync_csv_to_gsheet():
+    """Espelha o CSV local na planilha do Google Drive (leads_marketplace_captura).
+    Sobrescreve a planilha inteira com o conteúdo do CSV — idempotente. Falha silenciosa."""
+    try:
+        sys.path.insert(0, str(Path(__file__).parent))
+        from sheets_gdrive import LEADS_SHEET_ID, get_token, upload_rows
+        with open(CSV_PATH, newline='', encoding='utf-8') as f:
+            rows = [r for r in csv.reader(f) if r]
+        if not rows:
+            return
+        upload_rows(LEADS_SHEET_ID, rows, get_token())
+        print(f"    📊 Planilha Google Drive atualizada ({len(rows)} linhas)")
+    except Exception as e:
+        print(f"    ⚠ sync planilha Google Drive falhou: {e}")
+
+def _append_lead_to_gsheet(nome, telefone, tipo, link, obs, data_captura):
+    """Adiciona apenas o lead novo ao Google Sheet, sem sobrescrever a planilha inteira."""
+    try:
+        sys.path.insert(0, str(Path(__file__).parent))
+        from sheets_gdrive import LEADS_SHEET_ID, get_token, append_dict
+        append_dict(LEADS_SHEET_ID, {
+            'Nome': nome,
+            'Telefone': telefone,
+            'Tipo Imóvel': tipo,
+            'Link': link,
+            'Bairro': '',
+            'Status': 'novo',
+            'Data': data_captura,
+            'Fonte': f'Messenger Marketplace/{ACCOUNT_ID}',
+            'Observações': obs,
+        }, get_token())
+        print("    📊 Lead adicionado ao Google Sheet")
+    except Exception as e:
+        print(f"    ⚠ append planilha Google Drive falhou: {e}")
 
 def _sync_csv_to_icloud():
     """Copia local → iCloud após escrita. Falha silenciosa se TCC bloquear."""
@@ -82,6 +147,48 @@ def mark_notified(notif_set: set, phone: str):
     except Exception:
         pass
 
+def load_pending_notif() -> list:
+    if not PENDING_NOTIF.exists():
+        return []
+    try:
+        return json.loads(PENDING_NOTIF.read_text())
+    except Exception:
+        return []
+
+def add_pending_notif(nome: str, telefone: str, imovel: str, link: str):
+    items = load_pending_notif()
+    if not any(i.get('telefone') == telefone for i in items):
+        items.append({'nome': nome, 'telefone': telefone, 'imovel': imovel,
+                      'link': link, 'ts': datetime.now().isoformat()})
+        PENDING_NOTIF.write_text(json.dumps(items, ensure_ascii=False, indent=2))
+
+def retry_pending_notif():
+    items = load_pending_notif()
+    if not items:
+        return
+    remaining = []
+    notif_script = NOTIF_LOCAL
+    for item in items:
+        print(f"  🔄 Renotificando pendente: {item['nome']} / {item['telefone']}")
+        try:
+            result = subprocess.run(
+                [sys.executable, str(notif_script),
+                 '--nome', item['nome'], '--telefone', item['telefone'],
+                 '--resumo', item.get('imovel', ''),
+                 '--link-imovel', item.get('link', ''),
+                 '--origem', 'marketplace'],
+                timeout=60
+            )
+            if result.returncode == 0:
+                print(f"    ✅ Renotificação OK: {item['nome']}")
+            else:
+                print(f"    ⚠ Renotificação falhou — mantendo na fila")
+                remaining.append(item)
+        except Exception as e:
+            print(f"    ⚠ Renotificação erro: {e} — mantendo na fila")
+            remaining.append(item)
+    PENDING_NOTIF.write_text(json.dumps(remaining, ensure_ascii=False, indent=2))
+
 def load_phones_to_names():
     """Retorna dict phone_digits → nome, para validação anti-falso-positivo do sidebar."""
     if not CSV_PATH.exists():
@@ -96,15 +203,17 @@ def load_phones_to_names():
 
 def append_lead(nome, telefone, tipo, link, obs):
     header = ['Nome','Telefone','Tipo Imóvel','Link','Bairro','Status','Data','Fonte','Observações']
+    data_captura = datetime.now().strftime('%Y-%m-%d %H:%M')
     exists = CSV_PATH.exists()
     with open(CSV_PATH, 'a', newline='', encoding='utf-8') as f:
         w = csv.writer(f)
         if not exists:
             w.writerow(header)
         w.writerow([nome, telefone, tipo, link, '', 'novo',
-                    datetime.now().strftime('%Y-%m-%d %H:%M'),
+                    data_captura,
                     'Messenger Marketplace', obs])
     _sync_csv_to_icloud()
+    _append_lead_to_gsheet(nome, telefone, tipo, link, obs, data_captura)
 
 def mensagem_cliente(nome, link):
     """Template padrão de resposta ao lead."""
@@ -124,7 +233,7 @@ GRUPO_LEADS = "NOVOS LEADS"
 
 def notificar_jonata(nome, telefone, imovel, link_anuncio):
     """Envia alerta via notificar_lead_whatsapp.py (método CGEvent validado + formato correto)."""
-    notif_script = Path.home() / ".local/impar-automation/messenger/notificar_lead_whatsapp.py"
+    notif_script = NOTIF_LOCAL
     try:
         result = subprocess.run(
             [sys.executable, str(notif_script),
@@ -132,15 +241,18 @@ def notificar_jonata(nome, telefone, imovel, link_anuncio):
              '--telefone', telefone,
              '--resumo', imovel,
              '--link-imovel', link_anuncio or '',
-             '--origem', 'marketplace'],
+             '--origem', 'marketplace',
+             '--account-id', ACCOUNT_ID],
             timeout=60
         )
         if result.returncode == 0:
             print(f"    📱 Grupo '{GRUPO_LEADS}' notificado: {nome} / {telefone}")
         else:
-            print(f"    ⚠ notificar_jonata: exit {result.returncode}")
+            print(f"    ⚠ notificar_jonata: exit {result.returncode} — adicionando à fila de pendentes")
+            add_pending_notif(nome, telefone, imovel, link_anuncio or '')
     except Exception as e:
-        print(f"    ⚠ notificar_jonata: {e}")
+        print(f"    ⚠ notificar_jonata: {e} — adicionando à fila de pendentes")
+        add_pending_notif(nome, telefone, imovel, link_anuncio or '')
 
 def update_log(stats, leads, status, ts):
     if status == "INBOX_VAZIA":
@@ -163,10 +275,15 @@ def update_log(stats, leads, status, ts):
 
 NOSSAS_FRASES = [
     "Certo, vou atualizar",
+    "Vou verificar essa informação",
     "Obrigado, vou entrar em contato",
+    "Obrigado, vamos entrar em contato",
     "Qual seu whatsapp para retorno",
     "Recebi seu n",
     "Vou verificar com o corretor",
+    "reagiu com",          # reação a uma mensagem nossa — não é pergunta
+    "Aqui é a Impar Imóveis",
+    "Vi que você demonstrou interesse",
 ]
 TIMESTAMP_RE_STR = r'^\d{1,2}:\d{2}$|^(Seg|Ter|Qua|Qui|Sex|Sáb|Dom)$|^\d{1,2}/\d{1,2}$'
 
@@ -192,7 +309,38 @@ def get_unique_threads(page, messages_mode=False):
     () => {{
         const x_min = {x_min}, x_max = {x_max};
         const byName = {{}};
-        // Prioridade: links <a> com href de thread do marketplace/inbox
+
+        // Guarda mantendo sempre a linha mais ao topo (threads pendentes ficam em cima)
+        const guardar = (nome, lines, txt, bb, href) => {{
+            if (byName[nome] && byName[nome].y <= bb.y) return;
+            byName[nome] = {{
+                nome, lines, txt: txt.slice(0, 300),
+                cx: Math.round(bb.x + bb.width / 2),
+                cy: Math.round(bb.y + bb.height / 2),
+                y: bb.y, url: href
+            }};
+        }};
+
+        // Detector principal: a UI atual do Facebook não usa mais <a href> nas
+        // linhas do inbox — são divs. Cada linha tem uma sublinha que começa
+        // com "·" (o anúncio ao qual a conversa se refere).
+        document.querySelectorAll('div').forEach(el => {{
+            const bb = el.getBoundingClientRect();
+            if (bb.width < 350) return;
+            if (bb.x < x_min || bb.x > x_max) return;
+            if (bb.height < 45 || bb.height > 115) return;
+            if (bb.y < 150) return;
+            const txt = (el.innerText || '').trim();
+            if (txt.length < 8 || txt.length > 600) return;
+            const lines = txt.split('\\n').map(s => s.trim()).filter(Boolean);
+            if (lines.length < 2) return;
+            if (!lines.some(l => l.startsWith('·'))) return;
+            const nome = lines[0] || '';
+            if (!nome || nome.length > 60 || nome.startsWith('·')) return;
+            guardar(nome, lines, txt, bb, '');
+        }});
+
+        // Fallback 1: layouts antigos com link direto para o thread
         document.querySelectorAll('a[href*="/marketplace/inbox/"]').forEach(el => {{
             const bb = el.getBoundingClientRect();
             if (bb.width < 100 || bb.height < 20 || bb.height > 120) return;
@@ -203,17 +351,10 @@ def get_unique_threads(page, messages_mode=False):
             const lines = txt.split('\\n').map(s => s.trim()).filter(Boolean);
             const nome = lines[0] || '';
             if (!nome || nome.length > 40 || nome.startsWith('·')) return;
-            const href = el.href || '';
-            if (!byName[nome] || bb.y < byName[nome].y) {{
-                byName[nome] = {{
-                    nome, lines, txt: txt.slice(0, 300),
-                    cx: Math.round(bb.x + bb.width / 2),
-                    cy: Math.round(bb.y + bb.height / 2),
-                    y: bb.y, url: href
-                }};
-            }}
+            guardar(nome, lines, txt, bb, el.href || '');
         }});
-        // Fallback: qualquer div/a na área de threads
+
+        // Fallback 2: qualquer div/a na área de threads (layout /messages/)
         document.querySelectorAll('div, a').forEach(el => {{
             const bb = el.getBoundingClientRect();
             if (bb.width < 200 || bb.height < 20 || bb.height > 120) return;
@@ -224,15 +365,10 @@ def get_unique_threads(page, messages_mode=False):
             const lines = txt.split('\\n').map(s => s.trim()).filter(Boolean);
             const nome = lines[0] || '';
             if (!nome || nome.length > 40 || nome.startsWith('·')) return;
-            if (byName[nome]) return;  // já temos pelo link direto
-            const href = (el.tagName === 'A') ? (el.href || '') : '';
-            byName[nome] = {{
-                nome, lines, txt: txt.slice(0, 300),
-                cx: Math.round(bb.x + bb.width / 2),
-                cy: Math.round(bb.y + bb.height / 2),
-                y: bb.y, url: href
-            }};
+            if (byName[nome]) return;  // já detectado com mais precisão acima
+            guardar(nome, lines, txt, bb, (el.tagName === 'A') ? (el.href || '') : '');
         }});
+
         return Object.values(byName);
     }}
     """)
@@ -265,12 +401,23 @@ def get_unique_threads(page, messages_mode=False):
 def get_nome(text):
     return text.split()[0] if text else ""
 
-def click_thread(page, nome_full):
+def click_thread(page, nome_full, coords=None):
     """
-    v4 — usa page.mouse.click (CDP) em vez de el.click() (JS).
-    el.click() não dispara eventos sintéticos React; CDP sim.
+    v5 — prioriza a coordenada já calculada por get_unique_threads().
+
+    Buscar por texto (:has-text) casa com qualquer ancestral que contenha o
+    nome, incluindo itens do painel de notificações — era isso que abria
+    "Anteriores" no lugar da conversa. A coordenada da linha é inequívoca.
     """
     nome_first = nome_full.split()[0]
+
+    # Strategy 0: clique direto na coordenada da linha detectada
+    if coords:
+        try:
+            page.mouse.click(coords[0], coords[1])
+            return True
+        except Exception:
+            pass
 
     # Strategy 1: Playwright locator (CDP nativo, melhor para React SPA)
     for selector in [
@@ -313,39 +460,229 @@ def click_thread(page, nome_full):
     return False
 
 def get_conv_text(page):
-    """Lê apenas o log de mensagens — evita contaminar com sidebar."""
-    for sel in ['[role="log"]', '[aria-label="Conversa"]', '[aria-label="Conversation"]']:
-        try:
-            el = page.query_selector(sel)
-            if el:
-                return el.inner_text()
-        except Exception:
-            pass
-    try: return page.inner_text('[role="main"]')
+    """Lê apenas o log de mensagens do painel de conversa aberto (direita, x>380).
+
+    BUG histórico: page.query_selector('[role="log"]') pega o PRIMEIRO elemento
+    com esse role no DOM, que pode ser a lista de threads da sidebar (que também
+    usa role="log" ou acaba tendo texto >20 chars) — isso misturava mensagens de
+    vários leads diferentes no mesmo texto e causava falsos SEM_ACAO (frase nossa
+    de OUTRO lead "casava" no last_block deste). A busca agora é geométrica:
+    só aceita candidatos com bb.x > 380 (fora da sidebar esquerda).
+    """
+    try:
+        text = page.evaluate("""
+        () => {
+            const clean = (s) => (s || '')
+                .replace(/\\n{3,}/g, '\\n\\n')
+                .trim();
+            const visible = (el) => {
+                const bb = el.getBoundingClientRect();
+                const style = window.getComputedStyle(el);
+                return bb.width > 0 && bb.height > 0
+                    && style.visibility !== 'hidden'
+                    && style.display !== 'none';
+            };
+            const looksLikeConversation = (txt) => {
+                const low = txt.toLowerCase();
+                return txt.length >= 20 && (
+                    low.includes('mensagem enviada') ||
+                    low.includes('message sent') ||
+                    low.includes('pressione enter') ||
+                    low.includes('press enter') ||
+                    low.includes('está disponível') ||
+                    low.includes('esta disponível') ||
+                    low.includes('is this available') ||
+                    low.includes('disponivel') ||
+                    low.includes('disponível') ||
+                    low.includes('boa tarde') ||
+                    low.includes('bom dia') ||
+                    low.includes('boa noite') ||
+                    low.includes('whatsapp') ||
+                    low.includes('telefone') ||
+                    low.includes('interesse') ||
+                    low.includes('imóvel') ||
+                    low.includes('imovel') ||
+                    low.includes('aluguel') ||
+                    low.includes('alugar') ||
+                    low.includes('venda') ||
+                    low.includes('valor') ||
+                    low.includes('contato') ||
+                    low.includes('visita') ||
+                    low.includes('enviar') ||
+                    low.includes('obrigad')
+                );
+            };
+
+            const sels = [
+                '[role="log"]',
+                '[aria-label="Conversa"]',
+                '[aria-label="Conversation"]',
+                '[aria-label*="essage"]',
+                '[aria-label*="ensage"]',
+                '[data-testid="message-container"]'
+            ];
+            let best = '';
+
+            // Pass 1: strict — requer keywords de conversa
+            for (const sel of sels) {
+                for (const el of document.querySelectorAll(sel)) {
+                    const bb = el.getBoundingClientRect();
+                    if (bb.x < 300 || bb.width < 200 || bb.height < 60) continue;
+                    if (!visible(el)) continue;
+                    const t = clean(el.innerText || el.textContent || '');
+                    if (looksLikeConversation(t) && t.length > best.length) best = t;
+                }
+                if (best.length >= 20) return best;
+            }
+
+            // Pass 2: relaxed — qualquer texto > 20 chars nos mesmos seletores
+            for (const sel of sels) {
+                for (const el of document.querySelectorAll(sel)) {
+                    const bb = el.getBoundingClientRect();
+                    if (bb.x < 300 || bb.width < 200 || bb.height < 60) continue;
+                    if (!visible(el)) continue;
+                    const t = clean(el.innerText || el.textContent || '');
+                    if (t.length >= 20 && t.length > best.length) best = t;
+                }
+                if (best.length >= 20) return best;
+            }
+
+            // Pass 3: broad — container scrollavel grande no painel direito
+            for (const el of document.querySelectorAll('div, section, main')) {
+                const bb = el.getBoundingClientRect();
+                if (bb.x < 350 || bb.width < 250 || bb.height < 150) continue;
+                const style = window.getComputedStyle(el);
+                const isScroll = (style.overflowY === 'auto' || style.overflowY === 'scroll'
+                    || el.scrollHeight > el.clientHeight + 50);
+                if (!isScroll) continue;
+                if (!visible(el)) continue;
+                const t = clean(el.innerText || el.textContent || '');
+                if (t.length >= 30 && t.length > best.length) best = t;
+            }
+
+            return best;
+        }
+        """)
+        if text and len(text.strip()) >= 20:
+            return text.strip()
+    except Exception as _e:
+        print(f"    debug get_conv_text exception: {_e}")
+    # Debug: mostra o que existe no DOM quando falha
+    try:
+        dbg = page.evaluate("""
+        () => {
+            const info = [];
+            for (const sel of ['[role="log"]', '[aria-label*="onvers"]', '[aria-label*="essag"]',
+                                'div[contenteditable="true"]']) {
+                const els = document.querySelectorAll(sel);
+                els.forEach(el => {
+                    const bb = el.getBoundingClientRect();
+                    const txt = (el.innerText || '').trim();
+                    info.push(sel + ' x=' + Math.round(bb.x) + ' y=' + Math.round(bb.y)
+                        + ' w=' + Math.round(bb.width) + ' h=' + Math.round(bb.height)
+                        + ' len=' + txt.length + ' start=' + JSON.stringify(txt.slice(0,80)));
+                });
+            }
+            return info.slice(0, 8).join(' | ');
+        }
+        """)
+        if dbg:
+            print(f"    debug DOM: {dbg}")
     except Exception:
-        try: return page.inner_text('body')
-        except Exception: return ""
+        pass
+    return ""
 
 def get_listing_url(page):
-    """Extrai link do anúncio da conversa — busca no log e no card de anúncio acima."""
+    """Extrai link do anúncio da conversa.
+    Estratégias em ordem de confiabilidade:
+    1. Link <a> do CARD do anúncio (o mais no topo do painel, x>380 — nunca a sidebar)
+    2. Dados JSON embutidos no HTML (item_id, marketplace_listing_id)
+    3. HTML bruto da página via regex
+
+    IMPORTANTE: a Estratégia 1 pega o link com MENOR y (mais no topo) entre os
+    candidatos — não o primeiro do DOM. Uma mensagem NOSSA já enviada (com o link
+    do imóvel, ex: montar_mensagem_boas_vindas) vira um <a href> clicável dentro da
+    bolha da conversa; pegar "o primeiro <a> que bate" migrava esse link antigo
+    (às vezes errado) para leads novos, porque ele aparecia antes do card real no
+    DOM em alguns layouts. O card do anúncio sempre renderiza acima das mensagens.
+    """
     url = page.evaluate("""
     () => {
-        const pat = /marketplace\\/item\\/(\\d+)/;
-        // 1. Card do anúncio (fica fora do [role=log], acima da conversa)
-        const allLinks = [...document.querySelectorAll('a[href*="/marketplace/item/"]')];
-        for (const a of allLinks) {
-            const m = (a.href || '').match(pat);
-            if (m) return 'https://www.facebook.com/marketplace/item/' + m[1] + '/';
+        const findItemId = (value) => {
+            const txt = String(value || '').replace(/\\\\\\//g, '/').replace(/&amp;/g, '&');
+            const m = txt.match(/marketplace\\/item\\/(\\d{6,})/);
+            return m ? m[1] : null;
+        };
+
+        // 1. Entre todos os <a> que batem o padrão, escolher o de MENOR y
+        // (mais próximo do topo do painel) — é o card do anúncio, não uma
+        // mensagem enviada por nós ou pelo lead.
+        let melhor = null, melhorY = Infinity;
+        for (const a of document.querySelectorAll('a[href]')) {
+            const itemId = findItemId(a.href || a.getAttribute('href') || a.outerHTML || '');
+            if (!itemId) continue;
+            const bb = a.getBoundingClientRect();
+            if (bb.x < 380) continue;  // nunca considerar sidebar
+            if (bb.y < melhorY) {
+                melhorY = bb.y;
+                melhor = itemId;
+            }
         }
-        // 2. Fallback: qualquer href na página que contenha o padrão
-        for (const a of [...document.querySelectorAll('a[href]')]) {
-            const m = (a.href || '').match(pat);
-            if (m) return 'https://www.facebook.com/marketplace/item/' + m[1] + '/';
+        if (melhor) return 'https://www.facebook.com/marketplace/item/' + melhor + '/';
+
+        // 1b. Alguns layouts deixam o card como div clicavel, com o link em
+        // atributos internos/outerHTML em vez de href direto.
+        melhor = null; melhorY = Infinity;
+        for (const el of document.querySelectorAll('div, span, [role="link"], [role="button"]')) {
+            const bb = el.getBoundingClientRect();
+            if (bb.x < 380 || bb.width < 80 || bb.height < 20) continue;
+            const raw = [
+                el.getAttribute('href'),
+                el.getAttribute('aria-label'),
+                el.getAttribute('data-hovercard'),
+                el.getAttribute('data-store'),
+                el.outerHTML
+            ].filter(Boolean).join(' ');
+            const itemId = findItemId(raw);
+            if (!itemId) continue;
+            if (bb.y < melhorY) {
+                melhorY = bb.y;
+                melhor = itemId;
+            }
         }
+        if (melhor) return 'https://www.facebook.com/marketplace/item/' + melhor + '/';
+
+        // 2. JSON embutido nos <script> — Facebook embute item_id no pageData
+        const idPats = [
+            /"item_id"\s*:\s*"?(\d{10,})"?/,
+            /"marketplace_listing_id"\s*:\s*"?(\d{10,})"?/,
+            /"listing_id"\s*:\s*"?(\d{10,})"?/,
+        ];
+        for (const s of document.querySelectorAll('script')) {
+            const t = s.textContent || '';
+            if (!t.includes('marketplace')) continue;
+            for (const p of idPats) {
+                const m = t.match(p);
+                if (m) return 'https://www.facebook.com/marketplace/item/' + m[1] + '/';
+            }
+        }
+
         return null;
     }
     """)
-    return url
+    if url:
+        return url
+
+    # 3. HTML bruto via Python regex (captura o que JS não renderiza)
+    try:
+        html = page.content()
+        m = re.search(r'/marketplace/item/(\d{10,})', html)
+        if m:
+            return f"https://www.facebook.com/marketplace/item/{m.group(1)}/"
+    except Exception:
+        pass
+
+    return None
 
 def get_conv_nome(page):
     """Extrai o nome do contato da conversa aberta (cabeçalho da conversa)."""
@@ -388,10 +725,159 @@ def get_conv_nome(page):
     except Exception:
         return None
 
+def get_listing_url_retry(page, tentativas=4, espera=2):
+    """Tenta capturar o link do anúncio várias vezes — o card do anúncio
+    às vezes renderiza alguns segundos depois do resto da conversa."""
+    for i in range(tentativas):
+        link = get_listing_url(page)
+        if link:
+            return link
+        if i < tentativas - 1:
+            time.sleep(espera)
+    return None
+
+def normalize_marketplace_item_link(value):
+    """Retorna link real de anuncio/imovel, nunca link de conversa."""
+    if not value:
+        return ""
+    value = str(value)
+    m = re.search(r'(?:https?://(?:www\.)?facebook\.com)?/marketplace/item/(\d{6,})', value)
+    if m:
+        return f"https://www.facebook.com/marketplace/item/{m.group(1)}/"
+    m = re.search(r'https?://(?:www\.)?imparimoveis\.com/imovel/\d+/[^\s,"\')<]+', value)
+    return m.group(0) if m else ""
+
+def _norm_text(value):
+    value = re.sub(r'<[^>]+>', ' ', str(value or ''))
+    value = unicodedata.normalize('NFKD', value)
+    value = ''.join(ch for ch in value if not unicodedata.combining(ch))
+    return re.sub(r'\s+', ' ', value.lower()).strip()
+
+def lookup_imovel_link_from_hint(hint):
+    """Acha o link oficial Impar pelo texto do anúncio visto no inbox."""
+    hint_norm = _norm_text(hint)
+    if not hint_norm:
+        return ""
+
+    price_match = re.search(r'r\$\s*[\d\.\,]+', hint_norm)
+    price = price_match.group(0).replace(' ', '') if price_match else ""
+    type_terms = [t for t in ('casa', 'apartamento', 'terreno', 'sala', 'comercial', 'kitnet') if t in hint_norm]
+    place_terms = [t for t in ('joao costa', 'vila nova', 'itinga', 'paranaguamirim', 'floresta', 'centro') if t in hint_norm]
+
+    base = CSV_ICLOUD.parent
+    candidates = [
+        base / 'fila-ciclo-marketplace.csv',
+        base / 'fila-postagens.csv',
+        base / 'fila-postagens-venda.csv',
+        base / 'imoveis-venda.csv',
+        base / 'imoveis-locacao.csv',
+    ]
+    best_url, best_score = "", 0
+    for path in candidates:
+        if not path.exists():
+            continue
+        try:
+            with path.open(newline='', encoding='utf-8') as f:
+                for row in csv.DictReader(f):
+                    row_text = _norm_text(' '.join(str(v or '') for v in row.values()))
+                    if not row_text:
+                        continue
+                    score = 0
+                    if price and price in row_text.replace(' ', ''):
+                        score += 4
+                    score += sum(2 for t in type_terms if t in row_text)
+                    score += sum(3 for t in place_terms if t in row_text)
+                    for key in ('codigo_imovel', 'codigo', 'referencia', 'ref'):
+                        val = _norm_text(row.get(key, ''))
+                        if val and val in hint_norm:
+                            score += 5
+                    url = row.get('url_impar') or row.get('url') or ''
+                    if score > best_score and normalize_marketplace_item_link(url):
+                        best_score = score
+                        best_url = normalize_marketplace_item_link(url)
+        except Exception:
+            continue
+
+    return best_url if best_score >= 7 else ""
+
+def require_listing_link(link, nome):
+    """Bloqueia lead capturado sem link de anuncio/imovel para evitar Telegram incompleto."""
+    link = normalize_marketplace_item_link(link)
+    if not link:
+        print(f"    ⚠ Link real do anúncio/imóvel ausente para '{nome}' — não envia Telegram nem grava; tenta novamente no próximo ciclo")
+        return ""
+    return link
+
+def montar_mensagem_boas_vindas(nome, link):
+    primeiro_nome = nome.split()[0] if nome else "tudo"
+    link_txt = link or ""
+    return (
+        f"Oi {primeiro_nome}, tudo bem? Aqui é a Impar Imóveis!\n"
+        f"Vi que você demonstrou interesse em um dos nossos imóveis {link_txt}\n\n"
+        f"Gostaria de retirar mais duvidas sobre o imóvel?"
+    )
+
+def ultimo_remetente_suspeito(conv_text, nome_esperado):
+    """Facebook expõe cada mensagem com texto tipo 'Mensagem enviada ... por Fulano:'.
+    Se o último remetente marcado no texto não é nem o lead esperado nem 'Você',
+    é sinal forte de que o painel ainda mostra conteúdo do lead ANTERIOR (o React
+    ainda não trocou o corpo da conversa, mesmo com o heading já atualizado)."""
+    if not nome_esperado:
+        return False
+    matches = re.findall(r'por ([A-ZÀ-Ý][\wÀ-ÿ]*)\s*:', conv_text)
+    if not matches:
+        return False
+    ultimo = matches[-1].lower()
+    esperado_first = nome_esperado.split()[0].lower()
+    if ultimo == 'você':
+        return False
+    if esperado_first in ultimo or ultimo in esperado_first:
+        return False
+    return True
+
 def extract_imovel(text):
     for kw in ['Casa','Terreno','Comercial','Sala','Galpão','Kitnet','Studio','Sobrado']:
         if kw.lower() in text.lower(): return kw
     return 'Apartamento'
+
+def trigger_conv_loading(page, hard=False):
+    """Força o lazy loading do painel de conversa.
+    Normal: scroll + click + focus no [role="log"].
+    hard=True: page.goto(page.url) para forçar reload completo da página."""
+    if hard:
+        try:
+            cur = page.url
+            print(f"    🔄 Hard reload: {cur[-60:]}")
+            page.goto(cur, wait_until="domcontentloaded", timeout=15000)
+            time.sleep(18)
+        except Exception as e:
+            print(f"    ⚠ Hard reload falhou: {e}")
+            try:
+                page.reload(wait_until="domcontentloaded", timeout=15000)
+                time.sleep(3)
+            except Exception:
+                pass
+        return
+    try:
+        page.evaluate("""
+        () => {
+            for (const el of document.querySelectorAll('[role="log"]')) {
+                const bb = el.getBoundingClientRect();
+                if (bb.x < 300 || bb.width < 200) continue;
+                el.scrollTop = el.scrollHeight;
+                el.scrollTop = 0;
+                el.dispatchEvent(new Event('scroll', {bubbles: true}));
+                el.click();
+                el.focus();
+            }
+            // Clique no centro do painel de conversa
+            const cx = Math.max(window.innerWidth * 0.7, 800);
+            const cy = window.innerHeight * 0.5;
+            document.elementFromPoint(cx, cy)?.click();
+        }
+        """)
+    except Exception:
+        pass
 
 def wait_for_conversation_open(page, timeout=15, base_url=None):
     """
@@ -422,25 +908,49 @@ def wait_for_conversation_open(page, timeout=15, base_url=None):
             ('/messages/t/' in cur) or
             ('/messages/e2ee/t/' in cur)
         )
-        if url_opened:
-            return True
+        # URL sozinha não garante que o React já renderizou a conversa.
+        # Continuamos aguardando o log/input do painel para evitar texto vazio.
 
-        # 2. Log de conversa visível
+        # 2. Log de conversa visível no painel da direita, não na sidebar
+        # IMPORTANTE: rejeitar "Carregando..." / "Loading..." — o Facebook
+        # renderiza o container do log antes de carregar as mensagens reais.
         try:
-            el = page.query_selector('[role="log"]')
-            if el and el.is_visible():
+            has_conversation_log = page.evaluate("""
+            () => {
+                const loading = ['carregando', 'loading', 'aguarde', 'wait'];
+                for (const el of document.querySelectorAll('[role="log"]')) {
+                    const bb = el.getBoundingClientRect();
+                    if (bb.x < 300 || bb.width < 200 || bb.height < 80) continue;
+                    const t = (el.innerText || '').trim();
+                    if (t.length > 20 && !loading.some(w => t.toLowerCase().startsWith(w))) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            """)
+            if has_conversation_log:
                 return True
         except Exception:
             pass
 
-        # 3. Campo de input visível
+        # 3. Campo de input visível — indica que o frame da conversa abriu,
+        # mas as mensagens podem ainda estar em "Carregando...".
+        # Dispara trigger_conv_loading para forçar o lazy load e continua
+        # polling para dar chance ao [role="log"] carregar com conteúdo real.
+        _found_textbox = False
         for sel in CE_SELECTORS:
             try:
                 el = page.query_selector(sel)
                 if el and el.is_visible():
-                    return True
+                    _found_textbox = True
+                    break
             except Exception:
                 pass
+        if _found_textbox:
+            trigger_conv_loading(page)
+            if time.time() + 5 > deadline:
+                return True
 
         time.sleep(0.5)
 
@@ -460,40 +970,96 @@ def send_message(page, text):
     Envia mensagem no popup do Messenger Marketplace.
     O popup abre com quick-reply buttons que interceptam cliques.
     Solução: Escape → clicar direto no input com force=True → type() → Enter.
+
+    Texto com '\\n' é enviado como mensagens separadas, uma por linha. O type()
+    do Playwright traduz '\\n' em Enter, que no Messenger ENVIA a mensagem — a
+    primeira linha saía sozinha e a segunda se perdia quando o popup
+    re-renderizava. Cada linha é digitada e enviada no seu próprio ciclo.
     """
+    partes = [p.strip() for p in text.split('\n') if p.strip()]
+    if not partes:
+        return False
+
+    enviadas = 0
+    for i, parte in enumerate(partes):
+        try:
+            # Fechar quick-reply suggestions com Escape
+            page.keyboard.press('Escape')
+            time.sleep(0.4)
+
+            # Aguardar textbox (popup input "Aa") — reobtido a cada parte,
+            # porque o popup remonta o input depois de cada envio
+            box = page.wait_for_selector(
+                'div[contenteditable="true"][role="textbox"]',
+                timeout=8000, state='visible'
+            )
+            if not box:
+                print(f"    ⚠ Textbox não encontrado (parte {i+1}/{len(partes)})")
+                break
+
+            if i == 0:
+                bb = box.bounding_box()
+                print(f"    debug: textbox em x={bb['x']:.0f} y={bb['y']:.0f} w={bb['width']:.0f} h={bb['height']:.0f}" if bb else "    debug: textbox sem bounding box")
+
+            # Clicar com force para bypassar qualquer overlay residual
+            box.click(force=True)
+            time.sleep(0.4)
+
+            # type() — método ElementHandle no Playwright 1.60
+            box.type(parte, delay=15)
+            time.sleep(0.5)
+
+            # Enviar com Enter
+            page.keyboard.press('Enter')
+            time.sleep(2.5)
+            enviadas += 1
+
+        except Exception as e:
+            print(f"    ⚠ send_message erro (parte {i+1}/{len(partes)}): {e}")
+            break
+
+    if enviadas < len(partes):
+        print(f"    ⚠ enviadas {enviadas}/{len(partes)} partes da resposta")
+    return enviadas == len(partes)
+
+def send_message_single(page, text):
+    """
+    Envia `text` como UMA ÚNICA mensagem no Messenger, mesmo contendo quebras
+    de linha ('\\n'). Diferente de send_message() — que envia cada linha como
+    mensagem separada — aqui a quebra de linha interna usa Shift+Enter (não
+    dispara o envio) e só o Enter final envia tudo junto, em uma bolha só.
+    """
+    linhas = [l.strip() for l in text.split('\n') if l.strip()]
+    if not linhas:
+        return False
     try:
-        # Fechar quick-reply suggestions com Escape
         page.keyboard.press('Escape')
         time.sleep(0.4)
 
-        # Aguardar textbox (popup input "Aa")
         box = page.wait_for_selector(
             'div[contenteditable="true"][role="textbox"]',
             timeout=8000, state='visible'
         )
         if not box:
-            print("    ⚠ Textbox não encontrado após Escape")
+            print("    ⚠ Textbox não encontrado")
             return False
 
-        bb = box.bounding_box()
-        print(f"    debug: textbox em x={bb['x']:.0f} y={bb['y']:.0f} w={bb['width']:.0f} h={bb['height']:.0f}" if bb else "    debug: textbox sem bounding box")
-
-        # Clicar com force para bypassar qualquer overlay residual
         box.click(force=True)
         time.sleep(0.4)
 
-        # type() — método ElementHandle no Playwright 1.60
-        box.type(text, delay=15)
-        time.sleep(0.5)
+        for i, linha in enumerate(linhas):
+            box.type(linha, delay=15)
+            if i < len(linhas) - 1:
+                page.keyboard.press('Shift+Enter')
+                time.sleep(0.2)
 
-        # Enviar com Enter
+        time.sleep(0.4)
         page.keyboard.press('Enter')
         time.sleep(2.5)
-
         return True
 
     except Exception as e:
-        print(f"    ⚠ send_message erro: {e}")
+        print(f"    ⚠ send_message_single erro: {e}")
         return False
 
 def dismiss_notifications_panel(page):
@@ -535,59 +1101,111 @@ def is_marketplace_conv(page):
     Conversas pessoais, de grupos, de páginas ou qualquer outra origem
     devem ser IGNORADAS — nunca enviar mensagem nesses casos.
 
-    Critério: presença de a[href*="/marketplace/item/"] na ÁREA DE CONVERSA (x>350)
-    OU URL com /marketplace/. O sidebar esquerdo (~x<350) também contém links de
-    anúncios de outras conversas — ignorá-lo evita falso-positivo em conversas pessoais.
-    Aguarda até 6s pelo link do item (carregamento assíncrono em messages/ mode).
+    Critério (em ordem):
+    1. URL com /marketplace/
+    2. a[href*="/marketplace/item/"] (até 10s — links de card de anúncio)
+    3. DOM ampliado: qualquer link /marketplace/ OU label "Marketplace" isolado
+       no painel de conversa (x > 380px) — detecta modo messages/ onde o card
+       de anúncio pode não renderizar mas o label de contexto aparece.
     Se retornar False → stats['p'] += 1, NUNCA enviar.
     """
     if '/marketplace/' in page.url:
         return True
     # Aguardar carregamento assíncrono do link do item (comum em messages/ mode)
     try:
-        page.wait_for_selector('a[href*="/marketplace/item/"]', timeout=6000)
+        page.wait_for_selector('a[href*="/marketplace/item/"]', timeout=10000)
+        return True
     except Exception:
-        return False
-    # Confirmar que o link está na ÁREA DE CONVERSA (x>350, y>80).
-    # O sidebar esquerdo exibe links de anúncios de outras conversas — não indica
-    # que a conversa ATUAL é do marketplace. Conversas pessoais não têm card de anúncio.
+        pass
+    # Verificação DOM ampliada — inclui qualquer link /marketplace/ e label de contexto
     try:
         return bool(page.evaluate("""
         () => {
-            const links = [...document.querySelectorAll('a[href*="/marketplace/item/"]')];
-            return links.some(a => {
-                const bb = a.getBoundingClientRect();
-                return bb.width > 0 && bb.x > 350 && bb.y > 80;
-            });
+            // Link direto de item ou perfil de vendedor no Marketplace
+            if (document.querySelector('a[href*="/marketplace/item/"]')) return true;
+            if (document.querySelector('a[href*="/marketplace/"]')) return true;
+            // Label "Marketplace" isolado no painel de conversa (direita, x > 380)
+            for (const el of document.querySelectorAll('span, div, a, h1, h2, h3, [role="heading"]')) {
+                try {
+                    const bb = el.getBoundingClientRect();
+                    if (bb.x < 380 || bb.width < 5) continue;
+                    const txt = (el.innerText || '').trim();
+                    if (txt.toLowerCase() === 'marketplace') return true;
+                } catch (_) {}
+            }
+            return false;
         }
         """))
     except Exception:
         return False
 
+def is_nome_bloqueado(nome: str) -> bool:
+    """
+    ⛔ REGRA: nunca responder automaticamente conversas cujo nome esteja em NOMES_BLOQUEADOS.
+    Inclui "Facebook Marketplace Assistant" e variantes — bots do Facebook que não são leads reais.
+    Conversas pessoais do Jonata (owner) são tratadas pelo guard is_marketplace_conv().
+
+    Verifica em dois modos:
+    - Exato: nome.lower() in NOMES_BLOQUEADOS (nome completo como "Facebook Marketplace Assistant")
+    - Substring reversa: nome truncado (ex: "facebook") contido em algum nome bloqueado
+      — necessário porque _INBOX_HEADS pode zerar nome_real e get_nome() retorna só a 1ª palavra.
+    """
+    if not nome:
+        return False
+    nome_lower = nome.strip().lower()
+    if nome_lower in NOMES_BLOQUEADOS:
+        return True
+    # Captura casos onde nome foi truncado para a primeira palavra (ex: "Facebook")
+    return any(nome_lower in blocked for blocked in NOMES_BLOQUEADOS)
+
 def analisar_com_regras(conv_text, nome, preview):
     """Análise por regras — sem API externa, zero custo.
     1. Telefone na conversa → CAPTUROU_CONTATO
     2. Última mensagem é nossa → SEM_ACAO
-    3. Lead respondeu algo → PEDIR_CONTATO
+    3. Última mensagem não é nossa (é do lead) → PEDIR_CONTATO
+
+    NOTA: o campo `preview` (sidebar) não é mais exigido no passo 3 — a UI em
+    div do Facebook frequentemente entrega preview vazio mesmo com mensagem
+    nova do lead na conversa, e isso travava leads reais em SEM_ACAO por horas.
+    A decisão agora se baseia só no conteúdo real da conversa (conv_text).
     """
-    # 1. Qualquer telefone mencionado na conversa
-    phones = PHONE_RE.findall(conv_text)
+    # 1. Qualquer telefone mencionado na conversa.
+    # IMPORTANTE: remover URLs antes de buscar — o link do anúncio que NÓS mandamos
+    # (ex: .../marketplace/item/1078184554783477/) tem sequências de 8+ dígitos que
+    # o regex de telefone casava como se fosse um número real do lead.
+    conv_sem_url = re.sub(r'https?://\S+', ' ', conv_text)
+    # Remover também linhas que são mensagens NOSSAS — nomes de anúncio, texto de
+    # confirmação etc podem conter dígitos que não são telefone do lead.
+    conv_sem_nossas = '\n'.join(
+        l for l in conv_sem_url.split('\n')
+        if not any(p in l for p in NOSSAS_FRASES)
+    )
+    phones = PHONE_RE.findall(conv_sem_nossas)
     if phones:
         raw = phones[-1]
         telefone = re.sub(r'[^\d]', '', raw)
         if len(telefone) >= 8:
+            print(f"    debug telefone: match='{raw}' → {telefone} | contexto='...{conv_sem_nossas[-250:]}'")
             return {"acao": "CAPTUROU_CONTATO", "telefone": telefone}
 
     # 2. Verificar se última mensagem relevante é nossa
+    # Janela de 2 linhas (era 8): nossa mensagem de PEDIR_CONTATO ocupa exatamente
+    # 2 linhas ("Vou verificar essa informação" / "Qual seu whatsapp para retorno?").
+    # Com janela de 8, qualquer resposta curta do lead depois disso ficava "escondida"
+    # atrás da nossa frase por 2-3 rodadas e o lead travava em SEM_ACAO. Com -2, basta
+    # o lead mandar UMA mensagem nova pra voltar a cair em PEDIR_CONTATO.
     ts_pat = re.compile(TIMESTAMP_RE_STR)
     lines = [l.strip() for l in conv_text.split('\n')
              if l.strip() and not ts_pat.match(l.strip()) and l.strip() != '·']
-    last_block = ' '.join(lines[-8:]) if lines else ''
-    if any(p in last_block for p in NOSSAS_FRASES):
+    last_block = ' '.join(lines[-2:]) if lines else ''
+    _matched = next((p for p in NOSSAS_FRASES if p in last_block), None)
+    if _matched:
+        print(f"    debug SEM_ACAO: frase '{_matched}' casou em last_block='{last_block[-200:]}'")
         return {"acao": "SEM_ACAO", "telefone": None}
 
-    # 3. Preview existe → lead aguarda resposta
-    if preview and preview.strip() and len(preview.strip()) > 2:
+    # 3. Chegou até aqui: tem conteúdo real e a última mensagem não é nossa
+    # → é do lead, aguardando nossa resposta.
+    if lines:
         return {"acao": "PEDIR_CONTATO", "telefone": None}
 
     return {"acao": "SEM_ACAO", "telefone": None}
@@ -632,14 +1250,56 @@ def run():
     with sync_playwright() as p:
         ctx = p.chromium.launch_persistent_context(
             str(PROFILE),
+            # headless=True: sob launchd o browser com janela não tem acesso
+            # pleno à GUI e os cliques não chegam à página ("Conversa não abriu"
+            # com ce=False/log=False). Headless é determinístico aqui.
             headless=True,
-            viewport={"width": 1280, "height": 900},
-            args=["--no-sandbox","--disable-dev-shm-usage"],
+            viewport={"width": 1920, "height": 1080},
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--no-first-run",
+                "--no-default-browser-check",
+                "--disable-sync",
+                "--password-store=basic",
+                "--use-mock-keychain",
+                "--aggressive-cache-discard",
+                "--disable-back-forward-cache",
+                "--disable-features=BackForwardCache",
+            ],
         )
         page = ctx.new_page()
 
+        # Limpar cache e service workers para evitar "Carregando..." travado
+        try:
+            client = page.context.new_cdp_session(page)
+            client.send("Network.clearBrowserCache")
+            client.send("Storage.clearDataForOrigin", {
+                "origin": "https://www.facebook.com",
+                "storageTypes": "cache_storage,service_workers"
+            })
+            client.detach()
+            print("  🧹 Cache/SW limpos")
+        except Exception:
+            pass
+
         print(f"→ Acessando inbox ({ts})...")
-        page.goto(INBOX_URL, wait_until="domcontentloaded", timeout=60000)
+        try:
+            page.goto(INBOX_URL, wait_until="domcontentloaded", timeout=60000)
+        except Exception as _goto_err:
+            err_str = str(_goto_err)
+            if "ERR_TOO_MANY_REDIRECTS" in err_str or "ERR_" in err_str:
+                # marketplace/inbox bloqueado — tentar direto pelo messages/
+                print(f"  ⚠ marketplace/inbox bloqueado ({err_str[:60]}) — indo para messages/")
+                try:
+                    page.goto("https://www.facebook.com/messages/",
+                              wait_until="domcontentloaded", timeout=30000)
+                except Exception as _msg_err:
+                    print(f"  ⚠ messages/ também falhou: {_msg_err}")
+                    ctx.close()
+                    update_log(stats, leads, "LOGIN_EXPIRADO", ts)
+                    return "LOGIN_EXPIRADO"
+            else:
+                raise
 
         # Verificar login
         try:
@@ -667,10 +1327,62 @@ def run():
 
         cur_url = page.url
         body_text = page.inner_text('body') if page.query_selector('body') else ''
-        # Bloqueio: texto explícito na página OU redirecionamento para fora do marketplace
-        is_blocked = ('bloqueado temporariamente' in body_text
-                      or 'bloqueamos temporariamente' in body_text.lower()
-                      or ('marketplace/inbox' not in cur_url and 'marketplace' not in cur_url))
+
+        # Bloco real: texto de bloqueio apenas em headings/alertas (não texto solto na página)
+        # Evita falso-positivo com notificações ou anúncios que usam a mesma palavra.
+        block_in_heading = page.evaluate("""
+        () => {
+            const selectors = ['h1','h2','h3','[role="heading"]','[role="alert"]','[role="dialog"] p'];
+            const terms = ['bloqueado temporariamente','bloqueamos temporariamente',
+                           'temporarily blocked','we temporarily blocked'];
+            for (const sel of selectors) {
+                for (const el of document.querySelectorAll(sel)) {
+                    const t = (el.innerText || '').toLowerCase();
+                    if (terms.some(w => t.includes(w))) return true;
+                }
+            }
+            return false;
+        }
+        """) if page.query_selector('body') else False
+
+        url_redirected = ('marketplace/inbox' not in cur_url and 'marketplace' not in cur_url)
+        is_blocked = block_in_heading or url_redirected
+
+        if not is_blocked and 'bloqueado temporariamente' in body_text.lower():
+            # Texto aparece mas não em heading — pode ser notificação/modal. Tentar fechar.
+            try:
+                page.evaluate("""
+                () => {
+                    // Tentar fechar qualquer diálogo/overlay com botão X ou Fechar
+                    for (const el of document.querySelectorAll('[aria-label*="echar"],[aria-label*="lose"],[data-testid*="dismiss"]')) {
+                        if (el.offsetParent !== null) { el.click(); return; }
+                    }
+                }
+                """)
+                time.sleep(2)
+                # Refresh suave para limpar o estado
+                page.reload(wait_until="domcontentloaded", timeout=20000)
+                time.sleep(4)
+                body_text = page.inner_text('body') if page.query_selector('body') else ''
+                block_in_heading = page.evaluate("""
+                () => {
+                    const selectors = ['h1','h2','h3','[role="heading"]','[role="alert"]'];
+                    const terms = ['bloqueado temporariamente','bloqueamos temporariamente'];
+                    for (const sel of selectors) {
+                        for (const el of document.querySelectorAll(sel)) {
+                            if (terms.some(w => (el.innerText||'').toLowerCase().includes(w))) return true;
+                        }
+                    }
+                    return false;
+                }
+                """)
+                is_blocked = block_in_heading
+                if not is_blocked:
+                    print("  ℹ Modal/overlay fechado — continuando normalmente")
+            except Exception as _be:
+                print(f"  [WARN] Tentativa de fechar modal: {_be}")
+                is_blocked = True
+
         if is_blocked:
             print(f"  ⚠ marketplace/inbox bloqueado — fallback messages/ (url={cur_url[-50:]})")
             # Forçar navegação real (não React router) para carregar o sidebar do inbox
@@ -730,6 +1442,7 @@ def run():
                         url: href,
                         text: lines[0] || 'Lead',
                         preview: lines[lines.length - 1] || '',
+                        full_text: (a.innerText || '').trim(),
                         y: bb.y
                     });
                 });
@@ -739,6 +1452,14 @@ def run():
             # Filtrar threads onde o preview já tem resposta nossa
             thread_urls = [l for l in raw_links
                            if not any(p in l.get('preview', '') for p in NOSSAS_FRASES)]
+            # Marcar hint de Marketplace por texto do sidebar ou pelo indicador clicado
+            _MP_SIDEBAR_HINTS = {'marketplace', 'solicitação', 'solicitacao'}
+            for _t in thread_urls:
+                _ft = _t.get('full_text', '').lower()
+                _t['is_marketplace_hint'] = (
+                    via_marketplace_indicator
+                    or any(h in _ft for h in _MP_SIDEBAR_HINTS)
+                )
             print(f"  Threads messages/ detectadas: {len(thread_urls)}")
 
             # Fallback secundário: raw_links encontrou 0 → tentar get_unique_threads
@@ -746,8 +1467,46 @@ def run():
                 gt = get_unique_threads(page, messages_mode=True)
                 print(f"  Threads get_unique_threads (fallback): {len(gt)}")
                 thread_urls = [{'url': None, 'text': t['text'], 'preview': t.get('preview', ''),
+                                'imovel_hint': t.get('imovel_hint', ''),
+                                'full_text': t.get('imovel_hint', ''),
                                 'cx': t.get('cx', 300), 'cy': t.get('cy', t['y']), 'y': t['y']}
                                for t in gt]
+
+            # Fallback secundário-b: marketplace bloqueado mas mensagens/ aberto
+            # Remove o filtro de Marketplace e exibe TODAS as mensagens não lidas
+            if not thread_urls:
+                print(f"  → Marketplace bloqueado: tentando inbox geral de messages/...")
+                try:
+                    page.goto("https://www.facebook.com/messages/", wait_until="domcontentloaded", timeout=15000)
+                    time.sleep(4)
+                    all_links = page.evaluate("""
+                    () => {
+                        const seen = new Set();
+                        const results = [];
+                        document.querySelectorAll('a[href]').forEach(a => {
+                            const href = a.href || '';
+                            if (!href.includes('/messages/t/') && !href.includes('/messages/e2ee/t/')) return;
+                            const bb = a.getBoundingClientRect();
+                            if (bb.x > 500 || bb.y < 100 || bb.width < 50) return;
+                            if (seen.has(href)) return;
+                            seen.add(href);
+                            const lines = (a.innerText || '').trim().split('\\n').filter(Boolean);
+                            results.push({url: href, text: lines[0] || 'Lead',
+                                          preview: lines[lines.length-1] || '',
+                                          full_text: (a.innerText || '').trim(),
+                                          imovel_hint: (a.innerText || '').trim(),
+                                          y: bb.y});
+                        });
+                        return results;
+                    }
+                    """)
+                    thread_urls = [l for l in all_links
+                                   if not any(p in l.get('preview', '') for p in NOSSAS_FRASES)]
+                    print(f"  Threads inbox geral: {len(thread_urls)}")
+                    if thread_urls:
+                        effective_base = "https://www.facebook.com/messages/"
+                except Exception as _fe:
+                    print(f"  [WARN] Inbox geral: {_fe}")
 
             # Fallback terciário: clicar no indicador "MarketplaceMensagem não lida"
             if not thread_urls:
@@ -784,58 +1543,139 @@ def run():
                     print(f"  → Indicador clicado, url: {cur_after[-60:]}")
 
             # Processar cada thread por URL direta
+            _prev_conv_text_mm = ""  # detecta DOM ainda não trocou (conteúdo do lead anterior)
             for turl in thread_urls:
                 nome = turl['text'].split()[0] if turl['text'] else 'Lead'
+                # ⛔ Guard antecipado: checar nome COMPLETO do sidebar antes de qualquer filtragem.
+                # Necessário porque _INBOX_HEADS apaga nome_real quando contém "marketplace"
+                # (ex: "Facebook Marketplace Assistant" → nome_real=None → nome fica "Facebook").
+                if is_nome_bloqueado(turl.get('text', '')) or is_nome_bloqueado(nome):
+                    print(f"    ⛔ NOME BLOQUEADO '{turl.get('text', nome)}' — bot do Facebook, não é lead real")
+                    stats['p'] += 1
+                    page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
+                    time.sleep(2)
+                    continue
                 print(f"\n  → {nome} (messages/t)")
                 stats['v'] += 1
                 try:
                     if turl.get('url'):
                         page.goto(turl['url'], wait_until="domcontentloaded", timeout=20000)
                     else:
-                        clicked = click_thread(page, turl['text'])
+                        clicked = click_thread(page, turl['text'],
+                                               coords=(turl.get('cx'), turl.get('cy'))
+                                               if turl.get('cx') else None)
                         if not clicked:
                             page.mouse.click(turl.get('cx', 300), turl.get('cy', turl['y']))
-                    time.sleep(5)  # 5s para carregamento assíncrono do link do item
 
-                    nome_real = get_conv_nome(page)
+                    # Aguarda heading da conversa carregar com nome correto antes de ler o conteúdo.
+                    # Sem isso, o [role="log"] pode ainda exibir mensagens da conversa anterior
+                    # (race condition: domcontentloaded dispara antes do React atualizar o log).
                     _INBOX_HEADS = {'conversas','marketplace','inbox','mensagens','messages','messenger','bate-papo','chats','selecione'}
-                    if nome_real and any(w in nome_real.lower() for w in _INBOX_HEADS):
-                        nome_real = None
+                    expected_first = (turl.get('text', '').split()[0]).lower() if turl.get('text') else ''
+                    nome_real = None
+                    _wait_elapsed = 0
+                    while _wait_elapsed < 12:
+                        time.sleep(1)
+                        _wait_elapsed += 1
+                        cand = get_conv_nome(page)
+                        # ⛔ Checar bloqueio ANTES de filtrar por _INBOX_HEADS
+                        # (ex: "Facebook Marketplace Assistant" contém "marketplace" e seria apagado
+                        # pelo filtro abaixo, escapando o guard e virando 'Interessado(a)')
+                        if cand and is_nome_bloqueado(cand):
+                            print(f"    ⛔ NOME BLOQUEADO no heading '{cand}' — bot do Facebook, não é lead")
+                            stats['p'] += 1
+                            page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
+                            time.sleep(2)
+                            nome_real = '__BLOQUEADO__'
+                            break
+                        if cand and any(w in cand.lower() for w in _INBOX_HEADS):
+                            cand = None
+                        if cand:
+                            nome_real = cand
+                            if expected_first and expected_first in nome_real.lower():
+                                break  # heading correto apareceu — conteúdo pronto
+                    if (
+                        _wait_elapsed >= 12
+                        and expected_first
+                        and expected_first not in {'lead', 'marketplace', 'interessado(a)'}
+                        and (not nome_real or expected_first not in (nome_real or '').lower())
+                    ):
+                        print(f"    ⚠ Heading '{nome_real}' ≠ esperado '{expected_first}' após 12s — pulando para não responder conversa errada")
+                        stats['e'] += 1
+                        continue
+                    if nome_real == '__BLOQUEADO__':
+                        continue  # bot do Facebook detectado no heading — já contabilizado em stats['p']
                     if nome_real:
                         nome = nome_real
-                    # Se nome ainda é placeholder, retry com 2s de espera
                     if not nome or nome == 'Lead':
-                        time.sleep(2)
-                        nome_retry = get_conv_nome(page)
-                        if nome_retry and not any(w in nome_retry.lower() for w in _INBOX_HEADS):
-                            nome = nome_retry
-                    if not nome:
                         nome = 'Interessado(a)'
+                    # Extra 2s: garante que o [role="log"] termina de renderizar após o heading aparecer
+                    time.sleep(2)
 
-                    # Guard obrigatório: só processar se for conversa do Marketplace.
-                    # Conversas pessoais são SEMPRE ignoradas — nunca enviar.
-                    if not is_marketplace_conv(page):
-                        print(f"    ⏭ CONVERSA PESSOAL — is_marketplace=False — ignorando (nunca envia aqui)")
+                    # ⛔ Guard nome bloqueado: bots do Facebook e variantes do Marketplace Assistant.
+                    if is_nome_bloqueado(nome):
+                        print(f"    ⛔ NOME BLOQUEADO '{nome}' — nunca responder automaticamente")
                         stats['p'] += 1
                         page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
                         time.sleep(2)
                         continue
 
-                    conv_text = get_conv_text(page)
+                    # Guard obrigatório: só processar se for conversa do Marketplace.
+                    # Conversas pessoais do Jonata são SEMPRE ignoradas — nunca enviar.
+                    _is_mp = is_marketplace_conv(page)
+                    _mp_hint = turl.get('is_marketplace_hint', False)
+                    if not _is_mp and not _mp_hint:
+                        print(f"    ⏭ CONVERSA PESSOAL — is_marketplace=False hint=False — ignorando")
+                        stats['p'] += 1
+                        page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
+                        time.sleep(2)
+                        continue
+                    if not _is_mp and _mp_hint:
+                        print(f"    ⚠ is_marketplace=False mas hint=True (sidebar/indicador) — prosseguindo")
+
+                    # Comparação com texto do lead anterior removida como bloqueio —
+                    # ver nota equivalente no outro bloco (marketplace/inbox) sobre
+                    # o caso Kaua/Guarajara com pergunta padrão idêntica.
+                    conv_text = ""
+                    for _ct_try in range(18):
+                        conv_text = get_conv_text(page)
+                        if len(conv_text.strip()) >= 20 and not ultimo_remetente_suspeito(conv_text, nome):
+                            break
+                        if _ct_try == 0:
+                            trigger_conv_loading(page)
+                        elif _ct_try == 5:
+                            trigger_conv_loading(page, hard=True)
+                        elif _ct_try == 12:
+                            trigger_conv_loading(page, hard=True)
+                        elif _ct_try in (3, 8, 15):
+                            trigger_conv_loading(page)
+                        time.sleep(1)
                     if len(conv_text.strip()) < 20:
                         print(f"    ⚠ Conversa não carregou — pulando")
                         stats['e'] += 1
                         continue
+                    if ultimo_remetente_suspeito(conv_text, nome):
+                        print(f"    ⚠ Último remetente no texto não bate com '{nome}' — pulando para não misturar dados")
+                        stats['e'] += 1
+                        continue
+                    _prev_conv_text_mm = conv_text.strip()
 
-                    link = get_listing_url(page)
-                    if not link:
-                        time.sleep(2)
-                        link = get_listing_url(page)
+                    link = get_listing_url_retry(page)
                     if link:
                         print(f"    🔗 Link: {link}")
                     else:
-                        link = turl.get('url') or (page.url if page.url != effective_base else '')
-                        print(f"    ⚠ Link do anúncio não encontrado — usando URL da conversa: {link}")
+                        link = (
+                            normalize_marketplace_item_link(conv_text)
+                            or lookup_imovel_link_from_hint(turl.get('full_text', ''))
+                            or lookup_imovel_link_from_hint(turl.get('imovel_hint', ''))
+                            or lookup_imovel_link_from_hint(turl.get('text', ''))
+                            or lookup_imovel_link_from_hint(turl.get('preview', ''))
+                        )
+                    link = normalize_marketplace_item_link(link)
+                    if link:
+                        print(f"    🔗 Link: {link}")
+                    else:
+                        print(f"    ⚠ Link real do anúncio ainda não encontrado")
                     imovel = extract_imovel(conv_text)
 
                     resultado_ia = analisar_com_regras(conv_text, nome, turl.get('preview', ''))
@@ -852,7 +1692,17 @@ def run():
                             print(f"    ↳ {telefone_ia} já no CSV — pulando (lead já capturado)")
                             stats['p'] += 1
                         else:
-                            sent = send_message(page, "Obrigado, vamos entrar em contato via whatsapp.")
+                            link = require_listing_link(link, nome)
+                            if not link:
+                                stats['e'] += 1
+                                continue
+                            # Só um agradecimento curto no Facebook — o discurso completo
+                            # (Oi {nome}... Vi que você demonstrou interesse...) vai
+                            # só pelo link de WhatsApp que o Jonata recebe no Telegram
+                            # (notificar_lead_whatsapp.py). Decisão do Jonata em 2026-08-29
+                            # depois do Guarajara receber a mensagem completa nos dois canais.
+                            resp = "Obrigado, vamos entrar em contato via whatsapp."
+                            sent = send_message(page, resp)
                             if sent:
                                 stats['r'] += 1
                                 print(f"    ✓ Agradecimento enviado — {telefone_ia}")
@@ -863,8 +1713,8 @@ def run():
                             notificar_jonata(nome, telefone_ia, imovel, link or '')
                             mark_notified(notificados, telefone_ia)
                     elif acao_ia == 'PEDIR_CONTATO':
-                        resp = "Certo, vou atualizar essa informação e retorno.\nQual seu whatsapp para retorno ?"
-                        sent = send_message(page, resp)
+                        resp = "Vou verificar essa informação\nQual seu whatsapp para retorno?"
+                        sent = send_message_single(page, resp)
                         if sent:
                             stats['r'] += 1
                             print(f"    ✓ Pedido WhatsApp enviado")
@@ -953,72 +1803,166 @@ def run():
 
         print(f"  Threads não lidas detectadas: {len(threads)}")
 
+        _prev_conv_text = ""  # detecta DOM ainda não trocou (conteúdo do lead anterior)
         for thread in threads:
             nome = get_nome(thread['text'])
+            # ⛔ Guard antecipado: checar nome COMPLETO do sidebar antes de qualquer filtragem.
+            # _INBOX_HEADS zera nome_real quando contém "marketplace" → "Facebook Marketplace
+            # Assistant" vira None e nome fica só "Facebook" → guard tardio não pegava.
+            if is_nome_bloqueado(thread.get('text', '')) or is_nome_bloqueado(nome):
+                print(f"    ⛔ NOME BLOQUEADO '{thread.get('text', nome)}' — bot do Facebook, não é lead real")
+                stats['p'] += 1
+                continue
             print(f"\n  → {nome} (y={thread['y']:.0f})")
             stats['v'] += 1
 
             try:
-                # Navegar direto pela URL se disponível (evita click interceptado por painel Notificações)
-                thread_url = thread.get('url', '')
-                _nav_patterns = ('/marketplace/inbox/', '/messages/t/', '/messages/e2ee/t/')
-                if thread_url and any(p in thread_url for p in _nav_patterns):
-                    print(f"    → navegando por URL direta")
-                    page.goto(thread_url, wait_until="domcontentloaded", timeout=20000)
-                else:
-                    # Fechar painel de Notificações e clicar
-                    dismiss_notifications_panel(page)
-                    clicked = click_thread(page, thread['text'])
-                    if not clicked:
-                        page.mouse.click(thread.get('cx', 700), thread.get('cy', thread['y']))
-                time.sleep(1.5)
-
-                # Aguardar input de mensagem aparecer (confirma que conversa abriu)
-                conv_open = wait_for_conversation_open(page, timeout=10, base_url=effective_base)
-                if not conv_open:
-                    cur_url = page.url
-                    has_ce = bool(page.query_selector('div[contenteditable="true"]'))
-                    has_log = bool(page.query_selector('[role="log"]'))
-                    print(f"    ⚠ Conversa não abriu | ce={has_ce} | log={has_log} | url={cur_url[-60:]}")
-                    stats['e'] += 1
-                    page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
-                    time.sleep(2)
-                    if messages_mode:
+                # Abrir a conversa certa às vezes falha (coordenada cai numa linha
+                # vizinha por causa de reordenação da lista) — tenta até 3x antes
+                # de desistir desse lead nesta rodada.
+                sucesso_abertura = False
+                for _tentativa_abertura in range(3):
+                    # Navegar direto pela URL se disponível (evita click interceptado por painel Notificações)
+                    thread_url = thread.get('url', '')
+                    _nav_patterns = ('/marketplace/inbox/', '/messages/t/', '/messages/e2ee/t/')
+                    if thread_url and any(p in thread_url for p in _nav_patterns):
+                        print(f"    → navegando por URL direta")
+                        page.goto(thread_url, wait_until="domcontentloaded", timeout=20000)
+                    else:
+                        # Fechar painel de Notificações e clicar
+                        dismiss_notifications_panel(page)
+                        # Scroll sidebar ao topo antes de re-detectar (coordenadas mudam
+                        # quando Facebook re-ordena após enviarmos mensagem)
+                        try:
+                            page.wait_for_load_state("networkidle", timeout=3000)
+                        except Exception:
+                            pass
+                        # Rolar sidebar ao topo via JS (mouse.wheel pode acertar o elemento errado)
                         page.evaluate("""
-                        () => { const rows = document.querySelectorAll('[role="row"]');
-                                for (const r of rows) { if (r.textContent.includes('Marketplace')) { r.click(); break; } } }
+                        () => {
+                            const els = Array.from(document.querySelectorAll('*'));
+                            for (const el of els) {
+                                const s = window.getComputedStyle(el);
+                                const bb = el.getBoundingClientRect();
+                                if ((s.overflowY === 'auto' || s.overflowY === 'scroll')
+                                    && el.scrollHeight > el.clientHeight + 50
+                                    && bb.x < 650 && bb.width > 150 && bb.height > 300) {
+                                    el.scrollTop = 0;
+                                }
+                            }
+                        }
                         """)
-                        time.sleep(1.5)
+                        time.sleep(1.2)
+                        # Re-detectar na lista atual (coordenadas iniciais ficam obsoletas
+                        # depois que abrimos conversas anteriores)
+                        coords = None
+                        try:
+                            for atual in get_unique_threads(page, messages_mode=False):
+                                if atual['text'] == thread['text']:
+                                    coords = (atual['cx'], atual['cy'])
+                                    break
+                        except Exception:
+                            pass
+                        # Se thread abaixo do viewport (y > 700), rolar sidebar até ele via JS
+                        if coords and coords[1] > 700:
+                            scroll_px = int(coords[1] - 400)
+                            page.evaluate(f"""
+                            () => {{
+                                const els = Array.from(document.querySelectorAll('*'));
+                                for (const el of els) {{
+                                    const s = window.getComputedStyle(el);
+                                    const bb = el.getBoundingClientRect();
+                                    if ((s.overflowY === 'auto' || s.overflowY === 'scroll')
+                                        && el.scrollHeight > el.clientHeight + 50
+                                        && bb.x < 650 && bb.width > 150 && bb.height > 300) {{
+                                        el.scrollTop += {scroll_px};
+                                    }}
+                                }}
+                            }}
+                            """)
+                            time.sleep(0.6)
+                            try:
+                                for atual in get_unique_threads(page, messages_mode=False):
+                                    if atual['text'] == thread['text']:
+                                        coords = (atual['cx'], atual['cy'])
+                                        break
+                            except Exception:
+                                pass
+                        # Não usar coordenadas velhas como fallback — causam clique na thread errada
+                        if coords is None:
+                            print(f"    ⚠ Thread '{thread['text']}' não encontrado após re-detecção (tentativa {_tentativa_abertura+1}/3)")
+                            time.sleep(1.5)
+                            continue
+                        clicked = click_thread(page, thread['text'], coords=coords)
+                        if not clicked:
+                            page.mouse.click(coords[0], coords[1])
+                    time.sleep(1.5)
+
+                    # Aguardar input de mensagem aparecer (confirma que conversa abriu)
+                    conv_open = wait_for_conversation_open(page, timeout=20, base_url=effective_base)
+                    if not conv_open:
+                        cur_url = page.url
+                        has_ce = bool(page.query_selector('div[contenteditable="true"]'))
+                        has_log = bool(page.query_selector('[role="log"]'))
+                        print(f"    ⚠ Conversa não abriu | ce={has_ce} | log={has_log} | url={cur_url[-60:]} (tentativa {_tentativa_abertura+1}/3)")
+                        page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
+                        time.sleep(2)
+                        if messages_mode:
+                            page.evaluate("""
+                            () => { const rows = document.querySelectorAll('[role="row"]');
+                                    for (const r of rows) { if (r.textContent.includes('Marketplace')) { r.click(); break; } } }
+                            """)
+                            time.sleep(1.5)
+                        continue
+
+                    time.sleep(2)
+
+                    # Verificar nome real da conversa aberta (evita processar conversa errada)
+                    nome_real = get_conv_nome(page)
+                    # ⛔ Checar bloqueio ANTES de filtrar por _INBOX_HEADS
+                    if nome_real and is_nome_bloqueado(nome_real):
+                        print(f"    ⛔ NOME BLOQUEADO no heading '{nome_real}' — bot do Facebook, pulando")
+                        stats['p'] += 1
+                        page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
+                        time.sleep(2)
+                        sucesso_abertura = True  # evitar retry — já bloqueado intencionalmente
+                        nome_real = '__BLOQUEADO__'
+                        break
+                    # Filtro extra: headings do inbox não são nomes de lead
+                    _INBOX_HEADS = {'conversas', 'marketplace', 'inbox', 'mensagens',
+                                    'messages', 'messenger', 'bate-papo', 'chats', 'selecione'}
+                    if nome_real and any(w in nome_real.lower() for w in _INBOX_HEADS):
+                        nome_real = None
+
+                    # Detectar bloqueio temporário do Facebook mid-loop
+                    if nome_real and 'bloqueado temporariamente' in nome_real.lower():
+                        print(f"    ⛔ Facebook bloqueou temporariamente — encerrando rodada para não acumular restrições")
+                        ctx.close()
+                        update_log(stats, leads, "OK", ts)
+                        print(f"\n📊 Status: OK (interrompido por bloqueio FB)")
+                        print(f"✅ Log atualizado.")
+                        return "OK"
+
+                    nome_esperado_first = nome.split()[0].lower()
+                    if nome_real and nome_esperado_first not in nome_real.lower():
+                        print(f"    ⚠ Conversa errada abriu: esperado '{nome}', abriu '{nome_real}' (tentativa {_tentativa_abertura+1}/3)")
+                        page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
+                        time.sleep(3)
+                        if messages_mode:
+                            page.evaluate("""() => { const rows = document.querySelectorAll('[role="row"]'); for (const r of rows) { if (r.textContent.includes('Marketplace')) { r.click(); break; } } }""")
+                            time.sleep(1.5)
+                        continue
+
+                    sucesso_abertura = True
+                    break
+
+                if not sucesso_abertura:
+                    print(f"    ⚠ Não consegui abrir a conversa certa de '{nome}' após 3 tentativas — pulando")
+                    stats['e'] += 1
                     continue
 
-                time.sleep(2)
-
-                # Verificar nome real da conversa aberta (evita processar conversa errada)
-                nome_real = get_conv_nome(page)
-                # Filtro extra: headings do inbox não são nomes de lead
-                _INBOX_HEADS = {'conversas', 'marketplace', 'inbox', 'mensagens',
-                                'messages', 'messenger', 'bate-papo', 'chats', 'selecione'}
-                if nome_real and any(w in nome_real.lower() for w in _INBOX_HEADS):
-                    nome_real = None
-
-                # Detectar bloqueio temporário do Facebook mid-loop
-                if nome_real and 'bloqueado temporariamente' in nome_real.lower():
-                    print(f"    ⛔ Facebook bloqueou temporariamente — encerrando rodada para não acumular restrições")
-                    ctx.close()
-                    update_log(stats, leads, "OK", ts)
-                    print(f"\n📊 Status: OK (interrompido por bloqueio FB)")
-                    print(f"✅ Log atualizado.")
-                    return "OK"
-
-                nome_esperado_first = nome.split()[0].lower()
-                if nome_real and nome_esperado_first not in nome_real.lower():
-                    print(f"    ⚠ Conversa errada abriu: esperado '{nome}', abriu '{nome_real}' — pulando")
-                    stats['e'] += 1
-                    page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
-                    time.sleep(3)
-                    if messages_mode:
-                        page.evaluate("""() => { const rows = document.querySelectorAll('[role="row"]'); for (const r of rows) { if (r.textContent.includes('Marketplace')) { r.click(); break; } } }""")
-                        time.sleep(1.5)
+                # ⛔ Bot detectado no heading durante abertura — já navegou para trás, pular
+                if nome_real == '__BLOQUEADO__':
                     continue
 
                 # Usar nome real da conversa se disponível (mais preciso que o sidebar)
@@ -1033,8 +1977,16 @@ def run():
                 if not nome:
                     nome = 'Interessado(a)'
 
+                # ⛔ Guard nome bloqueado: bots do Facebook e variantes do Marketplace Assistant.
+                if is_nome_bloqueado(nome):
+                    print(f"    ⛔ NOME BLOQUEADO '{nome}' — nunca responder automaticamente")
+                    stats['p'] += 1
+                    page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
+                    time.sleep(2)
+                    continue
+
                 # Guard obrigatório: só processar se for conversa do Marketplace.
-                # Conversas pessoais são SEMPRE ignoradas — nunca envia mensagem aqui.
+                # Conversas pessoais do Jonata são SEMPRE ignoradas — nunca envia mensagem aqui.
                 if not is_marketplace_conv(page):
                     print(f"    ⏭ CONVERSA PESSOAL — is_marketplace=False — ignorando (nunca envia aqui)")
                     stats['p'] += 1
@@ -1042,15 +1994,86 @@ def run():
                     time.sleep(2)
                     continue
 
-                conv_text = get_conv_text(page)
-                link = get_listing_url(page)
+                # Aguardar conversa carregar E o DOM realmente trocar do lead anterior.
+                # O painel de conversa às vezes ainda mostra o conteúdo do lead anterior
+                # por 1-2s depois do heading já ter trocado (React atualiza em passos
+                # diferentes) — ler cedo demais mistura mensagens de leads diferentes.
+                # NOTA: a checagem de "texto idêntico ao lead anterior" foi removida
+                # como bloqueio — dois leads diferentes às vezes mandam a MESMA
+                # pergunta padrão sugerida pelo Facebook ("Gostaria de retirar mais
+                # duvidas sobre o imóvel?"), o que travava o segundo lead pra sempre
+                # (2026-08-29, caso Kaua sempre depois de Guarajara). A verificação
+                # de remetente (ultimo_remetente_suspeito) é mais confiável — usa o
+                # nome real marcado em cada mensagem, não o texto.
+                conv_text = ""
+                _navigated_to_messages = False
+                for _ct_try in range(18):
+                    conv_text = get_conv_text(page)
+                    if len(conv_text.strip()) >= 20 and not ultimo_remetente_suspeito(conv_text, nome):
+                        break
+                    if _ct_try == 0:
+                        trigger_conv_loading(page)
+                    elif _ct_try == 5 and not _navigated_to_messages and not messages_mode:
+                        import re as _re_tid
+                        _tid = None
+                        _m = _re_tid.search(r'/marketplace/inbox/(\d+)', page.url)
+                        if _m:
+                            _tid = _m.group(1)
+                        else:
+                            try:
+                                _tid = page.evaluate("""
+                                () => {
+                                    for (const a of document.querySelectorAll('a[href]')) {
+                                        const m = (a.href || '').match(/\\/messages\\/t\\/(\\d+)/);
+                                        if (m) return m[1];
+                                        const m2 = (a.href || '').match(/\\/marketplace\\/inbox\\/(\\d+)/);
+                                        if (m2) return m2[1];
+                                    }
+                                    return null;
+                                }
+                                """)
+                            except Exception:
+                                pass
+                        if _tid:
+                            print(f"    🔄 marketplace stuck — tentando /messages/t/{_tid}")
+                            try:
+                                page.goto(f"https://www.facebook.com/messages/t/{_tid}",
+                                          wait_until="domcontentloaded", timeout=20000)
+                                time.sleep(4)
+                                _navigated_to_messages = True
+                            except Exception as _nav_e:
+                                print(f"    ⚠ /messages/t/ falhou: {_nav_e}")
+                                trigger_conv_loading(page, hard=True)
+                        else:
+                            trigger_conv_loading(page, hard=True)
+                    elif _ct_try == 5 and (messages_mode or _navigated_to_messages):
+                        trigger_conv_loading(page, hard=True)
+                    elif _ct_try == 12:
+                        trigger_conv_loading(page, hard=True)
+                    elif _ct_try in (3, 8, 15):
+                        trigger_conv_loading(page)
+                    time.sleep(1)
+                else:
+                    if ultimo_remetente_suspeito(conv_text, nome):
+                        print(f"    ⚠ Último remetente no texto não bate com '{nome}' após 18s — pulando para não misturar dados")
+                        stats['e'] += 1
+                        page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
+                        time.sleep(3)
+                        continue
+                _prev_conv_text = conv_text.strip()
+                link = get_listing_url_retry(page)
                 if not link:
-                    time.sleep(2)
-                    link = get_listing_url(page)
-                if not link:
-                    _thread_url = thread.get('url', '')
-                    link = _thread_url or (page.url if '/marketplace/item/' not in page.url and page.url != effective_base else '')
-                    print(f"    ⚠ Link do anúncio não encontrado — usando URL da conversa: {link}")
+                    link = (
+                        normalize_marketplace_item_link(conv_text)
+                        or lookup_imovel_link_from_hint(thread.get('imovel_hint', ''))
+                        or lookup_imovel_link_from_hint(thread.get('text', ''))
+                        or lookup_imovel_link_from_hint(thread.get('preview', ''))
+                    )
+                link = normalize_marketplace_item_link(link)
+                if link:
+                    print(f"    🔗 Link: {link}")
+                else:
+                    print(f"    ⚠ Link real do anúncio ainda não encontrado")
                 imovel = extract_imovel(conv_text) if not link else (
                     'Sala Comercial' if 'sala' in (link + conv_text).lower()
                     else ('Casa' if 'casa' in (link + conv_text).lower()
@@ -1085,7 +2108,14 @@ def run():
                         print(f"    ↳ {telefone_ia} já no CSV — pulando (lead já capturado)")
                         stats['p'] += 1
                     else:
-                        link = link or ''
+                        link = require_listing_link(link, nome)
+                        if not link:
+                            stats['e'] += 1
+                            page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
+                            time.sleep(3)
+                            continue
+                        # Só um agradecimento curto no Facebook — ver nota no outro
+                        # bloco CAPTUROU_CONTATO acima sobre a decisão de 2026-08-29.
                         resp = "Obrigado, vamos entrar em contato via whatsapp."
                         sent = send_message(page, resp)
                         if sent:
@@ -1099,8 +2129,8 @@ def run():
                         mark_notified(notificados, telefone_ia)
 
                 elif acao_ia == 'PEDIR_CONTATO':
-                    resp = "Certo, vou atualizar essa informação e retorno.\nQual seu whatsapp para retorno ?"
-                    sent = send_message(page, resp)
+                    resp = "Vou verificar essa informação\nQual seu whatsapp para retorno?"
+                    sent = send_message_single(page, resp)
                     if sent:
                         stats['r'] += 1
                         print(f"    ✓ Pedido WhatsApp enviado")
@@ -1114,7 +2144,7 @@ def run():
 
                 # Voltar ao inbox via navigate (mais limpo que go_back)
                 page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
-                time.sleep(2)
+                time.sleep(3)
                 if messages_mode:
                     page.evaluate("""() => { const rows = document.querySelectorAll('[role="row"]'); for (const r of rows) { if (r.textContent.includes('Marketplace')) { r.click(); break; } } }""")
                     time.sleep(1.5)
@@ -1140,10 +2170,25 @@ def run():
 
 if __name__ == "__main__":
     import fcntl, os as _os
-    LOCK_PATH = Path.home() / ".local/impar-automation/messenger/.varredura.lock"
+
+    # Redirecionar stdout/stderr para os arquivos de log quando não interativo.
+    # Cobre rodadas manuais em background (python3 script.py &) onde o LaunchAgent
+    # não está presente para redirecionar. Em modo interativo (tty) mantém o terminal.
+    _STDOUT_LOG = Path("/Users/usuario/Library/Logs/impar-varredura-auto.log")
+    _STDERR_LOG = Path("/Users/usuario/Library/Logs/impar-varredura-auto-error.log")
+    try:
+        if not _os.isatty(sys.stdout.fileno()):
+            _stdout_log_fd = open(_STDOUT_LOG, "a", buffering=1, encoding="utf-8")
+            _stderr_log_fd = open(_STDERR_LOG, "a", buffering=1, encoding="utf-8")
+            _os.dup2(_stdout_log_fd.fileno(), sys.stdout.fileno())
+            _os.dup2(_stderr_log_fd.fileno(), sys.stderr.fileno())
+    except Exception:
+        pass
+
+    LOCK_PATH = Path.home() / ".local/impar-automation/messenger/.varredura-python.lock"
     LOCK_MAX_AGE = 900  # 15 min — mata processo travado automaticamente
     try:
-        lock_fd = open(LOCK_PATH, 'w')
+        lock_fd = open(LOCK_PATH, 'a+')
         fcntl.flock(lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except BlockingIOError:
         age = time.time() - LOCK_PATH.stat().st_mtime if LOCK_PATH.exists() else 0
@@ -1164,10 +2209,13 @@ if __name__ == "__main__":
             print(f"⏳ Outra instância rodando há {age:.0f}s — saindo.")
             sys.exit(0)
 
-    lock_fd.write(str(_os.getpid()))
+    lock_fd.seek(0)
+    lock_fd.truncate()
+    lock_fd.write(f"{_os.getpid()}\n{int(time.time())}\n{ACCOUNT_ID}\n")
     lock_fd.flush()
     _sync_notif_script()
     _sync_csv_from_icloud()
+    retry_pending_notif()
     ts = datetime.now().strftime('%Y-%m-%d %H:%M')
     print(f"\n🔍 Varredura Messenger v3 — {ts}")
     print("=" * 60)
@@ -1186,3 +2234,7 @@ if __name__ == "__main__":
     finally:
         fcntl.flock(lock_fd, fcntl.LOCK_UN)
         lock_fd.close()
+        try:
+            LOCK_PATH.unlink(missing_ok=True)
+        except Exception:
+            pass

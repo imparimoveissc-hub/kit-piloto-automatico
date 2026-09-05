@@ -37,11 +37,25 @@ Editar `~/.local/impar-automation/bootup-restore-automation.sh` (arrays `AGENTS`
 
 ---
 
-## ⛔ Regra Messenger Marketplace (ordem 2026-08-09)
+## ⛔ Regra Messenger Marketplace — GERAL (ordem 2026-08-30)
 
-`varredura_inbox.py` deve processar e enviar mensagens SOMENTE para conversas do Facebook Marketplace.
-Checar `is_marketplace` (presença de `a[href*="/marketplace/item/"]` ou URL com `/marketplace/`) **antes de qualquer envio**, em ambos os modos: normal (`marketplace/inbox/`) e fallback (`messages/`).
-Se `is_marketplace == False` → pular com `stats['p'] += 1`, nunca enviar.
+**TODAS as automações do Facebook Messenger respondem e processam SOMENTE conversas do Facebook Marketplace.**
+Contatos pessoais, amigos, grupos e qualquer conversa sem origem no Marketplace devem ser **ignorados** — nunca enviar mensagem, nunca registrar como lead.
+
+**Critério obrigatório antes de qualquer ação:**
+- Presença de `a[href*="/marketplace/item/"]` ou URL com `/marketplace/` → é Marketplace ✅
+- Ausência de ambos → conversa pessoal → **IGNORAR** ⛔
+
+**Aplicação por script:**
+- `varredura_inbox.py`: checar `is_marketplace_conv()` em ambos os modos (normal e fallback). Se `False` → `stats['p'] += 1`, nunca enviar.
+- `marketplace_leads_captador.py`: checar `extrair_link_marketplace()`. Se vazio → `[IGNORADO]` no log, `processados.add(conv_id)`, `continue` — nunca notificar nem gravar CSV.
+- Qualquer script futuro que acesse conversas do FB Messenger: aplicar o mesmo guard antes de qualquer ação.
+
+**Guard adicional obrigatório — NOMES_BLOQUEADOS (ordem 2026-09-02):**
+Antes de qualquer processamento ou envio, checar `is_nome_bloqueado(nome)` (varredura) ou `nome.strip().lower() in NOMES_BLOQUEADOS` (captador).
+- `"Facebook Marketplace Assistant"` e variantes → NUNCA responder (é bot do Facebook, não lead real).
+- Conversas pessoais do Jonata (owner) → NUNCA responder. Guard: `is_marketplace_conv()` + `NOMES_BLOQUEADOS`.
+- Essa verificação ocorre ANTES do guard de Marketplace em ambos os scripts.
 
 ## ⛔ Regra WhatsApp — único caminho (ordem 2026-08-10)
 

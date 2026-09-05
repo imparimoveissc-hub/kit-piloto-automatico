@@ -1,13 +1,15 @@
 ---
 modulo: marketplace
-atualizado: 2026-08-26
+atualizado: 2026-09-05
 ---
 status: ativo
-pid_publisher: daemons manha/tarde/noite ativos — com.impar.marketplace-noite PID 25212 — último ok 2026-08-09 20:24 (2 publicados via run_daily_publish.sh)
-pid_crosspost: LaunchAgent com.impar.crosspost — OPERACIONAL — 220 grupos marcados em 07/08 17:33 — slot 21:30 adicionado
-ultimo_ok: publisher 2026-08-09 20:24 (2 pub: 3173213, 4312616); reativador 2026-08-10 16:06 (0 pub, 109 cooldown 20d, sem pendentes)
-proximo: reativador roda a cada 30min/2h; publisher daemon-noite dispara às 18:00
-fix_aplicado_2026-08-07: adicionado slot 21:30 ao LaunchAgent; 3 cloud tasks antigas (crosspost_groups_v2.py) desabilitadas; MAX_ITENS 5→20; seguir_publicador desativado
-nota: impar-marketplace-publish-error.log tem erros de 09/08 09:16 de LaunchAgent antigo (sem wrapper FDA) — substituído por run_daily_publish.sh; não impacta operação atual
+pid_varredura: messenger-varredura-auto rodando a cada 5min (último ciclo OK 14:49)
+pid_publisher: marketplace-manha/tarde/noite ativos — 3 imóveis postados turno manhã hoje
+pid_crosspost: com.impar.crosspost — REATIVADO 2026-08-30 — dispara 11:00 e 17:00
+pid_leads_captador: com.impar.marketplace-leads-captador — REATIVADO 2026-08-30 — a cada 5min
+pid_monitor: com.impar.monitor-sessao-facebook — rodando a cada 5min
+ultimo_ok: varredura 14:49 processou 4 threads (Alejandro/SEM_ACAO, Maciel+Fraan+Taberna/CAPTUROU)
+proximo: crosspost dispara 17:00 hoje; marketplace-tarde 13:00; leads-captador a cada 5min
+fix_aplicado_2026-08-30: hard reload domcontentloaded+18s resolve "Carregando..." no 1o thread; cache browser limpo; filtros x<300 para suporte a /messages/t/ layout
 acao_pendente: nenhuma
-ultima_mudanca: "fix is_marketplace_conv: restringe verificação ao painel de conversa (x>350) para não capturar links do sidebar — impede falso-positivo em conversas pessoais"
+ultima_mudanca: "fix: guard NOMES_BLOQUEADOS antes de _INBOX_HEADS — bloqueia Facebook Marketplace Assistant mesmo quando nome contém 'marketplace'"

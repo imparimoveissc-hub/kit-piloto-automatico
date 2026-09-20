@@ -46,7 +46,7 @@ modules:
     saidas:
       - Posts no Marketplace individual
       - Posts nos 96 grupos aprovados
-    ultima_alteracao: 2026-09-05
+    ultima_alteracao: 2026-09-16
     problemas_conhecidos:
       - Login Facebook expira periodicamente (checar cookies)
       - Playwright pode quebrar após update do macOS ou do Facebook

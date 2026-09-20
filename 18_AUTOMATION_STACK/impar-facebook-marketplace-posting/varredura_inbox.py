@@ -3,23 +3,6 @@
 Varredura Messenger Marketplace v3 — Impar Imóveis.
 Correções: deduplicação por Y, press_sequentially para input, verificação de envio por screenshot.
 """
-# ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║              ⛔⛔  REGRAS SUPREMAS — LER ANTES DE TUDO  ⛔⛔                ║
-# ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  REGRA 1 — SOMENTE MARKETPLACE                                              ║
-# ║  Esta automação processa EXCLUSIVAMENTE conversas originadas no Facebook    ║
-# ║  Marketplace. Contatos pessoais, amigos, grupos e qualquer conversa sem     ║
-# ║  link /marketplace/ são SEMPRE ignorados. Nunca enviar mensagem ou          ║
-# ║  registrar como lead fora desse contexto.                                   ║
-# ║  Guard: is_marketplace_conv(page) → deve retornar True antes de qualquer   ║
-# ║  ação. Se False → stats['p'] += 1, nunca enviar, nunca registrar.           ║
-# ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  REGRA 2 — NUNCA RESPONDER "FACEBOOK MARKETPLACE ASSISTANT"                 ║
-# ║  Qualquer conversa cujo nome corresponda a "Facebook Marketplace            ║
-# ║  Assistant" ou variante listada em NOMES_BLOQUEADOS é um bot do Facebook   ║
-# ║  — não é um lead real. NUNCA responder, NUNCA notificar, NUNCA gravar.      ║
-# ║  Guard: is_nome_bloqueado(nome) → verificar ANTES de is_marketplace_conv.   ║
-# ╚══════════════════════════════════════════════════════════════════════════════╝
 import csv, json, os, re, shutil, subprocess, sys, time, unicodedata
 from datetime import datetime
 from pathlib import Path
@@ -34,17 +17,6 @@ INBOX_URL  = "https://www.facebook.com/marketplace/inbox/"
 OPENAI_KEY = os.environ.get("OPENAI_API_KEY", "")
 OPENAI_MODEL = "gpt-4o-mini"
 ACCOUNT_ID = os.environ.get("IMPAR_ACCOUNT_ID", "jonata")
-
-# ⛔ Nomes que NUNCA devem ser respondidos automaticamente.
-# Inclui bots do Facebook e qualquer variante do assistente do Marketplace.
-# Conversas pessoais do Jonata já são bloqueadas pelo guard is_marketplace_conv(),
-# mas nomes listados aqui são bloqueados antes de qualquer outra verificação.
-NOMES_BLOQUEADOS = {
-    "facebook marketplace assistant",
-    "marketplace assistant",
-    "facebook assistant",
-    "assistant",
-}
 PHONE_RE  = re.compile(
     r'(?:\+?55[\s.\-]?)?'        # +55 opcional
     r'(?:\(?\d{2}\)?[\s.\-]?)?'  # DDD opcional
@@ -169,13 +141,17 @@ def retry_pending_notif():
     remaining = []
     notif_script = NOTIF_LOCAL
     for item in items:
+        stored_link = item.get('link', '')
+        if stored_link and not stored_link.startswith('https://'):
+            print(f"  ⚠ Renotificação descartada para '{item['nome']}': link inválido ('{stored_link[:60]}')")
+            continue
         print(f"  🔄 Renotificando pendente: {item['nome']} / {item['telefone']}")
         try:
             result = subprocess.run(
                 [sys.executable, str(notif_script),
                  '--nome', item['nome'], '--telefone', item['telefone'],
                  '--resumo', item.get('imovel', ''),
-                 '--link-imovel', item.get('link', ''),
+                 '--link-imovel', stored_link,
                  '--origem', 'marketplace'],
                 timeout=60
             )
@@ -1139,25 +1115,6 @@ def is_marketplace_conv(page):
     except Exception:
         return False
 
-def is_nome_bloqueado(nome: str) -> bool:
-    """
-    ⛔ REGRA: nunca responder automaticamente conversas cujo nome esteja em NOMES_BLOQUEADOS.
-    Inclui "Facebook Marketplace Assistant" e variantes — bots do Facebook que não são leads reais.
-    Conversas pessoais do Jonata (owner) são tratadas pelo guard is_marketplace_conv().
-
-    Verifica em dois modos:
-    - Exato: nome.lower() in NOMES_BLOQUEADOS (nome completo como "Facebook Marketplace Assistant")
-    - Substring reversa: nome truncado (ex: "facebook") contido em algum nome bloqueado
-      — necessário porque _INBOX_HEADS pode zerar nome_real e get_nome() retorna só a 1ª palavra.
-    """
-    if not nome:
-        return False
-    nome_lower = nome.strip().lower()
-    if nome_lower in NOMES_BLOQUEADOS:
-        return True
-    # Captura casos onde nome foi truncado para a primeira palavra (ex: "Facebook")
-    return any(nome_lower in blocked for blocked in NOMES_BLOQUEADOS)
-
 def analisar_com_regras(conv_text, nome, preview):
     """Análise por regras — sem API externa, zero custo.
     1. Telefone na conversa → CAPTUROU_CONTATO
@@ -1546,15 +1503,6 @@ def run():
             _prev_conv_text_mm = ""  # detecta DOM ainda não trocou (conteúdo do lead anterior)
             for turl in thread_urls:
                 nome = turl['text'].split()[0] if turl['text'] else 'Lead'
-                # ⛔ Guard antecipado: checar nome COMPLETO do sidebar antes de qualquer filtragem.
-                # Necessário porque _INBOX_HEADS apaga nome_real quando contém "marketplace"
-                # (ex: "Facebook Marketplace Assistant" → nome_real=None → nome fica "Facebook").
-                if is_nome_bloqueado(turl.get('text', '')) or is_nome_bloqueado(nome):
-                    print(f"    ⛔ NOME BLOQUEADO '{turl.get('text', nome)}' — bot do Facebook, não é lead real")
-                    stats['p'] += 1
-                    page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
-                    time.sleep(2)
-                    continue
                 print(f"\n  → {nome} (messages/t)")
                 stats['v'] += 1
                 try:
@@ -1578,16 +1526,6 @@ def run():
                         time.sleep(1)
                         _wait_elapsed += 1
                         cand = get_conv_nome(page)
-                        # ⛔ Checar bloqueio ANTES de filtrar por _INBOX_HEADS
-                        # (ex: "Facebook Marketplace Assistant" contém "marketplace" e seria apagado
-                        # pelo filtro abaixo, escapando o guard e virando 'Interessado(a)')
-                        if cand and is_nome_bloqueado(cand):
-                            print(f"    ⛔ NOME BLOQUEADO no heading '{cand}' — bot do Facebook, não é lead")
-                            stats['p'] += 1
-                            page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
-                            time.sleep(2)
-                            nome_real = '__BLOQUEADO__'
-                            break
                         if cand and any(w in cand.lower() for w in _INBOX_HEADS):
                             cand = None
                         if cand:
@@ -1603,8 +1541,6 @@ def run():
                         print(f"    ⚠ Heading '{nome_real}' ≠ esperado '{expected_first}' após 12s — pulando para não responder conversa errada")
                         stats['e'] += 1
                         continue
-                    if nome_real == '__BLOQUEADO__':
-                        continue  # bot do Facebook detectado no heading — já contabilizado em stats['p']
                     if nome_real:
                         nome = nome_real
                     if not nome or nome == 'Lead':
@@ -1612,16 +1548,8 @@ def run():
                     # Extra 2s: garante que o [role="log"] termina de renderizar após o heading aparecer
                     time.sleep(2)
 
-                    # ⛔ Guard nome bloqueado: bots do Facebook e variantes do Marketplace Assistant.
-                    if is_nome_bloqueado(nome):
-                        print(f"    ⛔ NOME BLOQUEADO '{nome}' — nunca responder automaticamente")
-                        stats['p'] += 1
-                        page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
-                        time.sleep(2)
-                        continue
-
                     # Guard obrigatório: só processar se for conversa do Marketplace.
-                    # Conversas pessoais do Jonata são SEMPRE ignoradas — nunca enviar.
+                    # Conversas pessoais são SEMPRE ignoradas — nunca enviar.
                     _is_mp = is_marketplace_conv(page)
                     _mp_hint = turl.get('is_marketplace_hint', False)
                     if not _is_mp and not _mp_hint:
@@ -1692,26 +1620,32 @@ def run():
                             print(f"    ↳ {telefone_ia} já no CSV — pulando (lead já capturado)")
                             stats['p'] += 1
                         else:
-                            link = require_listing_link(link, nome)
-                            if not link:
+                            existing_owner = phone2name.get(telefone_ia, '')
+                            if existing_owner and existing_owner.split()[0].lower() != nome.split()[0].lower():
+                                print(f"    ⚠ Telefone {telefone_ia} pertence a '{existing_owner}', não a '{nome}' — possível vazamento de conversa, pulando")
                                 stats['e'] += 1
-                                continue
-                            # Só um agradecimento curto no Facebook — o discurso completo
-                            # (Oi {nome}... Vi que você demonstrou interesse...) vai
-                            # só pelo link de WhatsApp que o Jonata recebe no Telegram
-                            # (notificar_lead_whatsapp.py). Decisão do Jonata em 2026-08-29
-                            # depois do Guarajara receber a mensagem completa nos dois canais.
-                            resp = "Obrigado, vamos entrar em contato via whatsapp."
-                            sent = send_message(page, resp)
-                            if sent:
-                                stats['r'] += 1
-                                print(f"    ✓ Agradecimento enviado — {telefone_ia}")
-                            append_lead(nome, telefone_ia, imovel, link or '', 'Messenger IA')
-                            known.add(telefone_ia)
-                            leads.append({'nome': nome, 'telefone': telefone_ia, 'imovel': imovel})
-                            stats['t'] += 1
-                            notificar_jonata(nome, telefone_ia, imovel, link or '')
-                            mark_notified(notificados, telefone_ia)
+                            else:
+                                link = require_listing_link(link, nome)
+                                if not link:
+                                    stats['e'] += 1
+                                    continue
+                                # Só um agradecimento curto no Facebook — o discurso completo
+                                # (Oi {nome}... Vi que você demonstrou interesse...) vai
+                                # só pelo link de WhatsApp que o Jonata recebe no Telegram
+                                # (notificar_lead_whatsapp.py). Decisão do Jonata em 2026-08-29
+                                # depois do Guarajara receber a mensagem completa nos dois canais.
+                                resp = "Obrigado, vamos entrar em contato via whatsapp."
+                                sent = send_message(page, resp)
+                                if sent:
+                                    stats['r'] += 1
+                                    print(f"    ✓ Agradecimento enviado — {telefone_ia}")
+                                append_lead(nome, telefone_ia, imovel, link or '', 'Messenger IA')
+                                known.add(telefone_ia)
+                                phone2name[telefone_ia] = nome
+                                leads.append({'nome': nome, 'telefone': telefone_ia, 'imovel': imovel})
+                                stats['t'] += 1
+                                notificar_jonata(nome, telefone_ia, imovel, link or '')
+                                mark_notified(notificados, telefone_ia)
                     elif acao_ia == 'PEDIR_CONTATO':
                         resp = "Vou verificar essa informação\nQual seu whatsapp para retorno?"
                         sent = send_message_single(page, resp)
@@ -1806,13 +1740,6 @@ def run():
         _prev_conv_text = ""  # detecta DOM ainda não trocou (conteúdo do lead anterior)
         for thread in threads:
             nome = get_nome(thread['text'])
-            # ⛔ Guard antecipado: checar nome COMPLETO do sidebar antes de qualquer filtragem.
-            # _INBOX_HEADS zera nome_real quando contém "marketplace" → "Facebook Marketplace
-            # Assistant" vira None e nome fica só "Facebook" → guard tardio não pegava.
-            if is_nome_bloqueado(thread.get('text', '')) or is_nome_bloqueado(nome):
-                print(f"    ⛔ NOME BLOQUEADO '{thread.get('text', nome)}' — bot do Facebook, não é lead real")
-                stats['p'] += 1
-                continue
             print(f"\n  → {nome} (y={thread['y']:.0f})")
             stats['v'] += 1
 
@@ -1919,15 +1846,6 @@ def run():
 
                     # Verificar nome real da conversa aberta (evita processar conversa errada)
                     nome_real = get_conv_nome(page)
-                    # ⛔ Checar bloqueio ANTES de filtrar por _INBOX_HEADS
-                    if nome_real and is_nome_bloqueado(nome_real):
-                        print(f"    ⛔ NOME BLOQUEADO no heading '{nome_real}' — bot do Facebook, pulando")
-                        stats['p'] += 1
-                        page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
-                        time.sleep(2)
-                        sucesso_abertura = True  # evitar retry — já bloqueado intencionalmente
-                        nome_real = '__BLOQUEADO__'
-                        break
                     # Filtro extra: headings do inbox não são nomes de lead
                     _INBOX_HEADS = {'conversas', 'marketplace', 'inbox', 'mensagens',
                                     'messages', 'messenger', 'bate-papo', 'chats', 'selecione'}
@@ -1961,10 +1879,6 @@ def run():
                     stats['e'] += 1
                     continue
 
-                # ⛔ Bot detectado no heading durante abertura — já navegou para trás, pular
-                if nome_real == '__BLOQUEADO__':
-                    continue
-
                 # Usar nome real da conversa se disponível (mais preciso que o sidebar)
                 if nome_real:
                     nome = nome_real
@@ -1977,16 +1891,8 @@ def run():
                 if not nome:
                     nome = 'Interessado(a)'
 
-                # ⛔ Guard nome bloqueado: bots do Facebook e variantes do Marketplace Assistant.
-                if is_nome_bloqueado(nome):
-                    print(f"    ⛔ NOME BLOQUEADO '{nome}' — nunca responder automaticamente")
-                    stats['p'] += 1
-                    page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
-                    time.sleep(2)
-                    continue
-
                 # Guard obrigatório: só processar se for conversa do Marketplace.
-                # Conversas pessoais do Jonata são SEMPRE ignoradas — nunca envia mensagem aqui.
+                # Conversas pessoais são SEMPRE ignoradas — nunca envia mensagem aqui.
                 if not is_marketplace_conv(page):
                     print(f"    ⏭ CONVERSA PESSOAL — is_marketplace=False — ignorando (nunca envia aqui)")
                     stats['p'] += 1
@@ -2108,25 +2014,31 @@ def run():
                         print(f"    ↳ {telefone_ia} já no CSV — pulando (lead já capturado)")
                         stats['p'] += 1
                     else:
-                        link = require_listing_link(link, nome)
-                        if not link:
+                        existing_owner = phone2name.get(telefone_ia, '')
+                        if existing_owner and existing_owner.split()[0].lower() != nome.split()[0].lower():
+                            print(f"    ⚠ Telefone {telefone_ia} pertence a '{existing_owner}', não a '{nome}' — possível vazamento de conversa, pulando")
                             stats['e'] += 1
-                            page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
-                            time.sleep(3)
-                            continue
-                        # Só um agradecimento curto no Facebook — ver nota no outro
-                        # bloco CAPTUROU_CONTATO acima sobre a decisão de 2026-08-29.
-                        resp = "Obrigado, vamos entrar em contato via whatsapp."
-                        sent = send_message(page, resp)
-                        if sent:
-                            stats['r'] += 1
-                            print(f"    ✓ Agradecimento enviado — {telefone_ia}")
-                        append_lead(nome, telefone_ia, imovel, link, 'Messenger IA')
-                        known.add(telefone_ia)
-                        leads.append({'nome': nome, 'telefone': telefone_ia, 'imovel': imovel})
-                        stats['t'] += 1
-                        notificar_jonata(nome, telefone_ia, imovel, link)
-                        mark_notified(notificados, telefone_ia)
+                        else:
+                            link = require_listing_link(link, nome)
+                            if not link:
+                                stats['e'] += 1
+                                page.goto(effective_base, wait_until="domcontentloaded", timeout=15000)
+                                time.sleep(3)
+                                continue
+                            # Só um agradecimento curto no Facebook — ver nota no outro
+                            # bloco CAPTUROU_CONTATO acima sobre a decisão de 2026-08-29.
+                            resp = "Obrigado, vamos entrar em contato via whatsapp."
+                            sent = send_message(page, resp)
+                            if sent:
+                                stats['r'] += 1
+                                print(f"    ✓ Agradecimento enviado — {telefone_ia}")
+                            append_lead(nome, telefone_ia, imovel, link, 'Messenger IA')
+                            known.add(telefone_ia)
+                            phone2name[telefone_ia] = nome
+                            leads.append({'nome': nome, 'telefone': telefone_ia, 'imovel': imovel})
+                            stats['t'] += 1
+                            notificar_jonata(nome, telefone_ia, imovel, link)
+                            mark_notified(notificados, telefone_ia)
 
                 elif acao_ia == 'PEDIR_CONTATO':
                     resp = "Vou verificar essa informação\nQual seu whatsapp para retorno?"

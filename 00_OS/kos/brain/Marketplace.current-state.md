@@ -1,6 +1,6 @@
 ---
 modulo: marketplace
-atualizado: 2026-09-05
+atualizado: 2026-09-16
 ---
 status: ativo
 pid_varredura: messenger-varredura-auto rodando a cada 5min (último ciclo OK 14:49)
@@ -12,4 +12,4 @@ ultimo_ok: varredura 14:49 processou 4 threads (Alejandro/SEM_ACAO, Maciel+Fraan
 proximo: crosspost dispara 17:00 hoje; marketplace-tarde 13:00; leads-captador a cada 5min
 fix_aplicado_2026-08-30: hard reload domcontentloaded+18s resolve "Carregando..." no 1o thread; cache browser limpo; filtros x<300 para suporte a /messages/t/ layout
 acao_pendente: nenhuma
-ultima_mudanca: "fix: guard NOMES_BLOQUEADOS antes de _INBOX_HEADS — bloqueia Facebook Marketplace Assistant mesmo quando nome contém 'marketplace'"
+ultima_mudanca: "fix: extrair_dados_lead lê attachments do FB (telefone vinha em description e era ignorado); regex de telefone mais permissiva; alerta Telegram após 6 ciclos sem telefone; checkpoint salvo sempre"

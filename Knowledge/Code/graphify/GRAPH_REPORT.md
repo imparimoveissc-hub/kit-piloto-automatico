@@ -1,158 +1,162 @@
-# Graph Report - Kit-Piloto-Automatico-V30-DISTRIB  (2026-07-21)
+# Graph Report - .  (2026-09-06)
 
 ## Corpus Check
-- 2536 files · ~3,040,849 words
-- Verdict: corpus is large enough that graph structure adds value.
+- cluster-only mode — file stats not available
 
 ## Summary
 - 12076 nodes · 11497 edges · 1363 communities (1020 shown, 343 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 40 edges (avg confidence: 0.79)
 - Token cost: 0 input · 0 output
 
+## Graph Freshness
+- Built from commit: `11091946`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
+
 ## Community Hubs (Navigation)
-- NF-e Issuance CLI
-- Asaas API Client
+- cli.py
+- Communities (1258 total, 353 thin omitted)
 - Lease Contract Editor
-- NFe Automation Browser
-- Sales Operations Agents
-- Messenger-WhatsApp Bridge
+- NfemAutomation
+- Amendment History Skill
+- check_chaves_na_mao_leads.py
 - Frontend Dependencies
-- Pipeline Orchestration
-- Automation Bridge Server
-- WhatsApp NFe Listener
-- Web Scraping Queue
+- Copy GOAT Lite
+- config.py
+- Configuração da Rotina - Messenger Marketplace (impar-messenger-inbox-hora)
+- generate_queue.py
 - Cinematic Video Editor
-- Client Communications Documentation
+- Deadlines
 - Agent Handoff Orchestrator
 - TypeScript Configuration
-- Marketplace Automation
-- AI Governance Skills
-- Legal Matter Management
-- Financial Reporting Templates
-- Clinic Management Prompts
-- Legal Practice Kit
-- B2B Sales Kit
-- Policy Analysis Skills
-- Marketing Strategy Agents
-- Skill Registry Management
-- Marketing Operations Squad
-- Employment Law Skills
+- publish_marketplace_playwright.py
+- Reg Gap Analysis Skill
+- Patent-mode workflow
+- Email DRE - Versao Copy (texto + variaveis)
+- CLAUDE.md -- Nicho Clinicas (Medicas, Odontologicas, Esteticas)
+- Briefing
+- Template: Onboarding de Cliente Corporativo B2B
+- /policy-diff
+- Skill: Direct Response Brasileiro 2026 — Operação Tática
+- CLAUDE.md Configuration
+- @forge — Builder do Kit V30
+- Employment Law Practice Profile
 - Legal Tech Integrations
 - Document Management MCP
 - Legal Research MCP
 - Agent Deployment Scripts
-- Date Calculation Utilities
-- Agent Scaffold System
-- AI Inventory Management
-- Employment Counsel Plugin
-- Real Estate Legal Plugin
+- generate_group_queue.py
+- Forge Agent
+- AI Inventory Skill
+- Practice Profile Configuration
+- Traffic Orchestrator
 - Marketplace Plugin Schema
 - Plugin Metadata
 - Machine Setup Script
-- SaaS Agreement Review
-- Demand Intake Skills
-- Litigation Matter Logging
-- IP Protection Skills
+- Renewal Tracker Skill
+- Cold Start Interview Skill
+- Demand Received Skill
+- Practice Profile (CLAUDE.md)
 - Legal Research Tools
 - Court Data Connectors
 - Project Management MCP
 - Document Formatting Tools
-- Team Onboarding SOPs
-- Messenger Bridge Deployment
-- Real Estate Lead Management
-- IP Portfolio Management
-- M&A Diligence Agents
-- Internal Investigation Skills
+- Playbook de Onboarding de Time - Primeiros 30 dias
+- salvar_pdf
+- SKILL.md
+- portfolio
+- AI Tool Handoff Skill
+- Internal Investigation Reference Skill
 - Diligence Data Extraction
 - YAML Metadata Validator
 - Remotion Video Components
 - Legal Search MCP
-- Regulatory Review Framework
+- /marketing-claims-review
 - Tool Linting Utility
 - Video Rendering Scripts
-- Marketing Stack Documentation
-- Communication Prompt Templates
-- Commercial Proposal Templates
-- Sales Page Checklists
-- Law Student Resources
+- Pipeline de execução
+- Categoria 3: Revisao
+- Proposta Comercial — Designer
+- LP de Servico B2B / Agencia / Consultoria
+- bar-prep-questions
 - Launch Risk Orchestrator
 - Regulatory Monitor Orchestrator
 - Renewal Watcher Orchestrator
 - Docket Monitoring Agents
-- Product Release Config
-- Lease Adjustment Tools
-- Financial Services MCP
+- Fluxo
+- Agente Vigia de Reajustes
+- .mcp.json
 - Legal AI MCP
-- Regulatory Change Monitor
+- /cold-start-interview
 - Path Validation Utility
-- Traffic Analysis Agents
+- Trafego e Metricas
 - Final Build Script
 - Normalization Build Script
 - Backup Installation Script
-- Claude Skill Setup
-- AI Governance Documentation
-- International Expansion Skills
-- Skill Installation Security
-- Content Production Agents
-- NFe Pipeline Commands
-- Litigation Counsel Plugin
+- Processo
+- AI Governance CLAUDE.md
+- Expansion Kickoff Skill
+- Default Allowlist
+- Criacao Agent — Kit Piloto Automatico
+- Skill — emitir-notas-fiscais
+- Litigation Practice Profile
 - Collaboration MCP
 - Cloud Storage MCP
 - Team Communication MCP
 - Workspace Integration MCP
-- WhatsApp System Guidelines
-- Automation Architecture Agent
-- Product Hardening Agent
+- process_leads
+- Automation Architect
+- Product Auditor
 - Fast Video Rendering
 - Slideshow Rendering Script
-- Process Automation README
-- Review Agent Skills
-- Niche Setup Commands
-- Real Estate Briefing Config
-- Operational Performance Dashboards
-- Social Media Planning
-- Video Production Workflow
-- Marketplace Publisher Script
+- Automacoes
+- Revisao Agent — Kit Piloto Automatico
+- Familias
+- Categoria 1: Briefing
+- Dashboard Operacional - Semana [AAAA-MM-DD a AAAA-MM-DD]
+- Planejamento de Stories
+- Checklist de Producao de Video
+- Communities (224 total, 135 thin omitted)
 - Listener Execution Script
 - Claude Backup Script
-- Guideline Creation Scaffold
+- Diretriz Scaffold
 - MCP Connector Scaffold
-- Skill Development Scaffold
-- Task Creation Scaffold
-- Interview Skill Customization
-- Content Operations Roles
-- Legal Tech Connectors
-- Skill Quality Assurance
-- Skill Management Tools
-- Project Handoff Documentation
-- Handoff Review Skills
+- Skill Scaffold
+- Task Scaffold
+- Cold Start Interview Skill
+- Skill: Direct Response Brasileiro 2026 — Operação Tática
+- Legal Builder Hub
+- Skill Installer
+- Uninstall
+- Handoffs Documentation
+- Semester Handoff Skill
 - Legal MCP Configuration
 - Cookbook Testing Script
-- Access Preflight Command
-- Legal Agent Context
-- B2B Agent Context
-- Creative Content Prompts
-- Visual Briefing Template
-- Delivery Checklist Template
-- Feedback and Revision Template
-- Commercial Proposal Template
-- Weekly Financial Checklist
-- Lead Capture Landing Pages
-- Landing Page Documentation
-- Creative Performance Analysis
-- Campaign Briefing
-- Monthly Media Planning
-- Monthly Campaign Report
-- Content Briefing
-- Engagement Reporting
-- Video Storyboarding
-- WhatsApp Sales Follow-up
-- WhatsApp Human Handoff
-- WhatsApp Customer Onboarding
-- WhatsApp Sales Prospecting
-- WhatsApp Customer Reactivation
-- WhatsApp SDR Support
-- WhatsApp Customer Success
+- Command - preflight-acessos
+- CLAUDE.md -- Kit Piloto Automatico com IA | Nicho: Advocacia
+- CLAUDE.md -- Nicho B2B (Kit Piloto Automatico com IA)
+- Categoria 2: Criacao
+- Briefing Visual
+- Checklist de Arquivos
+- Template de Feedback e Revisao
+- Proposta Comercial
+- Checklist Financeiro Semanal
+- LP de Captura com Isca Digital
+- Templates de Landing Pages
+- Analise de Performance de Criativos
+- Briefing de Campanha
+- Planejamento de Midia Mensal
+- Relatorio Mensal de Campanha
+- Briefing de Conteudo
+- Relatorio de Engajamento
+- Storyboard
+- Command - mktplace 19 grupos tarde
+- 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/012b842bd043909829208d7f3217a39a.json
+- 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/01790c0103041bf26bcda15a1425b830.json
+- 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/01b047fffecc60bd65ae6b917d6a5a9d.json
+- 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/01bdb2f652a7adb60302d8a59a4fcd02.json
+- 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/022f0211f2a0006fd1c51cfa69ac1ad3.json
+- 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/0263e90a30bae8dc450f46b9f835e18d.json
 - Proposal Review Skill
 - Deadline Mapping Tool
 - Legal Docket Reader
@@ -169,62 +173,62 @@
 - Portfolio Status Reporting
 - Privilege Log Review
 - Subpoena Triage Automation
-- Launch Monitoring Agent
+- Communities (1383 total, 353 thin omitted)
 - Cold Start Interviewing
 - Skill Customization Tools
-- WhatsApp Communication Orchestrator
+- 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/030ecb007be8f20193e874ca721f661b.json
 - Legal Niche Agent
 - B2B Niche Agent
 - Healthcare Niche Agent
 - Deep Research Skill
-- Copywriting Direction Agent
-- Automation Architecture Agent
-- Customer Success Agent
-- Product Auditing Agent
-- Production Management Agent
-- Sales Prospecting Agent
-- Quality Assurance Editor
-- Reporting Agent
-- Research Agent
-- Sales Follow-up Agent
-- SDR Support Agent
-- Strategic Planning Agent
-- Traffic Analysis Agent
-- Niche Setup Process
-- Getting Started Guide
-- WhatsApp System Core
-- Briefing Process
-- Content Creation Process
-- Diagnostic Process
-- Invoice Issuance Process
-- Delivery Process
-- Follow-up Process
-- Meta CLI Installation
-- Client Onboarding Process
-- Automation Design Workflow
-- Proposal Generation Process
-- Report Generation
-- Review Process
-- Process Initiation
-- WhatsApp Conversation Design
+- copy-director.md
+- @cowork-automation-architect
+- @customer-success-bot
+- product-auditor.md
+- production-lead.md
+- @prospecting-bot
+- qa-editor.md
+- Relatorio Agent — Kit Piloto Automatico
+- researcher.md
+- @sales-followup-bot
+- @sdr-attendant
+- strategist.md
+- traffic-analyst.md
+- /setup-nicho
+- Command - start-here
+- 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/03665c7ef3da7f2add1f3517f203e59f.json
+- Processo
+- Processo
+- Processo
+- Skill: Emitir Nota Avulsa (NF-em Joinville) + WhatsApp
+- Processo
+- Processo
+- Skill: meta-cli-install
+- Processo
+- Process Automation Design
+- Processo
+- Processo
+- Processo
+- Processo
+- _ref-claude-for-legal/legal-builder-hub/.claude-plugin/plugin.json
 - Investigation Summary Skill
-- Cold Start Interview
-- Customization Settings
+- /cold-start-interview
+- /customize
 - Cold Start Interview
 - Research Initiation
 - Research Start Skill
 - Status Tracking
 - Status Management Skill
 - Supervisor Review Queue
-- Remotion Video Documentation
+- Remotion video
 - Contract Schedule Skill
 - Tabular Review Skill
 - Employment Legal Configuration
-- Company Profile Template
+- Company Profile
 - Dashboard Template
 - Regulatory Legal Guardrails
-- Customization Skill
-- Matter Workspace Skill
+- /customize
+- /matter-workspace
 - /infringement-triage
 - What it does
 - Cold-Start Interview: Litigation
@@ -234,9 +238,9 @@
 - Instalação e Setup
 - Checklist Pre-Publicacao - Landing Page
 - Handoff de Cliente Novo - Comercial -> Time de Entrega
-- Automação: Messenger → WhatsApp da Impar (Leads)
+- _ref-claude-for-legal/regulatory-legal/hooks/hooks.json
 - /cold-start-interview
-- Automação de Emissão de NFS-e (Portal Nacional e Joinville)
+- Automação de Emissão de NFS-e (Portal Nacional Exclusivo)
 - /cold-start-interview
 - Relatorio Executivo Mensal - [MES/AAAA]
 - /cold-start-interview
@@ -246,7 +250,7 @@
 - NDA Review
 - /takedown
 - Fluxo
-- 🎉 Resumo Final: Automação Messenger-WhatsApp Impar
+- run-notificar-planilha.sh
 - Corporate Practice Profile
 - /cease-desist
 - Cold-Start Interview: Law School Clinic
@@ -274,7 +278,7 @@
 - /cold-start-interview
 - Chronology
 - Template: Script de Reuniao de Vendas / Discovery
-- test_pipeline.py
+- asaas_client.py
 - Vendor Agreement Review
 - Law Student Practice Profile
 - Workflow
@@ -321,7 +325,7 @@
 - DSAR Response Drafting
 - Time de Agentes IA — Kit Piloto Automatico
 - Relatorio Agent — Kit Piloto Automatico
-- salvar_pdf
+- test_pipeline.py
 - Knowledge Files — Upload no Project
 - Setup do Project no Claude Desktop
 - Time de Agentes IA — Kit Piloto Automatico
@@ -435,7 +439,7 @@
 - MEMORY.md
 - New Agent Checklist
 - manifest.json
-- manifest.json
+- meu-video/src/Root.tsx
 - /ai-inventory
 - Handbook Updates
 - /wage-hour-qa
@@ -474,7 +478,7 @@
 - CLAUDE.md -- Kit Piloto Automatico com IA | Nicho: Advocacia
 - Inicio Rapido — Kit Piloto Automatico V30
 - Graph Report - .  (2026-07-08)
-- Graph Report - .  (2026-07-08)
+- Graph Report - Kit-Piloto-Automatico-V30-DISTRIB  (2026-07-19)
 - Corporate Counsel Plugin
 - /related-skills-surfacer
 - Matter Briefing
@@ -799,7 +803,7 @@
 - meu-video/src/Composition.tsx
 - meu-video/src/index.ts
 - meu-video/src/ReelsVideo.tsx
-- meu-video/src/Root.tsx
+- idempotency.py
 - meu-video/tsconfig.json
 - _ref-claude-for-legal/ai-governance-legal/.claude-plugin/plugin.json
 - _ref-claude-for-legal/ai-governance-legal/.mcp.json
@@ -856,7 +860,7 @@
 - 05_WORKSPACE/reels-impar/norm/05_cozinha.mp4
 - 05_WORKSPACE/reels-impar/norm/06_quarto1.mp4
 - 05_WORKSPACE/reels-impar/norm/07_quarto2.mp4
-- 05_WORKSPACE/reels-impar/norm/08_janela.mp4
+- manifest.json
 - 05_WORKSPACE/reels-impar/norm/09_piscina.mp4
 - 05_WORKSPACE/reels-impar/norm/10_cta.mp4
 - 05_WORKSPACE/reels-impar/segA.wav
@@ -873,7 +877,7 @@
 - 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/generate_queue.py
 - 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/messenger_to_whatsapp_bridge.py
 - 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py
-- 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/run_marketplace_publisher.sh
+- meu-video/src/Root.tsx
 - 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/run_messenger_bridge.sh
 - 18_AUTOMATION_STACK/nfem-joinville/config/clientes.json
 - 18_AUTOMATION_STACK/nfem-joinville/data/emissoes.json
@@ -905,7 +909,7 @@
 - KPA30-Marketplace/imobiliario-juridico/.claude-plugin/plugin.json
 - KPA30-Marketplace/imobiliario-juridico/hooks/hooks.json
 - KPA30-Marketplace/imobiliario-juridico/.mcp.json
-- KPA30-Marketplace/validar.py
+- Graph Report - Kit-Piloto-Automatico-V30-DISTRIB  (2026-07-19)
 - meu-video/eslint.config.mjs
 - meu-video/package.json
 - meu-video/public/input-video.mp4
@@ -1245,7 +1249,7 @@
 - 05_WORKSPACE/reels-impar/norm/05_cozinha.mp4
 - 05_WORKSPACE/reels-impar/norm/06_quarto1.mp4
 - 05_WORKSPACE/reels-impar/norm/07_quarto2.mp4
-- 05_WORKSPACE/reels-impar/norm/08_janela.mp4
+- manifest.json
 - 05_WORKSPACE/reels-impar/norm/09_piscina.mp4
 - 05_WORKSPACE/reels-impar/norm/10_cta.mp4
 - 05_WORKSPACE/reels-impar/segA.wav
@@ -1404,11 +1408,11 @@
 
 ## Communities (1363 total, 343 thin omitted)
 
-### Community 0 - "NF-e Issuance CLI"
+### Community 0 - "cli.py"
 Cohesion: 0.15
 Nodes (18): _buscar_pendentes_mes_atual(), _emitir_manual(), _emitir_pendentes(), _imprimir_pendentes(), _login_manual(), main(), _parse_flags(), CLI para operações manuais: testar, reprocessar, listar erros.  Uso:   python -m (+10 more)
 
-### Community 1 - "Asaas API Client"
+### Community 1 - "Communities (1258 total, 353 thin omitted)"
 Cohesion: 0.00
 Nodes (887): Communities (1258 total, 353 thin omitted), Community 0 - "NF-e Issuance CLI", Community 1006 - "SECAO 9: BONUS (STACK DE VALOR)", Community 1007 - "SECAO 3: AGITACAO DA DOR", Community 1008 - "SECAO 4: REFRAME / PARADIGM SHIFT", Community 100 - "Real Estate Briefing Config", Community 101 - "Operational Performance Dashboards", Community 102 - "Social Media Planning" (+879 more)
 
@@ -1416,11 +1420,11 @@ Nodes (887): Communities (1258 total, 353 thin omitted), Community 0 - "NF-e Iss
 Cohesion: 0.11
 Nodes (34): coletar_dados(), criar_pasta_destino(), edit_docx_xml(), editar_contrato(), editar_contrato_admin(), editar_vistoria(), extrair_rua_bairro(), get_paragraph_full_text() (+26 more)
 
-### Community 3 - "NFe Automation Browser"
+### Community 3 - "NfemAutomation"
 Cohesion: 0.11
 Nodes (19): emitir_nota(), emitir_notas_em_lote(), NfemAutomation, NfemError, Exception, Automação Playwright para emissão de NF-em no site da Prefeitura de Joinville., True se a página atual já está logada (sessão restaurada dos cookies)., Persiste os cookies da sessão logada para reuso desassistido. (+11 more)
 
-### Community 5 - "Messenger-WhatsApp Bridge"
+### Community 5 - "check_chaves_na_mao_leads.py"
 Cohesion: 0.15
 Nodes (19): add_to_planilha(), check_outlook_emails(), extract_lead_data(), load_processed(), log(), main(), normalize_phone_br(), process_new_lead() (+11 more)
 
@@ -1428,19 +1432,19 @@ Nodes (19): add_to_planilha(), check_outlook_emails(), extract_lead_data(), load
 Cohesion: 0.07
 Nodes (26): dependencies, react, react-dom, remotion, @remotion/cli, @remotion/tailwind-v4, tailwindcss, description (+18 more)
 
-### Community 7 - "Pipeline Orchestration"
+### Community 7 - "Copy GOAT Lite"
 Cohesion: 0.08
 Nodes (22): Pipeline: kpa-v30-pipeline, Adaptacao por canal, Anti-patterns, As 5 perguntas, Awareness, Composicao de frameworks, Copy GOAT Lite, Escalada de qualidade (+14 more)
 
-### Community 8 - "Automation Bridge Server"
+### Community 8 - "config.py"
 Cohesion: 0.15
 Nodes (14): nbs_para_aluguel(), Centraliza carregamento de variáveis de ambiente e constantes da NF-em/NFS-e., Resolve o item NBS do lote mensal a partir do tipo_imovel do clientes.json., get_logger(), Logger estruturado: console + arquivo rotativo., _encontrar_config_cliente(), processar_lote(), processar_pagamento() (+6 more)
 
-### Community 9 - "WhatsApp NFe Listener"
+### Community 9 - "Configuração da Rotina - Messenger Marketplace (impar-messenger-inbox-hora)"
 Cohesion: 0.12
 Nodes (15): Arquivos, Comandos Úteis, Configuração da Rotina - Messenger Marketplace (impar-messenger-inbox-hora), Data de Ativação, Executado por, Forçar execução imediata, Intervalo, Legado local (+7 more)
 
-### Community 10 - "Web Scraping Queue"
+### Community 10 - "generate_queue.py"
 Cohesion: 0.09
 Nodes (35): build_queue(), calculate_scheduled_time(), clean_text(), collect_links(), collect_operation(), discover_listing_pages(), extract_listing_links(), extract_price_precise() (+27 more)
 
@@ -1456,43 +1460,43 @@ Nodes (13): audit_log(), extract_handoff(), frame_handoff(), Remove C0/C1 contro
 Cohesion: 0.15
 Nodes (12): compilerOptions, esModuleInterop, forceConsistentCasingInFileNames, jsx, lib, module, noEmit, noUnusedLocals (+4 more)
 
-### Community 15 - "Marketplace Automation"
+### Community 15 - "publish_marketplace_playwright.py"
 Cohesion: 0.12
 Nodes (23): baixar_fotos(), bloqueado(), codigos_publicados(), log_publicado(), main(), attach_photos(), choose_combobox_option(), confirm_leave_dialog() (+15 more)
 
-### Community 17 - "Legal Matter Management"
+### Community 17 - "Patent-mode workflow"
 Cohesion: 0.05
 Nodes (42): A CHART IS A DRAFT, NOT A FINDING OR A CONTENTION, Additional patent-mode intake, Civil-mode guardrails (in addition to shared guardrails), /claim-chart, Claim Chart, Close with the next-steps decision tree, CSV (always), Disclosed-document use restrictions (+34 more)
 
-### Community 18 - "Financial Reporting Templates"
+### Community 18 - "Email DRE - Versao Copy (texto + variaveis)"
 Cohesion: 0.11
 Nodes (18): Email Template HTML, Anti-padroes (NAO usar), Assunto, Corpo (versao texto puro), Diretrizes de tom, Email DRE - Versao Copy (texto + variaveis), Preview text (preheader), Quando esta estavel (+10 more)
 
-### Community 19 - "Clinic Management Prompts"
+### Community 19 - "CLAUDE.md -- Nicho Clinicas (Medicas, Odontologicas, Esteticas)"
 Cohesion: 0.12
 Nodes (15): Agentes Adaptados para Clinicas, Arquivos de Referencia, Ciclo do Paciente (referencia para templates), CLAUDE.md -- Nicho Clinicas (Medicas, Odontologicas, Esteticas), Clinica de Estetica, Clinica Medica, Clinica Odontologica, Contexto (+7 more)
 
-### Community 20 - "Legal Practice Kit"
+### Community 20 - "Briefing"
 Cohesion: 0.09
 Nodes (21): 1. Identificacao do Cliente, 1. Identificacao do Cliente, 2. Parte Contraria, 2. Parte Contraria, 3. Dados do Caso, 3. Dados do Caso, 4. Resumo dos Fatos, 4. Resumo dos Fatos (+13 more)
 
-### Community 21 - "B2B Sales Kit"
+### Community 21 - "Template: Onboarding de Cliente Corporativo B2B"
 Cohesion: 0.09
 Nodes (21): Agenda da reuniao de kickoff (60 min), Cadencia de relacionamento, Checklist de estabilizacao, Checklist interno, Cronograma padrao, Documento de Handoff (Closer → CS), Email pos-kickoff, Erros Fatais no Onboarding (+13 more)
 
-### Community 22 - "Policy Analysis Skills"
+### Community 22 - "/policy-diff"
 Cohesion: 0.10
 Nodes (20): Branches by regulatory input type, Close with the next-steps decision tree, Config-dependent fallbacks, Gap branch (final rule / NPRM with at least one gap against the target policy), Handoff, Load context, Matter context, Negative-finding branch (final rule / NPRM diffed against a policy that isn't the right target) (+12 more)
 
-### Community 23 - "Marketing Strategy Agents"
+### Community 23 - "Skill: Direct Response Brasileiro 2026 — Operação Tática"
 Cohesion: 0.05
 Nodes (38): 10. Sazonalidade BR — Calendário DR, 11. Paused-First Protocol — Regra de Ouro, 12. Glossário BR específico, 12. Graph API Quirks (quando CLI não basta), 13. Anti-Patterns BR (erros comuns), 1. Anatomia da operação DR brasileira (2026), 2. ABO vs CBO — Decisão prática DR, 3. Kill Criteria DR — Padrão BR (+30 more)
 
-### Community 26 - "Marketing Operations Squad"
+### Community 26 - "@forge — Builder do Kit V30"
 Cohesion: 0.12
 Nodes (15): Anti-patterns, Boot, @forge — Builder do Kit V30, Inputs (perguntar), Output (handoff), Papel, Pre-flight obrigatorio, Princpios (+7 more)
 
-### Community 27 - "Employment Law Skills"
+### Community 27 - "Employment Law Practice Profile"
 Cohesion: 0.07
 Nodes (27): Ad-hoc questions in this domain, Available integrations, Decision posture on subjective legal calls, Employment Law Practice Profile, Escalation, Handbook, Handling retrieved results, Hiring review (+19 more)
 
@@ -1508,7 +1512,7 @@ Nodes (7): Box, Definely, Google Drive, iManage, Slack, Solve Intelligence, TopC
 Cohesion: 0.25
 Nodes (7): Aurora, CourtListener, Everlaw, Google Drive, Slack, TopCounsel, Trellis
 
-### Community 32 - "Date Calculation Utilities"
+### Community 32 - "generate_group_queue.py"
 Cohesion: 0.14
 Nodes (23): expand_groups(), GroupTarget, load_csv(), load_group_catalog(), main(), parse_day(), parse_marketplace_datetime(), datetime (+15 more)
 
@@ -1540,15 +1544,15 @@ Nodes (5): Asana, Atlassian, Google Drive, Linear, Slack
 Cohesion: 0.90
 Nodes (4): add_note(), add_table(), set_cell_shading(), set_cell_width()
 
-### Community 48 - "Team Onboarding SOPs"
+### Community 48 - "Playbook de Onboarding de Time - Primeiros 30 dias"
 Cohesion: 0.05
 Nodes (38): Antes do dia 1 (semana -1), Anti-padroes (NAO fazer), Atividades, Atividades, Atividades, Atividades, Cabecalho, Checklist mestre - dia 30 (+30 more)
 
-### Community 49 - "Messenger Bridge Deployment"
+### Community 49 - "salvar_pdf"
 Cohesion: 0.25
 Nodes (13): caminho_esperado(), _nome_arquivo(), _pasta_mes_ano(), datetime, Path, Gerencia salvamento dos PDFs de notas fiscais., Remove caracteres inválidos para nomes de arquivo., Retorna e cria a pasta MM-AAAA dentro de NOTAS_BASE_DIR. (+5 more)
 
-### Community 50 - "Real Estate Lead Management"
+### Community 50 - "SKILL.md"
 Cohesion: 0.25
 Nodes (7): Estado, Ferramentas, Fim, LIMITE DIÁRIO (obrigatório), NÃO FAZER, O que fazer, Objetivo
 
@@ -1560,7 +1564,7 @@ Nodes (5): Diligence Grid Agent, Diligence Doc Reader Subagent, Diligence Extrac
 Cohesion: 0.40
 Nodes (4): CourtListener, Descrybe, Google Drive, Slack
 
-### Community 58 - "Regulatory Review Framework"
+### Community 58 - "/marketing-claims-review"
 Cohesion: 0.10
 Nodes (19): Absolute claims, Claim taxonomy, Close with the next-steps decision tree, Comparative claims (heightened scrutiny), Disclosure overlays, Implied claims, Load standards, /marketing-claims-review (+11 more)
 
@@ -1572,19 +1576,19 @@ Nodes (4): _lint_one(), main(), Path, Return a list of violation strings (empty 
 Cohesion: 0.83
 Nodes (3): render_silent(), render_voice(), render_video.sh script
 
-### Community 61 - "Marketing Stack Documentation"
+### Community 61 - "Pipeline de execução"
 Cohesion: 0.12
 Nodes (15): Confirmação antes de ações destrutivas, Etapa 1 — Listar campanhas ativas, Etapa 2 — Insights por campanha (janela definida), Etapa 3 — Insights por adset (top campanhas), Etapa 4 — Top 10 ads (por ROAS desc, depois CPA asc), Etapa 5 — Cruzar com baseline do cliente, Etapa 6 — Aplicar framework "Onde Quebrou?", Etapa 7 — Gerar relatório (+7 more)
 
-### Community 62 - "Communication Prompt Templates"
+### Community 62 - "Categoria 3: Revisao"
 Cohesion: 0.17
 Nodes (11): 10. Quality Check de Entregaveis, 1. Revisor de Copy (Ortografia + Tom + CTA), 2. Verificador de Consistencia de Marca, 3. Revisor de Relatorio (Dados + Analise + Recomendacoes), 4. Verificador de Briefing (Campos Faltando), 5. Revisor de Proposta Comercial, 6. Verificador de SEO em Textos, 7. Revisor de Apresentacao/Slides (+3 more)
 
-### Community 63 - "Commercial Proposal Templates"
+### Community 63 - "Proposta Comercial — Designer"
 Cohesion: 0.11
 Nodes (18): Capa, Capa, Condicoes de Pagamento, Entendimento do Projeto, Escopo, Escopo do Servico, Investimento, Investimento (+10 more)
 
-### Community 64 - "Sales Page Checklists"
+### Community 64 - "LP de Servico B2B / Agencia / Consultoria"
 Cohesion: 0.04
 Nodes (47): 3 pilares / passos do mecanismo, 4-6 bullets de identificacao, Anti-bullets (quem NAO deve estar aqui), Bloco com foto do dono / socio principal, Bloco de cases (3-5 cases), Bloco de garantia, Cabecalho do template, Checklist final antes de subir (+39 more)
 
@@ -1604,11 +1608,11 @@ Nodes (4): renewal-watcher-orchestrator, alert-writer, deadline-calculator, repo
 Cohesion: 0.50
 Nodes (4): Docket Watcher Agent, Deadline Mapper Subagent, Docket Reader Subagent, Tracker Writer Subagent
 
-### Community 70 - "Product Release Config"
+### Community 70 - "Fluxo"
 Cohesion: 0.07
 Nodes (27): `05_WORKSPACE/current-context.md`, `.claude/config.md`, Command — /instalar-kpa30, Erros comuns, Etapa 0 — Boas-vindas + confirmacao, Etapa 1 — Conferir dependencias, Etapa 2 — Configurar .env, Etapa 3 — MCPs Tier 1 (+19 more)
 
-### Community 71 - "Lease Adjustment Tools"
+### Community 71 - "Agente Vigia de Reajustes"
 Cohesion: 0.29
 Nodes (6): Agendamento, Agente Vigia de Reajustes, Formato de saída, O que este agente NÃO faz, O que faz, Propósito
 
@@ -1616,7 +1620,7 @@ Nodes (6): Agendamento, Agente Vigia de Reajustes, Formato de saída, O que este
 Cohesion: 0.50
 Nodes (3): Google Drive, Lawve AI, Slack
 
-### Community 74 - "Regulatory Change Monitor"
+### Community 74 - "/cold-start-interview"
 Cohesion: 0.08
 Nodes (24): After the user picks quick or full, After writing, Before the interview starts, Check for the shared company profile, Cold-start check, /cold-start-interview, Feed configuration block (add to the config), Install scope check (+16 more)
 
@@ -1624,287 +1628,287 @@ Nodes (24): After the user picks quick or full, After writing, Before the interv
 Cohesion: 0.83
 Nodes (3): _load(), main(), Path
 
-### Community 76 - "Traffic Analysis Agents"
+### Community 76 - "Trafego e Metricas"
 Cohesion: 0.29
 Nodes (6): Gate, Hipoteses de criativo, Leitura, Plano minimo, Principio, Trafego e Metricas
 
-### Community 80 - "Claude Skill Setup"
+### Community 80 - "Processo"
 Cohesion: 0.20
 Nodes (9): ETAPA 1: Boas-vindas + Segmento, ETAPA 2: Dados do negocio, ETAPA 3: Gerar config.md, ETAPA 4: Montar estrutura de pastas, ETAPA 5: Personalizar agentes, ETAPA 6: Primeiro teste, ETAPA 7: Confirmacao, Processo (+1 more)
 
-### Community 85 - "Content Production Agents"
+### Community 85 - "Criacao Agent — Kit Piloto Automatico"
 Cohesion: 0.10
 Nodes (20): Calendario Semanal, Catalogo de Entregas por Segmento, Como Funcionar, Copy de Anuncio, Criacao Agent — Kit Piloto Automatico, Designer, Exemplos de Uso, Formatos de Output (+12 more)
 
-### Community 86 - "NFe Pipeline Commands"
+### Community 86 - "Skill — emitir-notas-fiscais"
 Cohesion: 0.18
 Nodes (9): O que faz, Onde vivem as credenciais, Quando dispara, Relacionadas, Skill — emitir-notas-fiscais, O que faz, Quando dispara, Relacionadas (+1 more)
 
-### Community 87 - "Litigation Counsel Plugin"
+### Community 87 - "Litigation Practice Profile"
 Cohesion: 0.04
 Nodes (45): 1. Risk calibration, 2. Landscape, 3. House style, Ad-hoc questions in this domain, Available integrations, Board / audit committee memo, Business context, Company profile (+37 more)
 
-### Community 92 - "WhatsApp System Guidelines"
+### Community 92 - "process_leads"
 Cohesion: 0.25
 Nodes (10): format_lead_message(), load_notified_leads(), process_leads(), Carregar leads já notificados., Salvar leads notificados., Enviar mensagem via WhatsApp Desktop usando osascript no Mac., Formatar mensagem do lead para Jonata., Processar e enviar leads. (+2 more)
 
-### Community 93 - "Automation Architecture Agent"
+### Community 93 - "Automation Architect"
 Cohesion: 0.25
 Nodes (7): Automation Architect, Diretriz primaria, Entradas, Gate, Papel, Quando usar, Saidas
 
-### Community 94 - "Product Hardening Agent"
+### Community 94 - "Product Auditor"
 Cohesion: 0.25
 Nodes (7): Carrega, Funcao, Gate, Output, Product Auditor, Quando usar, Regra
 
-### Community 97 - "Process Automation README"
+### Community 97 - "Automacoes"
 Cohesion: 0.33
 Nodes (5): Automacoes, Comando, Quando usar, Regra, Saidas esperadas
 
-### Community 98 - "Review Agent Skills"
+### Community 98 - "Revisao Agent — Kit Piloto Automatico"
 Cohesion: 0.10
 Nodes (20): 1. Ortografia e Gramatica, 2. Clareza e Objetividade, 3. Tom de Voz, 4. Adequacao ao Briefing, 5. Formato e Estrutura, 6. Persuasao e Impacto, 7. Dados e Afirmacoes, Checklist de Revisao (+12 more)
 
-### Community 99 - "Niche Setup Commands"
+### Community 99 - "Familias"
 Cohesion: 0.15
 Nodes (12): Agencia/servico digital, B2B consultivo, Classificador de Familia Operacional, Clinica/saude, Ecommerce, Familias, Infoproduto, Juridico/regulado (+4 more)
 
-### Community 100 - "Real Estate Briefing Config"
+### Community 100 - "Categoria 1: Briefing"
 Cohesion: 0.15
 Nodes (12): Config Imobiliaria, 10. Extrator de Identidade Visual, 1. Extrator de Briefing Completo, 2. Mapeamento de Publico-Alvo do Cliente, 3. Definicao de Tom de Voz da Marca, 4. Analise de Concorrentes do Cliente, 5. Mapeamento de Dores e Desejos do Publico, 6. Criacao de Persona do Cliente Ideal do Cliente (+4 more)
 
-### Community 101 - "Operational Performance Dashboards"
+### Community 101 - "Dashboard Operacional - Semana [AAAA-MM-DD a AAAA-MM-DD]"
 Cohesion: 0.07
 Nodes (27): 3 acoes prioritarias pra semana que vem, Alertas financeiros, Anexos / detalhes, Cabecalho, Caixa, Canais, CONCLUSAO DA SEMANA, Dashboard Operacional - Semana [AAAA-MM-DD a AAAA-MM-DD] (+19 more)
 
-### Community 102 - "Social Media Planning"
+### Community 102 - "Planejamento de Stories"
 Cohesion: 0.11
 Nodes (18): Informacoes Gerais, Planejamento de Reels, Planejamento de Stories, Planejamento Semanal de Stories e Reels, Quarta-feira — [TEMA DO DIA], Quinta-feira — [TEMA DO DIA], Reels 1: 3 erros de quem vende pelo Instagram, Reels 1: [TITULO / TEMA] (+10 more)
 
-### Community 103 - "Video Production Workflow"
+### Community 103 - "Checklist de Producao de Video"
 Cohesion: 0.09
 Nodes (21): Audio, Audio, B-roll (imagens de cobertura), Backup, Camera, Checklist de Producao de Video, Comunicacao com o Cliente, Durante a Gravacao (+13 more)
 
-### Community 104 - "Marketplace Publisher Script"
+### Community 104 - "Communities (224 total, 135 thin omitted)"
 Cohesion: 0.02
 Nodes (82): Communities (224 total, 135 thin omitted), Community 0 - "NF-e Issuance CLI", Community 10 - "Web Scraping Queue", Community 11 - "Cinematic Video Editor", Community 12 - "Client Communications Documentation", Community 13 - "Agent Handoff Orchestrator", Community 14 - "TypeScript Configuration", Community 15 - "Marketplace Automation" (+74 more)
 
-### Community 112 - "Content Operations Roles"
+### Community 112 - "Skill: Direct Response Brasileiro 2026 — Operação Tática"
 Cohesion: 0.04
 Nodes (44): 10. Sazonalidade BR — Calendário DR, 11. Paused-First Protocol — Regra de Ouro, 12. Glossário BR específico, 12. Graph API Quirks (quando CLI não basta), 13. Anti-Patterns BR (erros comuns), 1. Anatomia da operação DR brasileira (2026), 2. ABO vs CBO — Decisão prática DR, 3. Kill Criteria DR — Padrão BR (+36 more)
 
-### Community 121 - "Access Preflight Command"
+### Community 121 - "Command - preflight-acessos"
 Cohesion: 0.40
 Nodes (4): Command - preflight-acessos, Objetivo, Passos, Saida
 
-### Community 122 - "Legal Agent Context"
+### Community 122 - "CLAUDE.md -- Kit Piloto Automatico com IA | Nicho: Advocacia"
 Cohesion: 0.18
 Nodes (10): CLAUDE.md -- Kit Piloto Automatico com IA | Nicho: Advocacia, Contexto, Estrutura de Arquivos, Fluxo de Trabalho Padrao, Limites do Agente, Linguagem, Personalizacao, Regras do Agente (+2 more)
 
-### Community 123 - "B2B Agent Context"
+### Community 123 - "CLAUDE.md -- Nicho B2B (Kit Piloto Automatico com IA)"
 Cohesion: 0.13
 Nodes (14): 1. Agente de Prospeccao, 2. Agente de Vendas, 3. Agente de Account Management, Agentes Adaptados para B2B, Ciclo de Venda B2B (Referencia), CLAUDE.md -- Nicho B2B (Kit Piloto Automatico com IA), Contexto, Formatacao padrao (+6 more)
 
-### Community 124 - "Creative Content Prompts"
+### Community 124 - "Categoria 2: Criacao"
 Cohesion: 0.17
 Nodes (11): 10. Criador de CTA por Contexto, 1. Gerador de Calendario Editorial Semanal, 2. Criador de Copy para Anuncio (5 Variacoes), 3. Gerador de Roteiro de Reels/Stories, 4. Criador de Headlines para Landing Page, 5. Gerador de Email de Follow-Up, 6. Criador de Posts LinkedIn, 7. Gerador de Descricao de Servico/Proposta (+3 more)
 
-### Community 125 - "Visual Briefing Template"
+### Community 125 - "Briefing Visual"
 Cohesion: 0.13
 Nodes (14): Briefing Visual, Cronograma, Direcionamento Visual, Formatos, Formatos e Dimensoes, Informacoes, Informacoes do Projeto, Materiais Fornecidos (+6 more)
 
-### Community 126 - "Delivery Checklist Template"
+### Community 126 - "Checklist de Arquivos"
 Cohesion: 0.17
 Nodes (11): Ajustes Solicitados, Antes de Enviar, Checklist de Arquivos, Checklist de Entrega de Arquivos, Controle de Versoes, Dimensoes, Estrutura de Pastas para Entrega, Formatos e Resolucao (+3 more)
 
-### Community 127 - "Feedback and Revision Template"
+### Community 127 - "Template de Feedback e Revisao"
 Cohesion: 0.13
 Nodes (14): Controle de Revisoes (uso interno do designer), Feedback por Peca, Guia de Feedback Eficiente, Informacoes da Entrega, Instrucoes para o Cliente, Observacoes Gerais do Cliente, Peca 1: [NOME/DESCRICAO DA PECA], Peca 1: Post Feed — Promocao Kit Limpeza (+6 more)
 
-### Community 128 - "Commercial Proposal Template"
+### Community 128 - "Proposta Comercial"
 Cohesion: 0.07
 Nodes (27): 60-90 dias, 90+ dias, Capa, Capa, Case 1: [NOME DO CLIENTE], Case 2: [NOME DO CLIENTE], Como Trabalho (Metodologia), Condicoes (+19 more)
 
-### Community 129 - "Weekly Financial Checklist"
+### Community 129 - "Checklist Financeiro Semanal"
 Cohesion: 0.13
 Nodes (14): 1. Conferencia bancaria (10 min), 2. Contas a receber (5 min), 3. Contas a pagar (5 min), 4. Caixa (5 min), 5. Indicadores rapidos (3 min), 6. Acoes da semana (2 min), 7. Alertas pra atencao especial, 8. Encerramento (1 min) (+6 more)
 
-### Community 130 - "Lead Capture Landing Pages"
+### Community 130 - "LP de Captura com Isca Digital"
 Cohesion: 0.07
 Nodes (27): Anti-avatar (opcional, mas converte mais quando tem), Avatar bullets, Bloco curto, Cabecalho, Configuracao de email automatico, CTA repetido (rodape), Estrutura simplificada (4 secoes - LP curta), Formulario (mesmo do topo) (+19 more)
 
-### Community 131 - "Landing Page Documentation"
+### Community 131 - "Templates de Landing Pages"
 Cohesion: 0.20
 Nodes (9): Antes de comecar QUALQUER LP, Anti-padrao banidos, Como usar os templates, Erros tipicos pra evitar, Filosofia, O que tem aqui, Stack tecnica recomendada (no V30), Templates de Landing Pages (+1 more)
 
-### Community 132 - "Creative Performance Analysis"
+### Community 132 - "Analise de Performance de Criativos"
 Cohesion: 0.11
 Nodes (17): Acoes Tomadas, Analise de Performance de Criativos, Analise de Videos (se aplicavel), Analise por Formato, Benchmarks de Referencia, Demandas, Demandas de Novos Criativos, Funcionando (+9 more)
 
-### Community 133 - "Campaign Briefing"
+### Community 133 - "Briefing de Campanha"
 Cohesion: 0.10
 Nodes (20): 10. Aprovacoes, 1. Informacoes Basicas, 2. Objetivo da Campanha, 3. Publico-Alvo, 4. Verba e Distribuicao, 5. Criativos, 6. Pagina de Destino, 7. Tracking e Atribuicao (+12 more)
 
-### Community 134 - "Monthly Media Planning"
+### Community 134 - "Planejamento de Midia Mensal"
 Cohesion: 0.09
 Nodes (21): Calendario de Acoes, Campanha 1: [NOME], Campanha 2: [NOME], Campanhas Planejadas, Checklist Pre-Lancamento, Criativos Necessarios, Datas Sazonais / Eventos do Mes, Distribuicao de Verba por Plataforma (+13 more)
 
-### Community 135 - "Monthly Campaign Report"
+### Community 135 - "Relatorio Mensal de Campanha"
 Cohesion: 0.11
 Nodes (18): Campanha 1: [NOME DA CAMPANHA], Campanha 2: [NOME DA CAMPANHA], Campanha 3: [NOME DA CAMPANHA], Informacoes Gerais, Informacoes Gerais, Performance por Campanha, Plano de Acao — Proximo Mes, Problemas e Solucoes (+10 more)
 
-### Community 136 - "Content Briefing"
+### Community 136 - "Briefing de Conteudo"
 Cohesion: 0.14
 Nodes (13): Briefing de Conteudo, Checklist de Aprovacao, Copy, Copy e Textos, Direcionamento Visual, Especificacoes, Especificacoes Tecnicas (se video/reels), Informacoes Basicas (+5 more)
 
-### Community 137 - "Engagement Reporting"
+### Community 137 - "Relatorio de Engajamento"
 Cohesion: 0.12
 Nodes (15): Audiencia — Dados Demograficos, Engajamento, Engajamento Geral, Informacoes Gerais, Insights e Aprendizados, Metricas Gerais, Metricas Gerais do Perfil, Performance de Stories (+7 more)
 
-### Community 138 - "Video Storyboarding"
+### Community 138 - "Storyboard"
 Cohesion: 0.12
 Nodes (16): Cena 1: Abertura, Cena 1: [NOME DA CENA], Cena 2: [NOME DA CENA], Cena 2: Problema, Cena 3: [NOME DA CENA], Cena 3: Solucao, Cena 4: CTA, Cena Final: [CTA / ENCERRAMENTO] (+8 more)
 
-### Community 139 - "WhatsApp Sales Follow-up"
+### Community 139 - "Command - mktplace 19 grupos tarde"
 Cohesion: 0.25
 Nodes (7): Command - mktplace 19 grupos tarde, Como o Codex deve rodar, Objetivo, Passo a passo, Regras de seguranca, Saida esperada, Triggers
 
-### Community 140 - "WhatsApp Human Handoff"
+### Community 140 - "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/012b842bd043909829208d7f3217a39a.json"
 Cohesion: 0.50
 Nodes (4): 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/012b842bd043909829208d7f3217a39a.json, ast_hash, mtime, semantic_hash
 
-### Community 141 - "WhatsApp Customer Onboarding"
+### Community 141 - "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/01790c0103041bf26bcda15a1425b830.json"
 Cohesion: 0.50
 Nodes (4): 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/01790c0103041bf26bcda15a1425b830.json, ast_hash, mtime, semantic_hash
 
-### Community 142 - "WhatsApp Sales Prospecting"
+### Community 142 - "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/01b047fffecc60bd65ae6b917d6a5a9d.json"
 Cohesion: 0.50
 Nodes (4): 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/01b047fffecc60bd65ae6b917d6a5a9d.json, ast_hash, mtime, semantic_hash
 
-### Community 143 - "WhatsApp Customer Reactivation"
+### Community 143 - "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/01bdb2f652a7adb60302d8a59a4fcd02.json"
 Cohesion: 0.50
 Nodes (4): 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/01bdb2f652a7adb60302d8a59a4fcd02.json, ast_hash, mtime, semantic_hash
 
-### Community 144 - "WhatsApp SDR Support"
+### Community 144 - "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/022f0211f2a0006fd1c51cfa69ac1ad3.json"
 Cohesion: 0.50
 Nodes (4): 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/022f0211f2a0006fd1c51cfa69ac1ad3.json, ast_hash, mtime, semantic_hash
 
-### Community 145 - "WhatsApp Customer Success"
+### Community 145 - "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/0263e90a30bae8dc450f46b9f835e18d.json"
 Cohesion: 0.50
 Nodes (4): 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/0263e90a30bae8dc450f46b9f835e18d.json, ast_hash, mtime, semantic_hash
 
-### Community 166 - "Launch Monitoring Agent"
+### Community 166 - "Communities (1383 total, 353 thin omitted)"
 Cohesion: 0.00
 Nodes (1012): Communities (1383 total, 353 thin omitted), Community 0 - "NF-e Issuance CLI", Community 1006 - "SECAO 9: BONUS (STACK DE VALOR)", Community 1007 - "SECAO 3: AGITACAO DA DOR", Community 1008 - "SECAO 4: REFRAME / PARADIGM SHIFT", Community 100 - "Real Estate Briefing Config", Community 101 - "Operational Performance Dashboards", Community 102 - "Social Media Planning" (+1004 more)
 
-### Community 169 - "WhatsApp Communication Orchestrator"
+### Community 169 - "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/030ecb007be8f20193e874ca721f661b.json"
 Cohesion: 0.50
 Nodes (4): 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/030ecb007be8f20193e874ca721f661b.json, ast_hash, mtime, semantic_hash
 
-### Community 175 - "Automation Architecture Agent"
+### Community 175 - "@cowork-automation-architect"
 Cohesion: 0.29
 Nodes (6): @cowork-automation-architect, Documentos gerados, Inputs obrigatorios, Objetivo, Output, Regras
 
-### Community 176 - "Customer Success Agent"
+### Community 176 - "@customer-success-bot"
 Cohesion: 0.29
 Nodes (6): @customer-success-bot, Estados, Inputs obrigatorios, Objetivo, Output, Regras
 
-### Community 179 - "Sales Prospecting Agent"
+### Community 179 - "@prospecting-bot"
 Cohesion: 0.29
 Nodes (6): Estados, Inputs obrigatorios, Objetivo, Output, @prospecting-bot, Regras de mensagem
 
-### Community 181 - "Reporting Agent"
+### Community 181 - "Relatorio Agent — Kit Piloto Automatico"
 Cohesion: 0.11
 Nodes (17): Analise Inteligente, Como Funcionar, Designer, Exemplos de Uso, Formato do Relatorio, Gestor de Trafego, Limites, Metricas por Segmento (+9 more)
 
-### Community 183 - "Sales Follow-up Agent"
+### Community 183 - "@sales-followup-bot"
 Cohesion: 0.29
 Nodes (6): Inputs obrigatorios, Objetivo, Output, Regras, @sales-followup-bot, Sequencias
 
-### Community 184 - "SDR Support Agent"
+### Community 184 - "@sdr-attendant"
 Cohesion: 0.29
 Nodes (6): Estados, Inputs obrigatorios, Objetivo, Output, Regras, @sdr-attendant
 
-### Community 187 - "Niche Setup Process"
+### Community 187 - "/setup-nicho"
 Cohesion: 0.50
 Nodes (3): Execute, Output curto para o usuario, /setup-nicho
 
-### Community 188 - "Getting Started Guide"
+### Community 188 - "Command - start-here"
 Cohesion: 0.40
 Nodes (4): Command - start-here, Objetivo, Passos, Saida
 
-### Community 189 - "WhatsApp System Core"
+### Community 189 - "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/03665c7ef3da7f2add1f3517f203e59f.json"
 Cohesion: 0.50
 Nodes (4): 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/03665c7ef3da7f2add1f3517f203e59f.json, ast_hash, mtime, semantic_hash
 
-### Community 190 - "Briefing Process"
+### Community 190 - "Processo"
 Cohesion: 0.22
 Nodes (8): 1. Ler contexto, 2. Coletar dados, 3. Perguntas estrategicas (adaptar ao segmento), 4. Gerar briefing, 5. Salvar, 6. Proximo passo, /briefing — Briefing de Cliente, Processo
 
-### Community 191 - "Content Creation Process"
+### Community 191 - "Processo"
 Cohesion: 0.25
 Nodes (7): 1. Ler contexto, 2. Identificar a demanda, 3. Tipos de criacao (adaptar ao segmento), 4. Gerar, 5. Proximo passo, /criar — Criar Conteudo, Processo
 
-### Community 192 - "Diagnostic Process"
+### Community 192 - "Processo"
 Cohesion: 0.20
 Nodes (9): 1. Ler contexto, 2. Coletar informacoes, 3. Fazer 5 perguntas, 4. Gerar diagnostico, 5. Se for prospect, 6. Salvar, 7. Proximo passo, /diagnostico — Diagnostico de Operacao (+1 more)
 
-### Community 193 - "Invoice Issuance Process"
+### Community 193 - "Skill: Emitir Nota Avulsa (NF-em Joinville) + WhatsApp"
 Cohesion: 0.29
 Nodes (6): Passo 1 — Coletar os dados (pergunte, um de cada vez), Passo 2 — Emitir, Passo 3 — Enviar o PDF no WhatsApp do Jonata, Passo 4 — Resumo para o usuário, Regras, Skill: Emitir Nota Avulsa (NF-em Joinville) + WhatsApp
 
-### Community 194 - "Delivery Process"
+### Community 194 - "Processo"
 Cohesion: 0.20
 Nodes (9): 1. Identificar cliente, 2. Coletar materiais, 3. Organizar pacote, 4. Gerar indice (README.md), 5. Gerar mensagem de entrega, 6. Salvar, 7. Proximo passo, /entregar — Pacote de Entrega (+1 more)
 
-### Community 195 - "Follow-up Process"
+### Community 195 - "Processo"
 Cohesion: 0.33
 Nodes (5): 1. Identificar contexto, 2. Gerar mensagens (3 variacoes cada), 3. Sugerir timing, /follow-up — Mensagens de Follow-up, Processo
 
-### Community 196 - "Meta CLI Installation"
+### Community 196 - "Skill: meta-cli-install"
 Cohesion: 0.40
 Nodes (4): Anti-padrões, Quando esta skill é ativada, Referência, Skill: meta-cli-install
 
-### Community 197 - "Client Onboarding Process"
+### Community 197 - "Processo"
 Cohesion: 0.22
 Nodes (8): 1. Coletar dados do cliente, 2. Criar estrutura, 3. Gerar checklist de onboarding, 4. Gerar mensagem de boas-vindas, 5. Salvar, 6. Proximo passo, /onboarding — Onboarding de Cliente Novo, Processo
 
-### Community 198 - "Automation Design Workflow"
+### Community 198 - "Process Automation Design"
 Cohesion: 0.50
 Nodes (3): Nao fazer, Process Automation Design, Workflow
 
-### Community 199 - "Proposal Generation Process"
+### Community 199 - "Processo"
 Cohesion: 0.25
 Nodes (7): 1. Ler contexto, 2. Coletar dados, 3. Gerar proposta, 4. Salvar, 5. Proximo passo, Processo, /proposta — Proposta Comercial
 
-### Community 200 - "Report Generation"
+### Community 200 - "Processo"
 Cohesion: 0.22
 Nodes (8): 1. Ler contexto, 2. Coletar informacoes, 3. Metricas por segmento, 4. Gerar relatorio, 5. Salvar, 6. Proximo passo, Processo, /relatorio — Relatorio de Performance
 
-### Community 201 - "Review Process"
+### Community 201 - "Processo"
 Cohesion: 0.25
 Nodes (7): 1. Receber material, 2. Aplicar checklist, 3. Classificar problemas, 4. Entregar revisao, 5. Proximo passo, Processo, /revisar — Revisao de Qualidade
 
-### Community 202 - "Process Initiation"
+### Community 202 - "Processo"
 Cohesion: 0.20
 Nodes (9): ETAPA 1: Boas-vindas + Segmento, ETAPA 2: Dados do negocio, ETAPA 3: Gerar config.md, ETAPA 4: Montar estrutura de pastas, ETAPA 5: Personalizar agentes, ETAPA 6: Primeiro teste, ETAPA 7: Confirmacao, Processo (+1 more)
 
-### Community 203 - "WhatsApp Conversation Design"
+### Community 203 - "_ref-claude-for-legal/legal-builder-hub/.claude-plugin/plugin.json"
 Cohesion: 0.50
 Nodes (4): _ref-claude-for-legal/legal-builder-hub/.claude-plugin/plugin.json, ast_hash, mtime, semantic_hash
 
-### Community 205 - "Cold Start Interview"
+### Community 205 - "/cold-start-interview"
 Cohesion: 0.29
 Nodes (6): `--check-integrations`, /cold-start-interview, Exemplos, Instruções, `--lado locador` / `--lado locatario`, Roteiro de entrevista
 
-### Community 206 - "Customization Settings"
+### Community 206 - "/customize"
 Cohesion: 0.50
 Nodes (3): /customize, Exemplos, Instruções
 
-### Community 214 - "Remotion Video Documentation"
+### Community 214 - "Remotion video"
 Cohesion: 0.29
 Nodes (6): Commands, Docs, Help, Issues, License, Remotion video
 
-### Community 219 - "Company Profile Template"
+### Community 219 - "Company Profile"
 Cohesion: 0.40
 Nodes (4): Company Profile, Geographic and regulatory footprint, Key people, Risk posture
 
@@ -1912,11 +1916,11 @@ Nodes (4): Company Profile, Geographic and regulatory footprint, Key people, Ris
 Cohesion: 0.40
 Nodes (4): Dashboard Template, Keep it boring, Rendering by surface, Structure (top to bottom)
 
-### Community 222 - "Customization Skill"
+### Community 222 - "/customize"
 Cohesion: 0.40
 Nodes (4): /customize, Guardrails, What to do, When this runs
 
-### Community 223 - "Matter Workspace Skill"
+### Community 223 - "/matter-workspace"
 Cohesion: 0.12
 Nodes (16): Active matter is in the practice CLAUDE.md, `close <slug>`, Cross-matter context, `history.md` seed, Instructions, `list`, `matter.md` template, /matter-workspace (+8 more)
 
@@ -1956,7 +1960,7 @@ Nodes (32): 10. ITEMS POR TIPO DE LP, 11. APROVACAO FINAL, 1. COPY (revisor le l
 Cohesion: 0.06
 Nodes (32): 10. RECEBIMENTO (time de entrega), 1. DADOS BASICOS DO CLIENTE, 2. O QUE FOI VENDIDO, 3. COMERCIAL (CONTRATO E PAGAMENTO), 4. CONTEXTO E HISTORIA, 5. PERFIL DO CLIENTE (informacoes uteis pro time), 6. ACESSOS E FERRAMENTAS NECESSARIOS, 7. PRIMEIRA REUNIAO (KICK-OFF) (+24 more)
 
-### Community 233 - "Automação: Messenger → WhatsApp da Impar (Leads)"
+### Community 233 - "_ref-claude-for-legal/regulatory-legal/hooks/hooks.json"
 Cohesion: 0.50
 Nodes (4): _ref-claude-for-legal/regulatory-legal/hooks/hooks.json, ast_hash, mtime, semantic_hash
 
@@ -1964,7 +1968,7 @@ Nodes (4): _ref-claude-for-legal/regulatory-legal/hooks/hooks.json, ast_hash, mt
 Cohesion: 0.06
 Nodes (31): 2M-a: Deal posture, 2M-b: Diligence structure, 2M-c: Issues memo format, 2M-d: Sell-side specifics (if sell-side is active), 2M-e: Closing checklist and deal team briefing, After the user picks quick or full, After writing, Before the interview starts (+23 more)
 
-### Community 235 - "Automação de Emissão de NFS-e (Portal Nacional e Joinville)"
+### Community 235 - "Automação de Emissão de NFS-e (Portal Nacional Exclusivo)"
 Cohesion: 0.06
 Nodes (30): 1. Arquivo `.env`, 2. Configuração de clientes — `config/clientes.json`, Automação de Emissão de NFS-e (Portal Nacional Exclusivo), ⚠️ Captcha no login, 📋 Certificado digital (Fase 2 futura), Como funciona, Configurar webhook no Asaas, Configuração (+22 more)
 
@@ -2112,7 +2116,7 @@ Nodes (22): /chronology, Chronology, Disclosed-document use restrictions, Increm
 Cohesion: 0.09
 Nodes (21): Atualizar CRM, Bloco A: Situacao Atual, Bloco B: Dores e Desafios, Bloco C: Impacto (Quantificar a Dor), Bloco D: Processo de Decisao, Email de follow-up, Erros Fatais (Nao Cometa), Estrutura: Dor → Solucao → Resultado (+13 more)
 
-### Community 273 - "test_pipeline.py"
+### Community 273 - "asaas_client.py"
 Cohesion: 0.28
 Nodes (8): buscar_cliente(), buscar_pagamento(), _headers(), Cliente HTTP para a API do Asaas., Valida HMAC-SHA256 do webhook Asaas, se token configurado., Busca dados completos de um pagamento pelo ID., Busca dados do cliente pelo ID., validar_assinatura_webhook()
 
@@ -2300,7 +2304,7 @@ Nodes (17): 1. Briefing Agent (`briefing-agent.md`), 2. Criacao Agent (`criacao-
 Cohesion: 0.11
 Nodes (17): Analise Inteligente, Como Funcionar, Designer, Exemplos de Uso, Formato do Relatorio, Gestor de Trafego, Limites, Metricas por Segmento (+9 more)
 
-### Community 320 - "salvar_pdf"
+### Community 320 - "test_pipeline.py"
 Cohesion: 0.15
 Nodes (16): montar_dados_nota(), pagamento_autoriza_nota(), Retorna (True, "") se o pagamento autoriza emissão de NF.     Retorna (False, mo, Combina dados do Asaas + config local para montar todos os campos da NF-em., Testes unitários do pipeline de emissão.  Executar: python -m pytest tests/ -v, Sem cliente_config (proprietário não cadastrado), não pode emitir para o inquili, test_montar_dados_completos(), test_montar_dados_sem_config_levanta_erro() (+8 more)
 
@@ -2756,7 +2760,7 @@ Nodes (12): Carregamento, Claude Desktop, Documentado, Gate, Handoff, Identidade
 Cohesion: 0.15
 Nodes (12): meu-video/src/Root.tsx, ast_hash, mtime, semantic_hash, _ref-claude-for-legal/legal-builder-hub/.claude-plugin/plugin.json, ast_hash, mtime, semantic_hash (+4 more)
 
-### Community 435 - "manifest.json"
+### Community 435 - "meu-video/src/Root.tsx"
 Cohesion: 0.50
 Nodes (4): meu-video/src/Root.tsx, ast_hash, mtime, semantic_hash
 
@@ -2912,7 +2916,7 @@ Nodes (10): Apos instalar, Em caso de erro, Estrutura da pasta, Inicio Rapido �
 Cohesion: 0.18
 Nodes (10): Community Hubs (Navigation), Corpus Check, God Nodes (most connected - your core abstractions), Graph Report - .  (2026-07-08), Hyperedges (group relationships), Import Cycles, Knowledge Gaps, Suggested Questions (+2 more)
 
-### Community 475 - "Graph Report - .  (2026-07-08)"
+### Community 475 - "Graph Report - Kit-Piloto-Automatico-V30-DISTRIB  (2026-07-19)"
 Cohesion: 0.18
 Nodes (10): Community Hubs (Navigation), Corpus Check, God Nodes (most connected - your core abstractions), Graph Report - Kit-Piloto-Automatico-V30-DISTRIB  (2026-07-19), Hyperedges (group relationships), Import Cycles, Knowledge Gaps, Suggested Questions (+2 more)
 
@@ -4212,7 +4216,7 @@ Nodes (4): meu-video/src/index.ts, ast_hash, mtime, semantic_hash
 Cohesion: 0.50
 Nodes (4): meu-video/src/ReelsVideo.tsx, ast_hash, mtime, semantic_hash
 
-### Community 804 - "meu-video/src/Root.tsx"
+### Community 804 - "idempotency.py"
 Cohesion: 0.22
 Nodes (15): _carregar(), ja_emitida(), listar_erros(), Controle de idempotência usando JSON persistido em disco.  Garante que a mesma c, Retorna True se já existe uma nota emitida para este pagamento., Salva o registro da emissão., Marca o pagamento como erro para permitir reprocessamento manual., Retorna todos os pagamentos que falharam na emissão. (+7 more)
 
@@ -4440,7 +4444,7 @@ Nodes (4): 05_WORKSPACE/reels-impar/norm/06_quarto1.mp4, ast_hash, mtime, semant
 Cohesion: 0.50
 Nodes (4): 05_WORKSPACE/reels-impar/norm/07_quarto2.mp4, ast_hash, mtime, semantic_hash
 
-### Community 861 - "05_WORKSPACE/reels-impar/norm/08_janela.mp4"
+### Community 861 - "manifest.json"
 Cohesion: 0.15
 Nodes (12): 05_WORKSPACE/reels-impar/norm/08_janela.mp4, ast_hash, mtime, semantic_hash, 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/019babf4d08ac62985bfbf7520af7710.json, ast_hash, mtime, semantic_hash (+4 more)
 
@@ -4508,7 +4512,7 @@ Nodes (4): 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/messenger_to_w
 Cohesion: 0.50
 Nodes (4): 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/publish_marketplace_playwright.py, ast_hash, mtime, semantic_hash
 
-### Community 878 - "18_AUTOMATION_STACK/impar-facebook-marketplace-posting/run_marketplace_publisher.sh"
+### Community 878 - "meu-video/src/Root.tsx"
 Cohesion: 0.50
 Nodes (4): meu-video/src/Root.tsx, ast_hash, mtime, semantic_hash
 
@@ -4636,7 +4640,7 @@ Nodes (4): KPA30-Marketplace/imobiliario-juridico/hooks/hooks.json, ast_hash, mt
 Cohesion: 0.50
 Nodes (4): KPA30-Marketplace/imobiliario-juridico/.mcp.json, ast_hash, mtime, semantic_hash
 
-### Community 910 - "KPA30-Marketplace/validar.py"
+### Community 910 - "Graph Report - Kit-Piloto-Automatico-V30-DISTRIB  (2026-07-19)"
 Cohesion: 0.18
 Nodes (10): Community Hubs (Navigation), Corpus Check, God Nodes (most connected - your core abstractions), Graph Report - Kit-Piloto-Automatico-V30-DISTRIB  (2026-07-19), Hyperedges (group relationships), Import Cycles, Knowledge Gaps, Suggested Questions (+2 more)
 
@@ -4972,7 +4976,7 @@ Nodes (4): 05_WORKSPACE/reels-impar/norm/06_quarto1.mp4, ast_hash, mtime, semant
 Cohesion: 0.50
 Nodes (4): 05_WORKSPACE/reels-impar/norm/07_quarto2.mp4, ast_hash, mtime, semantic_hash
 
-### Community 1270 - "05_WORKSPACE/reels-impar/norm/08_janela.mp4"
+### Community 1270 - "manifest.json"
 Cohesion: 0.15
 Nodes (12): 05_WORKSPACE/reels-impar/norm/08_janela.mp4, ast_hash, mtime, semantic_hash, 18_AUTOMATION_STACK/impar-facebook-marketplace-posting/.enhance_cache/019babf4d08ac62985bfbf7520af7710.json, ast_hash, mtime, semantic_hash (+4 more)
 
@@ -5424,17 +5428,17 @@ Nodes (4): _ref-claude-for-legal/regulatory-legal/hooks/hooks.json, ast_hash, mt
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Communities (1258 total, 353 thin omitted)` connect `Asaas API Client` to `KPA30-Marketplace/validar.py`?**
+- **Why does `Communities (1258 total, 353 thin omitted)` connect `Communities (1258 total, 353 thin omitted)` to `Graph Report - Kit-Piloto-Automatico-V30-DISTRIB  (2026-07-19)`?**
   _High betweenness centrality (0.004) - this node is a cross-community bridge._
-- **Why does `Communities (1383 total, 353 thin omitted)` connect `Launch Monitoring Agent` to `Graph Report - .  (2026-07-08)`?**
+- **Why does `Communities (1383 total, 353 thin omitted)` connect `Communities (1383 total, 353 thin omitted)` to `Graph Report - Kit-Piloto-Automatico-V30-DISTRIB  (2026-07-19)`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **Why does `18_AUTOMATION_STACK/nfem-joinville/src/pipeline.py` connect `18_AUTOMATION_STACK/nfem-joinville/src/pipeline.py` to `05_WORKSPACE/reels-impar/norm/08_janela.mp4`?**
+- **Why does `18_AUTOMATION_STACK/nfem-joinville/src/pipeline.py` connect `18_AUTOMATION_STACK/nfem-joinville/src/pipeline.py` to `manifest.json`?**
   _High betweenness centrality (0.000) - this node is a cross-community bridge._
 - **What connects `Substitui todo o texto amarelo de um parágrafo pelo new_text.     Coloca o texto`, `Retorna texto concatenado de todos os runs amarelos do parágrafo.`, `Retorna texto completo do parágrafo (amarelo ou não).` to the rest of the system?**
   _9333 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Asaas API Client` be split into smaller, more focused modules?**
+- **Should `Communities (1258 total, 353 thin omitted)` be split into smaller, more focused modules?**
   _Cohesion score 0.002254791431792559 - nodes in this community are weakly interconnected._
 - **Should `Lease Contract Editor` be split into smaller, more focused modules?**
   _Cohesion score 0.11092436974789915 - nodes in this community are weakly interconnected._
-- **Should `NFe Automation Browser` be split into smaller, more focused modules?**
+- **Should `NfemAutomation` be split into smaller, more focused modules?**
   _Cohesion score 0.11095305832147938 - nodes in this community are weakly interconnected._

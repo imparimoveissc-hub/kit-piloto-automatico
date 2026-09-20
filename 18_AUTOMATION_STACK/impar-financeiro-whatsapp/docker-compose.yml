@@ -1,0 +1,29 @@
+services:
+  finance-whatsapp-worker:
+    build:
+      context: ./worker
+    container_name: impar-financeiro-whatsapp-worker
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8091:8091"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      IMPAR_WORKER_PORT: "8091"
+      IMPAR_WORKER_HOST: "0.0.0.0"
+      IMPAR_WA_GROUP_NAME: "COMPROVANTE PAGAMENTO"
+      IMPAR_WA_GROUP_JID: "120363426404057193@g.us"
+      IMPAR_FINANCE_API: "http://192.168.65.254:4173/api/transactions"
+      IMPAR_FINANCE_STATE_JSON: "/data/impar-financeiro/financeiro.json"
+      IMPAR_WEBHOOK_KEY: "${IMPAR_WEBHOOK_KEY}"
+      IMPAR_FINANCE_STATE_DIR: "/data/impar-whatsapp-state"
+      IMPAR_FINANCE_STATE_FILE: "/data/impar-whatsapp-state/.capture-state.json"
+      IMPAR_WA_SHARED_DIR: "/data/whatsapp-shared"
+      IMPAR_WA_DB: "/data/whatsapp-shared/ChatStorage.sqlite"
+      IMPAR_WA_MEDIA_ROOT: "/data/whatsapp-shared/Message/Media"
+    volumes:
+      - /Users/usuario/Library/Group Containers/group.net.whatsapp.WhatsApp.shared:/data/whatsapp-shared:ro
+      - /Users/usuario/Library/Containers/net.whatsapp.WhatsApp/Data/Library/Application Support/net.whatsapp.WhatsApp:/data/whatsapp-container:ro
+      - /Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB:/workspace:ro
+      - /Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/jonata-impar/whatsapp:/data/impar-whatsapp-state:rw
+      - /Users/usuario/Library/Mobile Documents/com~apple~CloudDocs/Kit-Piloto-Automatico-V30-DISTRIB/05_WORKSPACE/clientes/impar-imoveis/financeiro:/data/impar-financeiro:rw

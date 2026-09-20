@@ -31,6 +31,7 @@ import re
 import subprocess
 import sys
 import time
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -61,6 +62,40 @@ NOMES_BLOQUEADOS = {
     "facebook assistant",
     "assistant",
 }
+
+# ⛔ Assinaturas de conteúdo do "Facebook Marketplace Assistant" (bot do Facebook).
+# Guard de última linha caso o nome venha diferente do esperado.
+FRASES_BOT_FACEBOOK = (
+    "nao podemos responder a mensagens agora",
+    "acesse a nossa central de ajuda",
+    "seu classificado nao foi renovado",
+    "gostaria de renova-lo agora",
+    "renovar classificado",
+    "renewed your listing",
+    "renew your listing again after",
+)
+
+def _norm_txt(v: str) -> str:
+    v = unicodedata.normalize("NFKD", str(v or ""))
+    v = "".join(c for c in v if not unicodedata.combining(c))
+    return re.sub(r"\s+", " ", v.lower()).strip()
+
+def is_nome_bloqueado(nome: str) -> bool:
+    n = (nome or "").strip().lower()
+    if not n:
+        return False
+    if n in NOMES_BLOQUEADOS:
+        return True
+    return any(n in bl for bl in NOMES_BLOQUEADOS)
+
+def is_conteudo_bot_facebook(mensagens: list) -> bool:
+    """True se qualquer mensagem contém assinatura do Facebook Marketplace Assistant."""
+    for m in mensagens or []:
+        t = _norm_txt(m.get("message", "") if isinstance(m, dict) else m)
+        if any(f in t for f in FRASES_BOT_FACEBOOK):
+            return True
+    return False
+
 FB_VERSION = "v20.0"
 
 # ── Helpers básicos ────────────────────────────────────────────────────────────
@@ -90,18 +125,34 @@ def save_checkpoint(data: dict):
 
 # ── Extração de dados do formulário FB ────────────────────────────────────────
 def extrair_telefone(texto: str) -> str:
+    # Prioriza campo estruturado "Phone number:" (formulário FB)
     m = re.search(r"Phone number[:\s]+([^\n]+)", texto, re.IGNORECASE)
     raw = m.group(1).strip() if m else texto
     digitos = re.sub(r"[^\d]", "", raw)
-    matches = re.findall(r"(?:55)?[1-9]{2}9?\d{7,8}", digitos)
+    # Aceita DDD com ou sem 0 inicial, 9º dígito opcional, 7-8 dígitos finais
+    matches = re.findall(r"(?:55)?0?[1-9]\d9?\d{7,8}", digitos)
     if matches:
-        tel = matches[0]
+        tel = re.sub(r"[^\d]", "", matches[0])
+        if len(tel) in (12, 13) and tel.startswith("0"):
+            tel = tel[1:]
         return tel if tel.startswith("55") else "55" + tel
     return ""
 
 def extrair_dados_lead(mensagens: list, page_id: str) -> dict:
     msgs_lead = [m for m in reversed(mensagens) if m.get("from", {}).get("id") != page_id]
-    texto = "\n".join(m.get("message", "") for m in msgs_lead)
+    # Coleta texto das mensagens E dos campos description/title dos attachments.
+    # Quando o lead envia contato pelo formulário FB, o telefone chega em
+    # attachments[].description — não no campo message.
+    partes = []
+    for msg in msgs_lead:
+        if msg.get("message"):
+            partes.append(msg["message"])
+        for att in msg.get("attachments", {}).get("data", []):
+            if att.get("description"):
+                partes.append(att["description"])
+            if att.get("title") and "Phone" in att.get("title", ""):
+                partes.append(att["title"])
+    texto = "\n".join(partes)
     telefone = extrair_telefone(texto)
     m_email = re.search(r"Email[:\s]+([^\n]+)", texto, re.IGNORECASE)
     email = m_email.group(1).strip() if m_email else ""
@@ -282,13 +333,20 @@ def main():
                 break
 
         # ⛔ Guard nome bloqueado: bots do Facebook e variantes do Marketplace Assistant.
-        if nome.strip().lower() in NOMES_BLOQUEADOS:
+        if is_nome_bloqueado(nome):
             log(f"[IGNORADO] {nome} | {conv_id} — nome bloqueado (bot/assistant do Facebook)")
             processados.add(conv_id)
             continue
 
         # Extrai telefone, email, URL real do item e descrição do anúncio
         msgs      = get_messages(conv_id, token)
+
+        # ⛔ Guard de conteúdo: mesmo com nome diferente, se o texto tem assinatura
+        # do Facebook Marketplace Assistant → é o bot, nunca processar.
+        if is_conteudo_bot_facebook(msgs):
+            log(f"[IGNORADO] {nome} | {conv_id} — conteúdo de bot do Facebook (Marketplace Assistant)")
+            processados.add(conv_id)
+            continue
         dados     = extrair_dados_lead(msgs, page_id)
         telefone  = dados.get("telefone", "")
         email     = dados.get("email", "")
@@ -325,23 +383,44 @@ def main():
             "observacao":           f"conv_id: {conv_id}" + (f" | email: {email}" if email else ""),
         }
 
+        # ⛔ Sem telefone: aguarda o lead enviar → não marca como processado, retry no próximo ciclo.
+        # Após SEM_TEL_ALERTA_CICLOS ciclos sem telefone, envia alerta para verificação manual.
+        SEM_TEL_ALERTA_CICLOS = 6
+        if not telefone:
+            sem_tel_counts = checkpoint.setdefault("sem_tel_counts", {})
+            sem_tel_counts[conv_id] = sem_tel_counts.get(conv_id, 0) + 1
+            count = sem_tel_counts[conv_id]
+            log(f"[SEM_TEL] {nome} | {conv_id} — sem telefone ainda (ciclo {count}), aguardando próxima varredura")
+            if count == SEM_TEL_ALERTA_CICLOS:
+                alerta = (
+                    f"⚠️ LEAD SEM TELEFONE\n"
+                    f"👤 Nome: {nome}\n"
+                    f"🏠 Imóvel: {descricao}\n"
+                    f"🔗 Conversa: https://www.facebook.com/messages/t/{conv_id.replace('t_','')}\n"
+                    f"Verificar manualmente — {SEM_TEL_ALERTA_CICLOS} ciclos sem telefone."
+                )
+                _telegram_send(alerta)
+                log(f"[ALERTA_SEM_TEL] {nome} | {conv_id} — alerta enviado após {count} ciclos")
+            continue
+
         append_lead_to_csv(lead_row)
-        log(f"[ADICIONADO] {nome} | tel: {telefone or 'vazio'} | {conv_id}")
+        log(f"[ADICIONADO] {nome} | tel: {telefone} | {conv_id}")
 
         msg = format_message(lead_row)
         ok  = send_to_group(msg)
-        log(f"[WA {'OK' if ok else 'FALHOU'}] {nome}")
+        log(f"[TELEGRAM {'OK' if ok else 'FALHOU'}] {nome}")
 
         processados.add(conv_id)
         novos += 1
-
-    if novos == 0:
-        sys.exit(0)
 
     checkpoint["processados"]      = list(processados)
     checkpoint["ultima_execucao"]  = datetime.now().isoformat(timespec="seconds")
     checkpoint["total_capturados"] = checkpoint.get("total_capturados", 0) + novos
     save_checkpoint(checkpoint)
+
+    if novos == 0:
+        sys.exit(0)
+
     log(f"[RESUMO] {novos} lead(s) processado(s)")
 
 if __name__ == "__main__":

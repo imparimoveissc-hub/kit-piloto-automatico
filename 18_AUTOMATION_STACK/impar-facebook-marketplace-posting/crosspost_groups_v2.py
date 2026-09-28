@@ -110,11 +110,20 @@ def compartilhar_no_grupo(page, grupo, mensagem):
         raise SystemExit("SESSAO_INVALIDA")
     if bloqueio_temporario(page):
         raise SystemExit("BLOQUEIO_TEMPORARIO")
-    # Regra: so compartilhar imovel ANUNCIADO nos ultimos 7 dias.
-    janela = {(dt.date.today() - dt.timedelta(days=i)).strftime("%d/%m") for i in range(7)}
+    # Regra: so compartilhar imovel ANUNCIADO nos ultimos 14 dias.
+    janela = {(dt.date.today() - dt.timedelta(days=i)).strftime("%d/%m") for i in range(14)}
     try:
-        texto = page.evaluate("() => document.body.innerText.slice(0, 6000)")
+        # Rola a pagina para garantir carregamento de todos os anuncios antes de ler.
+        page.evaluate("() => window.scrollTo(0, 1500)")
+        page.wait_for_timeout(1500)
+        texto = page.evaluate("() => document.body.innerText")
         m = re.search(r"Anunciado em (\d{2}/\d{2})", texto)
+        if not m:
+            # Anuncio pode estar abaixo do fold — rola ate o fim e tenta de novo.
+            page.evaluate("() => window.scrollTo(0, document.body.scrollHeight)")
+            page.wait_for_timeout(2000)
+            texto = page.evaluate("() => document.body.innerText")
+            m = re.search(r"Anunciado em (\d{2}/\d{2})", texto)
     except Exception:
         m = None
     if not m or m.group(1) not in janela:

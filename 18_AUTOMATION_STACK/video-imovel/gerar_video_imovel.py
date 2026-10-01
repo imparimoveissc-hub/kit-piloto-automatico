@@ -1,13 +1,28 @@
 """
-Gerador de Vídeo de Imóvel — Fotos → Reel 9:16
+Gerador de Vídeo de Imóvel — Fotos → Vídeo Cinematográfico
 Replica funcionalidade de ferramentas como vinceres.ai
+
+Movimentos suportados:
+  tilt_up   — câmera sobe (bottom → top)
+  tilt_down — câmera desce (top → bottom)
+  dolly_in  — câmera avança (zoom in suave, perspectiva constante)
+  dolly_out — câmera recua (zoom out suave)
+  pan_right — câmera pan para a direita
+  pan_left  — câmera pan para a esquerda
+  static    — foto estática com leve respiração
+
+Formatos de saída:
+  landscape — 1920×1080 (feed, WhatsApp, YouTube)
+  portrait  — 1080×1920 (Reels, Stories, TikTok)
+  square    — 1080×1080 (feed Instagram)
 
 Uso:
     python3 gerar_video_imovel.py \
-        --fotos ./fotos_teste/ \
-        --titulo "Apartamento 3 Quartos" \
-        --subtitulo "Centro • 120m² • R$ 850.000" \
-        --cta "Fale com um corretor" \
+        --fotos ./fotos/ \
+        --movimentos "tilt_up,dolly_in,pan_right,dolly_out" \
+        --formato landscape \
+        --resolucao hd \
+        --trilha musica.mp3 \
         --saida video_imovel.mp4
 """
 
@@ -21,132 +36,180 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 
-OUTPUT_W = 1080
-OUTPUT_H = 1920
+# ── Resoluções ───────────────────────────────────────────────────────────────
+RESOLUCOES = {
+    "hd":  (1280,  720),
+    "fhd": (1920, 1080),
+    "4k":  (3840, 2160),
+}
+
+FORMATOS = {
+    "landscape": (16, 9),
+    "portrait":  (9, 16),
+    "square":    (1, 1),
+}
+
 FPS = 30
-DURACAO_FOTO = 3.5
-DURACAO_TITULO_FINAL = 3.0
+DURACAO_FOTO  = 4.0   # segundos por foto
+DURACAO_FINAL = 3.5   # slide de encerramento
 
 
-def preparar_foto(img_path: str, saida: str) -> None:
-    """Redimensiona e recorta foto para cobrir 1080×1920 sem distorção."""
+# ── Preparação de imagem ─────────────────────────────────────────────────────
+
+def preparar_foto(img_path: str, saida: str, w: int, h: int, escala: float = 1.3) -> None:
+    """
+    Recorta e escala a foto para cobrir w×h com margem de zoom/pan.
+    escala > 1 garante que há espaço para mover sem revelar bordas pretas.
+    """
     img = Image.open(img_path).convert("RGB")
-    w, h = img.size
-    ratio_out = OUTPUT_W / OUTPUT_H
-    ratio_in = w / h
+    ow, oh = img.size
+    ratio_out = w / h
+    ratio_in  = ow / oh
 
+    # Recorte central mantendo aspect ratio
     if ratio_in > ratio_out:
-        new_h = h
-        new_w = int(h * ratio_out)
+        ch, cw = oh, int(oh * ratio_out)
     else:
-        new_w = w
-        new_h = int(w / ratio_out)
+        cw, ch = ow, int(ow / ratio_out)
+    left = (ow - cw) // 2
+    top  = (oh - ch) // 2
+    img = img.crop((left, top, left + cw, top + ch))
 
-    left = (w - new_w) // 2
-    top = (h - new_h) // 2
-    img = img.crop((left, top, left + new_w, top + new_h))
-    img = img.resize((OUTPUT_W * 2, OUTPUT_H * 2), Image.LANCZOS)  # 2x para o zoompan ter espaço
+    # Escalar para w×h com margem
+    tw = int(w * escala / 2) * 2
+    th = int(h * escala / 2) * 2
+    img = img.resize((tw, th), Image.LANCZOS)
     img.save(saida, "JPEG", quality=95)
 
 
-def segmento_ken_burns(foto_prep: str, duracao: float, direcao: str, saida: str) -> None:
-    """Gera segmento de vídeo com efeito Ken Burns via ffmpeg zoompan."""
-    n_frames = int(duracao * FPS)
+# ── Movimentos cinematográficos ──────────────────────────────────────────────
 
-    # Fórmulas zoompan para cada direção
-    # z=zoom, x=posição horizontal, y=posição vertical
-    # Valores relativos ao tamanho da imagem de entrada (2×saída)
-    if direcao == "zoom_in":
-        z_expr  = f"'1.0+0.15*on/{n_frames}'"
-        x_expr  = f"'iw/2-(iw/zoom/2)'"
-        y_expr  = f"'ih/2-(ih/zoom/2)+ih*0.03*on/{n_frames}'"
-    elif direcao == "zoom_out":
-        z_expr  = f"'1.15-0.15*on/{n_frames}'"
-        x_expr  = f"'iw/2-(iw/zoom/2)'"
-        y_expr  = f"'ih/2-(ih/zoom/2)-ih*0.03*on/{n_frames}'"
-    elif direcao == "pan_right":
-        z_expr  = "'1.08'"
-        x_expr  = f"'(iw/2-(iw/zoom/2))+iw*0.06*on/{n_frames}'"
-        y_expr  = f"'ih/2-(ih/zoom/2)'"
-    else:  # pan_left
-        z_expr  = "'1.08'"
-        x_expr  = f"'(iw/2-(iw/zoom/2))-iw*0.06*on/{n_frames}'"
-        y_expr  = f"'ih/2-(ih/zoom/2)'"
+def _zoompan_expr(movimento: str, duracao: float, w: int, h: int) -> str:
+    """Retorna filtro zoompan para o movimento solicitado."""
+    n   = int(duracao * FPS)
+    iw  = "iw"  # largura da imagem preparada (w * escala)
+    ih  = "ih"
 
-    vf = (
-        f"zoompan=z={z_expr}:x={x_expr}:y={y_expr}"
-        f":d={n_frames}:s={OUTPUT_W}x{OUTPUT_H}:fps={FPS},"
-        f"setsar=1"
-    )
+    # zoom base: 1.0 = tamanho exato da saída (a imagem preparada é 1.3× maior)
+    # A imagem foi escalada para w*1.3, mas zoompan recebe essa imagem e faz output w×h.
+    # Então zoom=1.0 exibe a imagem centralizada sem bordas pretas.
 
+    if movimento == "tilt_up":
+        # Câmera sobe: y começa no fundo, termina no topo
+        z   = "'1.0'"
+        x   = f"'({iw}/2)-(ow/2)'"
+        y   = f"'({ih}-oh)-({ih}-oh)*on/{n}'"
+
+    elif movimento == "tilt_down":
+        z   = "'1.0'"
+        x   = f"'({iw}/2)-(ow/2)'"
+        y   = f"'({ih}-oh)*on/{n}'"
+
+    elif movimento == "dolly_in":
+        # Zoom suave de 1.0 → 1.18 centrado
+        z   = f"'1.0+0.18*on/{n}'"
+        x   = f"'({iw}/2)-(ow/zoom/2)'"
+        y   = f"'({ih}/2)-(oh/zoom/2)'"
+
+    elif movimento == "dolly_out":
+        z   = f"'1.18-0.18*on/{n}'"
+        x   = f"'({iw}/2)-(ow/zoom/2)'"
+        y   = f"'({ih}/2)-(oh/zoom/2)'"
+
+    elif movimento == "pan_right":
+        z   = "'1.0'"
+        x   = f"'({iw}/2-ow/2)+({iw}-ow)*0.12*on/{n}'"
+        y   = f"'({ih}/2)-(oh/2)'"
+
+    elif movimento == "pan_left":
+        z   = "'1.0'"
+        x   = f"'({iw}/2-ow/2)-({iw}-ow)*0.12*on/{n}+({iw}-ow)*0.12'"
+        y   = f"'({ih}/2)-(oh/2)'"
+
+    else:  # static — leve respiração
+        z   = f"'1.0+0.03*sin(on*3.14/{n})'"
+        x   = f"'({iw}/2)-(ow/zoom/2)'"
+        y   = f"'({ih}/2)-(oh/zoom/2)'"
+
+    return f"zoompan=z={z}:x={x}:y={y}:d={n}:s={w}x{h}:fps={FPS},setsar=1"
+
+
+def segmento_video(foto_prep: str, duracao: float, movimento: str, w: int, h: int, saida: str) -> None:
+    n = int(duracao * FPS)
+    vf = _zoompan_expr(movimento, duracao, w, h)
     cmd = [
         "ffmpeg", "-y",
         "-loop", "1", "-t", str(duracao),
         "-i", foto_prep,
         "-vf", vf,
-        "-c:v", "libx264", "-preset", "fast", "-crf", "23",
+        "-c:v", "libx264", "-preset", "fast", "-crf", "18",
         "-pix_fmt", "yuv420p",
+        "-r", str(FPS),
         "-t", str(duracao),
         saida,
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        raise RuntimeError(f"FFmpeg falhou: {result.stderr[-500:]}")
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    if r.returncode != 0:
+        raise RuntimeError(f"FFmpeg falhou ({movimento}): {r.stderr[-400:]}")
 
 
-def criar_slide_final(titulo: str, subtitulo: str, cta: str, saida: str) -> None:
-    """Cria slide final estático com título, subtítulo e CTA."""
+# ── Slide de encerramento ────────────────────────────────────────────────────
+
+def slide_final(titulo: str, subtitulo: str, cta: str, w: int, h: int, saida: str) -> None:
     try:
-        font_tit = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 72)
-        font_sub = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 46)
-        font_cta = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 52)
+        f_tit = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", max(32, h // 22))
+        f_sub = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",      max(22, h // 34))
+        f_cta = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", max(26, h // 28))
     except Exception:
-        font_tit = font_sub = font_cta = ImageFont.load_default()
+        f_tit = f_sub = f_cta = ImageFont.load_default()
 
-    img = Image.new("RGB", (OUTPUT_W, OUTPUT_H), (18, 18, 18))
+    img  = Image.new("RGB", (w, h), (16, 16, 16))
     draw = ImageDraw.Draw(img)
 
-    # Linha dourada decorativa
-    draw.rectangle([80, 700, OUTPUT_W - 80, 707], fill=(200, 160, 60))
+    cx = w // 2
+    cy = h // 2 - h // 8
 
-    # Textos
+    # Linha dourada
+    draw.rectangle([w // 8, cy - 20, w - w // 8, cy - 14], fill=(200, 160, 60))
+
     itens = [
-        (titulo,    font_tit, 740, (255, 255, 255)),
-        (subtitulo, font_sub, 850, (180, 180, 180)),
-        (cta,       font_cta, 980, (200, 160, 60)),
+        (titulo,    f_tit, cy + 10,  (255, 255, 255)),
+        (subtitulo, f_sub, cy + 10 + h // 16, (170, 170, 170)),
+        (cta,       f_cta, cy + 10 + h // 16 + h // 12, (200, 160, 60)),
     ]
-    for texto, font, y, cor in itens:
-        bbox = draw.textbbox((0, 0), texto, font=font)
+    for txt, font, y, cor in itens:
+        if not txt:
+            continue
+        bbox = draw.textbbox((0, 0), txt, font=font)
         tw = bbox[2] - bbox[0]
-        draw.text(((OUTPUT_W - tw) // 2, y), texto, font=font, fill=cor)
+        draw.text(((w - tw) // 2, y), txt, font=font, fill=cor)
 
-    # Salvar frame e converter para vídeo estático
     tmp_frame = saida.replace(".mp4", "_frame.jpg")
     img.save(tmp_frame, "JPEG", quality=95)
 
     cmd = [
         "ffmpeg", "-y",
-        "-loop", "1", "-t", str(DURACAO_TITULO_FINAL),
+        "-loop", "1", "-t", str(DURACAO_FINAL),
         "-i", tmp_frame,
-        "-vf", f"scale={OUTPUT_W}:{OUTPUT_H},setsar=1",
-        "-c:v", "libx264", "-preset", "fast", "-crf", "23",
+        "-vf", f"scale={w}:{h},setsar=1",
+        "-c:v", "libx264", "-preset", "fast", "-crf", "18",
         "-pix_fmt", "yuv420p",
-        "-r", str(FPS),  # mesmo fps dos segmentos zoompan
+        "-r", str(FPS),
         saida,
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(cmd, capture_output=True, text=True)
     os.remove(tmp_frame)
-    if result.returncode != 0:
-        raise RuntimeError(f"FFmpeg falhou no slide final: {result.stderr[-500:]}")
+    if r.returncode != 0:
+        raise RuntimeError(f"FFmpeg slide final: {r.stderr[-400:]}")
 
+
+# ── Concatenar segmentos ─────────────────────────────────────────────────────
 
 def concat_segmentos(segmentos: list[str], saida: str) -> None:
-    """Concatena segmentos de vídeo usando ffmpeg concat demuxer (por arquivo, não frame)."""
     lista = tempfile.NamedTemporaryFile(suffix=".txt", mode="w", delete=False)
     for s in segmentos:
         lista.write(f"file '{s}'\n")
     lista.close()
-
     cmd = [
         "ffmpeg", "-y",
         "-f", "concat", "-safe", "0",
@@ -154,93 +217,133 @@ def concat_segmentos(segmentos: list[str], saida: str) -> None:
         "-c", "copy",
         saida,
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(cmd, capture_output=True, text=True)
     os.remove(lista.name)
-    if result.returncode != 0:
-        raise RuntimeError(f"FFmpeg concat falhou: {result.stderr[-500:]}")
+    if r.returncode != 0:
+        raise RuntimeError(f"Concat falhou: {r.stderr[-400:]}")
 
 
-def adicionar_musica(video: str, musica: str, saida: str) -> None:
+# ── Adicionar trilha ─────────────────────────────────────────────────────────
+
+def adicionar_trilha(video: str, trilha: str, saida: str, duracao_total: float) -> None:
+    fade_start = max(0, duracao_total - 2.0)
     cmd = [
         "ffmpeg", "-y",
         "-i", video,
-        "-i", musica,
-        "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
+        "-i", trilha,
+        "-c:v", "copy",
+        "-c:a", "aac", "-b:a", "192k",
         "-shortest",
-        "-af", "volume=0.6",
+        "-af", f"volume=0.65,afade=t=out:st={fade_start:.1f}:d=2",
         saida,
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        raise RuntimeError(f"FFmpeg áudio falhou: {result.stderr[-500:]}")
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    if r.returncode != 0:
+        raise RuntimeError(f"Trilha falhou: {r.stderr[-400:]}")
 
 
-def gerar_video(pasta_fotos: str, titulo: str, subtitulo: str, cta: str,
-                saida: str, musica: str | None = None) -> None:
+# ── Pipeline principal ───────────────────────────────────────────────────────
+
+def gerar_video(
+    pasta_fotos: str,
+    titulo: str     = "",
+    subtitulo: str  = "",
+    cta: str        = "",
+    movimentos: str = "",          # "tilt_up,dolly_in,pan_right,dolly_out"
+    formato: str    = "landscape",
+    resolucao: str  = "fhd",
+    trilha: str     = None,
+    saida: str      = "video_imovel.mp4",
+) -> None:
 
     fotos = sorted(
-        glob.glob(os.path.join(pasta_fotos, "*.jpg")) +
+        glob.glob(os.path.join(pasta_fotos, "*.jpg"))  +
         glob.glob(os.path.join(pasta_fotos, "*.jpeg")) +
         glob.glob(os.path.join(pasta_fotos, "*.png"))
     )
     if not fotos:
-        raise ValueError(f"Nenhuma foto encontrada em: {pasta_fotos}")
+        raise ValueError(f"Nenhuma foto em: {pasta_fotos}")
 
-    print(f"📸 {len(fotos)} foto(s) encontrada(s)")
+    # Resolução base × ratio do formato
+    base_w, base_h = RESOLUCOES.get(resolucao, RESOLUCOES["fhd"])
+    rx, ry = FORMATOS.get(formato, FORMATOS["landscape"])
+    if rx > ry:  # landscape
+        w, h = base_w, base_h
+    elif rx < ry:  # portrait
+        w, h = base_h, base_w
+    else:          # square
+        s = min(base_w, base_h)
+        w = h = s
 
-    tmp_dir = tempfile.mkdtemp(prefix="imovel_video_")
+    print(f"📸 {len(fotos)} foto(s) | {w}×{h} | {resolucao.upper()} | {formato}")
+
+    # Movimentos por foto
+    mov_lista = [m.strip() for m in movimentos.split(",") if m.strip()] if movimentos else []
+    MOVIMENTOS_AUTO = ["tilt_up", "dolly_in", "pan_right", "dolly_out", "tilt_down", "pan_left"]
+
+    tmp_dir   = tempfile.mkdtemp(prefix="imovel_")
     segmentos = []
-    direcoes = ["zoom_in", "zoom_out", "pan_right", "pan_left"]
 
     try:
         for i, foto in enumerate(fotos):
-            print(f"  🎬 [{i+1}/{len(fotos)}] {Path(foto).name} — efeito: {direcoes[i % 4]}")
+            mov = mov_lista[i] if i < len(mov_lista) else MOVIMENTOS_AUTO[i % len(MOVIMENTOS_AUTO)]
+            print(f"  🎬 [{i+1}/{len(fotos)}] {Path(foto).name} — {mov}")
+
             foto_prep = os.path.join(tmp_dir, f"prep_{i:02d}.jpg")
             seg_path  = os.path.join(tmp_dir, f"seg_{i:02d}.mp4")
 
-            preparar_foto(foto, foto_prep)
-            segmento_ken_burns(foto_prep, DURACAO_FOTO, direcoes[i % 4], seg_path)
+            preparar_foto(foto, foto_prep, w, h, escala=1.25)
+            segmento_video(foto_prep, DURACAO_FOTO, mov, w, h, seg_path)
             segmentos.append(seg_path)
 
-        print("  🎬 Criando slide final...")
-        slide_path = os.path.join(tmp_dir, "slide_final.mp4")
-        criar_slide_final(titulo, subtitulo, cta, slide_path)
-        segmentos.append(slide_path)
+        if titulo or subtitulo or cta:
+            print("  🎬 Slide de encerramento...")
+            slide_path = os.path.join(tmp_dir, "slide_final.mp4")
+            slide_final(titulo or "", subtitulo or "", cta or "", w, h, slide_path)
+            segmentos.append(slide_path)
 
         print(f"  🔧 Concatenando {len(segmentos)} segmentos...")
         video_concat = os.path.join(tmp_dir, "concat.mp4")
         concat_segmentos(segmentos, video_concat)
 
-        if musica and os.path.exists(musica):
-            print("  🎵 Adicionando música...")
-            adicionar_musica(video_concat, musica, saida)
+        duracao_total = len(fotos) * DURACAO_FOTO + (DURACAO_FINAL if titulo else 0)
+
+        if trilha and os.path.exists(trilha):
+            print("  🎵 Adicionando trilha...")
+            adicionar_trilha(video_concat, trilha, saida, duracao_total)
         else:
             shutil.copy(video_concat, saida)
 
     finally:
         shutil.rmtree(tmp_dir, ignore_errors=True)
 
-    tamanho = os.path.getsize(saida) / 1024 / 1024
-    duracao = len(fotos) * DURACAO_FOTO + DURACAO_TITULO_FINAL
-    print(f"\n✅ Vídeo gerado: {saida}")
-    print(f"   {OUTPUT_W}×{OUTPUT_H} | {FPS}fps | ~{duracao:.0f}s | {tamanho:.1f} MB | Reel 9:16")
+    mb = os.path.getsize(saida) / 1024 / 1024
+    print(f"\n✅ {saida} — {mb:.1f} MB — {duracao_total:.0f}s — {w}×{h} {FPS}fps")
 
+
+# ── CLI ──────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Fotos de imóvel → Vídeo Reel 9:16")
-    parser.add_argument("--fotos",     required=True)
-    parser.add_argument("--titulo",    required=True)
-    parser.add_argument("--subtitulo", required=True)
-    parser.add_argument("--cta",       default="Fale com um corretor")
-    parser.add_argument("--saida",     default="video_imovel.mp4")
-    parser.add_argument("--musica",    default=None)
-    args = parser.parse_args()
+    p = argparse.ArgumentParser(description="Fotos de imóvel → Vídeo cinematográfico")
+    p.add_argument("--fotos",      required=True,       help="Pasta com as fotos")
+    p.add_argument("--titulo",     default="",          help="Título para slide final")
+    p.add_argument("--subtitulo",  default="",          help="Subtítulo (ex: 120m² • R$ 850.000)")
+    p.add_argument("--cta",        default="",          help="Chamada para ação")
+    p.add_argument("--movimentos", default="",          help="Ex: tilt_up,dolly_in,pan_right,dolly_out")
+    p.add_argument("--formato",    default="landscape", choices=["landscape","portrait","square"])
+    p.add_argument("--resolucao",  default="fhd",       choices=["hd","fhd","4k"])
+    p.add_argument("--trilha",     default=None,        help="Trilha .mp3/.aac")
+    p.add_argument("--saida",      default="video_imovel.mp4")
+    args = p.parse_args()
 
     gerar_video(
         pasta_fotos=args.fotos,
         titulo=args.titulo,
         subtitulo=args.subtitulo,
         cta=args.cta,
+        movimentos=args.movimentos,
+        formato=args.formato,
+        resolucao=args.resolucao,
+        trilha=args.trilha,
         saida=args.saida,
-        musica=args.musica,
     )

@@ -1,0 +1,1937 @@
+<title>Jurídico Impar</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ─── layout: fixed 220px sidebar + scrollable main ─── */
+:root {
+  --brand:        #E8721C;
+  --brand-dark:   #C4601A;
+  --brand-light:  #FDF0E8;
+  --brand-muted:  #F4CBB0;
+
+  --bg:           #F5F3F0;
+  --surface:      #FFFFFF;
+  --surface-2:    #FAFAF8;
+  --sidebar-bg:   #1C1914;
+  --sidebar-text: #C8C4BC;
+  --sidebar-active: #FFFFFF;
+
+  --fg:           #1A1714;
+  --fg-2:         #5C574F;
+  --fg-3:         #9C9790;
+  --border:       #E8E4DF;
+  --border-2:     #D4CFCA;
+
+  --ok:           #1A8A4A;
+  --ok-bg:        #EDF7F2;
+  --warn:         #C47A00;
+  --warn-bg:      #FDF5E6;
+  --crit:         #C0281E;
+  --crit-bg:      #FDF0EF;
+  --info:         #1464A4;
+  --info-bg:      #EDF3FB;
+
+  --radius:       8px;
+  --radius-lg:    12px;
+  --shadow:       0 1px 4px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.04);
+  --shadow-lg:    0 4px 16px rgba(0,0,0,.1), 0 0 0 1px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:           #141210;
+    --surface:      #1F1C18;
+    --surface-2:    #252118;
+    --sidebar-bg:   #0E0C0A;
+    --sidebar-text: #A09A92;
+    --sidebar-active: #FFFFFF;
+    --fg:           #EDE9E4;
+    --fg-2:         #9C9790;
+    --fg-3:         #6C6860;
+    --border:       #2E2A26;
+    --border-2:     #3C3830;
+    --brand-light:  #2A1A10;
+    --brand-muted:  #4A2810;
+    --ok-bg:        #0E2019;
+    --warn-bg:      #201808;
+    --crit-bg:      #220C0A;
+    --info-bg:      #0C1824;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:           #141210;
+  --surface:      #1F1C18;
+  --surface-2:    #252118;
+  --sidebar-bg:   #0E0C0A;
+  --sidebar-text: #A09A92;
+  --sidebar-active: #FFFFFF;
+  --fg:           #EDE9E4;
+  --fg-2:         #9C9790;
+  --fg-3:         #6C6860;
+  --border:       #2E2A26;
+  --border-2:     #3C3830;
+  --brand-light:  #2A1A10;
+  --brand-muted:  #4A2810;
+  --ok-bg:        #0E2019;
+  --warn-bg:      #201808;
+  --crit-bg:      #220C0A;
+  --info-bg:      #0C1824;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--fg);
+  display: flex;
+  min-height: 100%;
+}
+
+/* ─── sidebar ─── */
+.sidebar {
+  width: 220px;
+  min-width: 220px;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 10;
+}
+.sidebar-logo {
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.logo-icon {
+  width: 32px; height: 32px;
+  background: var(--brand);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.logo-icon svg { width: 18px; height: 18px; fill: #fff; }
+.logo-text { line-height: 1.2; }
+.logo-main { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: .01em; }
+.logo-sub { font-size: 10px; color: var(--sidebar-text); letter-spacing: .04em; text-transform: uppercase; }
+
+.sidebar-section { padding: 12px 10px 4px; }
+.sidebar-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--fg-3);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 0 8px 6px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--sidebar-text);
+  font-size: 13px;
+  font-weight: 500;
+  transition: background .15s, color .15s;
+  position: relative;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.nav-item:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-item.active { background: rgba(232,114,28,.18); color: var(--brand); }
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 3px; height: 60%;
+  background: var(--brand);
+  border-radius: 0 2px 2px 0;
+}
+.nav-icon { width: 16px; height: 16px; opacity: .8; flex-shrink: 0; }
+.nav-badge {
+  margin-left: auto;
+  background: var(--brand);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+}
+.nav-badge.warn { background: var(--crit); }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 14px 18px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.org-info { font-size: 11px; color: var(--sidebar-text); line-height: 1.5; }
+.org-name { color: rgba(255,255,255,.7); font-weight: 600; }
+.org-creci { font-size: 10px; color: var(--fg-3); }
+
+/* ─── main ─── */
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.topbar-title { font-size: 16px; font-weight: 600; color: var(--fg); }
+.topbar-breadcrumb { font-size: 12px; color: var(--fg-3); display: flex; align-items: center; gap: 6px; }
+.topbar-date {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--fg-3);
+  font-variant-numeric: tabular-nums;
+}
+.topbar-actions { display: flex; gap: 8px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background .15s, transform .1s;
+}
+.btn:active { transform: scale(.98); }
+.btn-primary { background: var(--brand); color: #fff; }
+.btn-primary:hover { background: var(--brand-dark); }
+.btn-ghost { background: transparent; color: var(--fg-2); border: 1px solid var(--border-2); }
+.btn-ghost:hover { background: var(--surface-2); }
+
+.content { flex: 1; overflow-y: auto; padding: 24px; }
+
+/* ─── alert banner ─── */
+.alert-bar {
+  background: var(--crit-bg);
+  border: 1px solid rgba(192,40,30,.2);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+.alert-bar-icon { color: var(--crit); flex-shrink: 0; }
+.alert-bar-text { color: var(--crit); font-weight: 500; }
+.alert-bar-detail { color: var(--fg-2); font-size: 12px; margin-left: 4px; }
+
+/* ─── kpi grid ─── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.kpi-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-3);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.kpi-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.kpi-value.brand { color: var(--brand); }
+.kpi-value.warn-c { color: var(--warn); }
+.kpi-value.crit-c { color: var(--crit); }
+.kpi-meta { font-size: 12px; color: var(--fg-3); margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+.kpi-trend { font-size: 11px; font-weight: 600; }
+.kpi-trend.up { color: var(--ok); }
+.kpi-trend.dn { color: var(--crit); }
+.kpi-sparkline {
+  height: 32px;
+  margin-top: 4px;
+}
+
+/* ─── section layout ─── */
+.section-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+}
+.section-link {
+  font-size: 12px;
+  color: var(--brand);
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+}
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+/* ─── pipeline ─── */
+.pipeline-wrap { padding: 20px; overflow-x: auto; }
+.pipeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  min-width: 600px;
+}
+.pipe-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.pipe-step::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+.pipe-step:last-child::after { display: none; }
+.pipe-dot {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  z-index: 1;
+  border: 2px solid transparent;
+}
+.pipe-dot.done { background: var(--ok); color: #fff; border-color: var(--ok); }
+.pipe-dot.active { background: var(--brand); color: #fff; border-color: var(--brand); box-shadow: 0 0 0 4px rgba(232,114,28,.2); }
+.pipe-dot.pending { background: var(--surface-2); color: var(--fg-3); border-color: var(--border-2); }
+.pipe-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--fg-3);
+  margin-top: 8px;
+  text-align: center;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  max-width: 68px;
+}
+.pipe-count {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--fg-2);
+  margin-top: 3px;
+}
+
+/* ─── contract list ─── */
+.contract-list { padding: 0 0 6px; }
+.contract-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .12s;
+}
+.contract-item:last-child { border-bottom: none; }
+.contract-item:hover { background: var(--surface-2); }
+.contract-type-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.ct-locacao { background: var(--info-bg); color: var(--info); }
+.ct-compra { background: var(--brand-light); color: var(--brand-dark); }
+.ct-temporada { background: var(--ok-bg); color: var(--ok); }
+.contract-info { flex: 1; min-width: 0; }
+.contract-ref { font-size: 12px; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.contract-parties { font-size: 11px; color: var(--fg-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+.contract-status { flex-shrink: 0; }
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.s-preenchimento { background: var(--info-bg); color: var(--info); }
+.s-confeccao { background: var(--warn-bg); color: var(--warn); }
+.s-revisao { background: var(--brand-light); color: var(--brand-dark); }
+.s-aprovacao { background: var(--warn-bg); color: var(--warn); }
+.s-clicksign { background: #F0EAFC; color: #6B36C0; }
+.s-assinado { background: var(--ok-bg); color: var(--ok); }
+.s-parcial { background: var(--warn-bg); color: var(--warn); }
+.s-arquivado { background: var(--surface-2); color: var(--fg-3); }
+.contract-date { font-size: 11px; color: var(--fg-3); flex-shrink: 0; font-variant-numeric: tabular-nums; }
+
+/* ─── pendências ─── */
+.pend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.pend-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  border-left: 4px solid transparent;
+  cursor: pointer;
+  transition: box-shadow .15s;
+}
+.pend-card:hover { box-shadow: var(--shadow-lg); }
+.pend-card.crit { border-color: var(--crit); }
+.pend-card.warn { border-color: var(--warn); }
+.pend-card.info { border-color: var(--brand); }
+.pend-card.ok { border-color: var(--ok); }
+.pend-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.pend-title { font-size: 13px; font-weight: 600; color: var(--fg); line-height: 1.3; }
+.pend-count {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.pend-count.crit { color: var(--crit); }
+.pend-count.warn { color: var(--warn); }
+.pend-count.brand { color: var(--brand); }
+.pend-count.ok { color: var(--ok); }
+.pend-desc { font-size: 11px; color: var(--fg-3); line-height: 1.45; }
+.pend-rule { font-size: 10px; color: var(--fg-3); margin-top: 8px; font-family: 'JetBrains Mono', monospace; }
+
+/* ─── integrations ─── */
+.integr-list { padding: 14px 20px; display: flex; flex-direction: column; gap: 10px; }
+.integr-item { display: flex; align-items: center; gap: 10px; }
+.integr-icon {
+  width: 32px; height: 32px;
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+.integr-name { font-size: 13px; font-weight: 500; color: var(--fg); flex: 1; }
+.integr-meta { font-size: 11px; color: var(--fg-3); }
+.dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.dot.ok { background: var(--ok); }
+.dot.warn { background: var(--warn); }
+.dot.off { background: var(--fg-3); }
+.integr-status-text { font-size: 11px; font-weight: 600; }
+.integr-status-text.ok { color: var(--ok); }
+.integr-status-text.warn { color: var(--warn); }
+.integr-status-text.off { color: var(--fg-3); }
+
+/* ─── legislação ─── */
+.legis-list { padding: 0 0 6px; }
+.legis-item {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.legis-item:last-child { border-bottom: none; }
+.legis-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.lt-lei { background: var(--info-bg); color: var(--info); }
+.lt-portaria { background: var(--warn-bg); color: var(--warn); }
+.lt-sumula { background: var(--ok-bg); color: var(--ok); }
+.lt-instrucao { background: var(--brand-light); color: var(--brand-dark); }
+.legis-body { flex: 1; min-width: 0; }
+.legis-title { font-size: 12px; font-weight: 600; color: var(--fg); }
+.legis-desc { font-size: 11px; color: var(--fg-3); margin-top: 2px; line-height: 1.4; }
+.legis-date { font-size: 10px; color: var(--fg-3); font-variant-numeric: tabular-nums; margin-top: 4px; }
+.legis-impact { font-size: 10px; font-weight: 600; margin-top: 4px; }
+.li-alta { color: var(--crit); }
+.li-media { color: var(--warn); }
+.li-baixa { color: var(--ok); }
+
+/* ─── tabs ─── */
+.tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 20px; }
+.tab {
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-3);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color .15s, border-color .15s;
+}
+.tab:hover { color: var(--fg); }
+.tab.active { color: var(--brand); border-bottom-color: var(--brand); font-weight: 600; }
+
+/* ─── mini bar chart ─── */
+.bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 56px; padding-top: 4px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.bar-fill {
+  width: 100%;
+  background: var(--brand);
+  border-radius: 3px 3px 0 0;
+  opacity: .7;
+  transition: opacity .15s;
+}
+.bar-fill:hover { opacity: 1; }
+.bar-fill.dim { background: var(--border-2); opacity: 1; }
+.bar-lbl { font-size: 9px; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+
+/* ─── reajuste alert ─── */
+.reajuste-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.reajuste-item:last-child { border-bottom: none; }
+.reajuste-days {
+  font-size: 22px; font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  width: 38px; flex-shrink: 0; text-align: right;
+}
+.reajuste-days.urgent { color: var(--crit); }
+.reajuste-days.soon { color: var(--warn); }
+.reajuste-days.ok { color: var(--ok); }
+.rd-unit { font-size: 10px; font-weight: 500; color: var(--fg-3); }
+.reajuste-info { flex: 1; min-width: 0; }
+.reajuste-ref { font-weight: 600; color: var(--fg); }
+.reajuste-meta { color: var(--fg-3); margin-top: 1px; }
+.reajuste-val { font-weight: 600; color: var(--ok); flex-shrink: 0; text-align: right; }
+
+/* ─── inadimplência ─── */
+.inad-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.inad-item:last-child { border-bottom: none; }
+.inad-dias {
+  font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums;
+  flex-shrink: 0; text-align: center; width: 38px;
+  color: var(--crit);
+}
+.inad-info { flex: 1; min-width: 0; }
+.inad-ref { font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.inad-meta { color: var(--fg-3); margin-top: 1px; }
+.inad-phase {
+  font-size: 10px; font-weight: 700; letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 2px 7px; border-radius: 4px; flex-shrink: 0;
+}
+.ip-cobranca { background: var(--warn-bg); color: var(--warn); }
+.ip-notificacao { background: var(--crit-bg); color: var(--crit); }
+
+/* ─── section cols ─── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 24px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-bottom: 24px; }
+
+/* ─── toast ─── */
+.toast-container {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+  pointer-events: none;
+}
+.toast {
+  background: var(--fg);
+  color: var(--surface);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+  animation: toast-in .22s ease;
+  max-width: 320px;
+  line-height: 1.4;
+}
+.toast.ok-toast { background: var(--ok); }
+.toast.warn-toast { background: var(--warn); }
+.toast.crit-toast { background: var(--crit); }
+.toast.brand-toast { background: var(--brand); }
+@keyframes toast-in { from { opacity:0; transform:translateY(12px) scale(.96); } to { opacity:1; transform:none; } }
+@keyframes toast-out { to { opacity:0; transform:translateY(8px) scale(.96); } }
+.toast.removing { animation: toast-out .18s ease forwards; }
+
+/* ─── filter chip ─── */
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--brand-light);
+  color: var(--brand-dark);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px 3px 8px;
+  border-radius: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  border: none;
+}
+.filter-chip:hover { background: var(--brand-muted); }
+
+/* ─── pipe-step clickable ─── */
+.pipe-step { cursor: pointer; }
+.pipe-step:hover .pipe-dot { transform: scale(1.12); }
+.pipe-dot { transition: transform .15s; }
+
+/* ─── sync button & spinner ─── */
+.btn-sync { background: var(--info-bg); color: var(--info); border: 1px solid rgba(20,100,164,.15); }
+.btn-sync:hover { background: #d8eaf8; }
+.btn-sync.syncing { opacity: .7; pointer-events: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin-icon { display:inline-block; animation: spin .7s linear infinite; }
+
+/* ─── asaas card ─── */
+.asaas-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.asaas-row:last-child { border-bottom: none; }
+.asaas-id { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--fg-3); flex-shrink: 0; }
+.asaas-val { font-weight: 700; color: var(--crit); flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.asaas-tag { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; }
+.asaas-tag.overdue { background: var(--crit-bg); color: var(--crit); }
+
+/* ─── drawer overlay ─── */
+.drawer-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 100;
+  display: flex; justify-content: flex-end;
+  animation: fade-in .18s ease;
+}
+@keyframes fade-in { from { opacity:0; } to { opacity:1; } }
+.drawer {
+  background: var(--surface);
+  width: 420px;
+  max-width: 94vw;
+  height: 100%;
+  overflow-y: auto;
+  box-shadow: -4px 0 24px rgba(0,0,0,.15);
+  padding: 24px;
+  animation: slide-in .2s ease;
+}
+@keyframes slide-in { from { transform: translateX(40px); opacity:0; } to { transform: none; opacity:1; } }
+.drawer-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.drawer-title { font-size: 16px; font-weight: 700; color: var(--fg); }
+.drawer-close { background: none; border: none; cursor: pointer; color: var(--fg-3); padding: 2px; font-size: 20px; line-height: 1; }
+.drawer-close:hover { color: var(--fg); }
+.drawer-field { margin-bottom: 14px; }
+.drawer-label { font-size: 10px; font-weight: 600; color: var(--fg-3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+.drawer-value { font-size: 13px; color: var(--fg); font-weight: 500; }
+.drawer-divider { height: 1px; background: var(--border); margin: 18px 0; }
+
+/* ─── responsive ─── */
+@media (max-width: 900px) {
+  .section-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .three-col { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .sidebar { display: none; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .pend-grid { grid-template-columns: 1fr; }
+  .three-col { grid-template-columns: 1fr; }
+  .content { padding: 16px; }
+  .topbar { padding: 10px 16px; }
+}
+</style>
+
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L4 7v10l8 5 8-5V7L12 2zm0 2.18L18 8v8l-6 3.75L6 16V8l6-3.82z"/></svg>
+      </div>
+      <div class="logo-text">
+        <div class="logo-main">Impar Imóveis</div>
+        <div class="logo-sub">Jurídico</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Operacional</div>
+    <button class="nav-item active" onclick="showSection('dashboard')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Painel Geral
+    </button>
+    <button class="nav-item" onclick="showSection('contratos')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Contratos
+      <span class="nav-badge">23</span>
+    </button>
+    <button class="nav-item" onclick="showSection('pendencias')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Pendências
+      <span class="nav-badge warn">7</span>
+    </button>
+    <button class="nav-item" onclick="showSection('reajuste')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      Reajustes
+      <span class="nav-badge warn">3</span>
+    </button>
+    <button class="nav-item" onclick="showSection('inadimplencia')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Inadimplência
+    </button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Jurídico</div>
+    <button class="nav-item" onclick="showSection('legislacao')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Monitor Legislativo
+      <span class="nav-badge">2</span>
+    </button>
+    <button class="nav-item" onclick="showSection('assinaturas')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+      Assinaturas
+    </button>
+    <button class="nav-item" onclick="showSection('dashboard')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Pesquisar
+    </button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Sistema</div>
+    <button class="nav-item" onclick="showSection('configuracoes')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      Integrações
+    </button>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="org-info">
+      <div class="org-name">Impar Imóveis SC</div>
+      <div class="org-creci">CRECI 8359-J · Joinville/SC</div>
+      <div style="margin-top:4px;font-size:10px;color:var(--fg-3)">CNPJ 50.886.299/0001-00</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title" id="topbar-title">Painel Geral</div>
+      <div class="topbar-breadcrumb">
+        <span>Jurídico</span>
+        <span>›</span>
+        <span id="topbar-breadcrumb">Dashboard</span>
+      </div>
+    </div>
+    <div class="topbar-date">02/10/2026 · 14h32</div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost" onclick="showAlertas()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Alertas
+        <span style="background:var(--crit);color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:8px">2</span>
+      </button>
+      <button class="btn btn-primary" onclick="novoContrato()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Novo Contrato
+      </button>
+    </div>
+  </div>
+
+  <div class="content" id="main-content">
+
+    <!-- ══════════ DASHBOARD SECTION ══════════ -->
+    <div id="sec-dashboard">
+
+      <!-- alert -->
+      <div class="alert-bar">
+        <svg class="alert-bar-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span class="alert-bar-text">2 alertas críticos</span>
+        <span class="alert-bar-detail">Contrato LOC-2026-018 em inadimplência há 18 dias · Vistoria pendente no contrato LOC-2026-011</span>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Contratos Ativos</div>
+          <div class="kpi-value brand">23</div>
+          <div class="kpi-meta">
+            <span class="kpi-trend up">↑ 3</span> vs mês anterior
+          </div>
+          <div class="bar-chart kpi-sparkline">
+            <div class="bar-col"><div class="bar-fill dim" style="height:38%"></div></div>
+            <div class="bar-col"><div class="bar-fill dim" style="height:52%"></div></div>
+            <div class="bar-col"><div class="bar-fill dim" style="height:44%"></div></div>
+            <div class="bar-col"><div class="bar-fill dim" style="height:60%"></div></div>
+            <div class="bar-col"><div class="bar-fill dim" style="height:70%"></div></div>
+            <div class="bar-col"><div class="bar-fill" style="height:85%"></div></div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Em Assinatura</div>
+          <div class="kpi-value warn-c">5</div>
+          <div class="kpi-meta">Aguardando Clicksign</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Aguard. Aprovação</div>
+          <div class="kpi-value warn-c">3</div>
+          <div class="kpi-meta">Revisão humana obrigatória</div>
+        </div>
+        <div class="kpi-card" id="card-finalizados">
+          <div class="kpi-label" id="kpi-fin-label">Finalizados (out)</div>
+          <div class="kpi-value" id="kpi-finalizados">—</div>
+          <div class="kpi-meta" id="kpi-fin-meta">Reinicia em 01/11/2026</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Reajustes Próximos</div>
+          <div class="kpi-value warn-c">3</div>
+          <div class="kpi-meta">Próximos 30 dias</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Inadimplência</div>
+          <div class="kpi-value crit-c">2</div>
+          <div class="kpi-meta">Acima de 10 dias</div>
+        </div>
+      </div>
+
+      <!-- pipeline -->
+      <div class="section-header">
+        <div class="section-title">Pipeline de Contratos</div>
+        <span class="section-link" onclick="showSection('contratos')">ver todos →</span>
+      </div>
+      <div class="card" style="margin-bottom:24px">
+        <div class="pipeline-wrap">
+          <div class="pipeline">
+            <div class="pipe-step" onclick="goToPipeline('Em Preenchimento')" title="Ver contratos em preenchimento">
+              <div class="pipe-dot done">✓</div>
+              <div class="pipe-label">Em Preenchimento</div>
+              <div class="pipe-count">—</div>
+            </div>
+            <div class="pipe-step" onclick="goToPipeline('Em Confecção')" title="Ver contratos em confecção">
+              <div class="pipe-dot done">✓</div>
+              <div class="pipe-label">Em Confecção</div>
+              <div class="pipe-count">—</div>
+            </div>
+            <div class="pipe-step" onclick="goToPipeline('Em Revisão IA')" title="Ver contratos em revisão">
+              <div class="pipe-dot active">3</div>
+              <div class="pipe-label">Revisão Automática</div>
+              <div class="pipe-count">3 contratos</div>
+            </div>
+            <div class="pipe-step" onclick="goToPipeline('Aguard. Aprovação')" title="Ver contratos aguardando aprovação">
+              <div class="pipe-dot active">3</div>
+              <div class="pipe-label">Aguard. Aprovação</div>
+              <div class="pipe-count">3 contratos</div>
+            </div>
+            <div class="pipe-step" onclick="goToPipeline('Clicksign')" title="Ver contratos no Clicksign">
+              <div class="pipe-dot active">5</div>
+              <div class="pipe-label">No Clicksign</div>
+              <div class="pipe-count">5 contratos</div>
+            </div>
+            <div class="pipe-step" onclick="goToPipeline('Parc. Assinado')" title="Ver parcialmente assinados">
+              <div class="pipe-dot active">2</div>
+              <div class="pipe-label">Parc. Assinado</div>
+              <div class="pipe-count">2 contratos</div>
+            </div>
+            <div class="pipe-step" onclick="goToPipeline('Arquivado')" title="Ver contratos arquivados">
+              <div class="pipe-dot pending">–</div>
+              <div class="pipe-label">Arquivamento</div>
+              <div class="pipe-count">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- contratos recentes + integrações -->
+      <div class="section-grid">
+        <div>
+          <div class="section-header">
+            <div class="section-title">Contratos Recentes</div>
+            <span class="section-link" onclick="showSection('contratos')">ver todos →</span>
+          </div>
+          <div class="card">
+            <div class="contract-list">
+              <div class="contract-item" onclick="openContract('LOC-2026-023','Locação Residencial','Mario Henrique','Fernanda Costa Lima','R$ 1.850/mês','30 meses','Clicksign','01/10/2026','Rua XV de Novembro, 842, Apto 203')">
+                <div class="contract-type-icon ct-locacao">📄</div>
+                <div class="contract-info">
+                  <div class="contract-ref">LOC-2026-023 · Residencial</div>
+                  <div class="contract-parties">Mario Henrique → Fernanda Costa Lima</div>
+                </div>
+                <span class="status-pill s-clicksign">Clicksign</span>
+                <div class="contract-date">01/10</div>
+              </div>
+              <div class="contract-item" onclick="openContract('CV-2026-007','Promessa Compra e Venda','Ana Paula Souza','Ricardo Mendes','R$ 485.000','—','Aguard. Aprovação','30/09/2026','Av. Getúlio Vargas, 1.540')">
+                <div class="contract-type-icon ct-compra">🏠</div>
+                <div class="contract-info">
+                  <div class="contract-ref">CV-2026-007 · Compra e Venda</div>
+                  <div class="contract-parties">Ana Paula Souza → Ricardo Mendes</div>
+                </div>
+                <span class="status-pill s-aprovacao">Aguard. Aprovação</span>
+                <div class="contract-date">30/09</div>
+              </div>
+              <div class="contract-item" onclick="openContract('LOC-2026-022','Locação Comercial','Impar Imóveis (loc.)','Sabor & Arte Ltda','R$ 3.400/mês','60 meses','Em Revisão IA','29/09/2026','Rua Blumenau, 200 – Sala 05')">
+                <div class="contract-type-icon ct-locacao">📄</div>
+                <div class="contract-info">
+                  <div class="contract-ref">LOC-2026-022 · Comercial</div>
+                  <div class="contract-parties">Impar Imóveis (loc.) → Sabor & Arte Ltda</div>
+                </div>
+                <span class="status-pill s-revisao">Em Revisão</span>
+                <div class="contract-date">29/09</div>
+              </div>
+              <div class="contract-item" onclick="openContract('TMP-2026-004','Locação Temporada','Paulo Cesar Ramos','Juliana Alves','R$ 4.500 total','45 dias','Assinado','27/09/2026','Rua São Paulo, 310')">
+                <div class="contract-type-icon ct-temporada">🌴</div>
+                <div class="contract-info">
+                  <div class="contract-ref">TMP-2026-004 · Temporada (45d)</div>
+                  <div class="contract-parties">Paulo Cesar Ramos → Juliana Alves</div>
+                </div>
+                <span class="status-pill s-assinado">Assinado</span>
+                <div class="contract-date">27/09</div>
+              </div>
+              <div class="contract-item" onclick="openContract('LOC-2026-021','Locação Residencial','Construtora Nordeste','Carlos Eduardo B.','R$ 2.100/mês','30 meses','Parc. Assinado','25/09/2026','Rua Joinville, 88, Apto 101')">
+                <div class="contract-type-icon ct-locacao">📄</div>
+                <div class="contract-info">
+                  <div class="contract-ref">LOC-2026-021 · Residencial</div>
+                  <div class="contract-parties">Construtora Nordeste → Carlos Eduardo B.</div>
+                </div>
+                <span class="status-pill s-parcial">Parc. Assinado</span>
+                <div class="contract-date">25/09</div>
+              </div>
+              <div class="contract-item" onclick="openContract('CV-2026-006','Promessa C/V Alienação Fiduciária','Família Kretzer','Banco Inter','R$ 320.000','—','Arquivado','18/09/2026','Rua Iririú, 300')">
+                <div class="contract-type-icon ct-compra">🏠</div>
+                <div class="contract-info">
+                  <div class="contract-ref">CV-2026-006 · Compra e Venda</div>
+                  <div class="contract-parties">Família Kretzer → Banco Inter (fiduciária)</div>
+                </div>
+                <span class="status-pill s-arquivado">Arquivado</span>
+                <div class="contract-date">18/09</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-header">
+            <div class="section-title">Status das Integrações</div>
+            <span class="section-link" onclick="showSection('configuracoes')">configurar →</span>
+          </div>
+          <div class="card">
+            <div class="integr-list">
+              <div class="integr-item">
+                <div class="integr-icon" style="background:#EDF3FB;color:#1464A4">✍</div>
+                <div>
+                  <div class="integr-name">Clicksign</div>
+                  <div class="integr-meta">5 docs em circulação</div>
+                </div>
+                <div class="dot ok"></div>
+                <span class="integr-status-text ok">Online</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:#EDF7F2;color:#1A8A4A">▲</div>
+                <div>
+                  <div class="integr-name">Google Drive</div>
+                  <div class="integr-meta">147 arquivos, 2.3 GB</div>
+                </div>
+                <div class="dot ok"></div>
+                <span class="integr-status-text ok">Online</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:#EDF3FB;color:#1464A4">✈</div>
+                <div>
+                  <div class="integr-name">Telegram</div>
+                  <div class="integr-meta">Bot @imparjuridico_bot</div>
+                </div>
+                <div class="dot ok"></div>
+                <span class="integr-status-text ok">Online</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:var(--brand-light);color:var(--brand-dark)">◆</div>
+                <div>
+                  <div class="integr-name">Gemini 2.0 Flash</div>
+                  <div class="integr-meta">Revisão primária (IA)</div>
+                </div>
+                <div class="dot ok"></div>
+                <span class="integr-status-text ok">Online</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:var(--surface-2);color:var(--fg-2)">◈</div>
+                <div>
+                  <div class="integr-name">Claude (revisão dual)</div>
+                  <div class="integr-meta">Aprovação final antes do humano</div>
+                </div>
+                <div class="dot ok"></div>
+                <span class="integr-status-text ok">Online</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:var(--warn-bg);color:var(--warn)">★</div>
+                <div>
+                  <div class="integr-name">Portal NFS-e Nacional</div>
+                  <div class="integr-meta">Emissão de notas fiscais</div>
+                </div>
+                <div class="dot warn"></div>
+                <span class="integr-status-text warn">Atenção</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px">
+            <div class="section-header">
+              <div class="section-title">Reajustes Iminentes</div>
+              <span class="section-link" onclick="showSection('reajuste')">ver todos →</span>
+            </div>
+            <div class="card">
+              <div class="reajuste-item">
+                <div>
+                  <div class="reajuste-days urgent">8</div>
+                  <div class="rd-unit" style="text-align:right">dias</div>
+                </div>
+                <div class="reajuste-info">
+                  <div class="reajuste-ref">LOC-2026-012 · Res.</div>
+                  <div class="reajuste-meta">Locatário: Família Teixeira · IGP-M</div>
+                </div>
+                <div class="reajuste-val">+4,72%</div>
+              </div>
+              <div class="reajuste-item">
+                <div>
+                  <div class="reajuste-days soon">21</div>
+                  <div class="rd-unit" style="text-align:right">dias</div>
+                </div>
+                <div class="reajuste-info">
+                  <div class="reajuste-ref">LOC-2026-005 · Res.</div>
+                  <div class="reajuste-meta">Locatário: Marcio Luiz Farias · IPCA</div>
+                </div>
+                <div class="reajuste-val">+3,88%</div>
+              </div>
+              <div class="reajuste-item">
+                <div>
+                  <div class="reajuste-days ok">29</div>
+                  <div class="rd-unit" style="text-align:right">dias</div>
+                </div>
+                <div class="reajuste-info">
+                  <div class="reajuste-ref">LOC-2026-009 · Com.</div>
+                  <div class="reajuste-meta">Locatário: Oficina Prática Ltda · IGP-M</div>
+                </div>
+                <div class="reajuste-val">+4,72%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monitor Legislativo preview -->
+      <div class="section-header">
+        <div class="section-title">Monitor Legislativo — Atualização Semanal</div>
+        <span class="section-link" onclick="showSection('legislacao')">ver monitor completo →</span>
+      </div>
+      <div class="card">
+        <div class="legis-list">
+          <div class="legis-item">
+            <span class="legis-tag lt-portaria">Portaria</span>
+            <div class="legis-body">
+              <div class="legis-title">Portaria MGI nº 5.764/2026 — Certificado ICP-Brasil para PF sem custo</div>
+              <div class="legis-desc">Governo Federal amplia emissão gratuita de certificado digital A1 para pessoas físicas via SERPRO. Impacta assinatura qualificada em contratos com financiamento bancário (Lei 14.063/2020, art. 4º, III).</div>
+              <div class="legis-date">Publicada DOU 29/09/2026</div>
+              <div class="legis-impact li-alta">Impacto ALTO — revisar fluxo Clicksign para financiamentos (Regra 86)</div>
+            </div>
+          </div>
+          <div class="legis-item">
+            <span class="legis-tag lt-sumula">Súmula</span>
+            <div class="legis-body">
+              <div class="legis-title">STJ — Súmula 677: Correção de caução em dobro limitada a cláusula expressa</div>
+              <div class="legis-desc">STJ confirma que a restituição em dobro da caução pelo locador (art. 38, §2º Lei 8.245/91) depende de cláusula contratual expressa ou ação judicial, não sendo automática.</div>
+              <div class="legis-date">Publicada 25/09/2026</div>
+              <div class="legis-impact li-media">Impacto MÉDIO — atualizar template caução (Regra 37)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ PENDÊNCIAS ══════════ -->
+    <div id="sec-pendencias" hidden>
+      <div class="section-header">
+        <div class="section-title">Central de Pendências</div>
+        <span class="section-link" onclick="toast('📋 Relatório de pendências exportado','ok-toast')">exportar relatório</span>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active">Todas (7)</button>
+        <button class="tab">Críticas (2)</button>
+        <button class="tab">Atenção (3)</button>
+        <button class="tab">Informação (2)</button>
+      </div>
+
+      <div class="pend-grid">
+        <div class="pend-card crit">
+          <div class="pend-header">
+            <div class="pend-title">Vistoria de Entrada Pendente</div>
+            <div class="pend-count crit">1</div>
+          </div>
+          <div class="pend-desc">LOC-2026-011 · Assinado em 15/09 sem termo de vistoria registrado no Drive. Prazo legal ultrapassado. Locatário: Kaio Rodrigues.</div>
+          <div class="pend-rule">Regra 49 · art. 23, III Lei 8.245/91</div>
+        </div>
+        <div class="pend-card crit">
+          <div class="pend-header">
+            <div class="pend-title">Inadimplência c/ 18 dias</div>
+            <div class="pend-count crit">1</div>
+          </div>
+          <div class="pend-desc">LOC-2026-018 · Aluguel set/2026 vencido em 14/09. Valor: R$ 2.200,00. Nenhuma notificação extrajudicial enviada ainda.</div>
+          <div class="pend-rule">Regra 92 · art. 62 Lei 8.245/91</div>
+        </div>
+        <div class="pend-card warn">
+          <div class="pend-header">
+            <div class="pend-title">Regime Matrimonial Ausente</div>
+            <div class="pend-count warn">2</div>
+          </div>
+          <div class="pend-desc">CV-2026-007 e CV-2026-008 · Comprador(es) casados sem regime matrimonial informado. Bloqueio de geração até preenchimento.</div>
+          <div class="pend-rule">Regra 84 · art. 1.647 CC</div>
+        </div>
+        <div class="pend-card warn">
+          <div class="pend-header">
+            <div class="pend-title">Certidão Negativa Vencida</div>
+            <div class="pend-count warn">1</div>
+          </div>
+          <div class="pend-desc">CV-2026-007 · Certidão de Ônus Reais do imóvel (matrícula 45.218) com validade expirada em 28/09/2026. Necessária nova emissão no CRI.</div>
+          <div class="pend-rule">Regra 87 · art. 1.245 CC</div>
+        </div>
+        <div class="pend-card info">
+          <div class="pend-header">
+            <div class="pend-title">Assinatura ICP-Brasil Requerida</div>
+            <div class="pend-count brand">1</div>
+          </div>
+          <div class="pend-desc">CV-2026-007 · Financiamento Banco Inter c/ alienação fiduciária. Banco exige assinatura qualificada ICP-Brasil (A1/A3). Verificar certificado das partes.</div>
+          <div class="pend-rule">Regra 86 · Lei 14.063/2020 art. 4º</div>
+        </div>
+        <div class="pend-card info">
+          <div class="pend-header">
+            <div class="pend-title">Reajuste — Notificação em 8 dias</div>
+            <div class="pend-count brand">1</div>
+          </div>
+          <div class="pend-desc">LOC-2026-012 · Aniversário contratual em 10/10/2026. Notificação de reajuste deve ser enviada ao locatário com 30 dias de antecedência — prazo expirou, enviar hoje.</div>
+          <div class="pend-rule">Regra 91 · Lei 9.069/95</div>
+        </div>
+        <div class="pend-card warn">
+          <div class="pend-header">
+            <div class="pend-title">Contrato Temporada — Prazo</div>
+            <div class="pend-count warn">1</div>
+          </div>
+          <div class="pend-desc">TMP-2026-003 · Locação de temporada com 91 dias de prazo declarado. Excede limite legal de 90 dias (art. 48, §1º). Gera migração automática para locação residencial ordinária.</div>
+          <div class="pend-rule">Regra 90 · art. 48 Lei 8.245/91</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ CONTRATOS ══════════ -->
+    <div id="sec-contratos" hidden>
+      <div class="section-header">
+        <div class="section-title">Todos os Contratos <span id="contratos-filter-chip"></span></div>
+        <button class="btn btn-primary" onclick="novoContrato()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Novo
+        </button>
+      </div>
+      <div class="tabs">
+        <button class="tab active">Ativos (23)</button>
+        <button class="tab">Aguardando (8)</button>
+        <button class="tab">Arquivados</button>
+        <button class="tab">Todos</button>
+      </div>
+      <div class="card">
+        <div class="contract-list">
+          <div class="contract-item" data-status="Clicksign" onclick="openContract('LOC-2026-023','Locação Residencial','Mario Henrique','Fernanda Costa Lima','R$ 1.850/mês','30 meses','Clicksign','01/10/2026','Rua XV de Novembro, 842, Apto 203')">
+            <div class="contract-type-icon ct-locacao">📄</div>
+            <div class="contract-info">
+              <div class="contract-ref">LOC-2026-023 · Residencial · 30 meses</div>
+              <div class="contract-parties">Mario Henrique → Fernanda Costa Lima · R$ 1.850/mês</div>
+            </div>
+            <span class="status-pill s-clicksign">Clicksign</span>
+            <div class="contract-date">01/10/2026</div>
+          </div>
+          <div class="contract-item" data-status="Aguard. Aprovação" onclick="openContract('CV-2026-007','Promessa Compra e Venda','Ana Paula Souza','Ricardo Mendes','R$ 485.000','—','Aguard. Aprovação','30/09/2026','Av. Getúlio Vargas, 1.540')">
+            <div class="contract-type-icon ct-compra">🏠</div>
+            <div class="contract-info">
+              <div class="contract-ref">CV-2026-007 · Promessa Compra e Venda</div>
+              <div class="contract-parties">Ana Paula Souza → Ricardo Mendes · R$ 485.000</div>
+            </div>
+            <span class="status-pill s-aprovacao">Aguard. Aprovação</span>
+            <div class="contract-date">30/09/2026</div>
+          </div>
+          <div class="contract-item" data-status="Em Revisão IA" onclick="openContract('LOC-2026-022','Locação Comercial','Impar Imóveis (loc.)','Sabor &amp; Arte Ltda','R$ 3.400/mês','60 meses','Em Revisão IA','29/09/2026','Rua Blumenau, 200 – Sala 05')">
+            <div class="contract-type-icon ct-locacao">📄</div>
+            <div class="contract-info">
+              <div class="contract-ref">LOC-2026-022 · Comercial · 60 meses</div>
+              <div class="contract-parties">Impar Imóveis (loc.) → Sabor & Arte Ltda · R$ 3.400/mês</div>
+            </div>
+            <span class="status-pill s-revisao">Em Revisão IA</span>
+            <div class="contract-date">29/09/2026</div>
+          </div>
+          <div class="contract-item" data-status="Parc. Assinado" onclick="openContract('LOC-2026-021','Locação Residencial','Construtora Nordeste','Carlos Eduardo B.','R$ 2.100/mês','30 meses','Parc. Assinado','25/09/2026','Rua Joinville, 88, Apto 101')">
+            <div class="contract-type-icon ct-locacao">📄</div>
+            <div class="contract-info">
+              <div class="contract-ref">LOC-2026-021 · Residencial · 30 meses</div>
+              <div class="contract-parties">Construtora Nordeste → Carlos Eduardo B. · R$ 2.100/mês</div>
+            </div>
+            <span class="status-pill s-parcial">Parc. Assinado</span>
+            <div class="contract-date">25/09/2026</div>
+          </div>
+          <div class="contract-item" data-status="Inadimplente" onclick="openContract('LOC-2026-018','Locação Residencial','João Paulo Neves','Thiago Martins','R$ 2.200/mês','30 meses','Inadimplente ⚠','10/03/2026','Rua XV de Nov., 842 Apt 203')">
+            <div class="contract-type-icon ct-locacao">📄</div>
+            <div class="contract-info">
+              <div class="contract-ref">LOC-2026-018 · Residencial · 30 meses</div>
+              <div class="contract-parties">João Paulo Neves → Thiago Martins · R$ 2.200/mês ⚠</div>
+            </div>
+            <span class="status-pill s-assinado" style="background:var(--crit-bg);color:var(--crit)">Inadimplente</span>
+            <div class="contract-date">10/03/2026</div>
+          </div>
+          <div class="contract-item" data-status="Assinado" onclick="openContract('TMP-2026-004','Locação Temporada','Paulo Cesar Ramos','Juliana Alves','R$ 4.500 total','45 dias','Assinado','27/09/2026','Rua São Paulo, 310')">
+            <div class="contract-type-icon ct-temporada">🌴</div>
+            <div class="contract-info">
+              <div class="contract-ref">TMP-2026-004 · Temporada 45 dias</div>
+              <div class="contract-parties">Paulo Cesar Ramos → Juliana Alves · R$ 4.500 total</div>
+            </div>
+            <span class="status-pill s-assinado">Assinado</span>
+            <div class="contract-date">27/09/2026</div>
+          </div>
+          <div class="contract-item" data-status="Arquivado" onclick="openContract('CV-2026-006','Promessa C/V Alienação Fiduciária','Família Kretzer','Banco Inter','R$ 320.000','—','Arquivado','18/09/2026','Rua Iririú, 300')">
+            <div class="contract-type-icon ct-compra">🏠</div>
+            <div class="contract-info">
+              <div class="contract-ref">CV-2026-006 · Promessa C/V c/ Alienação Fiduciária</div>
+              <div class="contract-parties">Família Kretzer → Banco Inter (Lei 9.514/97) · R$ 320.000</div>
+            </div>
+            <span class="status-pill s-arquivado">Arquivado</span>
+            <div class="contract-date">18/09/2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ REAJUSTE ══════════ -->
+    <div id="sec-reajuste" hidden>
+      <div class="section-header">
+        <div class="section-title">Controle de Reajustes</div>
+        <span class="section-link" onclick="toast('📊 Planilha de reajustes exportada','ok-toast')">exportar planilha</span>
+      </div>
+
+      <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px">
+        <div class="kpi-card">
+          <div class="kpi-label">Próximos 30 dias</div>
+          <div class="kpi-value warn-c">3</div>
+          <div class="kpi-meta">Reajustes a processar</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">IGP-M acumulado 12m</div>
+          <div class="kpi-value brand">4,72%</div>
+          <div class="kpi-meta">out/2025 – set/2026</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">IPCA acumulado 12m</div>
+          <div class="kpi-value brand">3,88%</div>
+          <div class="kpi-meta">out/2025 – set/2026</div>
+        </div>
+      </div>
+
+      <div class="section-header"><div class="section-title">Próximos Vencimentos</div></div>
+      <div class="card" style="margin-bottom:20px">
+        <div class="reajuste-item" style="background:var(--crit-bg)">
+          <div>
+            <div class="reajuste-days urgent">8</div>
+            <div class="rd-unit" style="text-align:right">dias</div>
+          </div>
+          <div class="reajuste-info">
+            <div class="reajuste-ref">LOC-2026-012 · Residencial</div>
+            <div class="reajuste-meta">Família Teixeira · Início: 10/10/2025 · Índice: IGP-M · R$ 1.750/mês</div>
+          </div>
+          <div style="text-align:right">
+            <div class="reajuste-val">+4,72% → R$ 1.832,60</div>
+            <div style="font-size:10px;color:var(--crit);margin-top:2px;font-weight:600">NOTIFICAR HOJE</div>
+          </div>
+        </div>
+        <div class="reajuste-item">
+          <div>
+            <div class="reajuste-days soon">21</div>
+            <div class="rd-unit" style="text-align:right">dias</div>
+          </div>
+          <div class="reajuste-info">
+            <div class="reajuste-ref">LOC-2026-005 · Residencial</div>
+            <div class="reajuste-meta">Marcio Luiz Farias · Início: 23/10/2025 · Índice: IPCA · R$ 2.400/mês</div>
+          </div>
+          <div style="text-align:right">
+            <div class="reajuste-val">+3,88% → R$ 2.493,12</div>
+            <div style="font-size:10px;color:var(--warn);margin-top:2px;font-weight:600">Notificar até 23/10</div>
+          </div>
+        </div>
+        <div class="reajuste-item">
+          <div>
+            <div class="reajuste-days ok">29</div>
+            <div class="rd-unit" style="text-align:right">dias</div>
+          </div>
+          <div class="reajuste-info">
+            <div class="reajuste-ref">LOC-2026-009 · Comercial</div>
+            <div class="reajuste-meta">Oficina Prática Ltda · Início: 01/11/2025 · Índice: IGP-M · R$ 4.800/mês</div>
+          </div>
+          <div style="text-align:right">
+            <div class="reajuste-val">+4,72% → R$ 5.026,56</div>
+            <div style="font-size:10px;color:var(--ok);margin-top:2px;font-weight:600">Notificar até 01/11</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header"><div class="section-title">Histórico de Reajustes Aplicados (2026)</div></div>
+      <div class="card">
+        <table style="width:100%;border-collapse:collapse;font-size:12px">
+          <thead>
+            <tr style="border-bottom:2px solid var(--border)">
+              <th style="text-align:left;padding:10px 20px;color:var(--fg-3);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Contrato</th>
+              <th style="text-align:left;padding:10px 20px;color:var(--fg-3);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Data</th>
+              <th style="text-align:left;padding:10px 20px;color:var(--fg-3);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Índice</th>
+              <th style="text-align:right;padding:10px 20px;color:var(--fg-3);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600">% Aplicado</th>
+              <th style="text-align:right;padding:10px 20px;color:var(--fg-3);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Valor Novo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 20px;font-weight:600">LOC-2026-003</td>
+              <td style="padding:10px 20px;color:var(--fg-2);font-variant-numeric:tabular-nums">05/08/2026</td>
+              <td style="padding:10px 20px">IGP-M</td>
+              <td style="padding:10px 20px;text-align:right;color:var(--ok);font-weight:600">+5,14%</td>
+              <td style="padding:10px 20px;text-align:right;font-weight:600;font-variant-numeric:tabular-nums">R$ 2.102,90</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 20px;font-weight:600">LOC-2026-001</td>
+              <td style="padding:10px 20px;color:var(--fg-2);font-variant-numeric:tabular-nums">12/07/2026</td>
+              <td style="padding:10px 20px">IPCA</td>
+              <td style="padding:10px 20px;text-align:right;color:var(--ok);font-weight:600">+4,20%</td>
+              <td style="padding:10px 20px;text-align:right;font-weight:600;font-variant-numeric:tabular-nums">R$ 1.659,00</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 20px;font-weight:600">LOC-2026-002</td>
+              <td style="padding:10px 20px;color:var(--fg-2);font-variant-numeric:tabular-nums">01/06/2026</td>
+              <td style="padding:10px 20px">IGP-M</td>
+              <td style="padding:10px 20px;text-align:right;color:var(--fg-3);font-weight:600">0,00%</td>
+              <td style="padding:10px 20px;text-align:right;font-weight:600;font-variant-numeric:tabular-nums;color:var(--fg-3)">R$ 3.200,00 (índice negativo — mantido)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══════════ INADIMPLÊNCIA ══════════ -->
+    <div id="sec-inadimplencia" hidden>
+      <div class="section-header">
+        <div class="section-title">Inadimplência e Pré-Despejo</div>
+      </div>
+      <div class="alert-bar" style="background:var(--crit-bg);border-color:rgba(192,40,30,.3)">
+        <svg class="alert-bar-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span class="alert-bar-text">LOC-2026-018 com 18 dias de atraso</span>
+        <span class="alert-bar-detail">Fase de notificação extrajudicial iniciada — emitir notificação via cartório ou Correios (AR) hoje (art. 62 Lei 8.245/91).</span>
+      </div>
+
+      <div class="two-col" style="margin-bottom:20px">
+        <div class="kpi-card">
+          <div class="kpi-label">Inadimplentes ativos</div>
+          <div class="kpi-value crit-c">2</div>
+          <div class="kpi-meta">Total em atraso: R$ 3.950,00</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Maior atraso</div>
+          <div class="kpi-value crit-c">18</div>
+          <div class="kpi-meta">dias — LOC-2026-018</div>
+        </div>
+      </div>
+
+      <div class="section-header"><div class="section-title">Contratos em Atraso</div></div>
+      <div class="card">
+        <div class="inad-item" style="background:var(--crit-bg)">
+          <div class="inad-dias">18</div>
+          <div class="inad-info">
+            <div class="inad-ref">LOC-2026-018 · Thiago Martins</div>
+            <div class="inad-meta">Vencimento: 14/09/2026 · Valor: R$ 2.200,00 · Imóvel: Rua XV de Nov., 842 apt 203</div>
+          </div>
+          <div>
+            <span class="inad-phase ip-notificacao">Notificação extrajudicial</span>
+            <div style="font-size:10px;color:var(--crit);margin-top:4px;font-weight:600;text-align:right">Alertas: 3d ✓ · 10d ✓ · 15d ✓</div>
+          </div>
+        </div>
+        <div class="inad-item">
+          <div class="inad-dias">7</div>
+          <div class="inad-info">
+            <div class="inad-ref">LOC-2026-020 · Beatriz Santos</div>
+            <div class="inad-meta">Vencimento: 25/09/2026 · Valor: R$ 1.750,00 · Imóvel: Av. Getúlio Vargas, 310 apt 12</div>
+          </div>
+          <div>
+            <span class="inad-phase ip-cobranca">Cobrança amigável</span>
+            <div style="font-size:10px;color:var(--warn);margin-top:4px;font-weight:600;text-align:right">Alertas: 3d ✓ · 10d pendente</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Asaas Sync -->
+      <div class="section-header" style="margin-top:24px">
+        <div class="section-title">Integração Asaas — Cobranças OVERDUE</div>
+        <button class="btn btn-sync" id="btn-asaas-sync" onclick="sincronizarAsaas()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="sync-icon"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Sincronizar Asaas
+        </button>
+      </div>
+      <div class="card" id="asaas-result" style="margin-bottom:20px">
+        <div style="padding:20px;text-align:center;color:var(--fg-3);font-size:13px">
+          <div style="font-size:28px;margin-bottom:8px">◈</div>
+          Clique em <b>Sincronizar Asaas</b> para buscar cobranças em atraso.<br>
+          <span style="font-size:11px;margin-top:6px;display:block">Endpoint: GET /payments?status=OVERDUE · access_token via backend proxy</span>
+        </div>
+      </div>
+
+      <div class="section-header"><div class="section-title">Protocolo de Inadimplência (Regra 92)</div></div>
+      <div class="card" style="padding:20px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--warn-bg);color:var(--warn);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3d</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--fg)">Alerta no Telegram (proprietário + gestor)</div><div style="font-size:12px;color:var(--fg-3);margin-top:2px">Cobrança amigável via WhatsApp para o locatário</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--warn-bg);color:var(--warn);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">10d</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--fg)">Escalonamento — gestor responsável</div><div style="font-size:12px;color:var(--fg-3);margin-top:2px">Segundo contato formal, registro em ata no Drive</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--crit-bg);color:var(--crit);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">15d</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--fg)">Notificação extrajudicial obrigatória</div><div style="font-size:12px;color:var(--fg-3);margin-top:2px">Cartório ou AR. Prazo: 15 dias para purga. Art. 62 Lei 8.245/91.</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--crit-bg);color:var(--crit);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">+30d</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--fg)">Ação de despejo — encaminhar ao advogado</div><div style="font-size:12px;color:var(--fg-3);margin-top:2px">Sem purga: encaminhar toda documentação ao jurídico externo</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ LEGISLAÇÃO ══════════ -->
+    <div id="sec-legislacao" hidden>
+      <div class="section-header">
+        <div class="section-title">Monitor Legislativo</div>
+        <span class="section-link">Próxima atualização: 06/10/2026</span>
+      </div>
+
+      <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px">
+        <div class="kpi-card">
+          <div class="kpi-label">Novidades na semana</div>
+          <div class="kpi-value brand">4</div>
+          <div class="kpi-meta">DOU, STJ, STF, CVM</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Impacto alto</div>
+          <div class="kpi-value crit-c">1</div>
+          <div class="kpi-meta">Portaria ICP-Brasil gratuita</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Regras impactadas</div>
+          <div class="kpi-value warn-c">3</div>
+          <div class="kpi-meta">Requer revisão de template</div>
+        </div>
+      </div>
+
+      <div class="section-header"><div class="section-title">Atualizações da Semana — 28/09 a 04/10/2026</div></div>
+      <div class="card">
+        <div class="legis-list">
+          <div class="legis-item">
+            <span class="legis-tag lt-portaria">Portaria</span>
+            <div class="legis-body">
+              <div class="legis-title">Portaria MGI nº 5.764/2026 — ICP-Brasil gratuito para PF</div>
+              <div class="legis-desc">Certificado digital A1 para pessoa física via SERPRO sem custo a partir de novembro/2026. Elimina barreira econômica para assinatura qualificada em contratos com financiamento bancário. Impacto direto no fluxo Clicksign para alienação fiduciária.</div>
+              <div class="legis-date">DOU 29/09/2026 · Fonte: gov.br/iti</div>
+              <div class="legis-impact li-alta">⚑ Impacto ALTO — revisar Regra 86 (tipo de assinatura) e Regra 88 (financiamento)</div>
+            </div>
+          </div>
+          <div class="legis-item">
+            <span class="legis-tag lt-sumula">Súmula STJ</span>
+            <div class="legis-body">
+              <div class="legis-title">STJ Súmula 677 — Caução em dobro não automática</div>
+              <div class="legis-desc">Restituição em dobro da caução (art. 38, §2º) exige cláusula contratual expressa ou ação judicial. Locadores não podem cobrar dobro sem previsão expressa no contrato.</div>
+              <div class="legis-date">Publicada DJe 25/09/2026 · Fonte: stj.jus.br</div>
+              <div class="legis-impact li-media">⚑ Impacto MÉDIO — atualizar template caução (Regra 37/38)</div>
+            </div>
+          </div>
+          <div class="legis-item">
+            <span class="legis-tag lt-instrucao">Instrução CVM</span>
+            <div class="legis-body">
+              <div class="legis-title">CVM Resolução 217/2026 — FII e locação comercial de longo prazo</div>
+              <div class="legis-desc">Fundos de Investimento Imobiliário com contratos de locação comercial acima de 60 meses passam a exigir cláusula arbitral obrigatória. Impacto em contratos onde locador é FII.</div>
+              <div class="legis-date">Publicada 30/09/2026 · Fonte: cvm.gov.br</div>
+              <div class="legis-impact li-media">⚑ Impacto MÉDIO — verificar locador em LOC-2026-022 (comercial, 60 meses)</div>
+            </div>
+          </div>
+          <div class="legis-item">
+            <span class="legis-tag lt-lei">Lei Federal</span>
+            <div class="legis-body">
+              <div class="legis-title">Sem alteração na Lei 8.245/91 ou 9.514/97 esta semana</div>
+              <div class="legis-desc">Nenhuma modificação legislativa federal nos diplomas-base de locação e alienação fiduciária. Regras 32–92 do SPEC permanecem válidas sem ajuste.</div>
+              <div class="legis-date">Monitorado até 02/10/2026</div>
+              <div class="legis-impact li-baixa">✓ Nenhum impacto — regras-base estáveis</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ ASSINATURAS ══════════ -->
+    <div id="sec-assinaturas" hidden>
+      <div class="section-header">
+        <div class="section-title">Assinaturas Digitais — Clicksign</div>
+      </div>
+      <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px">
+        <div class="kpi-card"><div class="kpi-label">Em Circulação</div><div class="kpi-value warn-c">5</div></div>
+        <div class="kpi-card"><div class="kpi-label">Parc. Assinado</div><div class="kpi-value warn-c">2</div></div>
+        <div class="kpi-card"><div class="kpi-label">Assinado (mês)</div><div class="kpi-value brand">6</div></div>
+        <div class="kpi-card"><div class="kpi-label">Expirados</div><div class="kpi-value crit-c">0</div></div>
+      </div>
+      <div class="section-header"><div class="section-title">Documentos em Circulação</div></div>
+      <div class="card">
+        <div class="contract-list">
+          <div class="contract-item">
+            <div class="contract-type-icon ct-locacao">📄</div>
+            <div class="contract-info">
+              <div class="contract-ref">LOC-2026-023 — Assinatura Avançada (Clicksign token)</div>
+              <div class="contract-parties">2 signatários: Mario Henrique ✓ · Fernanda Costa Lima ⏳</div>
+            </div>
+            <span class="status-pill s-parcial">1/2 assinado</span>
+            <div class="contract-date">Exp: 08/10</div>
+          </div>
+          <div class="contract-item">
+            <div class="contract-type-icon ct-locacao">📄</div>
+            <div class="contract-info">
+              <div class="contract-ref">LOC-2026-021 — Assinatura Avançada (Clicksign token)</div>
+              <div class="contract-parties">3 signatários: Construtora Nordeste ✓ · Carlos Eduardo B. ⏳ · Fiador ⏳</div>
+            </div>
+            <span class="status-pill s-parcial">1/3 assinado</span>
+            <div class="contract-date">Exp: 06/10</div>
+          </div>
+          <div class="contract-item">
+            <div class="contract-type-icon ct-compra">🏠</div>
+            <div class="contract-info">
+              <div class="contract-ref">CV-2026-007 — Assinatura Qualificada ICP-Brasil</div>
+              <div class="contract-parties">Aguardando ICP-Brasil das partes · Banco Inter · Família Kretzer</div>
+            </div>
+            <span class="status-pill s-aprovacao">Aguard. certificado</span>
+            <div class="contract-date">Exp: 15/10</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;padding:16px;background:var(--brand-light);border-radius:var(--radius-lg);border-left:4px solid var(--brand)">
+        <div style="font-size:13px;font-weight:600;color:var(--brand-dark);margin-bottom:6px">Regra 86 — Tipos de Assinatura por Documento (Lei 14.063/2020)</div>
+        <div style="font-size:12px;color:var(--fg-2);line-height:1.6">
+          <b>Locação residencial/comercial ordinária</b> → Assinatura Avançada (Clicksign token) — suficiente<br>
+          <b>Locação temporada</b> → Assinatura Avançada — suficiente<br>
+          <b>Promessa compra e venda s/ financiamento</b> → Assinatura Avançada ou Qualificada<br>
+          <b>Promessa c/v com financiamento bancário (alienação fiduciária)</b> → Assinatura Qualificada ICP-Brasil obrigatória (art. 4º, III)
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ CONFIGURAÇÕES ══════════ -->
+    <div id="sec-configuracoes" hidden>
+      <div class="section-header">
+        <div class="section-title">Integrações e Configurações</div>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="section-header"><div class="section-title">Integrações Ativas</div></div>
+          <div class="card">
+            <div class="integr-list">
+              <div class="integr-item">
+                <div class="integr-icon" style="background:#EDF3FB;color:#1464A4;font-size:18px;font-weight:700">cs</div>
+                <div style="flex:1">
+                  <div class="integr-name">Clicksign</div>
+                  <div class="integr-meta">Assinatura eletrônica · API v2 · 5 docs ativos</div>
+                </div>
+                <div class="dot ok"></div>
+                <span class="integr-status-text ok">Online</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:#EDF7F2;font-size:15px">▲</div>
+                <div style="flex:1">
+                  <div class="integr-name">Google Drive</div>
+                  <div class="integr-meta">Pasta: /Impar/Contratos · 147 arquivos</div>
+                </div>
+                <div class="dot ok"></div>
+                <span class="integr-status-text ok">Online</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:#EDF3FB;font-size:15px">✈</div>
+                <div style="flex:1">
+                  <div class="integr-name">Telegram Bot</div>
+                  <div class="integr-meta">@imparjuridico_bot · Canal de notificações</div>
+                </div>
+                <div class="dot ok"></div>
+                <span class="integr-status-text ok">Online</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:var(--brand-light);color:var(--brand-dark);font-size:12px;font-weight:700">G2</div>
+                <div style="flex:1">
+                  <div class="integr-name">Gemini 2.0 Flash</div>
+                  <div class="integr-meta">Revisão primária · 1ª instância de análise</div>
+                </div>
+                <div class="dot ok"></div>
+                <span class="integr-status-text ok">Online</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:var(--surface-2);font-size:11px;font-weight:700">Cl</div>
+                <div style="flex:1">
+                  <div class="integr-name">Claude (Anthropic)</div>
+                  <div class="integr-meta">Revisão dual · Aprovação final pré-humano</div>
+                </div>
+                <div class="dot ok"></div>
+                <span class="integr-status-text ok">Online</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:var(--warn-bg);font-size:13px">★</div>
+                <div style="flex:1">
+                  <div class="integr-name">Portal NFS-e Nacional</div>
+                  <div class="integr-meta">gov.br/nfse · Emissão de notas — Token expirando</div>
+                </div>
+                <div class="dot warn"></div>
+                <span class="integr-status-text warn">Token expira em 3d</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:#FFF3E0;color:#E65100;font-size:11px;font-weight:700">As</div>
+                <div style="flex:1">
+                  <div class="integr-name">Asaas</div>
+                  <div class="integr-meta">Cobrança · Boletos e Pix · OVERDUE monitoring</div>
+                </div>
+                <div class="dot ok"></div>
+                <span class="integr-status-text ok">Online</span>
+              </div>
+              <div class="integr-item">
+                <div class="integr-icon" style="background:var(--surface-2);color:var(--fg-3);font-size:11px;font-weight:700">Lf</div>
+                <div style="flex:1">
+                  <div class="integr-name">Loft</div>
+                  <div class="integr-meta">Cobrança · Integração não configurada</div>
+                </div>
+                <div class="dot off"></div>
+                <span class="integr-status-text off" style="cursor:pointer" onclick="toast('ℹ️ Configure as credenciais Loft em .env — caminho não encontrado no projeto','warn-toast')">Configurar</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="section-header"><div class="section-title">Configurações da Imobiliária</div></div>
+          <div class="card" style="padding:20px">
+            <div style="display:flex;flex-direction:column;gap:14px;font-size:13px">
+              <div><div style="font-size:10px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Razão Social</div><div style="font-weight:600">Impar Imóveis SC Ltda</div></div>
+              <div><div style="font-size:10px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">CNPJ</div><div style="font-family:'JetBrains Mono',monospace">50.886.299/0001-00</div></div>
+              <div><div style="font-size:10px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">CRECI</div><div style="font-family:'JetBrains Mono',monospace">8359-J · SC</div></div>
+              <div><div style="font-size:10px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Comarca Base</div><div>Joinville/SC · Foro eleição padrão: Joinville</div></div>
+              <div><div style="font-size:10px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Lado Padrão</div><div>Locador (representa o proprietário)</div></div>
+              <div><div style="font-size:10px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Índice de Reajuste</div><div>IGP-M (padrão) · IPCA (a pedido)</div></div>
+              <div><div style="font-size:10px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Garantia Preferida</div><div>Fiança · Caução (até 3 aluguéis)</div></div>
+              <div><div style="font-size:10px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Honorários (padrão)</div><div>6% venda · 10% permuta · 1 mês locação</div></div>
+              <div style="padding-top:8px;border-top:1px solid var(--border)">
+                <div style="font-size:10px;font-weight:600;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Versão do Sistema</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg-2)">SPEC v3.0 · 92 regras ativas<br>Kit Piloto Automático V30<br>Monitor Legislativo: semana 40/2026</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;padding:16px;background:var(--surface-2);border-radius:var(--radius-lg);border:1px solid var(--border)">
+        <div style="font-size:12px;color:var(--fg-3);line-height:1.6">
+          <b style="color:var(--fg)">Guardrails do sistema (invioláveis):</b> Todo output é rascunho para revisão humana — nunca aconselhamento jurídico. Sempre citar artigo da Lei 8.245/91 ou norma aplicável. Divulgar comarca assumida. Na dúvida entre leituras, adotar a mais conservadora para o lado padrão. Aprovação humana obrigatória antes de qualquer envio ao Clicksign.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<div class="toast-container" id="toast-container"></div>
+<div id="drawer-root"></div>
+
+<script>
+/* ─── navigation ─── */
+const sections = ['dashboard','contratos','pendencias','reajuste','inadimplencia','legislacao','assinaturas','configuracoes'];
+const titles = {
+  dashboard:     ['Painel Geral','Dashboard'],
+  contratos:     ['Contratos','Contratos'],
+  pendencias:    ['Pendências','Central de Pendências'],
+  reajuste:      ['Reajustes','Controle de Reajustes'],
+  inadimplencia: ['Inadimplência','Inadimplência e Pré-Despejo'],
+  legislacao:    ['Monitor Legislativo','Monitor Legislativo'],
+  assinaturas:   ['Assinaturas','Assinaturas Digitais'],
+  configuracoes: ['Configurações','Integrações e Configurações'],
+};
+const navMap = {
+  dashboard:0, contratos:1, pendencias:2, reajuste:3,
+  inadimplencia:4, legislacao:5, assinaturas:6, configuracoes:7
+};
+
+function showSection(name) {
+  sections.forEach(s => {
+    const el = document.getElementById('sec-' + s);
+    if (el) el.hidden = (s !== name);
+  });
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  const navItems = document.querySelectorAll('.nav-item');
+  if (navItems[navMap[name]]) navItems[navMap[name]].classList.add('active');
+  const t = titles[name] || [name, name];
+  document.getElementById('topbar-title').textContent = t[0];
+  document.getElementById('topbar-breadcrumb').textContent = t[1];
+  document.getElementById('main-content').scrollTop = 0;
+}
+
+/* ─── pipeline filter ─── */
+function goToPipeline(stage) {
+  showSection('contratos');
+  const chip = document.getElementById('contratos-filter-chip');
+  // highlight matching rows, dim others
+  document.querySelectorAll('#sec-contratos .contract-item').forEach(item => {
+    const st = item.dataset.status || '';
+    const match = st.toLowerCase().includes(stage.toLowerCase()) || stage === 'Arquivado' && st === 'Arquivado';
+    item.style.opacity = match ? '1' : '0.28';
+  });
+  if (chip) {
+    chip.innerHTML = `<button class="filter-chip" onclick="clearPipelineFilter(event)">
+      ${stage} <span style="font-size:13px;line-height:1;margin-left:2px">×</span>
+    </button>`;
+  }
+  toast(`📋 Filtrado por: ${stage}`, 'brand-toast');
+}
+function clearPipelineFilter(e) {
+  if (e) e.stopPropagation();
+  document.querySelectorAll('#sec-contratos .contract-item').forEach(item => item.style.opacity = '');
+  const chip = document.getElementById('contratos-filter-chip');
+  if (chip) chip.innerHTML = '';
+}
+
+/* ─── tab switching ─── */
+document.querySelectorAll('.tabs').forEach(tabGroup => {
+  tabGroup.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabGroup.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+});
+
+/* ─── toast ─── */
+function toast(msg, type = '', dur = 3000) {
+  const c = document.getElementById('toast-container');
+  if (!c) return;
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  c.appendChild(el);
+  setTimeout(() => {
+    el.classList.add('removing');
+    setTimeout(() => el.remove(), 220);
+  }, dur);
+}
+
+/* ─── topbar buttons ─── */
+function showAlertas() {
+  toast('⚠️ LOC-2026-018: 18 dias inadimplente — notificação extrajudicial urgente', 'crit-toast', 5000);
+  setTimeout(() => toast('⚠️ Vistoria pendente no LOC-2026-011 — prazo legal ultrapassado', 'warn-toast', 5000), 400);
+}
+function novoContrato() {
+  toast('📄 Formulário de novo contrato aberto no SPEC v3.0', 'brand-toast');
+}
+
+/* ─── finalizados — reset mensal ─── */
+function loadFinalizados() {
+  const now = new Date();
+  const monthKey = now.getFullYear() + '-' + (now.getMonth() + 1);
+  const months = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const monthName = months[now.getMonth()];
+  const label = document.getElementById('kpi-fin-label');
+  const val = document.getElementById('kpi-finalizados');
+  const meta = document.getElementById('kpi-fin-meta');
+  if (label) label.textContent = `Finalizados (${monthName})`;
+  try {
+    const stored = JSON.parse(localStorage.getItem('impar_juridico_finalizados') || 'null');
+    let count = 0;
+    if (stored && stored.month === monthKey) {
+      count = stored.count;
+    } else {
+      localStorage.setItem('impar_juridico_finalizados', JSON.stringify({month: monthKey, count: 0}));
+    }
+    if (val) val.textContent = count;
+    const next = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+    const dd = String(next.getDate()).padStart(2,'0');
+    const mm = String(next.getMonth() + 1).padStart(2,'0');
+    if (meta) meta.textContent = `Reinicia em ${dd}/${mm}/${next.getFullYear()}`;
+  } catch(e) {
+    if (val) val.textContent = '0';
+  }
+}
+loadFinalizados();
+
+/* ─── contract detail drawer ─── */
+function openContract(ref, tipo, parte1, parte2, valor, prazo, status, data, endereco) {
+  closeDrawer();
+  const root = document.getElementById('drawer-root');
+  const statusColors = {
+    'Clicksign':'s-clicksign','Aguard. Aprovação':'s-aprovacao',
+    'Em Revisão IA':'s-revisao','Parc. Assinado':'s-parcial',
+    'Assinado':'s-assinado','Arquivado':'s-arquivado','Inadimplente ⚠':'',
+  };
+  const pillClass = statusColors[status] || 's-aprovacao';
+  root.innerHTML = `
+    <div class="drawer-overlay" onclick="closeDrawer()" id="drawer-overlay">
+      <div class="drawer" onclick="event.stopPropagation()">
+        <div class="drawer-header">
+          <div>
+            <div class="drawer-title">${ref}</div>
+            <div style="margin-top:4px"><span class="status-pill ${pillClass}">${status}</span></div>
+          </div>
+          <button class="drawer-close" onclick="closeDrawer()">×</button>
+        </div>
+        <div class="drawer-field"><div class="drawer-label">Tipo</div><div class="drawer-value">${tipo}</div></div>
+        <div class="drawer-field"><div class="drawer-label">Parte 1 (Locador/Vendedor)</div><div class="drawer-value">${parte1}</div></div>
+        <div class="drawer-field"><div class="drawer-label">Parte 2 (Locatário/Comprador)</div><div class="drawer-value">${parte2}</div></div>
+        <div class="drawer-divider"></div>
+        <div class="drawer-field"><div class="drawer-label">Valor</div><div class="drawer-value" style="color:var(--brand);font-size:15px;font-weight:700">${valor}</div></div>
+        <div class="drawer-field"><div class="drawer-label">Prazo / Duração</div><div class="drawer-value">${prazo}</div></div>
+        <div class="drawer-field"><div class="drawer-label">Data</div><div class="drawer-value">${data}</div></div>
+        <div class="drawer-field"><div class="drawer-label">Imóvel</div><div class="drawer-value">${endereco}</div></div>
+        <div class="drawer-divider"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="toast('📤 Abrindo no Clicksign…','brand-toast');closeDrawer()">Abrir no Clicksign</button>
+          <button class="btn btn-ghost" onclick="toast('📁 Abrindo no Google Drive…','ok-toast');closeDrawer()">Ver no Drive</button>
+          <button class="btn btn-ghost" onclick="toast('📋 Referência ${ref} copiada','ok-toast');closeDrawer()">Copiar ref.</button>
+        </div>
+      </div>
+    </div>`;
+}
+function closeDrawer() {
+  const root = document.getElementById('drawer-root');
+  if (root) root.innerHTML = '';
+}
+
+/* ─── Asaas simulation ─── */
+const ASAAS_MOCK = [
+  { id:'pay_891234567890', customer:'cus_loc018_thiago', name:'Thiago Martins', value:2200.00, dueDate:'2026-09-14', status:'OVERDUE', billingType:'BOLETO', diasAtraso:18, ref:'LOC-2026-018' },
+  { id:'pay_891234567891', customer:'cus_loc020_beatriz', name:'Beatriz Santos',  value:1750.00, dueDate:'2026-09-25', status:'OVERDUE', billingType:'PIX',    diasAtraso:7,  ref:'LOC-2026-020' },
+];
+
+function sincronizarAsaas() {
+  const btn = document.getElementById('btn-asaas-sync');
+  const result = document.getElementById('asaas-result');
+  if (!btn || !result) return;
+  btn.classList.add('syncing');
+  btn.innerHTML = `<span class="spin-icon">↻</span> Sincronizando…`;
+  result.innerHTML = `<div style="padding:24px;text-align:center;color:var(--fg-3);font-size:13px">
+    <span class="spin-icon" style="font-size:22px;display:block;margin-bottom:10px">↻</span>
+    Buscando GET /payments?status=OVERDUE…
+  </div>`;
+
+  setTimeout(() => {
+    btn.classList.remove('syncing');
+    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="sync-icon"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Sincronizar Asaas`;
+
+    const rows = ASAAS_MOCK.map(p => {
+      const cor = p.diasAtraso >= 15 ? 'style="background:var(--crit-bg)"' : '';
+      const fase = p.diasAtraso >= 15 ? '<span class="asaas-tag overdue">Notificação extrajudicial</span>'
+                                      : '<span class="asaas-tag" style="background:var(--warn-bg);color:var(--warn)">Cobrança amigável</span>';
+      return `<div class="asaas-row" ${cor}>
+        <div class="inad-dias">${p.diasAtraso}</div>
+        <div class="inad-info">
+          <div class="inad-ref">${p.ref} · ${p.name}</div>
+          <div class="inad-meta">Vencimento: ${p.dueDate} · ${p.billingType}</div>
+          <div class="asaas-id">${p.id} · ${p.customer}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          <div class="asaas-val">R$ ${p.value.toFixed(2).replace('.',',')}</div>
+          ${fase}
+        </div>
+      </div>`;
+    }).join('');
+
+    const now = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    result.innerHTML = `
+      <div style="padding:10px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px">
+        <div class="dot ok"></div>
+        <span style="font-size:12px;font-weight:600;color:var(--ok)">Asaas sincronizado</span>
+        <span style="font-size:11px;color:var(--fg-3);margin-left:auto">Atualizado às ${now} · ${ASAAS_MOCK.length} cobrança(s) OVERDUE</span>
+      </div>
+      ${rows}
+      <div style="padding:8px 20px;font-size:10px;color:var(--fg-3);border-top:1px solid var(--border)">
+        ⚠ Dados simulados — em produção requer backend proxy com ASAAS_API_KEY (CORS + segurança). Endpoint real: GET ${'{ASAAS_BASE_URL}'}/payments?status=OVERDUE
+      </div>`;
+    toast(`✓ Asaas: ${ASAAS_MOCK.length} cobranças OVERDUE encontradas`, 'ok-toast');
+  }, 1600);
+}
+</script>

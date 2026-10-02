@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ímpar Studio</title>
+<title>IMPAR STUDIO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap">
 <style>
@@ -25,328 +25,447 @@
   color-scheme: dark;
 }
 
-/* ── Reset & base ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
-html, body { height: 100%; font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5 }
-img { max-width: 100% }
-button { cursor: pointer; font-family: inherit }
-input, select, textarea { font-family: inherit }
-::-webkit-scrollbar { width: 6px; height: 6px }
-::-webkit-scrollbar-track { background: var(--bg2) }
-::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 3px }
-::-webkit-scrollbar-thumb:hover { background: var(--gold-dk) }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
+img{max-width:100%}
+button{cursor:pointer;font-family:inherit}
+input,select,textarea{font-family:inherit}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--dim);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-dk)}
 
-/* ── Layout ── */
-.app { display: flex; flex-direction: column; height: 100%; overflow: hidden }
+.app{display:flex;flex-direction:column;height:100%;overflow:hidden}
 
 /* Header */
-.header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 28px; height: 60px; flex-shrink: 0;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg);
-  position: sticky; top: 0; z-index: 100;
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;height:60px;flex-shrink:0;
+  border-bottom:1px solid var(--border);
+  background:var(--bg);position:sticky;top:0;z-index:100;
 }
-.logo {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 22px; font-weight: 300; letter-spacing: .2em;
-  color: var(--text); text-transform: uppercase;
-  display: flex; align-items: center; gap: 10px;
+.logo{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:22px;font-weight:300;letter-spacing:.2em;
+  color:var(--text);text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
 }
-.logo-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0 }
-.logo-sub { font-size: 10px; letter-spacing: .25em; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 400 }
-.header-actions { display: flex; align-items: center; gap: 12px }
+.logo-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.logo-sub{font-size:10px;letter-spacing:.25em;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400}
 
-/* Main columns */
-.main { flex: 1; display: grid; grid-template-columns: 1fr 340px; overflow: hidden; gap: 0 }
+/* Tab bar */
+.tab-bar{
+  display:flex;align-items:center;gap:0;
+  border-bottom:1px solid var(--border);
+  background:var(--bg2);flex-shrink:0;
+  padding:0 28px;
+}
+.tab-btn{
+  padding:13px 20px;font-size:12px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);background:none;border:none;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:7px;
+}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-icon{font-size:14px}
 
-/* Left panel */
-.panel-left {
-  display: flex; flex-direction: column; overflow: hidden;
-  border-right: 1px solid var(--border);
-}
-.panel-section {
-  padding: 24px 28px;
-  border-bottom: 1px solid var(--border);
-}
-.panel-section:last-child { border-bottom: none; flex: 1; overflow: hidden; display: flex; flex-direction: column }
-.section-label {
-  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 16px; font-weight: 500;
-}
-
-/* Drop zone */
-.dropzone {
-  border: 1.5px dashed var(--border-hi);
-  border-radius: 12px;
-  padding: 36px 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: all .2s;
-  background: var(--bg2);
-  position: relative;
-}
-.dropzone:hover, .dropzone.drag-over {
-  border-color: var(--gold);
-  background: rgba(200,164,69,.04);
-}
-.dropzone input[type=file] {
-  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-}
-.drop-icon { font-size: 28px; margin-bottom: 12px }
-.drop-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--text); margin-bottom: 4px }
-.drop-sub { font-size: 12px; color: var(--muted) }
-.drop-gold { color: var(--gold) }
-
-/* Photo grid */
-.photo-grid {
-  flex: 1; overflow-y: auto;
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px; padding: 4px 0 12px;
-}
-.photo-card {
-  background: var(--bg2); border-radius: 10px; overflow: hidden;
-  border: 1.5px solid var(--border);
-  transition: border-color .2s, transform .15s;
-  position: relative;
-}
-.photo-card:hover { border-color: var(--border-hi); transform: translateY(-2px) }
-.photo-card.selected { border-color: var(--gold) }
-.photo-thumb {
-  width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block;
-  background: var(--bg3);
-}
-.photo-meta { padding: 8px 10px 10px }
-.photo-num {
-  font-size: 10px; font-weight: 600; letter-spacing: .12em; color: var(--gold);
-  margin-bottom: 6px; text-transform: uppercase;
-}
-.photo-name { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 8px }
-.movement-sel {
-  width: 100%; background: var(--bg3); border: 1px solid var(--border);
-  color: var(--text); font-size: 11px; padding: 5px 8px; border-radius: 6px;
-  appearance: none; cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C8A445'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 8px center;
-  padding-right: 24px;
-}
-.movement-sel:focus { outline: none; border-color: var(--gold) }
-.photo-remove {
-  position: absolute; top: 6px; right: 6px; width: 22px; height: 22px;
-  background: rgba(0,0,0,.6); border: none; border-radius: 50%;
-  color: #fff; font-size: 13px; display: none;
-  align-items: center; justify-content: center; line-height: 1;
-  backdrop-filter: blur(4px);
-}
-.photo-card:hover .photo-remove { display: flex }
-.photo-remove:hover { background: var(--error) }
-
-/* Empty state */
-.empty-state {
-  flex: 1; display: flex; flex-direction: column; align-items: center;
-  justify-content: center; gap: 8px; color: var(--muted); text-align: center;
-  padding: 40px;
-}
-.empty-state svg { opacity: .3; margin-bottom: 8px }
-.empty-state h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--dim) }
-.empty-state p { font-size: 12px }
-
-/* Right panel */
-.panel-right {
-  display: flex; flex-direction: column; overflow-y: auto;
-  gap: 0;
-}
-.settings-section {
-  padding: 22px 24px;
-  border-bottom: 1px solid var(--border);
-}
-.settings-section:last-child { border-bottom: none }
-.setting-label {
-  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--muted); font-weight: 500; margin-bottom: 14px;
-}
-
-/* Chip groups */
-.chip-group { display: flex; flex-wrap: wrap; gap: 8px }
-.chip {
-  padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
-  border: 1.5px solid var(--border); background: var(--bg2); color: var(--muted);
-  cursor: pointer; transition: all .15s; white-space: nowrap;
-}
-.chip:hover { border-color: var(--border-hi); color: var(--text) }
-.chip.active { border-color: var(--gold); background: rgba(200,164,69,.1); color: var(--gold) }
-.chip-icon { margin-right: 5px }
-
-/* Format cards */
-.format-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px }
-.format-card {
-  border: 1.5px solid var(--border); background: var(--bg2);
-  border-radius: 10px; padding: 12px 8px; text-align: center;
-  cursor: pointer; transition: all .15s;
-}
-.format-card:hover { border-color: var(--border-hi) }
-.format-card.active { border-color: var(--gold); background: rgba(200,164,69,.07) }
-.format-icon {
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 8px;
-}
-.fmt-rect {
-  background: var(--dim); border-radius: 2px;
-  transition: background .15s;
-}
-.format-card.active .fmt-rect { background: var(--gold) }
-.fmt-landscape { width: 36px; height: 20px }
-.fmt-portrait  { width: 18px; height: 32px }
-.fmt-square    { width: 26px; height: 26px }
-.format-name { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
-.format-card.active .format-name { color: var(--gold) }
-
-/* Inputs */
-.field { margin-bottom: 12px }
-.field:last-child { margin-bottom: 0 }
-.field label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 6px; letter-spacing: .05em }
-.field input, .field textarea {
-  width: 100%; background: var(--bg2); border: 1px solid var(--border);
-  color: var(--text); font-size: 13px; padding: 9px 12px; border-radius: 8px;
-  transition: border-color .15s; resize: none;
-}
-.field input:focus, .field textarea:focus { outline: none; border-color: var(--gold) }
-.field input::placeholder, .field textarea::placeholder { color: var(--dim) }
-.field textarea { min-height: 56px; line-height: 1.4 }
-
-/* Music upload */
-.music-zone {
-  border: 1px solid var(--border); border-radius: 8px;
-  padding: 12px 14px; display: flex; align-items: center; gap: 12px;
-  background: var(--bg2); cursor: pointer; transition: border-color .15s;
-  position: relative; overflow: hidden;
-}
-.music-zone:hover { border-color: var(--border-hi) }
-.music-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer }
-.music-icon { font-size: 20px; flex-shrink: 0 }
-.music-info { flex: 1; min-width: 0 }
-.music-name { font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
-.music-hint { font-size: 11px; color: var(--muted) }
-
-/* Generate button area */
-.generate-section {
-  padding: 20px 24px;
-  border-top: 1px solid var(--border);
-  background: var(--bg); position: sticky; bottom: 0;
-}
-.btn-generate {
-  width: 100%; padding: 15px; border-radius: 10px;
-  background: linear-gradient(135deg, var(--gold-dk), var(--gold), var(--gold-lt));
-  background-size: 200% 100%; background-position: right;
-  border: none; color: #0a0900; font-family: 'Cormorant Garamond', serif;
-  font-size: 17px; font-weight: 600; letter-spacing: .1em;
-  cursor: pointer; transition: all .3s; display: flex; align-items: center;
-  justify-content: center; gap: 10px;
-}
-.btn-generate:hover:not(:disabled) {
-  background-position: left;
-  box-shadow: 0 6px 24px rgba(200,164,69,.35);
-  transform: translateY(-1px);
-}
-.btn-generate:disabled { opacity: .4; cursor: not-allowed; transform: none }
-.gen-icon { font-size: 16px }
-.photo-count { font-size: 11px; color: var(--muted); text-align: center; margin-top: 8px }
-
-/* Progress overlay */
-.overlay {
-  position: fixed; inset: 0; background: rgba(9,9,15,.9);
-  backdrop-filter: blur(8px); z-index: 200;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity .3s;
-}
-.overlay.active { opacity: 1; pointer-events: all }
-.progress-card {
-  background: var(--bg2); border: 1px solid var(--border-hi);
-  border-radius: 20px; padding: 48px 40px; width: min(480px, 90vw); text-align: center;
-}
-.progress-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 13px; letter-spacing: .3em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 32px;
-}
-.progress-msg {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px; font-weight: 300; color: var(--text);
-  margin-bottom: 28px; min-height: 60px;
-  display: flex; align-items: center; justify-content: center;
-}
-.progress-bar-wrap {
-  height: 3px; background: var(--bg3); border-radius: 2px; overflow: hidden;
-  margin-bottom: 24px; position: relative;
-}
-.progress-bar-fill {
-  height: 100%; background: linear-gradient(90deg, var(--gold-dk), var(--gold), var(--gold-lt));
-  border-radius: 2px; transition: width .4s ease; width: 0%;
-  box-shadow: 0 0 8px var(--gold);
-}
-.progress-pct { font-size: 11px; color: var(--muted); letter-spacing: .1em }
-
-/* Done state */
-.done-card { display: none }
-.done-card.active { display: block }
-.done-icon { font-size: 48px; margin-bottom: 16px }
-.done-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 28px; font-weight: 300; color: var(--text); margin-bottom: 8px;
-}
-.done-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px }
-.btn-download {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 13px 28px; border-radius: 8px;
-  background: var(--gold); border: none; color: #0a0900;
-  font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px;
-  cursor: pointer; transition: all .2s; margin-bottom: 12px;
-  text-decoration: none;
-}
-.btn-download:hover { background: var(--gold-lt); transform: translateY(-1px) }
-.btn-novo {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 11px 24px; border-radius: 8px;
-  background: transparent; border: 1px solid var(--border-hi); color: var(--text);
-  font-size: 13px; cursor: pointer; transition: all .2s; margin-left: 10px;
-}
-.btn-novo:hover { border-color: var(--gold); color: var(--gold) }
-
-/* Error state */
-.error-msg { color: var(--error); font-size: 13px; margin-top: 12px }
+/* Tab panels */
+.tab-panel{display:none;flex:1;overflow:hidden}
+.tab-panel.active{display:flex;flex-direction:column;overflow:hidden}
 
 /* Stats bar */
-.stats-bar {
-  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-  padding: 12px 28px; border-bottom: 1px solid var(--border);
-  background: var(--bg2); flex-shrink: 0;
+.stats-bar{
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  padding:12px 28px;border-bottom:1px solid var(--border);
+  background:var(--bg2);flex-shrink:0;
 }
-.stat { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted) }
-.stat strong { color: var(--gold); font-variant-numeric: tabular-nums }
+.stat{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.stat strong{color:var(--gold);font-variant-numeric:tabular-nums}
 
-/* Scrollable grid area */
-.grid-scroll { flex: 1; overflow-y: auto; padding: 0 28px 24px }
+/* Main columns (video tab) */
+.main{flex:1;display:grid;grid-template-columns:1fr 340px;overflow:hidden;gap:0}
+
+/* Left panel */
+.panel-left{display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--border)}
+.panel-section{padding:24px 28px;border-bottom:1px solid var(--border)}
+.panel-section:last-child{border-bottom:none;flex:1;overflow:hidden;display:flex;flex-direction:column}
+.section-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;font-weight:500}
+
+/* Drop zone */
+.dropzone{
+  border:1.5px dashed var(--border-hi);border-radius:12px;
+  padding:36px 20px;text-align:center;cursor:pointer;
+  transition:all .2s;background:var(--bg2);position:relative;
+}
+.dropzone:hover,.dropzone.drag-over{border-color:var(--gold);background:rgba(200,164,69,.04)}
+.dropzone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.drop-icon{font-size:28px;margin-bottom:12px}
+.drop-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--text);margin-bottom:4px}
+.drop-sub{font-size:12px;color:var(--muted)}
+.drop-gold{color:var(--gold)}
+
+/* Photo grid */
+.photo-grid{
+  flex:1;overflow-y:auto;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:12px;padding:4px 28px 24px;
+}
+.photo-card{
+  background:var(--bg2);border-radius:10px;overflow:hidden;
+  border:1.5px solid var(--border);transition:border-color .2s,transform .15s;
+  position:relative;
+}
+.photo-card:hover{border-color:var(--border-hi);transform:translateY(-2px)}
+.photo-thumb{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:var(--bg3)}
+.photo-meta{padding:8px 10px 10px}
+.photo-num{font-size:10px;font-weight:600;letter-spacing:.12em;color:var(--gold);margin-bottom:6px;text-transform:uppercase}
+.photo-name{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:8px}
+.movement-sel{
+  width:100%;background:var(--bg3);border:1px solid var(--border);
+  color:var(--text);font-size:11px;padding:5px 8px;border-radius:6px;
+  appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C8A445'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;
+}
+.movement-sel:focus{outline:none;border-color:var(--gold)}
+.photo-remove{
+  position:absolute;top:6px;right:6px;width:22px;height:22px;
+  background:rgba(0,0,0,.6);border:none;border-radius:50%;
+  color:#fff;font-size:13px;display:none;
+  align-items:center;justify-content:center;line-height:1;
+  backdrop-filter:blur(4px);
+}
+.photo-card:hover .photo-remove{display:flex}
+.photo-remove:hover{background:var(--error)}
+
+/* Empty state */
+.empty-state{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8px;color:var(--muted);text-align:center;padding:40px;
+}
+.empty-state svg{opacity:.3;margin-bottom:8px}
+.empty-state h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--dim)}
+.empty-state p{font-size:12px}
+
+/* Right panel (video) */
+.panel-right{display:flex;flex-direction:column;overflow-y:auto}
+.settings-section{padding:22px 24px;border-bottom:1px solid var(--border)}
+.settings-section:last-child{border-bottom:none}
+.setting-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:14px}
+
+/* Chip groups */
+.chip-group{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  padding:7px 14px;border-radius:20px;font-size:12px;font-weight:500;
+  border:1.5px solid var(--border);background:var(--bg2);color:var(--muted);
+  cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.chip:hover{border-color:var(--border-hi);color:var(--text)}
+.chip.active{border-color:var(--gold);background:rgba(200,164,69,.1);color:var(--gold)}
+
+/* Format cards */
+.format-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.format-card{
+  border:1.5px solid var(--border);background:var(--bg2);
+  border-radius:10px;padding:12px 8px;text-align:center;
+  cursor:pointer;transition:all .15s;
+}
+.format-card:hover{border-color:var(--border-hi)}
+.format-card.active{border-color:var(--gold);background:rgba(200,164,69,.07)}
+.format-icon{display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.fmt-rect{background:var(--dim);border-radius:2px;transition:background .15s}
+.format-card.active .fmt-rect{background:var(--gold)}
+.fmt-landscape{width:36px;height:20px}
+.fmt-portrait{width:18px;height:32px}
+.fmt-square{width:26px;height:26px}
+.format-name{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.format-card.active .format-name{color:var(--gold)}
+
+/* Inputs */
+.field{margin-bottom:12px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:6px;letter-spacing:.05em}
+.field input,.field textarea{
+  width:100%;background:var(--bg2);border:1px solid var(--border);
+  color:var(--text);font-size:13px;padding:9px 12px;border-radius:8px;
+  transition:border-color .15s;resize:none;
+}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--gold)}
+.field input::placeholder,.field textarea::placeholder{color:var(--dim)}
+.field textarea{min-height:56px;line-height:1.4}
+
+/* Music upload */
+.music-zone{
+  border:1px solid var(--border);border-radius:8px;
+  padding:12px 14px;display:flex;align-items:center;gap:12px;
+  background:var(--bg2);cursor:pointer;transition:border-color .15s;
+  position:relative;overflow:hidden;
+}
+.music-zone:hover{border-color:var(--border-hi)}
+.music-zone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.music-icon{font-size:20px;flex-shrink:0}
+.music-info{flex:1;min-width:0}
+.music-name{font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-hint{font-size:11px;color:var(--muted)}
+
+/* Generate button (video) */
+.generate-section{
+  padding:20px 24px;border-top:1px solid var(--border);
+  background:var(--bg);position:sticky;bottom:0;
+}
+.btn-generate{
+  width:100%;padding:15px;border-radius:10px;
+  background:linear-gradient(135deg,var(--gold-dk),var(--gold),var(--gold-lt));
+  background-size:200% 100%;background-position:right;
+  border:none;color:#0a0900;font-family:'Cormorant Garamond',serif;
+  font-size:17px;font-weight:600;letter-spacing:.1em;
+  cursor:pointer;transition:all .3s;display:flex;align-items:center;
+  justify-content:center;gap:10px;
+}
+.btn-generate:hover:not(:disabled){
+  background-position:left;
+  box-shadow:0 6px 24px rgba(200,164,69,.35);
+  transform:translateY(-1px);
+}
+.btn-generate:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.photo-count{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
+
+/* Progress overlay */
+.overlay{
+  position:fixed;inset:0;background:rgba(9,9,15,.9);
+  backdrop-filter:blur(8px);z-index:200;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.overlay.active{opacity:1;pointer-events:all}
+.progress-card{
+  background:var(--bg2);border:1px solid var(--border-hi);
+  border-radius:20px;padding:48px 40px;width:min(480px,90vw);text-align:center;
+}
+.progress-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:32px;
+}
+.progress-msg{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:300;color:var(--text);
+  margin-bottom:28px;min-height:60px;
+  display:flex;align-items:center;justify-content:center;
+}
+.progress-bar-wrap{
+  height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;
+  margin-bottom:24px;
+}
+.progress-bar-fill{
+  height:100%;background:linear-gradient(90deg,var(--gold-dk),var(--gold),var(--gold-lt));
+  border-radius:2px;transition:width .4s ease;width:0%;
+  box-shadow:0 0 8px var(--gold);
+}
+.progress-pct{font-size:11px;color:var(--muted);letter-spacing:.1em}
+.done-card{display:none}
+.done-card.active{display:block}
+.done-icon{font-size:48px;margin-bottom:16px}
+.done-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--text);margin-bottom:8px}
+.done-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
+.btn-download{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 28px;border-radius:8px;
+  background:var(--gold);border:none;color:#0a0900;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:14px;
+  cursor:pointer;transition:all .2s;margin-bottom:12px;text-decoration:none;
+}
+.btn-download:hover{background:var(--gold-lt);transform:translateY(-1px)}
+.btn-novo{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 24px;border-radius:8px;
+  background:transparent;border:1px solid var(--border-hi);color:var(--text);
+  font-size:13px;cursor:pointer;transition:all .2s;margin-left:10px;
+}
+.btn-novo:hover{border-color:var(--gold);color:var(--gold)}
+.error-msg{color:var(--error);font-size:13px;margin-top:12px}
+
+/* ══════════════════════════════════════════════════
+   IMAGE STUDIO
+   ══════════════════════════════════════════════════ */
+.is-main{
+  flex:1;display:grid;grid-template-columns:320px 1fr;overflow:hidden;
+}
+.is-sidebar{
+  border-right:1px solid var(--border);overflow-y:auto;
+  display:flex;flex-direction:column;
+}
+.is-section{padding:20px 24px;border-bottom:1px solid var(--border)}
+.is-section:last-child{border-bottom:none}
+.is-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:12px}
+
+/* Room grid */
+.room-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.room-card{
+  border:1.5px solid var(--border);background:var(--bg2);
+  border-radius:10px;padding:12px 10px;text-align:center;
+  cursor:pointer;transition:all .15s;
+}
+.room-card:hover{border-color:var(--border-hi)}
+.room-card.active{border-color:var(--gold);background:rgba(200,164,69,.07)}
+.room-emoji{font-size:20px;margin-bottom:5px}
+.room-name{font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.04em}
+.room-card.active .room-name{color:var(--gold)}
+
+/* Style chips */
+.style-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.style-chip{
+  padding:8px 12px;border-radius:8px;font-size:11px;font-weight:500;
+  border:1.5px solid var(--border);background:var(--bg2);color:var(--muted);
+  cursor:pointer;transition:all .15s;text-align:center;letter-spacing:.03em;
+}
+.style-chip:hover{border-color:var(--border-hi);color:var(--text)}
+.style-chip.active{border-color:var(--gold);background:rgba(200,164,69,.1);color:var(--gold)}
+
+/* Lighting row */
+.light-row{display:flex;gap:7px;flex-wrap:wrap}
+.light-btn{
+  flex:1;min-width:0;padding:8px 6px;border-radius:8px;font-size:11px;font-weight:500;
+  border:1.5px solid var(--border);background:var(--bg2);color:var(--muted);
+  cursor:pointer;transition:all .15s;text-align:center;white-space:nowrap;
+}
+.light-btn:hover{border-color:var(--border-hi);color:var(--text)}
+.light-btn.active{border-color:var(--gold);background:rgba(200,164,69,.1);color:var(--gold)}
+
+/* Is generate btn */
+.is-gen-wrap{padding:16px 24px;border-top:1px solid var(--border);background:var(--bg);position:sticky;bottom:0}
+.btn-is-gen{
+  width:100%;padding:14px;border-radius:10px;
+  background:linear-gradient(135deg,var(--gold-dk),var(--gold),var(--gold-lt));
+  background-size:200% 100%;background-position:right;
+  border:none;color:#0a0900;font-family:'Cormorant Garamond',serif;
+  font-size:16px;font-weight:600;letter-spacing:.1em;
+  cursor:pointer;transition:all .3s;display:flex;align-items:center;
+  justify-content:center;gap:8px;
+}
+.btn-is-gen:hover{background-position:left;box-shadow:0 6px 24px rgba(200,164,69,.35);transform:translateY(-1px)}
+.btn-is-gen:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+/* Is content area */
+.is-content{overflow-y:auto;display:flex;flex-direction:column;gap:0}
+
+/* Prompt display */
+.prompt-area{padding:24px 28px;border-bottom:1px solid var(--border)}
+.prompt-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.prompt-title{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.btn-copy{
+  padding:5px 14px;border-radius:6px;font-size:11px;font-weight:500;
+  border:1px solid var(--border-hi);background:transparent;color:var(--gold);
+  cursor:pointer;transition:all .15s;
+}
+.btn-copy:hover{background:rgba(200,164,69,.1)}
+.btn-copy.copied{color:var(--success);border-color:var(--success)}
+.prompt-box{
+  background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  padding:16px;font-size:12px;color:var(--text);line-height:1.7;
+  font-family:'Inter',monospace;letter-spacing:.01em;
+  white-space:pre-wrap;word-break:break-word;max-height:120px;overflow-y:auto;
+}
+
+/* Extras input */
+.extras-row{display:flex;gap:8px;margin-top:14px;align-items:flex-end}
+.extras-row input{
+  flex:1;background:var(--bg2);border:1px solid var(--border);
+  color:var(--text);font-size:12px;padding:8px 12px;border-radius:8px;
+  transition:border-color .15s;
+}
+.extras-row input:focus{outline:none;border-color:var(--gold)}
+.extras-row input::placeholder{color:var(--dim)}
+.extras-row label{font-size:10px;color:var(--muted);display:block;margin-bottom:4px;letter-spacing:.04em}
+
+/* Tools row */
+.tools-row{padding:20px 28px;border-bottom:1px solid var(--border)}
+.tools-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:12px}
+.tools-chips{display:flex;gap:8px;flex-wrap:wrap}
+.tool-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:8px;font-size:11px;font-weight:500;
+  border:1px solid var(--border);background:var(--bg2);color:var(--muted);
+  cursor:pointer;text-decoration:none;transition:all .15s;
+}
+.tool-chip:hover{border-color:var(--gold);color:var(--gold);background:rgba(200,164,69,.06)}
+
+/* Images gallery */
+.is-gallery{padding:24px 28px;flex:1}
+.gallery-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:16px}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.img-card{
+  background:var(--bg2);border-radius:12px;overflow:hidden;
+  border:1.5px solid var(--border);transition:all .2s;
+  position:relative;cursor:pointer;
+}
+.img-card:hover{border-color:var(--border-hi);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.img-thumb{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:var(--bg3)}
+.img-footer{padding:8px 12px;display:flex;align-items:center;justify-content:space-between}
+.img-room{font-size:11px;color:var(--muted)}
+.img-style{font-size:10px;color:var(--gold)}
+.img-dl-btn{
+  position:absolute;top:8px;right:8px;padding:4px 10px;
+  border-radius:6px;background:rgba(9,9,15,.8);border:1px solid var(--border-hi);
+  color:var(--gold);font-size:10px;cursor:pointer;
+  opacity:0;transition:opacity .15s;backdrop-filter:blur(4px);
+}
+.img-card:hover .img-dl-btn{opacity:1}
+
+/* Empty gallery */
+.gallery-empty{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;padding:60px 40px;color:var(--muted);text-align:center;
+}
+.gallery-empty h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--dim)}
+.gallery-empty p{font-size:12px;max-width:280px;line-height:1.6}
+
+/* Generating state */
+.is-generating{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;padding:60px 40px;text-align:center;
+}
+.gen-spinner{
+  width:40px;height:40px;border-radius:50%;
+  border:2px solid var(--border);border-top-color:var(--gold);
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-status{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--text)}
+.gen-sub{font-size:12px;color:var(--muted)}
+
+/* API status badge */
+.api-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:20px;font-size:10px;font-weight:500;
+  letter-spacing:.05em;
+}
+.api-badge.online{background:rgba(76,175,122,.12);border:1px solid rgba(76,175,122,.3);color:var(--success)}
+.api-badge.offline{background:rgba(200,164,69,.08);border:1px solid var(--border-hi);color:var(--gold)}
+.api-dot{width:5px;height:5px;border-radius:50%}
+.api-badge.online .api-dot{background:var(--success)}
+.api-badge.offline .api-dot{background:var(--gold)}
 
 /* Responsive */
-@media (max-width: 760px) {
-  .main { grid-template-columns: 1fr; grid-template-rows: auto 1fr }
-  .panel-right { max-height: 60vh; overflow-y: auto; border-right: none; border-top: 1px solid var(--border) }
-  .photo-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) }
-  .header { padding: 0 16px }
-  .panel-section, .settings-section { padding-inline: 16px }
-  .generate-section { padding-inline: 16px }
-  .grid-scroll { padding-inline: 16px }
+@media(max-width:900px){
+  .main{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .panel-right{max-height:55vh;overflow-y:auto;border-right:none;border-top:1px solid var(--border)}
+  .is-main{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .is-sidebar{max-height:55vh;border-right:none;border-bottom:1px solid var(--border)}
 }
-
-/* Shimmer animation */
-@keyframes shimmer {
-  0%   { background-position: -200% 0 }
-  100% { background-position: 200% 0 }
-}
-.shimmer {
-  background: linear-gradient(90deg, var(--bg3) 25%, var(--dim) 50%, var(--bg3) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
+@media(max-width:600px){
+  .header{padding:0 16px}
+  .tab-bar{padding:0 16px}
+  .stats-bar{padding:10px 16px}
+  .panel-section{padding-inline:16px}
+  .settings-section{padding-inline:16px}
+  .generate-section{padding-inline:16px}
+  .is-section{padding-inline:16px}
+  .is-gen-wrap{padding-inline:16px}
+  .prompt-area,.tools-row,.is-gallery{padding-inline:16px}
+  .photo-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));padding-inline:16px}
 }
 </style>
 </head>
@@ -357,179 +476,347 @@ input, select, textarea { font-family: inherit }
   <header class="header">
     <div class="logo">
       <div class="logo-dot"></div>
-      ÍMPAR
+      IMPAR
       <span class="logo-sub">STUDIO</span>
     </div>
-    <div class="header-actions">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="stat" id="api-status-wrap" style="display:none">
+        <span class="api-badge offline" id="api-badge">
+          <span class="api-dot"></span>
+          <span id="api-badge-text">Sem API</span>
+        </span>
+      </span>
       <span class="stat"><strong id="hdr-count">0</strong> fotos</span>
     </div>
   </header>
 
-  <!-- Stats bar -->
-  <div class="stats-bar">
-    <div class="stat">Formato <strong id="stat-fmt">Paisagem</strong></div>
-    <div class="stat">Resolução <strong id="stat-res">FHD 1080p</strong></div>
-    <div class="stat">Duração estimada <strong id="stat-dur">—</strong></div>
-    <div class="stat">Movimentos <strong id="stat-mov">Automático</strong></div>
-  </div>
+  <!-- Tab bar -->
+  <nav class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('video',this)">
+      <span class="tab-icon">🎬</span> Video
+    </button>
+    <button class="tab-btn" onclick="switchTab('image',this)">
+      <span class="tab-icon">✨</span> Image Studio
+    </button>
+  </nav>
 
-  <!-- Main -->
-  <div class="main">
+  <!-- ═══════════════════════════════════
+       TAB: VIDEO
+       ═══════════════════════════════════ -->
+  <div class="tab-panel active" id="tab-video">
 
-    <!-- ── Left panel ── -->
-    <div class="panel-left">
+    <!-- Stats bar -->
+    <div class="stats-bar">
+      <div class="stat">Formato <strong id="stat-fmt">Paisagem</strong></div>
+      <div class="stat">Resolução <strong id="stat-res">FHD 1080p</strong></div>
+      <div class="stat">Duração estimada <strong id="stat-dur">—</strong></div>
+      <div class="stat">Movimentos <strong id="stat-mov">Automático</strong></div>
+    </div>
 
-      <!-- Upload zone -->
-      <div class="panel-section">
-        <div class="section-label">Fotos do imóvel</div>
-        <div class="dropzone" id="dropzone">
-          <input type="file" id="file-input" multiple accept=".jpg,.jpeg,.png,.webp">
-          <div class="drop-icon">🏠</div>
-          <div class="drop-title">Arraste as fotos aqui</div>
-          <div class="drop-sub">ou <span class="drop-gold">clique para selecionar</span> · JPG, PNG até 500 MB</div>
+    <div class="main">
+
+      <!-- Left panel -->
+      <div class="panel-left">
+        <div class="panel-section">
+          <div class="section-label">Fotos do imóvel</div>
+          <div class="dropzone" id="dropzone">
+            <input type="file" id="file-input" multiple accept=".jpg,.jpeg,.png,.webp">
+            <div class="drop-icon">🏠</div>
+            <div class="drop-title">Arraste as fotos aqui</div>
+            <div class="drop-sub">ou <span class="drop-gold">clique para selecionar</span> · JPG, PNG até 500 MB</div>
+          </div>
+        </div>
+
+        <div class="panel-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+          <div class="section-label" id="grid-label" style="display:none">
+            Organizar &amp; configurar movimentos
+          </div>
+          <div class="empty-state" id="empty-state">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <rect x="6" y="12" width="36" height="26" rx="3" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="17" cy="22" r="4" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M6 32l10-8 8 6 6-4 12 12" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            <h3>Nenhuma foto ainda</h3>
+            <p>Faça upload para começar</p>
+          </div>
+          <div class="photo-grid" id="photo-grid" style="display:none"></div>
         </div>
       </div>
 
-      <!-- Photo grid -->
-      <div class="panel-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
-        <div class="section-label" id="grid-label" style="display:none">
-          Organizar &amp; configurar movimentos
+      <!-- Right panel -->
+      <div class="panel-right">
+        <div class="settings-section">
+          <div class="setting-label">Formato de saída</div>
+          <div class="format-grid">
+            <div class="format-card active" data-fmt="landscape" onclick="selectFmt(this)">
+              <div class="format-icon"><div class="fmt-rect fmt-landscape"></div></div>
+              <div class="format-name">Paisagem</div>
+            </div>
+            <div class="format-card" data-fmt="portrait" onclick="selectFmt(this)">
+              <div class="format-icon"><div class="fmt-rect fmt-portrait"></div></div>
+              <div class="format-name">Retrato</div>
+            </div>
+            <div class="format-card" data-fmt="square" onclick="selectFmt(this)">
+              <div class="format-icon"><div class="fmt-rect fmt-square"></div></div>
+              <div class="format-name">Quadrado</div>
+            </div>
+          </div>
         </div>
-        <div class="empty-state" id="empty-state">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <rect x="6" y="12" width="36" height="26" rx="3" stroke="currentColor" stroke-width="1.5"/>
-            <circle cx="17" cy="22" r="4" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M6 32l10-8 8 6 6-4 12 12" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-          <h3>Nenhuma foto ainda</h3>
-          <p>Faça upload para começar</p>
+
+        <div class="settings-section">
+          <div class="setting-label">Resolução</div>
+          <div class="chip-group" id="res-group">
+            <div class="chip" data-res="hd" onclick="selectRes(this)">HD 720p</div>
+            <div class="chip active" data-res="fhd" onclick="selectRes(this)">FHD 1080p</div>
+            <div class="chip" data-res="4k" onclick="selectRes(this)">4K Ultra</div>
+          </div>
         </div>
-        <div class="photo-grid grid-scroll" id="photo-grid" style="display:none"></div>
+
+        <div class="settings-section">
+          <div class="setting-label">Trilha sonora</div>
+          <label class="music-zone">
+            <input type="file" id="music-input" accept=".mp3,.aac,.m4a,.wav">
+            <span class="music-icon">🎵</span>
+            <div class="music-info">
+              <div class="music-name" id="music-name">Nenhuma selecionada</div>
+              <div class="music-hint">MP3, AAC, M4A — opcional</div>
+            </div>
+          </label>
+        </div>
+
+        <div class="settings-section">
+          <div class="setting-label">Slide de encerramento</div>
+          <div class="field">
+            <label>Título do imóvel</label>
+            <input type="text" id="titulo" placeholder="Ex: Apartamento 3 Quartos">
+          </div>
+          <div class="field">
+            <label>Detalhes</label>
+            <input type="text" id="subtitulo" placeholder="Ex: Centro · 120m² · R$ 850.000">
+          </div>
+          <div class="field">
+            <label>Chamada para ação</label>
+            <input type="text" id="cta" placeholder="Ex: Fale com um corretor" value="Fale com um corretor Impar">
+          </div>
+        </div>
+
+        <div class="generate-section">
+          <button class="btn-generate" id="btn-gen" onclick="startGenerate()" disabled>
+            <span>⚡</span> Gerar vídeo
+          </button>
+          <div class="photo-count" id="photo-count">Adicione fotos para continuar</div>
+        </div>
       </div>
 
     </div>
+  </div>
 
-    <!-- ── Right panel ── -->
-    <div class="panel-right">
+  <!-- ═══════════════════════════════════
+       TAB: IMAGE STUDIO
+       ═══════════════════════════════════ -->
+  <div class="tab-panel" id="tab-image">
+    <div class="is-main">
 
-      <!-- Formato -->
-      <div class="settings-section">
-        <div class="setting-label">Formato de saída</div>
-        <div class="format-grid">
-          <div class="format-card active" data-fmt="landscape" onclick="selectFmt(this)">
-            <div class="format-icon"><div class="fmt-rect fmt-landscape"></div></div>
-            <div class="format-name">Paisagem</div>
+      <!-- Sidebar: config -->
+      <div class="is-sidebar">
+
+        <div class="is-section">
+          <div class="is-label">Ambiente</div>
+          <div class="room-grid" id="room-grid">
+            <div class="room-card active" data-room="sala" onclick="selectRoom(this)">
+              <div class="room-emoji">🛋</div>
+              <div class="room-name">Sala de Estar</div>
+            </div>
+            <div class="room-card" data-room="cozinha" onclick="selectRoom(this)">
+              <div class="room-emoji">🍳</div>
+              <div class="room-name">Cozinha</div>
+            </div>
+            <div class="room-card" data-room="suite" onclick="selectRoom(this)">
+              <div class="room-emoji">🛏</div>
+              <div class="room-name">Suíte Master</div>
+            </div>
+            <div class="room-card" data-room="quarto" onclick="selectRoom(this)">
+              <div class="room-emoji">🚪</div>
+              <div class="room-name">Quarto</div>
+            </div>
+            <div class="room-card" data-room="banheiro" onclick="selectRoom(this)">
+              <div class="room-emoji">🚿</div>
+              <div class="room-name">Banheiro</div>
+            </div>
+            <div class="room-card" data-room="varanda" onclick="selectRoom(this)">
+              <div class="room-emoji">🏙</div>
+              <div class="room-name">Varanda</div>
+            </div>
+            <div class="room-card" data-room="gourmet" onclick="selectRoom(this)">
+              <div class="room-emoji">🍖</div>
+              <div class="room-name">Área Gourmet</div>
+            </div>
+            <div class="room-card" data-room="fachada" onclick="selectRoom(this)">
+              <div class="room-emoji">🏢</div>
+              <div class="room-name">Fachada</div>
+            </div>
           </div>
-          <div class="format-card" data-fmt="portrait" onclick="selectFmt(this)">
-            <div class="format-icon"><div class="fmt-rect fmt-portrait"></div></div>
-            <div class="format-name">Retrato</div>
+        </div>
+
+        <div class="is-section">
+          <div class="is-label">Estilo</div>
+          <div class="style-grid" id="style-grid">
+            <div class="style-chip active" data-style="moderno" onclick="selectStyle(this)">Moderno</div>
+            <div class="style-chip" data-style="minimalista" onclick="selectStyle(this)">Minimalista</div>
+            <div class="style-chip" data-style="escandinavo" onclick="selectStyle(this)">Escandinavo</div>
+            <div class="style-chip" data-style="classico" onclick="selectStyle(this)">Clássico</div>
+            <div class="style-chip" data-style="industrial" onclick="selectStyle(this)">Industrial</div>
+            <div class="style-chip" data-style="luxo" onclick="selectStyle(this)">Ultra Luxo</div>
           </div>
-          <div class="format-card" data-fmt="square" onclick="selectFmt(this)">
-            <div class="format-icon"><div class="fmt-rect fmt-square"></div></div>
-            <div class="format-name">Quadrado</div>
+        </div>
+
+        <div class="is-section">
+          <div class="is-label">Iluminação</div>
+          <div class="light-row" id="light-row">
+            <button class="light-btn active" data-light="natural" onclick="selectLight(this)">☀ Natural</button>
+            <button class="light-btn" data-light="ambar" onclick="selectLight(this)">🌅 Âmbar</button>
+            <button class="light-btn" data-light="profissional" onclick="selectLight(this)">💡 Studio</button>
+            <button class="light-btn" data-light="noturno" onclick="selectLight(this)">🌙 Noturno</button>
           </div>
         </div>
-      </div>
 
-      <!-- Resolução -->
-      <div class="settings-section">
-        <div class="setting-label">Resolução</div>
-        <div class="chip-group" id="res-group">
-          <div class="chip" data-res="hd" onclick="selectRes(this)">HD 720p</div>
-          <div class="chip active" data-res="fhd" onclick="selectRes(this)">FHD 1080p</div>
-          <div class="chip" data-res="4k" onclick="selectRes(this)">4K Ultra</div>
-        </div>
-      </div>
-
-      <!-- Trilha sonora -->
-      <div class="settings-section">
-        <div class="setting-label">Trilha sonora</div>
-        <label class="music-zone">
-          <input type="file" id="music-input" accept=".mp3,.aac,.m4a,.wav">
-          <span class="music-icon">🎵</span>
-          <div class="music-info">
-            <div class="music-name" id="music-name">Nenhuma selecionada</div>
-            <div class="music-hint">MP3, AAC, M4A — opcional</div>
+        <div class="is-section">
+          <div class="is-label">Quantidade</div>
+          <div class="chip-group" id="qty-group">
+            <div class="chip active" data-qty="1" onclick="selectQty(this)">1 imagem</div>
+            <div class="chip" data-qty="2" onclick="selectQty(this)">2 imagens</div>
+            <div class="chip" data-qty="4" onclick="selectQty(this)">4 imagens</div>
           </div>
-        </label>
+        </div>
+
+        <div style="flex:1"></div>
+
+        <div class="is-gen-wrap">
+          <button class="btn-is-gen" onclick="generateImages()">
+            <span>✨</span> Gerar imagens
+          </button>
+        </div>
+
       </div>
 
-      <!-- Slide final -->
-      <div class="settings-section">
-        <div class="setting-label">Slide de encerramento</div>
-        <div class="field">
-          <label>Título do imóvel</label>
-          <input type="text" id="titulo" placeholder="Ex: Apartamento 3 Quartos">
-        </div>
-        <div class="field">
-          <label>Detalhes</label>
-          <input type="text" id="subtitulo" placeholder="Ex: Centro · 120m² · R$ 850.000">
-        </div>
-        <div class="field">
-          <label>Chamada para ação</label>
-          <input type="text" id="cta" placeholder="Ex: Fale com um corretor" value="Fale com um corretor Ímpar">
-        </div>
-      </div>
+      <!-- Content: prompt + gallery -->
+      <div class="is-content">
 
-      <!-- Generate -->
-      <div class="generate-section">
-        <button class="btn-generate" id="btn-gen" onclick="startGenerate()" disabled>
-          <span class="gen-icon">⚡</span>
-          Gerar vídeo
-        </button>
-        <div class="photo-count" id="photo-count">Adicione fotos para continuar</div>
-      </div>
+        <!-- Prompt preview -->
+        <div class="prompt-area">
+          <div class="prompt-header">
+            <span class="prompt-title">Prompt gerado</span>
+            <button class="btn-copy" id="btn-copy" onclick="copyPrompt()">Copiar</button>
+          </div>
+          <div class="prompt-box" id="prompt-box">—</div>
+          <div class="extras-row">
+            <div style="flex:1">
+              <label>Detalhes adicionais (opcional)</label>
+              <input type="text" id="is-extras" placeholder="Ex: piscina ao fundo, vista para o mar, mármore" oninput="updatePrompt()">
+            </div>
+          </div>
+        </div>
 
+        <!-- Tools row (sem API) -->
+        <div class="tools-row" id="tools-row">
+          <div class="tools-label">Colar em ferramentas de IA</div>
+          <div class="tools-chips">
+            <a class="tool-chip" href="https://www.midjourney.com" target="_blank">
+              <span>🎨</span> Midjourney
+            </a>
+            <a class="tool-chip" href="https://leonardo.ai" target="_blank">
+              <span>🖌</span> Leonardo.ai
+            </a>
+            <a class="tool-chip" href="https://ideogram.ai" target="_blank">
+              <span>💡</span> Ideogram
+            </a>
+            <a class="tool-chip" href="https://www.bing.com/images/create" target="_blank">
+              <span>🔷</span> Bing Create
+            </a>
+          </div>
+        </div>
+
+        <!-- Gallery -->
+        <div class="is-gallery">
+          <div class="gallery-label">Imagens geradas</div>
+          <div id="is-gallery-content">
+            <div class="gallery-empty">
+              <svg width="56" height="56" viewBox="0 0 56 56" fill="none" opacity=".3">
+                <rect x="4" y="12" width="48" height="36" rx="4" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="18" cy="24" r="5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M4 38l14-10 10 8 8-6 16 18" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+              <h3>Nenhuma imagem ainda</h3>
+              <p>Configure o ambiente, estilo e iluminação, depois clique em Gerar imagens.</p>
+              <p style="margin-top:8px;color:var(--gold);font-size:11px">Configure REPLICATE_API_TOKEN no .env para gerar via API, ou copie o prompt e use nas ferramentas acima.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-</div>
 
-<!-- ── Progress overlay ── -->
+</div><!-- .app -->
+
+<!-- Progress overlay (video) -->
 <div class="overlay" id="overlay">
   <div class="progress-card" id="progress-card">
-    <div class="progress-logo">Ímpar Studio</div>
+    <div class="progress-logo">IMPAR STUDIO</div>
     <div class="progress-msg" id="prog-msg">Iniciando geração...</div>
     <div class="progress-bar-wrap">
       <div class="progress-bar-fill" id="prog-bar"></div>
     </div>
     <div class="progress-pct"><span id="prog-pct">0</span>%</div>
   </div>
-
   <div class="progress-card done-card" id="done-card">
     <div class="done-icon">✅</div>
     <div class="done-title">Vídeo pronto!</div>
     <div class="done-sub" id="done-sub">Seu vídeo foi gerado com sucesso.</div>
     <div>
-      <a class="btn-download" id="btn-dl" href="#" download>
-        ⬇ Baixar vídeo
-      </a>
+      <a class="btn-download" id="btn-dl" href="#">⬇ Baixar vídeo</a>
       <button class="btn-novo" onclick="resetAll()">+ Novo vídeo</button>
     </div>
   </div>
 </div>
 
 <script>
-// ── State ──────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════
+// SHARED
+// ══════════════════════════════════════════════════
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  if (name === 'image') {
+    updatePrompt();
+    checkApiStatus();
+  }
+}
+
+// ══════════════════════════════════════════════════
+// VIDEO TAB
+// ══════════════════════════════════════════════════
 let sessionId   = null;
-let photos      = [];   // [{name, url, movement}]
+let photos      = [];
 let formato     = 'landscape';
 let resolucao   = 'fhd';
 let musicFile   = null;
-let musicPath   = null;
 let currentJobId = null;
 
 const MOVIMENTOS = [
-  { val: 'tilt_up',   label: '↑ Tilt Up',   desc: 'Câmera sobe' },
-  { val: 'dolly_in',  label: '→ Dolly In',  desc: 'Aproxima' },
-  { val: 'pan_right', label: '→ Pan Direita', desc: 'Pan horizontal' },
-  { val: 'dolly_out', label: '← Dolly Out', desc: 'Afasta' },
-  { val: 'tilt_down', label: '↓ Tilt Down', desc: 'Câmera desce' },
-  { val: 'pan_left',  label: '← Pan Esquerda', desc: 'Pan horizontal' },
-  { val: 'static',    label: '· Estático',   desc: 'Respiração suave' },
+  { val: 'tilt_up',   label: '↑ Tilt Up' },
+  { val: 'dolly_in',  label: '→ Dolly In' },
+  { val: 'pan_right', label: '→ Pan Direita' },
+  { val: 'dolly_out', label: '← Dolly Out' },
+  { val: 'tilt_down', label: '↓ Tilt Down' },
+  { val: 'pan_left',  label: '← Pan Esquerda' },
+  { val: 'static',    label: '· Estático' },
 ];
 const AUTO_CYCLE = ['tilt_up','dolly_in','pan_right','dolly_out','tilt_down','pan_left'];
 
-// ── Upload ────────────────────────────────────────────────────────────────
 const dropzone  = document.getElementById('dropzone');
 const fileInput = document.getElementById('file-input');
 
@@ -548,24 +835,18 @@ document.getElementById('music-input').addEventListener('change', e => {
 
 async function handleFiles(files) {
   if (!files || !files.length) return;
-
   const fd = new FormData();
   if (sessionId) fd.append('session_id', sessionId);
   let count = 0;
   for (const f of files) {
-    if (/\.(jpe?g|png|webp)$/i.test(f.name)) {
-      fd.append('photos', f);
-      count++;
-    }
+    if (/\.(jpe?g|png|webp)$/i.test(f.name)) { fd.append('photos', f); count++; }
   }
   if (!count) return;
 
-  // Local preview immediately
   const localPreviews = {};
   for (const f of files) {
-    if (/\.(jpe?g|png|webp)$/i.test(f.name)) {
+    if (/\.(jpe?g|png|webp)$/i.test(f.name))
       localPreviews[f.name] = await readFileURL(f);
-    }
   }
 
   const res  = await fetch('/api/upload', { method: 'POST', body: fd });
@@ -589,11 +870,10 @@ function readFileURL(file) {
   });
 }
 
-// ── Grid ────────────────────────────────────────────────────────────────
 function renderGrid() {
-  const grid   = document.getElementById('photo-grid');
-  const empty  = document.getElementById('empty-state');
-  const label  = document.getElementById('grid-label');
+  const grid  = document.getElementById('photo-grid');
+  const empty = document.getElementById('empty-state');
+  const label = document.getElementById('grid-label');
 
   if (!photos.length) {
     grid.style.display  = 'none';
@@ -601,7 +881,6 @@ function renderGrid() {
     label.style.display = 'none';
     return;
   }
-
   grid.style.display  = 'grid';
   empty.style.display = 'none';
   label.style.display = 'block';
@@ -611,7 +890,6 @@ function renderGrid() {
     const opts = MOVIMENTOS.map(m =>
       `<option value="${m.val}" ${p.movement===m.val?'selected':''}>${m.label}</option>`
     ).join('');
-
     const card = document.createElement('div');
     card.className = 'photo-card';
     card.innerHTML = `
@@ -619,7 +897,7 @@ function renderGrid() {
       <div class="photo-meta">
         <div class="photo-num">Foto ${i+1}</div>
         <div class="photo-name" title="${p.name}">${p.name}</div>
-        <select class="movement-sel" onchange="setMovement(${i}, this.value)">${opts}</select>
+        <select class="movement-sel" onchange="setMovement(${i},this.value)">${opts}</select>
       </div>
       <button class="photo-remove" onclick="removePhoto(${i})" title="Remover">×</button>
     `;
@@ -627,14 +905,12 @@ function renderGrid() {
   });
 
   document.getElementById('btn-gen').disabled = false;
-  document.getElementById('photo-count').textContent = `${photos.length} foto${photos.length!==1?'s':''} · clique em Gerar`;
+  document.getElementById('photo-count').textContent =
+    `${photos.length} foto${photos.length!==1?'s':''} · clique em Gerar`;
   document.getElementById('hdr-count').textContent = photos.length;
 }
 
-function setMovement(idx, val) {
-  photos[idx].movement = val;
-  updateStats();
-}
+function setMovement(idx, val) { photos[idx].movement = val; updateStats(); }
 
 function removePhoto(idx) {
   photos.splice(idx, 1);
@@ -647,7 +923,6 @@ function removePhoto(idx) {
   }
 }
 
-// ── Settings ───────────────────────────────────────────────────────────
 function selectFmt(el) {
   document.querySelectorAll('.format-card').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
@@ -663,38 +938,26 @@ function selectRes(el) {
 }
 
 function updateStats() {
-  const fmtMap = { landscape: 'Paisagem 16:9', portrait: 'Retrato 9:16', square: 'Quadrado 1:1' };
-  const resMap = { hd: 'HD 720p', fhd: 'FHD 1080p', '4k': '4K Ultra' };
+  const fmtMap = { landscape:'Paisagem 16:9', portrait:'Retrato 9:16', square:'Quadrado 1:1' };
+  const resMap = { hd:'HD 720p', fhd:'FHD 1080p', '4k':'4K Ultra' };
   document.getElementById('stat-fmt').textContent = fmtMap[formato] || formato;
   document.getElementById('stat-res').textContent = resMap[resolucao] || resolucao;
-
   const dur = photos.length * 4 + (document.getElementById('titulo').value ? 3.5 : 0);
   document.getElementById('stat-dur').textContent = photos.length ? `~${dur.toFixed(0)}s` : '—';
-
   const unique = [...new Set(photos.map(p => p.movement))];
   document.getElementById('stat-mov').textContent = unique.length <= 2
     ? unique.map(m => MOVIMENTOS.find(x=>x.val===m)?.label || m).join(', ')
     : `${unique.length} tipos`;
 }
 
-// ── Generate ──────────────────────────────────────────────────────────
 async function startGenerate() {
   if (!photos.length || !sessionId) return;
 
-  // Upload music if selected
-  if (musicFile) {
-    const fd = new FormData();
-    fd.append('session_id', sessionId);
-    fd.append('photos', musicFile);
-    // We'll pass the path directly from the server
-  }
-
   const payload = {
-    session_id:     sessionId,
-    fotos_ordem:    photos.map(p => p.name),
+    session_id:       sessionId,
+    fotos_ordem:      photos.map(p => p.name),
     movimentos_lista: photos.map(p => p.movement),
-    formato,
-    resolucao,
+    formato, resolucao,
     titulo:    document.getElementById('titulo').value,
     subtitulo: document.getElementById('subtitulo').value,
     cta:       document.getElementById('cta').value,
@@ -702,11 +965,11 @@ async function startGenerate() {
 
   const res  = await fetch('/api/generate', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {'Content-Type':'application/json'},
     body: JSON.stringify(payload),
   });
   const data = await res.json();
-  if (!data.ok) return alert('Erro ao iniciar geração: ' + data.error);
+  if (!data.ok) { alert('Erro ao iniciar geração: ' + data.error); return; }
 
   currentJobId = data.job_id;
   showProgress();
@@ -721,23 +984,18 @@ function showProgress() {
 
 function watchProgress(jobId) {
   const es = new EventSource(`/api/progress/${jobId}`);
-
   es.onmessage = e => {
     const job = JSON.parse(e.data);
     document.getElementById('prog-msg').textContent = job.message || '...';
     document.getElementById('prog-bar').style.width  = (job.progress || 0) + '%';
     document.getElementById('prog-pct').textContent  = job.progress || 0;
-
-    if (job.status === 'done') {
-      es.close();
-      showDone(job);
-    } else if (job.status === 'error') {
+    if (job.status === 'done') { es.close(); showDone(job); }
+    else if (job.status === 'error') {
       es.close();
       document.getElementById('prog-msg').innerHTML =
         `<span style="color:var(--error)">Erro: ${job.message}</span>`;
     }
   };
-
   es.onerror = () => es.close();
 }
 
@@ -745,31 +1003,243 @@ function showDone(job) {
   document.getElementById('progress-card').style.display = 'none';
   document.getElementById('done-card').style.display = 'block';
   document.getElementById('done-sub').textContent = job.message;
-
   const dl = document.getElementById('btn-dl');
   dl.href = `/api/download/${job.output}`;
-  dl.setAttribute('download', 'impar_video.mp4');
-  dl.onclick = e => {
-    e.preventDefault();
-    window.location.href = dl.href;
-  };
+  dl.onclick = e => { e.preventDefault(); window.location.href = dl.href; };
 }
 
 function resetAll() {
-  photos = [];
-  sessionId = null;
-  currentJobId = null;
+  photos = []; sessionId = null; currentJobId = null;
   document.getElementById('overlay').classList.remove('active');
   document.getElementById('file-input').value = '';
   document.getElementById('music-input').value = '';
   document.getElementById('music-name').textContent = 'Nenhuma selecionada';
   document.getElementById('hdr-count').textContent = '0';
-  renderGrid();
-  updateStats();
+  renderGrid(); updateStats();
 }
 
-// init
+// ══════════════════════════════════════════════════
+// IMAGE STUDIO
+// ══════════════════════════════════════════════════
+let isRoom    = 'sala';
+let isStyle   = 'moderno';
+let isLight   = 'natural';
+let isQty     = 1;
+let isApiReady = false;
+let isImages  = [];
+
+const ROOM_MAP = {
+  sala:     'modern living room with sofa and open space',
+  cozinha:  'gourmet kitchen with marble countertops and island',
+  suite:    'master bedroom suite with large windows',
+  quarto:   'cozy bedroom with closet and natural light',
+  banheiro: 'luxury bathroom with freestanding tub and walk-in shower',
+  varanda:  'balcony terrace with city panoramic view',
+  gourmet:  'outdoor gourmet barbecue area with pergola',
+  fachada:  'modern residential building facade with landscaping',
+};
+
+const STYLE_MAP = {
+  moderno:     'modern contemporary design with clean lines',
+  minimalista: 'ultra minimalist design, simple forms, negative space',
+  escandinavo: 'scandinavian nordic design with light wood and white',
+  classico:    'classic elegant design with refined details',
+  industrial:  'industrial chic design with exposed concrete and metal',
+  luxo:        'ultra luxury high-end design with premium finishes',
+};
+
+const LIGHT_MAP = {
+  natural:     'bright natural daylight, golden hour, soft shadows',
+  ambar:       'warm amber sunset lighting, cozy atmosphere',
+  profissional:'professional architectural photography lighting, even illumination',
+  noturno:     'evening ambient lighting, warm lamp light, moody atmosphere',
+};
+
+const ASPECT_MAP = {
+  landscape: '--ar 16:9',
+  portrait:  '--ar 9:16',
+  square:    '--ar 1:1',
+};
+
+function buildPrompt() {
+  const room    = ROOM_MAP[isRoom]    || isRoom;
+  const style   = STYLE_MAP[isStyle]  || isStyle;
+  const light   = LIGHT_MAP[isLight]  || isLight;
+  const extras  = document.getElementById('is-extras')?.value.trim();
+  const ar      = '--ar 16:9';
+
+  let p = `professional real estate interior photography, ${room}, ${style}, ${light}, ` +
+    `architectural photography, ultra-realistic, 8k high resolution, clean composition, ` +
+    `luxury property listing, magazine quality, sharp focus, no people`;
+  if (extras) p += `, ${extras}`;
+  p += `, ${ar}`;
+  return p;
+}
+
+function updatePrompt() {
+  const p = buildPrompt();
+  const box = document.getElementById('prompt-box');
+  if (box) box.textContent = p;
+}
+
+function selectRoom(el) {
+  document.querySelectorAll('.room-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  isRoom = el.dataset.room;
+  updatePrompt();
+}
+
+function selectStyle(el) {
+  document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  isStyle = el.dataset.style;
+  updatePrompt();
+}
+
+function selectLight(el) {
+  document.querySelectorAll('.light-btn').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  isLight = el.dataset.light;
+  updatePrompt();
+}
+
+function selectQty(el) {
+  document.querySelectorAll('#qty-group .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  isQty = parseInt(el.dataset.qty);
+}
+
+function copyPrompt() {
+  const text = document.getElementById('prompt-box').textContent;
+  const btn  = document.getElementById('btn-copy');
+  try {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copiado'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    });
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ Copiado'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  }
+}
+
+async function checkApiStatus() {
+  try {
+    const res = await fetch('/api/image/status');
+    const data = await res.json();
+    isApiReady = data.ready;
+    const wrap  = document.getElementById('api-status-wrap');
+    const badge = document.getElementById('api-badge');
+    const text  = document.getElementById('api-badge-text');
+    const toolsRow = document.getElementById('tools-row');
+    if (wrap) wrap.style.display = 'inline-flex';
+    if (isApiReady) {
+      badge.className = 'api-badge online';
+      text.textContent = 'API ativa';
+      if (toolsRow) toolsRow.style.display = 'none';
+    } else {
+      badge.className = 'api-badge offline';
+      text.textContent = 'Sem API';
+      if (toolsRow) toolsRow.style.display = 'block';
+    }
+  } catch (e) {}
+}
+
+async function generateImages() {
+  const prompt = buildPrompt();
+
+  if (!isApiReady) {
+    copyPrompt();
+    showGalleryMessage(
+      '📋 Prompt copiado!',
+      'Cole-o em Midjourney, Leonardo.ai ou Bing Create para gerar as imagens.',
+      'Para gerar diretamente aqui, configure REPLICATE_API_TOKEN no arquivo .env.'
+    );
+    return;
+  }
+
+  setGalleryGenerating(true);
+
+  try {
+    const res = await fetch('/api/image/generate', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ prompt, qty: isQty, room: isRoom, style: isStyle }),
+    });
+    const data = await res.json();
+
+    if (!data.ok) throw new Error(data.error || 'Erro desconhecido');
+
+    isImages.unshift(...data.images.map(img => ({ url: img.url, room: isRoom, style: isStyle })));
+    renderGallery();
+  } catch (err) {
+    showGalleryMessage('❌ Erro na geração', err.message, '');
+  } finally {
+    setGalleryGenerating(false);
+  }
+}
+
+function setGalleryGenerating(on) {
+  const content = document.getElementById('is-gallery-content');
+  if (on) {
+    content.innerHTML = `
+      <div class="is-generating">
+        <div class="gen-spinner"></div>
+        <div class="gen-status">Gerando imagens com IA...</div>
+        <div class="gen-sub">Isso pode levar 15–30 segundos</div>
+      </div>`;
+  }
+}
+
+function showGalleryMessage(title, msg, hint) {
+  const content = document.getElementById('is-gallery-content');
+  content.innerHTML = `
+    <div class="gallery-empty">
+      <h3>${title}</h3>
+      <p>${msg}</p>
+      ${hint ? `<p style="margin-top:8px;color:var(--gold);font-size:11px">${hint}</p>` : ''}
+      ${isImages.length ? `<button onclick="renderGallery()" style="margin-top:16px;padding:8px 16px;border-radius:8px;border:1px solid var(--border-hi);background:transparent;color:var(--gold);cursor:pointer;font-size:12px">Ver imagens anteriores</button>` : ''}
+    </div>`;
+}
+
+function renderGallery() {
+  if (!isImages.length) return;
+  const content = document.getElementById('is-gallery-content');
+  const roomNames = {
+    sala:'Sala de Estar', cozinha:'Cozinha', suite:'Suíte Master',
+    quarto:'Quarto', banheiro:'Banheiro', varanda:'Varanda',
+    gourmet:'Área Gourmet', fachada:'Fachada',
+  };
+  const styleNames = {
+    moderno:'Moderno', minimalista:'Minimalista', escandinavo:'Escandinavo',
+    classico:'Clássico', industrial:'Industrial', luxo:'Ultra Luxo',
+  };
+  content.innerHTML = `
+    <div class="gallery-grid">
+      ${isImages.map((img, i) => `
+        <div class="img-card" onclick="openImg('${img.url}')">
+          <img class="img-thumb" src="${img.url}" alt="Imagem ${i+1}" loading="lazy">
+          <div class="img-footer">
+            <span class="img-room">${roomNames[img.room]||img.room}</span>
+            <span class="img-style">${styleNames[img.style]||img.style}</span>
+          </div>
+          <a class="img-dl-btn" href="${img.url}" download="impar_${img.room}_${i+1}.jpg" onclick="e=>e.stopPropagation()">⬇ Salvar</a>
+        </div>
+      `).join('')}
+    </div>`;
+}
+
+function openImg(url) {
+  window.open(url, '_blank');
+}
+
+// Init
 updateStats();
+updatePrompt();
 </script>
 </body>
 </html>

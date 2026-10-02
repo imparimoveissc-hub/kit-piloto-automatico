@@ -1,5 +1,5 @@
 """
-Impar Studio — Servidor Flask
+IMPAR STUDIO — Servidor Flask
 Roda em: python3 app.py  →  http://localhost:5001
 """
 
@@ -7,6 +7,12 @@ import os, sys, uuid, json, time, threading, shutil, subprocess
 from pathlib import Path
 from flask import Flask, render_template, request, jsonify, send_file, Response
 from werkzeug.utils import secure_filename
+
+try:
+    import requests as _requests
+    _HAS_REQUESTS = True
+except ImportError:
+    _HAS_REQUESTS = False
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 500 * 1024 * 1024  # 500 MB
@@ -98,6 +104,89 @@ def cleanup(session_id):
     if d.exists():
         shutil.rmtree(d)
     return jsonify({"ok": True})
+
+
+# ── Image Studio ──────────────────────────────────────────────────────────────
+
+@app.route("/api/image/status")
+def image_status():
+    token = os.environ.get("REPLICATE_API_TOKEN", "").strip()
+    return jsonify({"ok": True, "ready": bool(token and _HAS_REQUESTS)})
+
+
+@app.route("/api/image/generate", methods=["POST"])
+def image_generate():
+    data   = request.get_json(force=True)
+    prompt = data.get("prompt", "").strip()
+    qty    = max(1, min(4, int(data.get("qty", 1))))
+
+    if not prompt:
+        return jsonify({"ok": False, "error": "prompt ausente"}), 400
+
+    token = os.environ.get("REPLICATE_API_TOKEN", "").strip()
+    if not token:
+        return jsonify({"ok": False, "error": "REPLICATE_API_TOKEN não configurado"}), 503
+    if not _HAS_REQUESTS:
+        return jsonify({"ok": False, "error": "pip install requests necessário"}), 503
+
+    images = []
+    for _ in range(qty):
+        img_url = _replicate_generate(prompt, token)
+        if img_url:
+            images.append({"url": img_url})
+
+    if not images:
+        return jsonify({"ok": False, "error": "Nenhuma imagem gerada"}), 500
+
+    return jsonify({"ok": True, "images": images})
+
+
+def _replicate_generate(prompt: str, token: str) -> str | None:
+    """Chama Replicate SDXL e retorna URL da imagem gerada."""
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+        "Prefer": "wait",
+    }
+    payload = {
+        "version": "7762fd07cf82c948538e41f63f77d685e02b063e37e496e96eefd46c929f9bdc",
+        "input": {
+            "prompt": prompt,
+            "negative_prompt": "people, person, human, text, watermark, blurry, distorted, ugly",
+            "width": 1344,
+            "height": 768,
+            "num_inference_steps": 30,
+            "guidance_scale": 7.5,
+        }
+    }
+    try:
+        r = _requests.post(
+            "https://api.replicate.com/v1/predictions",
+            headers=headers, json=payload, timeout=120
+        )
+        r.raise_for_status()
+        result = r.json()
+
+        # Se still processing, poll
+        poll_url = result.get("urls", {}).get("get")
+        for _ in range(60):
+            status = result.get("status")
+            if status == "succeeded":
+                output = result.get("output", [])
+                return output[0] if output else None
+            if status in ("failed", "canceled"):
+                return None
+            if not poll_url:
+                break
+            time.sleep(2)
+            r2 = _requests.get(poll_url, headers={"Authorization": f"Bearer {token}"}, timeout=30)
+            r2.raise_for_status()
+            result = r2.json()
+
+        output = result.get("output", [])
+        return output[0] if isinstance(output, list) and output else None
+    except Exception:
+        return None
 
 
 # ── Worker ───────────────────────────────────────────────────────────────────

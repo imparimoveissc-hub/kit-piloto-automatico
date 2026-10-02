@@ -1,0 +1,40 @@
+name: Deploy Jurídico Dashboard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '21_BUILDER_KIT/juridico-impar/juridico-dashboard.html'
+      - '21_BUILDER_KIT/juridico-impar/vps/**'
+      - '.github/workflows/deploy-juridico.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -e
+            DEPLOY_DIR=/var/www/juridico-impar
+            REPO_DIR=/opt/kit-piloto-automatico
+
+            # Atualiza o repositório
+            cd "$REPO_DIR"
+            git fetch origin main
+            git reset --hard origin/main
+
+            # Copia o dashboard para o diretório público
+            mkdir -p "$DEPLOY_DIR"
+            cp 21_BUILDER_KIT/juridico-impar/juridico-dashboard.html "$DEPLOY_DIR/index.html"
+
+            # Reinicia nginx se necessário
+            nginx -t && systemctl reload nginx
+
+            echo "✅ Deploy concluído: $(date '+%Y-%m-%d %H:%M:%S')"

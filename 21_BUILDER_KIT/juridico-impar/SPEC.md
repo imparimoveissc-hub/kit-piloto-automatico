@@ -1,8 +1,8 @@
 # JURÍDICO IMPAR IMÓVEIS — ESPECIFICAÇÃO DO SISTEMA
-**Versão:** 2.0  
+**Versão:** 3.0  
 **Data:** 2026-10-02  
 **Status:** Vigente  
-**Última revisão:** Correções LGPD, regime matrimonial, escopo compra e venda, Telegram, atualização legislativa
+**Última revisão:** +Assinatura eletrônica (Lei 14.063/2020), certidões negativas, ITBI, arras/distrato, financiamento/alienação fiduciária, honorários, locação temporada, reajuste workflow, inadimplência/pré-despejo
 
 ---
 
@@ -167,6 +167,57 @@ Permitir:
 Essa informação alimentará a cláusula correspondente do contrato padrão.
 Nunca inventar data de entrega ou posse.
 
+### ITBI — Imposto de Transmissão de Bens Imóveis
+
+Exibir obrigatoriamente informação ao usuário no momento do cadastro do imóvel:
+
+> ℹ **ITBI — JOINVILLE/SC:**
+> Alíquota: **2%** sobre o valor venal do imóvel ou o valor da transação, **o que for maior** (Lei Municipal de Joinville).
+> Responsável pelo pagamento: **COMPRADOR**, salvo pactuação em contrário no contrato.
+> Prazo: deve ser recolhido antes da lavratura da escritura pública no Tabelionato de Notas.
+> Estimativa para este contrato: **R$ [CÁLCULO AUTOMÁTICO]** (valor informativo — confirmar com a Prefeitura de Joinville).
+
+Campos a registrar:
+- Alíquota aplicável (padrão: 2%)
+- Valor estimado do ITBI
+- Responsável pelo pagamento (padrão: comprador)
+- Observações específicas
+
+O sistema não recolhe o ITBI. A informação é prestada ao comprador como obrigação profissional do corretor (Lei 6.530/78, art. 3º).
+
+### Arras e distrato
+
+Perguntar obrigatoriamente:
+
+> **"QUAL O VALOR DAS ARRAS (SINAL)?"**
+> Deixar em branco se não houver arras.
+
+Se houver arras, perguntar:
+
+> **"QUAL O TIPO DAS ARRAS?"**
+> [ CONFIRMATÓRIAS ] [ PENITENCIAIS ]
+
+| Tipo | Regra legal | Consequência para o comprador | Consequência para o vendedor |
+|---|---|---|---|
+| Confirmatórias | Art. 418-419 CC | Perde as arras | Devolve em dobro + pode pedir perdas e danos |
+| Penitenciais | Art. 420 CC | Perde as arras | Devolve em dobro — sem direito a indenização adicional |
+
+Registrar:
+- Tipo das arras
+- Valor
+- Data do pagamento
+- Forma (PIX, transferência, cheque)
+- Comprovante *(campo para upload)*
+
+Exibir alerta:
+> ⚠ As arras alimentarão a cláusula correspondente do contrato. Verificar o tipo antes de gerar o documento.
+
+Em caso de distrato posterior, o sistema registrará:
+- Quem desistiu
+- Data da desistência
+- Valor retido ou devolvido
+- Fundamento contratual e legal
+
 ---
 
 ## 36. LOCAÇÃO — QUALIFICAÇÃO DAS PARTES
@@ -251,11 +302,20 @@ Permitir anexar:
 
 Todo contrato de locação possuirá os campos:
 - VALOR DA LOCAÇÃO
+- TAXA DE ADMINISTRAÇÃO
+  - Percentual padrão: **10%** sobre o valor do aluguel (base: Lei 6.530/78 e prática de mercado em SC)
+  - Valor calculado automaticamente
+  - Confirmação obrigatória antes da geração do contrato
+  - VALOR LÍQUIDO AO LOCADOR: calculado automaticamente (aluguel − taxa de administração)
 - VALOR DA FIANÇA LOCATÍCIA
 - VALOR DO SEGURO INCÊNDIO
   - Número da apólice *(quando disponível)*
   - Seguradora *(quando disponível)*
   - Validade da apólice *(quando disponível)*
+- HONORÁRIOS DE CORRETAGEM
+  - Padrão para locação: **1 (um) mês de aluguel** pago pelo locador na assinatura do contrato
+  - Exibir valor calculado automaticamente
+  - Confirmar quem paga (padrão: locador)
 - DATA DE INÍCIO
 - DATA DE TÉRMINO
 - PRAZO TOTAL
@@ -1478,4 +1538,369 @@ Se uma nova lei ou decisão judicial impactar contratos **já em vigor** no sist
 
 ---
 
-*Fim da especificação. Próxima revisão programada ou sob demanda quando houver nova legislação relevante, alteração dos modelos contratuais ou mudança nos integradores.*
+---
+
+## 86. ASSINATURA ELETRÔNICA — TIPOS E REQUISITOS (Lei 14.063/2020)
+
+A **Lei 14.063/2020** classifica as assinaturas eletrônicas em três níveis. O sistema deve definir e registrar qual nível é utilizado em cada tipo de documento.
+
+### Classificação obrigatória
+
+| Tipo | Definição | Adequação para contratos imobiliários |
+|---|---|---|
+| **Simples** | Identifica o signatário, sem garantia de integridade posterior | ⚠ Insuficiente para contratos imobiliários |
+| **Avançada** | Vincula o signatário ao documento; detecta alterações após a assinatura | ✅ Mínimo recomendado para locação e promessa C&V |
+| **Qualificada** | Baseada em certificado ICP-Brasil; máxima segurança e presunção legal | ✅ Recomendada para contratos de maior valor ou complexidade |
+
+### Padrão por tipo de documento
+
+| Documento | Tipo mínimo obrigatório |
+|---|---|
+| Contrato de Locação | Avançada |
+| Termo de Vistoria | Avançada |
+| Contrato de Administração | Avançada |
+| Promessa de Compra e Venda | Avançada |
+| Contrato de Honorários | Avançada |
+
+O Clicksign oferece ambos os níveis. A configuração padrão será **Assinatura Avançada** (não-ICP).
+
+Para contratos de compra e venda com valor superior a [CONFIGURÁVEL — padrão: R$ 300.000,00]: recomendar ao responsável o uso de assinatura **qualificada (ICP-Brasil)** e registrar a decisão em auditoria.
+
+### Configuração no sistema
+
+Criar em CONFIGURAÇÕES > ASSINATURAS:
+```
+ASSINATURA_TIPO_LOCACAO          = avancada
+ASSINATURA_TIPO_COMPRA_VENDA     = avancada
+ASSINATURA_TIPO_ADMINISTRACAO    = avancada
+ASSINATURA_LIMITE_QUALIFICADA    = 300000.00
+```
+
+### Registro obrigatório por documento
+
+Para cada documento enviado ao Clicksign, registrar:
+- Tipo de assinatura utilizado
+- Justificativa se diferente do padrão
+- Responsável pela configuração
+- Data e hora
+
+Exibir no resumo do contrato e na evidência de arquivamento.
+
+---
+
+## 87. COMPRA E VENDA — DUE DILIGENCE E CERTIDÕES NEGATIVAS
+
+Antes de enviar a promessa de compra e venda para assinatura, o sistema deve gerenciar o **checklist de due diligence** do imóvel e do vendedor.
+
+### Responsabilidade profissional
+
+> ℹ O corretor de imóveis tem obrigação legal de orientar as partes sobre os riscos da transação (Lei 6.530/78, art. 3º). A ausência de certidões não impede tecnicamente a geração do contrato, mas o sistema deve registrar quais documentos estão pendentes e alertar o responsável.
+
+### Certidões do imóvel
+
+| Documento | Validade | Status |
+|---|---|---|
+| Matrícula atualizada do imóvel | 30 dias | PENDENTE / RECEBIDO / VENCIDO |
+| Certidão negativa de IPTU (Prefeitura de Joinville) | 30 dias | — |
+| Ata da última assembleia condominial *(se aplicável)* | — | — |
+| Certidão de regularidade junto ao condomínio *(se aplicável)* | 30 dias | — |
+
+### Certidões do vendedor (pessoa física)
+
+| Documento | Validade | Status |
+|---|---|---|
+| Certidão negativa de débitos trabalhistas (CNDTS — TST) | 180 dias | — |
+| Certidão negativa da Receita Federal / PGFN | 180 dias | — |
+| Certidão negativa de protestos (cartório Joinville) | 30 dias | — |
+| Certidão de ações cíveis — TJSC | 30 dias | — |
+| Certidão de ações federais — TRF4 | 30 dias | — |
+| Certidão de ações trabalhistas — TRT12 | 30 dias | — |
+
+Se o vendedor for pessoa jurídica: adicionar também certidão CNPJ, certidão estadual SC e certidão de falência/recuperação judicial.
+
+### Comportamento do sistema
+
+- Cada item pode ser marcado como: **PENDENTE** / **RECEBIDO** / **DISPENSADO** (com justificativa) / **VENCIDO**
+- O sistema não bloqueia automaticamente o envio ao Clicksign por ausência de certidões.
+- Porém: se houver itens PENDENTES ou VENCIDOS, exibir alerta obrigatório:
+  > ⚠ DUE DILIGENCE INCOMPLETA — [N] DOCUMENTO(S) PENDENTE(S). Confirmar envio com ciência dos riscos?
+- A confirmação de "enviar mesmo assim" deve ser registrada em auditoria com o nome do responsável.
+- Nunca enviar silenciosamente.
+
+### Upload e armazenamento
+
+Permitir upload de cada certidão diretamente no processo.
+Armazenar no Google Drive dentro da pasta do contrato correspondente.
+Registrar: nome do arquivo, data do upload, validade, ID no Drive, hash.
+
+---
+
+## 88. FINANCIAMENTO IMOBILIÁRIO E ALIENAÇÃO FIDUCIÁRIA (Lei 9.514/97)
+
+### Identificar a forma de pagamento
+
+Em compra e venda, perguntar obrigatoriamente:
+
+> **"QUAL A FORMA DE PAGAMENTO?"**
+
+Opções:
+- [ À VISTA ]
+- [ FINANCIAMENTO BANCÁRIO (alienação fiduciária) ]
+- [ PARCELAMENTO DIRETO COM O VENDEDOR ]
+- [ COMBINADO ] *(parte à vista + parte financiada ou parcelada)*
+
+### Fluxo para FINANCIAMENTO BANCÁRIO
+
+Se o comprador vai financiar, solicitar:
+- Banco/instituição financeira
+- Valor do financiamento
+- Valor da entrada (recursos próprios)
+- Prazo estimado do financiamento (em anos)
+- Sistema de amortização: SAC ou Price *(quando disponível)*
+- Status da aprovação do crédito:
+  - EM ANÁLISE
+  - PRÉ-APROVADO
+  - APROVADO
+  - NÃO APROVADO
+
+Exibir alerta informativo:
+
+> ℹ **ALIENAÇÃO FIDUCIÁRIA:**
+> No financiamento bancário, o imóvel é dado em garantia ao banco (credor fiduciário) pelo comprador (devedor fiduciante). A propriedade plena só é transferida ao comprador após a **quitação total** do financiamento (art. 22-33 da Lei 9.514/97).
+>
+> O Tabelionato de Notas lavrará a escritura de compra e venda e de alienação fiduciária **em conjunto**. Este instrumento particular (promessa) deverá conter cláusula suspensiva condicionando a transferência à aprovação e contratação do financiamento.
+
+Adicionar ao contrato a cláusula:
+- Condição suspensiva: "a presente promessa está condicionada à aprovação do financiamento junto à [banco], no prazo de [X] dias úteis a contar da assinatura"
+- O que acontece se o financiamento não for aprovado (rescisão sem ônus, devolução das arras)
+
+### Fluxo para PARCELAMENTO DIRETO
+
+Solicitar:
+- Número de parcelas
+- Valor de cada parcela
+- Datas de vencimento
+- Índice de correção das parcelas (se aplicável)
+- Garantia para o vendedor (alienação fiduciária, hipoteca, ou nenhuma)
+- Conseqüência da inadimplência
+
+Validação determinística obrigatória:
+```
+valor_total = entrada + soma(parcelas)
+tolerância = R$ 0,10
+```
+Se a soma divergir: BLOQUEAR geração e mostrar a diferença.
+
+### Campo adicional no resumo
+
+Incluir no resumo automático (regra 43):
+```
+FORMA DE PAGAMENTO:   [À vista / Financiamento [banco] / Parcelado]
+VALOR FINANCIADO:     [R$ — se aplicável]
+CONDIÇÃO SUSPENSIVA:  [SIM / NÃO — se financiamento]
+```
+
+---
+
+## 89. HONORÁRIOS DE CORRETAGEM — FRAMEWORK LEGAL
+
+### Base legal
+
+- **Lei 6.530/78** — regulamentação da profissão de corretor de imóveis
+- **Resolução COFECI 1.336/14** — o corretor tem direito à comissão quando o negócio se concretizar por sua intermediação, mesmo que posterior à vigência do mandato
+- **Tabela CRECI-SC** — referência de honorários no estado
+
+### Tabela padrão da IMPAR IMÓVEIS
+
+| Operação | Honorário | Quem paga | Quando é devido |
+|---|---|---|---|
+| Venda de imóvel | 6% sobre o valor de venda | Vendedor | Na assinatura da escritura pública |
+| Locação — corretagem | 1 mês de aluguel | Locador | Na assinatura do contrato de locação |
+| Locação — administração mensal | 10% do aluguel/mês | Locador | Mensalmente, deduzido do repasse |
+
+Os percentuais são configuráveis em CONFIGURAÇÕES > HONORÁRIOS.
+Alterações exigem autorização de ADMINISTRADOR e geram registro de auditoria.
+
+### No contrato
+
+O sistema incluirá automaticamente a cláusula de honorários conforme os valores configurados.
+
+Exibir no formulário:
+```
+HONORÁRIOS DE CORRETAGEM:   R$ [valor calculado]
+BASE DE CÁLCULO:            [% sobre R$ valor]
+RESPONSÁVEL PELO PAGAMENTO: [nome]
+FORMA DE PAGAMENTO:         [à vista na assinatura / outra condição]
+```
+
+### Distrato e honorários
+
+Em caso de distrato (desistência após assinatura da promessa):
+- O sistema gerará alerta: "Verificar direito aos honorários conforme Resolução COFECI 1.336/14."
+- Não liberar automaticamente a devolução de honorários — exige análise humana.
+
+---
+
+## 90. LOCAÇÃO PARA TEMPORADA
+
+### Base legal
+
+**Arts. 48 a 50 da Lei 8.245/91**
+
+### Características
+
+| Item | Regra |
+|---|---|
+| Prazo máximo | **90 dias** — qualquer dia acima disso é locação residencial comum |
+| Garantia | Não obrigatória |
+| Valor do aluguel | Negociação livre — sem restrições da lei do inquilinato |
+| Imóvel | Deve ser mobiliado para atender ao uso do locatário |
+| Rescisão | Locador pode retomar o imóvel sem as restrições do art. 4º |
+
+### Quando usar
+
+- Trabalhador de empresa que vem para Joinville por projeto (frequente no polo industrial)
+- Temporada de verão / inverno
+- Tratamento médico
+- Turismo
+
+### Fluxo diferenciado
+
+Se tipo = TEMPORADA:
+1. Exibir aviso:
+   > ⚠ LOCAÇÃO PARA TEMPORADA — Prazo máximo: 90 dias. Contratos acima desse prazo se convertem automaticamente em locação residencial (art. 50 Lei 8.245/91). Verificar o prazo antes de gerar.
+2. Bloquear se prazo informado > 90 dias e exigir confirmação ou troca para locação residencial.
+3. Utilizar modelo contratual específico para temporada (mais simples que o residencial).
+4. Não exigir garantia locatícia (campo opcional).
+5. Registrar a finalidade declarada do imóvel (obrigatório no contrato, art. 48).
+
+### Campos adicionais
+
+- Finalidade da temporada (trabalho, lazer, tratamento de saúde, outra)
+- O imóvel está mobiliado? [ SIM ] [ NÃO ] — se NÃO, alertar que o contrato pode não ser enquadrado como temporada
+
+---
+
+## 91. REAJUSTE DE ALUGUEL — WORKFLOW INTEGRADO
+
+### Base legal
+
+- **Lei 9.069/95** — proíbe reajustes em periodicidade inferior a 12 meses
+- **Contrato** — define o índice (IGP-M, IPCA, INCC ou outro acordado)
+
+### Integração com o sistema
+
+O módulo de reajuste utilizará os dados registrados no contrato original (data de início, índice, valor) e manterá o registro de cada reajuste aplicado.
+
+### Fluxo obrigatório
+
+```
+Sistema detecta data de reajuste (12 meses após início ou último reajuste)
+↓
+Busca o índice acumulado no período (fonte: IBGE/FGV — curada pelo Monitor Legislativo)
+↓
+Calcula o novo valor proposto
+↓
+STATUS: AGUARDANDO CONFIRMAÇÃO DO REAJUSTE
+↓
+Responsável revisa e confirma (ou ajusta manualmente com justificativa)
+↓
+STATUS: REAJUSTE APROVADO
+↓
+Gerar notificação ao locatário (30 dias de antecedência — boa prática)
+↓
+Registrar reajuste na trilha de auditoria
+↓
+Atualizar valor na ficha do contrato
+```
+
+Nunca aplicar reajuste automaticamente sem confirmação humana.
+
+### Regra para índice negativo
+
+Se o índice acumulado for **negativo**:
+- Exibir alerta:
+  > ⚠ O índice [IGP-M/IPCA] acumulado no período é **negativo** ([valor]%). O valor do aluguel **não será reduzido** — manter o valor atual, salvo disposição contratual em contrário.
+- Registrar: "Reajuste zerado em [data] — índice negativo ([valor]%). Valor mantido em R$ [valor]."
+
+### Campos do registro de reajuste
+
+```
+DATA DO REAJUSTE:        [data]
+ÍNDICE UTILIZADO:        [IGP-M / IPCA / outro]
+VARIAÇÃO ACUMULADA:      [%]
+VALOR ANTERIOR:          R$ [valor]
+VALOR REAJUSTADO:        R$ [valor]
+APROVADO POR:            [nome]
+DATA DA APROVAÇÃO:       [data]
+NOTIFICAÇÃO AO INQUILINO: [data / pendente]
+```
+
+### Alerta antecipado
+
+O sistema alertará **30 dias antes** da data de reajuste: "Reajuste do contrato [código] vence em [data]. Índice: [IGP-M/IPCA]."
+
+---
+
+## 92. INADIMPLÊNCIA E PRÉ-DESPEJO
+
+### Contexto
+
+O sistema de contratos cobre da geração até o arquivamento. Mas o ciclo de vida de uma locação continua além disso. Quando há inadimplência, o sistema deve rastrear e preparar o processo pré-judicial.
+
+### Registro de inadimplência
+
+Criar módulo **INADIMPLÊNCIA** vinculado a cada contrato de locação.
+
+Campos por ocorrência:
+- Mês/competência em atraso
+- Valor do aluguel
+- Valor dos encargos (condomínio, IPTU, seguro — quando aplicável)
+- Data de vencimento original
+- Data de pagamento (quando ocorrer)
+- Status: EM ABERTO / PAGO / NEGOCIADO / ENCAMINHADO PARA DESPEJO
+
+### Alertas automáticos
+
+| Situação | Alerta |
+|---|---|
+| 3 dias após o vencimento sem pagamento | "⚠ Aluguel de [contrato] venceu há 3 dias sem registro de pagamento." |
+| 10 dias sem pagamento | "⚠ Aluguel de [contrato] venceu há 10 dias. Considerar enviar notificação extrajudicial." |
+| 15 dias sem pagamento | "⚠ PRAZO CRÍTICO: [contrato] — 15 dias de inadimplência. Notificação extrajudicial recomendada (art. 62 Lei 8.245/91)." |
+| 2 ou mais meses em aberto | "🔴 INADIMPLÊNCIA GRAVE: [contrato] — [N] meses em aberto. Verificar abertura de ação de despejo." |
+
+### Notificação extrajudicial (art. 62 Lei 8.245/91)
+
+Quando responsável solicitar a geração da notificação:
+
+1. Sistema gera a **Notificação Extrajudicial** com:
+   - Identificação do notificante (locador/administradora)
+   - Identificação do notificado (locatário)
+   - Imóvel
+   - Valor em aberto discriminado (aluguel + encargos + multa + juros)
+   - Prazo para purgar a mora: **15 dias** a contar do recebimento
+   - Consequências em caso de não pagamento
+
+2. O documento passa pelo fluxo padrão: revisão automática → aprovação humana → Clicksign.
+
+3. Após envio: registrar data da notificação e data limite para pagamento.
+
+4. Se o prazo passar sem pagamento confirmado:
+   > 🔴 PRAZO DE PURGAÇÃO DE MORA EXPIRADO — Encaminhar ao jurídico para análise de ação de despejo.
+
+### O que o sistema NÃO faz
+
+- Não abre ação de despejo automaticamente — isso é ato processual exclusivo de advogado.
+- Não envia a notificação diretamente ao inquilino sem aprovação humana.
+- Não decide sobre negociação, acordos ou parcelamentos — registra apenas o que for informado pelo responsável.
+
+### Registro dos acordos
+
+Se houver acordo de pagamento parcelado:
+- Registrar: valor total, número de parcelas, datas, responsável pelo acordo
+- Monitorar cada parcela do acordo
+- Alertar se parcela do acordo atrasar
+
+---
+
+*Fim da especificação — Versão 3.0 (2026-10-02). Novas regras adicionadas: 86 (assinatura eletrônica), 87 (due diligence certidões), 88 (financiamento/alienação fiduciária), 89 (honorários), 90 (locação temporada), 91 (reajuste workflow), 92 (inadimplência/pré-despejo). Regras 35 e 38 complementadas com ITBI, arras, taxa de administração.*
